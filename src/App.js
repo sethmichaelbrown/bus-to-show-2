@@ -59,6 +59,7 @@ class App extends Component {
     }],
     displayEvent: null,
     displaySuccess: false,
+    displayWarning: false,
     loginView: false
   }
 
@@ -76,7 +77,7 @@ class App extends Component {
     this.setState(newState)
   }
 
-   returnHome = (event) => {
+  returnHome = (event) => {
     const newState = { ...this.state }
     newState.loginView = false
     this.setState(newState)
@@ -94,14 +95,20 @@ class App extends Component {
   returnToEvents = (event) => {
     const newState = { ...this.state }
     newState.displayEvent = null
+    newState.displaySuccess = false
     this.setState(newState)
   }
 
   addToCart = (event) => {
     const newState = { ...this.state }
     const eventToCart = newState.events.find(show => (parseInt(show.id) === parseInt(newState.displayEvent.id)))
-    eventToCart.inCart = true
-    newState.displaySuccess = true
+    if (eventToCart.inCart) {
+      newState.displayWarning = true
+    }
+    else {
+      eventToCart.inCart = true
+      newState.displaySuccess = true
+    }
     this.setState(newState)
   }
 
@@ -111,13 +118,13 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        {this.state.loginView ? 
-        <LoginView 
-        returnHome={this.returnHome}/> :
+        {this.state.loginView ?
+          <LoginView
+            returnHome={this.returnHome} /> :
           this.state.events ?
             <React.Fragment>
-              <Header 
-              loginClick={this.loginClick}/>
+              <Header
+                loginClick={this.loginClick} />
               {!this.state.displayEvent ?
                 <div className='content-section'>
                   <div className='col-md-6 float-left'>
@@ -132,7 +139,9 @@ class App extends Component {
                     returnToEvents={this.returnToEvents}
                     event={this.state.displayEvent}
                     addToCart={this.addToCart}
-                    displaySuccess={this.state.displaySuccess} />
+                    displaySuccess={this.state.displaySuccess}
+                    displayWarning={this.state.displayWarning} />
+                    
                 </div>}
 
               <div className='col-md-6 float-right'>

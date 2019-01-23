@@ -42,6 +42,12 @@ const Events = (props) => {
               <div className="alert alert-success" role="alert"> Added {event.event} - {event.date} to cart!</div>
             </div>
           </div> : ''}
+        {props.displayWarning ?
+          <div className="list-group-item alert-item">
+            <div className='row'>
+              <div className="alert alert-info" role="alert"> {event.event} is already in cart - please select quantity in cart!</div>
+            </div>
+          </div> : ''}
 
       </div>
     </div>
