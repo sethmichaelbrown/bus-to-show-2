@@ -30,3 +30,15 @@
 .footer-col > p{
   font-size: 12px;
 }
+
+.alert-item{
+  border: none;
+}
+
+.login-image-section{
+  background: url('./Images/bts-future-selves-background-image.png');
+  background-position: top;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
+}
