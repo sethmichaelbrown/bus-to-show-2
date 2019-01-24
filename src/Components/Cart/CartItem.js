@@ -10,10 +10,15 @@ const CartItem = (props) => {
       {eventsInCart.map(event =>
         <li className="list-group-item highlightOnHover" onClick={props.eventExpandClick} key={event.id} id={event.id}>
           <div className="row" id={event.id}>
-              <div className="col-md-6" id={event.id}>{event.event}</div>
-              <div className="col-md-4" id={event.id}>{event.location}</div>
-              <div className="col-md-2" id={event.id}>{event.date}</div>
+            <div className="col-md-4" id={event.id}>{event.event}</div>
+            <div className="col-md-4" id={event.id}>{event.location}</div>
+            <div className="col-md-2" id={event.id}>{event.date}</div>
+            <div class="form-group col-md-2">
+              <form>
+                <input type="number" className="form-control" />
+              </form>
             </div>
+          </div>
 
         </li>)}
     </div>

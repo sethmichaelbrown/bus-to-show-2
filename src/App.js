@@ -60,7 +60,7 @@ class App extends Component {
     displayEvent: null,
     displaySuccess: false,
     displayWarning: false,
-    loginView: false
+    loginView: false,
   }
 
   // componentDidMount = async () => {
@@ -83,12 +83,16 @@ class App extends Component {
     this.setState(newState)
   }
 
-
   // Event Functions
   eventExpandClick = (event) => {
     const newState = { ...this.state }
     const clickedEvent = newState.events.find(show => (parseInt(show.id) === parseInt(event.target.id)))
-    newState.displayEvent = clickedEvent
+    if (!newState.displayEvent) {
+      newState.displayEvent = clickedEvent
+    }
+    else {
+      newState.displayEvent = null
+    }
     this.setState(newState)
   }
 
@@ -111,6 +115,8 @@ class App extends Component {
     }
     this.setState(newState)
   }
+
+
 
 
 
@@ -139,11 +145,12 @@ class App extends Component {
                     returnToEvents={this.returnToEvents}
                     event={this.state.displayEvent}
                     addToCart={this.addToCart}
+                    eventExpandClick={this.eventExpandClick}
                     displaySuccess={this.state.displaySuccess}
                     displayWarning={this.state.displayWarning} />
-                    
-                </div>}
 
+                </div>}
+              
               <div className='col-md-6 float-right'>
                 <Cart events={this.state.events} />
               </div>

@@ -1,44 +1,52 @@
-.highlightOnHover:hover{
-  background: rgba(61, 61, 61, .1);
+.highlightOnHover:hover {
+  background: rgba(248,249,250, .75);
 }
 
-.list-group-item{
+.list-group-item {
   border-radius: 5px;
 }
 
-.return-btn{
+.return-btn {
   display: inline-block;
 }
 
-.fixed-bottom{
+.fixed-bottom {
   display: flex;
   align-items: flex-start
 }
 
-.footer-col > ul{
+.footer-col>ul {
   list-style-type: none;
   font-size: 10px;
   justify-content: flex-start;
-  
+
 }
 
-.footer-col > li{
+.footer-col>li {
   margin-left: 0;
   padding-left: 0;
 }
 
-.footer-col > p{
+.footer-col>p {
   font-size: 12px;
 }
 
-.alert-item{
+.alert-item {
   border: none;
 }
 
-.login-image-section{
+.login-image-section {
   background: url('./Images/bts-future-selves-background-image.png');
   background-position: top;
   background-size: cover;
   background-repeat: no-repeat;
   height: 100vh;
+}
+
+.login-content {
+  display: flex;
+}
+
+.login-content-section {
+  margin: auto;
 }

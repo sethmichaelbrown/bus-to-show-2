@@ -2,12 +2,11 @@ import React from 'react'
 import '../../App.css';
 
 const Events = (props) => {
-  console.log(props)
   const event = props.event
 
   return (
     <div className='Events container'>
-      <h2>{event.event} - {event.date}</h2>
+      <h2>Events - {event.event}</h2>
       <div className="list-group">
         <div className="list-group-item">
           <div className="row">
@@ -17,7 +16,7 @@ const Events = (props) => {
           </div>
         </div>
 
-        <div className="list-group-item">
+        <div className="list-group-item" onClick={props.eventExpandClick}>
           <div className="row">
             <div className="col-md-6">{event.event}</div>
             <div className="col-md-4">{event.location}</div>
@@ -29,11 +28,18 @@ const Events = (props) => {
             <div className="col-md-8">{event.description}</div>
             <div className="col-md-4">Image</div>
           </div>
+          <select className="form-control mt-2">
+            <option>Select Pickup Time & Location</option>
+            <option>Boulder - 5:00pm || The Hill</option>
+            <option>Boulder - 5:30pm || Transit Center</option>
+            <option>Denver - 6:00pm || RiNo</option>
+            <option>Fort Collins - 3:00pm || CSU Campus</option>
+          </select>
         </div>
         <div className="list-group-item">
           <div className='row'>
             <button type="button" onClick={props.returnToEvents} className="btn btn-outline-danger return-btn ml-2 float-right">Cancel</button>
-            <button type="button" onClick={props.addToCart} className="btn btn-outline-primary return-btn ml-2 float-right">Purchase Seat</button>
+            <button type="button" onClick={props.addToCart} className="btn btn-outline-primary return-btn ml-2 float-right">Add to Cart</button>
           </div>
         </div>
         {props.displaySuccess ?
