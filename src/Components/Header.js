@@ -3,7 +3,7 @@ import '../App.css';
 import logo from '../Images/Logos/bts-logo-orange.png'
 
 const Header = (props) => {
-
+  
 
   return (
     <div className='Header'>
@@ -36,7 +36,7 @@ const Header = (props) => {
               </li>
             </ul>
             <form className="form-inline my-2 my-lg-0">
-              <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
+              <input onKeyUp={props.searchEvents} className="form-control mr-sm-2" type="search" placeholder="Search Events..." aria-label="Search" />
             </form>
             <button onClick={props.loginClick} className="btn btn-outline-primary my-2 my-sm-0" type="submit">Login</button>
           </div>

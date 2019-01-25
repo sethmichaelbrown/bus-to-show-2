@@ -7,7 +7,9 @@ const SponsorBox = (props) => {
 
   return (
     <div className='SponsorBox container mt-2'>
-      <h2>SponsorBox</h2>
+        <div className="col-md-6 float-left">
+          <img className='justify-content-center' src={logo} alt="bts-logo" width="303" height="130"/>
+        </div>
     </div>
 
       )

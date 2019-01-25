@@ -20,6 +20,7 @@ const Events = (props) => {
           <ul className="list-group">
 
             <Event
+              filterString={props.filterString}
               events={props.events}
               eventTitle={props.events.title} 
               eventExpandClick={props.eventExpandClick}/>

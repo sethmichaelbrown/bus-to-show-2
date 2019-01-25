@@ -61,6 +61,8 @@ class App extends Component {
     displaySuccess: false,
     displayWarning: false,
     loginView: false,
+    displayCart: false,
+    filterString: ''
   }
 
   // componentDidMount = async () => {
@@ -81,6 +83,13 @@ class App extends Component {
     const newState = { ...this.state }
     newState.loginView = false
     this.setState(newState)
+  }
+
+  searchEvents = (event) => {
+    const newState = {...this.state}
+    newState.filterString = event.target.value
+    this.setState(newState)
+
   }
 
   // Event Functions
@@ -112,6 +121,7 @@ class App extends Component {
     else {
       eventToCart.inCart = true
       newState.displaySuccess = true
+      newState.displayCart = true
     }
     this.setState(newState)
   }
@@ -130,11 +140,13 @@ class App extends Component {
           this.state.events ?
             <React.Fragment>
               <Header
+                searchEvents={this.searchEvents}
                 loginClick={this.loginClick} />
               {!this.state.displayEvent ?
                 <div className='content-section'>
                   <div className='col-md-6 float-left'>
                     <EventList
+                      filterString={this.state.filterString}
                       events={this.state.events}
                       eventExpandClick={this.eventExpandClick} />
                     {/* <SponsorBox /> */}
@@ -150,10 +162,11 @@ class App extends Component {
                     displayWarning={this.state.displayWarning} />
 
                 </div>}
-              
-              <div className='col-md-6 float-right'>
-                <Cart events={this.state.events} />
-              </div>
+              {this.state.displayCart ? 
+                <div className='col-md-6 float-right'>
+                  <Cart events={this.state.events} />
+                </div> : <SponsorBox />}
+
               {/* <Footer /> */}
             </React.Fragment> : <Loading />
         }
