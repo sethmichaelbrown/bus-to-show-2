@@ -112,7 +112,7 @@ class App extends Component {
                 </div> :
                 <div className='col-md-6 float-left'>
                   <ShowDetailView
-                    returnToEvents={this.returnToShows}
+                    returnToShows={this.returnToShows}
                     displayShow={this.state.displayShow}
                     addToCart={this.addToCart}
                     showsExpandClick={this.showsExpandClick}
