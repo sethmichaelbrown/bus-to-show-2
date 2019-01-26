@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import './App.css';
 
 import Header from './Components/Header'
-import EventList from './Components/Events/EventList'
-import EventDetailView from './Components/Events/EventDetailView'
+import ShowList from './Components/Shows/ShowList'
+import ShowDetailView from './Components/Shows/ShowDetailView'
 import Loading from './Components/Loading'
 import Cart from './Components/Cart/Cart'
 import LoginView from './Components/LoginView/LoginView'
@@ -15,70 +15,30 @@ import SponsorBox from './Components/SponsorBox'
 class App extends Component {
 
   state = {
-    shows: [],
-    events: [{
-      id: 1,
-      event: 'That Content',
-      location: 'Red Rocks',
-      date: '01/22/19',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum aliquet libero venenatis libero pharetra maximus. Duis quam libero, hendrerit vel nunc nec, rutrum tempus tellus. Nunc ac ex fringilla, rutrum nulla at, luctus odio. Duis sagittis elementum pretium. Mauris aliquet augue risus, in ullamcorper enim pharetra nec. Nullam dignissim pharetra diam nec vulputate. Suspendisse ultrices sed ligula id placerat. Suspendisse pellentesque ex tortor, ac tincidunt urna pharetra ut. Aenean sed arcu sapien.',
-      inCart: false
-    },
-    {
-      id: 2,
-      event: 'Fake Band Name',
-      location: 'The Filmore',
-      date: '01/22/19',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum aliquet libero venenatis libero pharetra maximus. Duis quam libero, hendrerit vel nunc nec, rutrum tempus tellus. Nunc ac ex fringilla, rutrum nulla at, luctus odio. Duis sagittis elementum pretium. Mauris aliquet augue risus, in ullamcorper enim pharetra nec. Nullam dignissim pharetra diam nec vulputate. Suspendisse ultrices sed ligula id placerat. Suspendisse pellentesque ex tortor, ac tincidunt urna pharetra ut. Aenean sed arcu sapien.',
-      inCart: false
-    }, {
-      id: 3,
-      event: 'Clever Name',
-      location: 'Ogden',
-      date: '01/22/19',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum aliquet libero venenatis libero pharetra maximus. Duis quam libero, hendrerit vel nunc nec, rutrum tempus tellus. Nunc ac ex fringilla, rutrum nulla at, luctus odio. Duis sagittis elementum pretium. Mauris aliquet augue risus, in ullamcorper enim pharetra nec. Nullam dignissim pharetra diam nec vulputate. Suspendisse ultrices sed ligula id placerat. Suspendisse pellentesque ex tortor, ac tincidunt urna pharetra ut. Aenean sed arcu sapien.',
-      inCart: false
-    }, {
-      id: 4,
-      event: 'Witty Title',
-      location: 'Red Rocks',
-      date: '01/22/19',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum aliquet libero venenatis libero pharetra maximus. Duis quam libero, hendrerit vel nunc nec, rutrum tempus tellus. Nunc ac ex fringilla, rutrum nulla at, luctus odio. Duis sagittis elementum pretium. Mauris aliquet augue risus, in ullamcorper enim pharetra nec. Nullam dignissim pharetra diam nec vulputate. Suspendisse ultrices sed ligula id placerat. Suspendisse pellentesque ex tortor, ac tincidunt urna pharetra ut. Aenean sed arcu sapien.',
-      inCart: false
-    },
-    {
-      id: 5,
-      event: 'Some Shit',
-      location: '1st Bank Center',
-      date: '01/22/19',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum aliquet libero venenatis libero pharetra maximus. Duis quam libero, hendrerit vel nunc nec, rutrum tempus tellus. Nunc ac ex fringilla, rutrum nulla at, luctus odio. Duis sagittis elementum pretium. Mauris aliquet augue risus, in ullamcorper enim pharetra nec. Nullam dignissim pharetra diam nec vulputate. Suspendisse ultrices sed ligula id placerat. Suspendisse pellentesque ex tortor, ac tincidunt urna pharetra ut. Aenean sed arcu sapien.',
-      inCart: false
-    }],
     pickupLocations: [{
 
     }],
-    displayEvent: null,
+    displayShow: null,
     displaySuccess: false,
     displayWarning: false,
     loginView: false,
     displayCart: false,
-    filterString: ''
+    filterString: '',
+    inCart: []
   }
 
-  // componentDidMount = async () => {
-  //   const response = await fetch('https://jsonplaceholder.typicode.com/posts')
-  //   const json = await response.json()
-  //   this.setState({ events: json })
-  //   console.log(this.state)
-  // }
 
   async componentDidMount() {
-  const response = await fetch('https://api.songkick.com/api/3.0/venues/591/calendar.json?per_page=100&apikey=8ViJ6NJZPEwjp3Cp')
-  const json = await response.json()
-  console.log('response from FETCH GET:::', json)
-  this.setState({shows: json.resultsPage.results.event})
-  console.log('newState', this.state)
-}
+    const response = await fetch('https://api.songkick.com/api/3.0/venues/591/calendar.json?per_page=100&apikey=8ViJ6NJZPEwjp3Cp')
+    const json = await response.json()
+    // console.log(json.resultsPage.results.event)
+    this.setState({ shows: json.resultsPage.results.event })
+    const newState = { ...this.state }
+    const splitBandNames = newState.shows.map(show => show.displayName = show.displayName.split(' at Red Rocks')[0])
+    const splitVenueName = newState.shows.map(show => show.venue.displayName = show.venue.displayName.split(' Amphitheatre')[0])
+    this.setState(newState)
+    // console.log('newState', this.state)
+  }
 
   // Header Functions
   loginClick = (event) => {
@@ -93,49 +53,42 @@ class App extends Component {
     this.setState(newState)
   }
 
-  searchEvents = (event) => {
-    const newState = {...this.state}
+  searchShows = (event) => {
+    const newState = { ...this.state }
     newState.filterString = event.target.value
     this.setState(newState)
 
   }
 
-  // Event Functions
-  eventExpandClick = (event) => {
+  // Show Functions
+  showsExpandClick = (event) => {
     const newState = { ...this.state }
-    const clickedEvent = newState.events.find(show => (parseInt(show.id) === parseInt(event.target.id)))
-    if (!newState.displayEvent) {
-      newState.displayEvent = clickedEvent
-    }
-    else {
-      newState.displayEvent = null
-    }
+    const clickedShow = newState.shows.find(show => (parseInt(show.id) === parseInt(event.target.id)))
+    newState.displayShow = clickedShow
+
     this.setState(newState)
   }
 
-  returnToEvents = (event) => {
+  returnToShows = (event) => {
     const newState = { ...this.state }
-    newState.displayEvent = null
+    newState.displayShow = null
     newState.displaySuccess = false
     this.setState(newState)
   }
 
   addToCart = (event) => {
     const newState = { ...this.state }
-    const eventToCart = newState.events.find(show => (parseInt(show.id) === parseInt(newState.displayEvent.id)))
-    if (eventToCart.inCart) {
+    const showToCart = newState.shows.find(show => (parseInt(show.id) === parseInt(newState.displayShow.id)))
+    if (showToCart.inCart) {
       newState.displayWarning = true
     }
     else {
-      eventToCart.inCart = true
+      newState.inCart.push(showToCart)
       newState.displaySuccess = true
       newState.displayCart = true
     }
     this.setState(newState)
   }
-
-
-
 
 
 
@@ -145,34 +98,34 @@ class App extends Component {
         {this.state.loginView ?
           <LoginView
             returnHome={this.returnHome} /> :
-          this.state.events ?
+          this.state.shows ?
             <React.Fragment>
               <Header
-                searchEvents={this.searchEvents}
+                searchShows={this.searchShows}
                 loginClick={this.loginClick} />
-              {!this.state.displayEvent ?
+              {!this.state.displayShow ?
                 <div className='content-section'>
                   <div className='col-md-6 float-left'>
-                    <EventList
+                    <ShowList
                       filterString={this.state.filterString}
-                      events={this.state.events}
-                      eventExpandClick={this.eventExpandClick} />
+                      shows={this.state.shows}
+                      showsExpandClick={this.showsExpandClick} />
                     {/* <SponsorBox /> */}
                   </div>
                 </div> :
                 <div className='col-md-6 float-left'>
-                  <EventDetailView
-                    returnToEvents={this.returnToEvents}
-                    event={this.state.displayEvent}
+                  <ShowDetailView
+                    returnToShows={this.returnToShows}
+                    displayShow={this.state.displayShow}
                     addToCart={this.addToCart}
-                    eventExpandClick={this.eventExpandClick}
+                    showsExpandClick={this.showsExpandClick}
                     displaySuccess={this.state.displaySuccess}
                     displayWarning={this.state.displayWarning} />
 
                 </div>}
               {this.state.displayCart ?
                 <div className='col-md-6 float-right'>
-                  <Cart events={this.state.events} />
+                  <Cart showsInCart={this.state.inCart} />
                 </div> : <SponsorBox />}
 
               {/* <Footer /> */}

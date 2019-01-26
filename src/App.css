@@ -1,5 +1,10 @@
 .highlightOnHover:hover {
-  background: rgba(248,249,250, .75);
+  background: rgba(248, 249, 250, .75);
+}
+
+.list-group {
+  max-height: 80vh;
+  overflow: scroll;
 }
 
 .list-group-item {
@@ -49,4 +54,8 @@
 
 .login-content-section {
   margin: auto;
+}
+
+.list-item-font{
+  font-size: 12px;
 }

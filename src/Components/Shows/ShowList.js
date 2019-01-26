@@ -1,29 +1,28 @@
 import React from 'react'
 import '../../App.css';
-import Event from './Event'
+import Show from './Show'
 
-const Events = (props) => {
+const Shows = (props) => {
 
   return (
-    <div className='Events'>
+    <div className='Shows'>
       <div className='container'>
 
-        <h2>Events</h2>
+        <h2>Shows</h2>
         <div className="list-group">
           <div className="list-group-item">
             <div className="row">
               <div className="col-md-6">Event</div>
-              <div className="col-md-4">Location</div>
-              <div className="col-md-2">Date</div>
+              <div className="col-md-3">Location</div>
+              <div className="col-md-3">Date</div>
             </div>
           </div>
           <ul className="list-group">
 
-            <Event
+            {props.shows ? <Show
               filterString={props.filterString}
-              events={props.events}
-              eventTitle={props.events.title} 
-              eventExpandClick={props.eventExpandClick}/>
+              shows={props.shows}
+              showsExpandClick={props.showsExpandClick}/> : ''}
       </ul>
 
         </div>
@@ -34,4 +33,4 @@ const Events = (props) => {
   )
 }
 
-export default Events;
+export default Shows;
