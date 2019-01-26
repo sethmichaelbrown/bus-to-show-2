@@ -66,7 +66,7 @@ class App extends Component {
   }
 
   // componentDidMount = async () => {
-  //   const response = await fetch('https://jsonplaceholder.typicode.com/posts')
+  //   const response = await fetch('http://bustoshow.herokuapp.com/')
   //   const json = await response.json()
   //   this.setState({ events: json })
   //   console.log(this.state)
@@ -86,7 +86,7 @@ class App extends Component {
   }
 
   searchEvents = (event) => {
-    const newState = {...this.state}
+    const newState = { ...this.state }
     newState.filterString = event.target.value
     this.setState(newState)
 
@@ -98,6 +98,7 @@ class App extends Component {
     const clickedEvent = newState.events.find(show => (parseInt(show.id) === parseInt(event.target.id)))
     if (!newState.displayEvent) {
       newState.displayEvent = clickedEvent
+
     }
     else {
       newState.displayEvent = null
@@ -125,8 +126,6 @@ class App extends Component {
     }
     this.setState(newState)
   }
-
-
 
 
 
@@ -162,7 +161,7 @@ class App extends Component {
                     displayWarning={this.state.displayWarning} />
 
                 </div>}
-              {this.state.displayCart ? 
+              {this.state.displayCart ?
                 <div className='col-md-6 float-right'>
                   <Cart events={this.state.events} />
                 </div> : <SponsorBox />}

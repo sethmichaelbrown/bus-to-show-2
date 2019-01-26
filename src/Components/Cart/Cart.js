@@ -5,6 +5,7 @@ import CartItem from './CartItem'
 const Cart = (props) => {
 
   const itemsInCart = props.events.filter(event => event.inCart).length
+  
 
   return (
     <div className='Cart'>
