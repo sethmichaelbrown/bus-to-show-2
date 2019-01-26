@@ -12,16 +12,16 @@ const ShowDetailView = (props) => {
         <div className="list-group-item">
           <div className="row">
             <div className="col-md-6">Event</div>
-            <div className="col-md-4">Location</div>
-            <div className="col-md-2">Date</div>
+            <div className="col-md-3">Location</div>
+            <div className="col-md-3">Date</div>
           </div>
         </div>
 
         <div className="list-group-item" onClick={props.showsExpandClick}>
           <div className="row">
-            <div className="col-md-6">{show.displayName}</div>
-            <div className="col-md-4">{show.venue.displayName}</div>
-            <div className="col-md-2">{show.start.date}</div>
+            <div className="col-md-6 list-item-font">{show.displayName}</div>
+            <div className="col-md-3 list-item-font">{show.venue.displayName}</div>
+            <div className="col-md-3 list-item-font">{show.start.date}</div>
           </div>
         </div>
         <div className="list-group-item">

@@ -13,8 +13,8 @@ const Shows = (props) => {
           <div className="list-group-item">
             <div className="row">
               <div className="col-md-6">Event</div>
-              <div className="col-md-4">Location</div>
-              <div className="col-md-2">Date</div>
+              <div className="col-md-3">Location</div>
+              <div className="col-md-3">Date</div>
             </div>
           </div>
           <ul className="list-group">
