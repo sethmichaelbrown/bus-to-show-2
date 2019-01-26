@@ -31,7 +31,7 @@ class App extends Component {
   async componentDidMount() {
   const response = await fetch('https://api.songkick.com/api/3.0/venues/591/calendar.json?per_page=100&apikey=8ViJ6NJZPEwjp3Cp')
   const json = await response.json()
-  // console.log('response from FETCH GET:::', json)
+  const splitBandNames = json.resultsPage.results.event.map(show => show.displayName = show.displayName.split(' at Red Rocks')[0])
   this.setState({shows: json.resultsPage.results.event})
   // console.log('newState', this.state)
 }
@@ -88,8 +88,7 @@ class App extends Component {
 
 
 
-
-  render() {
+  render() {    
     return (
       <div className="App">
         {this.state.loginView ?
