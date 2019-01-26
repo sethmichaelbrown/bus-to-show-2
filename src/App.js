@@ -23,7 +23,8 @@ class App extends Component {
     displayWarning: false,
     loginView: false,
     displayCart: false,
-    filterString: ''
+    filterString: '',
+    inCart: []
   }
 
 
@@ -60,7 +61,6 @@ class App extends Component {
     const newState = { ...this.state }
     const clickedShow = newState.shows.find(show => (parseInt(show.id) === parseInt(event.target.id)))
     newState.displayShow = clickedShow
-    console.log(newState)
 
     this.setState(newState)
   }
@@ -79,7 +79,7 @@ class App extends Component {
       newState.displayWarning = true
     }
     else {
-      showToCart.inCart = true
+      newState.inCart.push(showToCart)
       newState.displaySuccess = true
       newState.displayCart = true
     }
@@ -122,7 +122,7 @@ class App extends Component {
                 </div>}
               {this.state.displayCart ?
                 <div className='col-md-6 float-right'>
-                  <Cart shows={this.state.shows} />
+                  <Cart showsInCart={this.state.inCart} />
                 </div> : <SponsorBox />}
 
               {/* <Footer /> */}

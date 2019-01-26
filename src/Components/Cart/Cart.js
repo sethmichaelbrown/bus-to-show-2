@@ -4,8 +4,7 @@ import CartItem from './CartItem'
 
 const Cart = (props) => {
 
-  const itemsInCart = props.shows.filter(show => show.inCart).length
-  
+
 
   return (
     <div className='Cart'>
@@ -20,9 +19,9 @@ const Cart = (props) => {
           </div>
         </div>
         <ul className="list-group">
-          <CartItem shows={props.shows} />
+          <CartItem showsInCart={props.showsInCart} />
         </ul>
-       {itemsInCart ? <div className="list-group-item">
+        {props.showsInCart ? <div className="list-group-item">
           <div className='row'>
             <button type="button" onClick={props.returnToShows} className="btn btn-outline-danger return-btn ml-2 float-right">Cancel</button>
             <button type="button" onClick={props.addToCart} className="btn btn-outline-success return-btn ml-2 float-right">Purchase</button>

@@ -2,7 +2,7 @@ import React from 'react'
 import '../../App.css';
 
 const ShowDetailView = (props) => {
-  console.log(props)
+  // console.log(props)
   const show = props.displayShow
 
   return (
