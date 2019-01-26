@@ -12,10 +12,10 @@ import SponsorBox from './Components/SponsorBox'
 
 
 
-
 class App extends Component {
 
   state = {
+    shows: [],
     events: [{
       id: 1,
       event: 'That Content',
@@ -71,6 +71,14 @@ class App extends Component {
   //   this.setState({ events: json })
   //   console.log(this.state)
   // }
+
+  async componentDidMount() {
+  const response = await fetch('https://api.songkick.com/api/3.0/venues/591/calendar.json?per_page=100&apikey=8ViJ6NJZPEwjp3Cp')
+  const json = await response.json()
+  console.log('response from FETCH GET:::', json)
+  this.setState({shows: json.resultsPage.results.event})
+  console.log('newState', this.state)
+}
 
   // Header Functions
   loginClick = (event) => {
@@ -162,7 +170,7 @@ class App extends Component {
                     displayWarning={this.state.displayWarning} />
 
                 </div>}
-              {this.state.displayCart ? 
+              {this.state.displayCart ?
                 <div className='col-md-6 float-right'>
                   <Cart events={this.state.events} />
                 </div> : <SponsorBox />}
