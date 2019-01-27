@@ -26,7 +26,8 @@ class App extends Component {
     displayCart: false,
     filterString: '',
     inCart: [],
-    displayDetailCartView: false
+    displayDetailCartView: false,
+    artistDescription: null
   }
 
 
@@ -124,6 +125,7 @@ class App extends Component {
                   <ShowList
                     filterString={this.state.filterString}
                     shows={this.state.shows}
+                    displayShow={this.state.displayShow}
                     showsExpandClick={this.showsExpandClick} />
 
                 </div>
