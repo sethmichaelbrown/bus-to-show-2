@@ -103,16 +103,18 @@ class App extends Component {
               <Header
                 searchShows={this.searchShows}
                 loginClick={this.loginClick} />
-              {!this.state.displayShow ?
-                <div className='content-section'>
-                  <div className='col-md-6 float-left'>
-                    <ShowList
-                      filterString={this.state.filterString}
-                      shows={this.state.shows}
-                      showsExpandClick={this.showsExpandClick} />
-                    {/* <SponsorBox /> */}
-                  </div>
-                </div> :
+              <div className='content-section'>
+                <div className='col-md-6 float-left'>
+                  <ShowList
+                    filterString={this.state.filterString}
+                    shows={this.state.shows}
+                    showsExpandClick={this.showsExpandClick} />
+                </div>
+              </div>
+              {this.state.displayCart ?
+                <div className='col-md-6 float-right'>
+                  <Cart showsInCart={this.state.inCart} />
+                </div> : 
                 <div className='col-md-6 float-left'>
                   <ShowDetailView
                     returnToShows={this.returnToShows}
@@ -123,10 +125,6 @@ class App extends Component {
                     displayWarning={this.state.displayWarning} />
 
                 </div>}
-              {this.state.displayCart ?
-                <div className='col-md-6 float-right'>
-                  <Cart showsInCart={this.state.inCart} />
-                </div> : <SponsorBox />}
 
               {/* <Footer /> */}
             </React.Fragment> : <Loading />
