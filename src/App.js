@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import Axios from 'axios';
 
 import Header from './Components/Header'
 import ShowList from './Components/Shows/ShowList'
@@ -28,6 +29,30 @@ class App extends Component {
   }
 
 
+
+//----------------- (Axios attempt to get data without conflicting with fetch)  Axios is saved as a dependency so run npm install again before you try to use it ---/
+
+  // axiosEventData = () =>{
+  //   return this.Axios.get(`https://something-innocuous.herokuapp.com/events`)
+  //   .then(function (response) {
+  //     console.log(response)
+  //   })
+  //   .catch(function (error) {
+  //     console.log(error)
+  //   })
+
+
+//----------------- (This gets data from server, but only if you comment out the other componentDidMount
+
+  // async componentDidMount() {
+  //   const response = await fetch('https://something-innocuous.herokuapp.com/events', {mode: 'cors'})
+  //   const json = await response.json()
+  //   console.log(json)
+  //   this.setState({ dbShows: json })
+  //   const newState = { ...this.state }
+  //   console.log('newState', this.state)
+  // }
+
   async componentDidMount() {
     const response = await fetch('https://api.songkick.com/api/3.0/venues/591/calendar.json?per_page=100&apikey=8ViJ6NJZPEwjp3Cp')
     const json = await response.json()
@@ -39,6 +64,7 @@ class App extends Component {
     this.setState(newState)
     // console.log('newState', this.state)
   }
+
 
   // Header Functions
   loginClick = (event) => {
