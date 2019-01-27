@@ -9,6 +9,7 @@ import Cart from './Components/Cart/Cart'
 import LoginView from './Components/LoginView/LoginView'
 import Footer from './Components/Footer'
 import SponsorBox from './Components/SponsorBox'
+import DetailCartView from './Components/DetailCartView'
 
 
 
@@ -24,7 +25,8 @@ class App extends Component {
     loginView: false,
     displayCart: false,
     filterString: '',
-    inCart: []
+    inCart: [],
+    displayDetailCartView: false
   }
 
 
@@ -60,10 +62,24 @@ class App extends Component {
 
   }
 
+  // Tab Functions
+  tabClicked = (event) => {
+    const newState = {...this.state}
+    if(event.target.id === 'cart-tab'){
+      newState.displayCart = true
+    }
+    else{
+      newState.displayCart = false
+    }
+
+    this.setState(newState)
+  }
+
   // Show Functions
   showsExpandClick = (event) => {
     const newState = { ...this.state }
     const clickedShow = newState.shows.find(show => (parseInt(show.id) === parseInt(event.target.id)))
+    newState.displayDetailCartView = true
     newState.displayShow = clickedShow
 
     this.setState(newState)
@@ -103,32 +119,46 @@ class App extends Component {
               <Header
                 searchShows={this.searchShows}
                 loginClick={this.loginClick} />
-              {!this.state.displayShow ?
-                <div className='content-section'>
-                  <div className='col-md-6 float-left'>
-                    <ShowList
-                      filterString={this.state.filterString}
-                      shows={this.state.shows}
-                      showsExpandClick={this.showsExpandClick} />
-                    {/* <SponsorBox /> */}
-                  </div>
-                </div> :
+              <div className='content-section'>
                 <div className='col-md-6 float-left'>
-                  <ShowDetailView
+                  <ShowList
+                    filterString={this.state.filterString}
+                    shows={this.state.shows}
+                    showsExpandClick={this.showsExpandClick} />
+
+                </div>
+              </div>
+              <div className='col-md-6 float-left'>
+                {this.state.displayCart || this.state.displayShow ?
+                  <DetailCartView
+                    inCart={this.state.inCart}
+                    tabClicked={this.tabClicked}
                     returnToShows={this.returnToShows}
                     displayShow={this.state.displayShow}
                     addToCart={this.addToCart}
                     showsExpandClick={this.showsExpandClick}
                     displaySuccess={this.state.displaySuccess}
-                    displayWarning={this.state.displayWarning} />
-
-                </div>}
-              {this.state.displayCart ?
-                <div className='col-md-6 float-right'>
-                  <Cart showsInCart={this.state.inCart} />
-                </div> : <SponsorBox />}
-
-              {/* <Footer /> */}
+                    displayWarning={this.state.displayWarning}
+                    displayCart={this.state.displayCart}
+                    showsInCart={this.state.inCart} />
+                  :
+                  <SponsorBox />}
+                {/* {this.state.displayDetailCartView ?
+                  <div className='col-md-12 float-left'>
+                    {this.state.displayCart ?
+                      <Cart showsInCart={this.state.inCart} />
+                      :
+                      <ShowDetailView
+                        returnToShows={this.returnToShows}
+                        displayShow={this.state.displayShow}
+                        addToCart={this.addToCart}
+                        showsExpandClick={this.showsExpandClick}
+                        displaySuccess={this.state.displaySuccess}
+                        displayWarning={this.state.displayWarning} />
+                    }
+                  </div>
+                  : ''} */}
+              </div>
             </React.Fragment> : <Loading />
         }
 
