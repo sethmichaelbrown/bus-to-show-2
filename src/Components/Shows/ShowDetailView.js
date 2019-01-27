@@ -6,8 +6,8 @@ const ShowDetailView = (props) => {
   const show = props.displayShow
 
   return (
-    <div className='ShowDetailView container'>
-      <h2>Shows - {show.displayName}</h2>
+    <div className='ShowDetailView'>
+      <h2>{show.displayName}</h2>
       <div className="list-group">
         <div className="list-group-item">
           <div className="row">

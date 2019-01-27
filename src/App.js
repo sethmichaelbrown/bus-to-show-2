@@ -24,7 +24,8 @@ class App extends Component {
     loginView: false,
     displayCart: false,
     filterString: '',
-    inCart: []
+    inCart: [],
+    displayDetailCartView: false
   }
 
 
@@ -64,6 +65,7 @@ class App extends Component {
   showsExpandClick = (event) => {
     const newState = { ...this.state }
     const clickedShow = newState.shows.find(show => (parseInt(show.id) === parseInt(event.target.id)))
+    newState.displayDetailCartView = true
     newState.displayShow = clickedShow
 
     this.setState(newState)
@@ -109,24 +111,26 @@ class App extends Component {
                     filterString={this.state.filterString}
                     shows={this.state.shows}
                     showsExpandClick={this.showsExpandClick} />
+
                 </div>
               </div>
-              {this.state.displayCart ?
-                <div className='col-md-6 float-right'>
-                  <Cart showsInCart={this.state.inCart} />
-                </div> : 
-                <div className='col-md-6 float-left'>
-                  <ShowDetailView
-                    returnToShows={this.returnToShows}
-                    displayShow={this.state.displayShow}
-                    addToCart={this.addToCart}
-                    showsExpandClick={this.showsExpandClick}
-                    displaySuccess={this.state.displaySuccess}
-                    displayWarning={this.state.displayWarning} />
-
-                </div>}
-
-              {/* <Footer /> */}
+              <div className='col-md-6 float-left'>
+                {this.state.displayDetailCartView ?
+                  <div className='col-md-12 float-left'>
+                    {this.state.displayCart ?
+                      <Cart showsInCart={this.state.inCart} />
+                      :
+                      <ShowDetailView
+                        returnToShows={this.returnToShows}
+                        displayShow={this.state.displayShow}
+                        addToCart={this.addToCart}
+                        showsExpandClick={this.showsExpandClick}
+                        displaySuccess={this.state.displaySuccess}
+                        displayWarning={this.state.displayWarning} />
+                    }
+                  </div>
+                  : <SponsorBox />}
+              </div>
             </React.Fragment> : <Loading />
         }
 
