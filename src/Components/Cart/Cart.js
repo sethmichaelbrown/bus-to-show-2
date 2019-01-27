@@ -8,7 +8,6 @@ const Cart = (props) => {
 
   return (
     <div className='Cart'>
-      {props.displayCart ?
       <React.Fragment>
         <h2>My Cart</h2>
         <div className="list-group">
@@ -30,7 +29,7 @@ const Cart = (props) => {
             </div>
           </div> : ''}
         </div> 
-        </React.Fragment>: ''}
+        </React.Fragment>
 
     </div>
   )

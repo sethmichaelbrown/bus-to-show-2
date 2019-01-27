@@ -62,6 +62,20 @@ class App extends Component {
 
   }
 
+  // Tab Functions
+
+  tabClicked = (event) => {
+    const newState = {...this.state}
+    if(event.target.id === 'cart-tab'){
+      newState.displayCart = true
+    }
+    else{
+      newState.displayCart = false
+    }
+    console.log('tabClick', newState)
+    this.setState(newState)
+  }
+
   // Show Functions
   showsExpandClick = (event) => {
     const newState = { ...this.state }
@@ -118,12 +132,15 @@ class App extends Component {
               <div className='col-md-6 float-left'>
                 {this.state.displayCart || this.state.displayShow ?
                   <DetailCartView
+                    inCart={this.state.inCart}
+                    tabClicked={this.tabClicked}
                     returnToShows={this.returnToShows}
                     displayShow={this.state.displayShow}
                     addToCart={this.addToCart}
                     showsExpandClick={this.showsExpandClick}
                     displaySuccess={this.state.displaySuccess}
                     displayWarning={this.state.displayWarning}
+                    displayCart={this.state.displayCart}
                     showsInCart={this.state.inCart} />
                   :
                   <SponsorBox />}
