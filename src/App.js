@@ -63,7 +63,6 @@ class App extends Component {
   }
 
   // Tab Functions
-
   tabClicked = (event) => {
     const newState = {...this.state}
     if(event.target.id === 'cart-tab'){
@@ -72,7 +71,7 @@ class App extends Component {
     else{
       newState.displayCart = false
     }
-    console.log('tabClick', newState)
+
     this.setState(newState)
   }
 

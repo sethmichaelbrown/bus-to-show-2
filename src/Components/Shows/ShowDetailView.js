@@ -7,7 +7,7 @@ const ShowDetailView = (props) => {
   return (
     <div className='ShowDetailView'>
       {props.displayShow ? <React.Fragment>
-        <h2>{show.displayName}</h2>
+        <h3>{show.displayName}</h3>
         <div className="list-group">
           <div className="list-group-item">
             <div className="row">
@@ -29,12 +29,12 @@ const ShowDetailView = (props) => {
               <div className="col-md-8">{show.type}</div>
               <div className="col-md-4">Image</div>
             </div>
-            <select className="form-control mt-2">
-              <option>Select Pickup Time & Location</option>
-              <option>Boulder - 5:00pm || The Hill</option>
-              <option>Boulder - 5:30pm || Transit Center</option>
-              <option>Denver - 6:00pm || RiNo</option>
-              <option>Fort Collins - 3:00pm || CSU Campus</option>
+            <select className="form-control mt-2" required>
+              <option >Select Pickup Time & Location</option>
+              <option value='Boulder5'>Boulder - 5:00pm || The Hill</option>
+              <option value='Boulder5:30'>Boulder - 5:30pm || Transit Center</option>
+              <option value='Denver6'>Denver - 6:00pm || RiNo</option>
+              <option value='FortCollins3'>Fort Collins - 3:00pm || CSU Campus</option>
             </select>
           </div>
           <div className="list-group-item">

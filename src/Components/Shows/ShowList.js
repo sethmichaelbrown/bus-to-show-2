@@ -7,8 +7,6 @@ const Shows = (props) => {
   return (
     <div className='Shows'>
       <div className='container'>
-
-        <h2>Shows</h2>
         <div className="list-group">
           <div className="list-group-item">
             <div className="row">
@@ -19,11 +17,12 @@ const Shows = (props) => {
           </div>
           <ul className="list-group">
 
-            {props.shows ? <Show
-              filterString={props.filterString}
-              shows={props.shows}
-              showsExpandClick={props.showsExpandClick}/> : ''}
-      </ul>
+            {props.shows ?
+              <Show
+                filterString={props.filterString}
+                shows={props.shows}
+                showsExpandClick={props.showsExpandClick} /> : ''}
+          </ul>
 
         </div>
       </div>
