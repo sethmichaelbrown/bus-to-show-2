@@ -9,6 +9,7 @@ import Cart from './Components/Cart/Cart'
 import LoginView from './Components/LoginView/LoginView'
 import Footer from './Components/Footer'
 import SponsorBox from './Components/SponsorBox'
+import DetailCartView from './Components/DetailCartView'
 
 
 
@@ -115,7 +116,18 @@ class App extends Component {
                 </div>
               </div>
               <div className='col-md-6 float-left'>
-                {this.state.displayDetailCartView ?
+                {this.state.displayCart || this.state.displayShow ?
+                  <DetailCartView
+                    returnToShows={this.returnToShows}
+                    displayShow={this.state.displayShow}
+                    addToCart={this.addToCart}
+                    showsExpandClick={this.showsExpandClick}
+                    displaySuccess={this.state.displaySuccess}
+                    displayWarning={this.state.displayWarning}
+                    showsInCart={this.state.inCart} />
+                  :
+                  <SponsorBox />}
+                {/* {this.state.displayDetailCartView ?
                   <div className='col-md-12 float-left'>
                     {this.state.displayCart ?
                       <Cart showsInCart={this.state.inCart} />
@@ -129,7 +141,7 @@ class App extends Component {
                         displayWarning={this.state.displayWarning} />
                     }
                   </div>
-                  : <SponsorBox />}
+                  : ''} */}
               </div>
             </React.Fragment> : <Loading />
         }
