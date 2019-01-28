@@ -5,18 +5,21 @@ import Cart from './Cart/Cart'
 
 class DetailCartView extends Component {
 
-  state = {
-    artistInfo: null,
-    selectedArtist: this.props.displayShow,
-    // apiKey: process.ENV.API_KEY
+  async componentDidMount() {
+    const pickups = await fetch('https://something-innocuous.herokuapp.com/pickup_locations')
+    const pickupLocations = await pickups.json()
+    this.setState({ pickupLocations })
+    // console.log('DCV newState', this.state)
   }
 
+  state = {
+    rideId: null
+  }
 
-  async componentDidMount() {
-    const response = await fetch(`http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=Cher&api_key=bb5f39887cc93aa41c362ba1b8bbaccd&format=json`)
-    const json = await response.json()
-    this.setState({ artistInfo: json.artist })
-    console.log(this.state)
+  selectRideId = (event) => {
+    const newState = {...this.state}
+    newState.rideId = event.target.value
+    this.setState(newState)
   }
 
 
@@ -35,7 +38,8 @@ class DetailCartView extends Component {
         <div className="tab-content" id="myTabContent">
           <div className="tab-pane fade show active" id="showDetails" role="tabpanel" aria-labelledby="showDetails-tab">
             <ShowDetailView
-              artistInfo={this.state.artistInfo}
+              selectRideId={this.selectRideId}
+              pickupLocations={this.state.pickupLocations}
               returnToShows={this.props.returnToShows}
               displayShow={this.props.displayShow}
               addToCart={this.props.addToCart}
@@ -45,7 +49,10 @@ class DetailCartView extends Component {
           </div>
           <div className="tab-pane fade" id="cart" role="tabpanel" aria-labelledby="cart-tab">
             {this.props.inCart.length > 0 ?
-              <Cart showsInCart={this.props.inCart}
+              <Cart 
+                pickupLocations={this.state.pickupLocations}
+                showsInCart={this.props.inCart}
+                rideId={this.state.rideId}
                 purchaseClick={this.props.purchaseClick} /> : <h1>Nothing in Cart!</h1>}
           </div>
         </div>

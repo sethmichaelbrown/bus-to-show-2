@@ -8,7 +8,7 @@ const ShowDetailView = (props) => {
     <div className='ShowDetailView'>
       {props.displayShow ?
         <React.Fragment>
-          <h3>{show.displayName}</h3>
+          <h3>{show.headliner}</h3>
           <div className="list-group">
             <div className="list-group-item">
               <div className="row">
@@ -18,24 +18,26 @@ const ShowDetailView = (props) => {
               </div>
             </div>
 
-            <div className="list-group-item" onClick={props.showsExpandClick}>
+            <div className="list-group-item">
               <div className="row">
-                <div className="col-md-6 list-item-font">{show.displayName}</div>
-                <div className="col-md-3 list-item-font">{show.venue.displayName}</div>
-                <div className="col-md-3 list-item-font">{show.start.date}</div>
+                <div className="col-md-6 list-item-font">{show.headliner}</div>
+                <div className="col-md-3 list-item-font">{show.venue}</div>
+                <div className="col-md-3 list-item-font">{show.date}</div>
               </div>
             </div>
             <div className="list-group-item">
               <div className='row'>
-                <div className="col-md-8">{show.type}</div>
+                <div className="col-md-8">"INFO GOES HERE"</div>
                 <div className="col-md-4">Image</div>
               </div>
-              <select className="form-control mt-2" required>
-                <option >Select Pickup Time & Location</option>
-                <option value='Boulder5'>Boulder - 5:00pm || The Hill</option>
-                <option value='Boulder5:30'>Boulder - 5:30pm || Transit Center</option>
-                <option value='Denver6'>Denver - 6:00pm || RiNo</option>
-                <option value='FortCollins3'>Fort Collins - 3:00pm || CSU Campus</option>
+              <select onChange={props.selectRideId} className="form-control mt-2" required>
+                {props.pickupLocations ?
+                  props.pickupLocations.map(location => {
+                    return (
+                      <option key={location.id} id={location.id} value={location.id}>{location.locationName}</option>
+                    )
+                  })
+                  : ''}
               </select>
             </div>
             <div className="list-group-item">
@@ -47,16 +49,9 @@ const ShowDetailView = (props) => {
             {props.displaySuccess ?
               <div className="list-group-item alert-item">
                 <div className='row'>
-                  <div className="alert alert-success" role="alert"> Added {show.displayName} - {show.start.date} to cart!</div>
+                  <div className="alert alert-success" role="alert"> Added {show.headliner} - {show.date} to cart!</div>
                 </div>
               </div> : ''}
-            {props.displayWarning ?
-              <div className="list-group-item alert-item">
-                <div className='row'>
-                  <div className="alert alert-info" role="alert"> {show.displayName} is already in cart - please select quantity in cart!</div>
-                </div>
-              </div> : ''}
-
           </div>
 
         </React.Fragment> : ''}
