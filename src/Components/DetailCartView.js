@@ -6,13 +6,17 @@ import Cart from './Cart/Cart'
 class DetailCartView extends Component {
 
   state = {
-    artistInfo: null
+    artistInfo: null,
+    selectedArtist: this.props.displayShow,
+    // apiKey: process.ENV.API_KEY
   }
 
+
   async componentDidMount() {
-    const response = await fetch('http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=Cher&api_key=bb5f39887cc93aa41c362ba1b8bbaccd&format=json')
+    const response = await fetch(`http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=Cher&api_key=bb5f39887cc93aa41c362ba1b8bbaccd&format=json`)
     const json = await response.json()
     this.setState({ artistInfo: json.artist })
+    console.log(this.state)
   }
 
 
