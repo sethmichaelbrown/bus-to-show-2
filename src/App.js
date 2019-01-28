@@ -92,7 +92,7 @@ class App extends Component {
 
   addToCart = (event) => {
     const newState = { ...this.state }
-    const showToCart = newState.shows.find(show => (parseInt(show.id) === parseInt(newState.displayShow.id)))
+    const showToCart = newState.shows.find(show => (parseInt(show.id) !== parseInt(newState.displayShow.id)))
     console.log(showToCart)
     if (showToCart.cart) {
       newState.displayWarning = true

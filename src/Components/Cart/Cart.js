@@ -13,14 +13,15 @@ const Cart = (props) => {
         <div className="list-group">
           <div className="list-group-item">
             <div className="row">
-              <div className="col-md-4">Show</div>
-              <div className="col-md-2">Departure Location</div>
+              <div className="col-md-2">Show</div>
+              <div className="col-md-4">Departure Location</div>
               <div className="col-md-2">Date</div>
               <div className="col-md-2">Quantity</div>
             </div>
           </div>
           <ul className="list-group">
             <CartItem 
+              ticketQuantity={props.ticketQuantity}
               pickupLocations={props.pickupLocations}
               rideId={props.rideId}
               showsInCart={props.showsInCart} />

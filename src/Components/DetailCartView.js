@@ -13,14 +13,36 @@ class DetailCartView extends Component {
   }
 
   state = {
-    rideId: null
+    rideId: null,
+    ticketQuantity: null,
+    displayAddBtn: false,
+    displayQuantity: false
   }
 
   selectRideId = (event) => {
-    const newState = {...this.state}
+    const newState = { ...this.state }
     newState.rideId = event.target.value
+    if(event.target.value){
+      newState.displayQuantity = true
+    }
+    else{
+      newState.displayQuantity = false
+    }
     this.setState(newState)
   }
+
+  selectTicketQuantity = (event) => {
+    const newState = { ...this.state }
+    if(event.target.value){
+      newState.displayAddBtn = true
+    }
+    else{
+      newState.displayAddBtn = false
+    }
+    newState.ticketQuantity = event.target.value
+    this.setState(newState)
+  }
+
 
 
   render() {
@@ -38,6 +60,9 @@ class DetailCartView extends Component {
         <div className="tab-content" id="myTabContent">
           <div className="tab-pane fade show active" id="showDetails" role="tabpanel" aria-labelledby="showDetails-tab">
             <ShowDetailView
+              displayQuantity={this.state.displayQuantity}
+              displayAddBtn={this.state.displayAddBtn}
+              selectTicketQuantity={this.selectTicketQuantity}
               selectRideId={this.selectRideId}
               pickupLocations={this.state.pickupLocations}
               returnToShows={this.props.returnToShows}
@@ -49,7 +74,8 @@ class DetailCartView extends Component {
           </div>
           <div className="tab-pane fade" id="cart" role="tabpanel" aria-labelledby="cart-tab">
             {this.props.inCart.length > 0 ?
-              <Cart 
+              <Cart
+                ticketQuantity={this.state.ticketQuantity}
                 pickupLocations={this.state.pickupLocations}
                 showsInCart={this.props.inCart}
                 rideId={this.state.rideId}
