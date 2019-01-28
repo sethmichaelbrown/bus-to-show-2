@@ -2,7 +2,7 @@ import React from 'react'
 import '../../App.css';
 
 const CartItem = (props) => {
-  console.log('CI', props)
+  // console.log('CI', props)
 
   const pickupLocation = props.pickupLocations.find(location => parseInt(location.id) === parseInt(props.rideId))
 

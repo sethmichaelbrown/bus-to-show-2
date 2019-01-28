@@ -25,7 +25,7 @@ class App extends Component {
     inCart: [],
     displayDetailCartView: false,
     artistDescription: null,
-    cart: {}
+    cart: []
   }
 
 
@@ -92,17 +92,20 @@ class App extends Component {
 
   addToCart = (event) => {
     const newState = { ...this.state }
-    const showToCart = newState.shows.find(show => (parseInt(show.id) !== parseInt(newState.displayShow.id)))
-    console.log(showToCart)
-    if (showToCart.cart) {
-      newState.displayWarning = true
+    if(!newState.cart.length){
+      newState.cart.push(newState.displayShow)
     }
-    else {
-      newState.inCart.push(showToCart)
-      newState.displaySuccess = true
-      newState.displayCart = true
+    else{
+      const cartIds = newState.cart.map(show => show.id)
+      const compareIds = cartIds.find(id => id == newState.displayShow.id)
+      if(!compareIds){
+         newState.cart.push(newState.displayShow)
+      }
+      else{
+        console.log('add quantity')
+      }
+
     }
-    this.setState(newState)
   }
 
   // Cart Functions
@@ -112,7 +115,7 @@ class App extends Component {
   }
 
   removeFromCart = (event) => {
-    console.log(event.target.id)
+    // console.log(event.target.id)
   }
 
 
@@ -154,7 +157,7 @@ class App extends Component {
                       displaySuccess={this.state.displaySuccess}
                       displayWarning={this.state.displayWarning}
                       displayCart={this.state.displayCart}
-                      showsInCart={this.state.inCart} />
+                      showsInCart={this.state.cart} />
                     :
                     <SponsorBox />}
                 </div>

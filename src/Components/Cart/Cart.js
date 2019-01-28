@@ -3,7 +3,7 @@ import '../../App.css';
 import CartItem from './CartItem'
 
 const Cart = (props) => {
-  console.log('Cart', props)
+  // console.log('Cart', props)
 
 
   return (

@@ -3,7 +3,7 @@ import '../../App.css';
 
 const ShowDetailView = (props) => {
   const show = props.displayShow
-  console.log(props)
+  // console.log(props)
 
   return (
     <div className='ShowDetailView'>
