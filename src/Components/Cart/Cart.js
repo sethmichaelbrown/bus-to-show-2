@@ -14,7 +14,7 @@ const Cart = (props) => {
           <div className="list-group-item">
             <div className="row">
               <div className="col-md-4">Show</div>
-              <div className="col-md-4">Location</div>
+              <div className="col-md-2">Location</div>
               <div className="col-md-2">Date</div>
               <div className="col-md-2">Quantity</div>
             </div>
@@ -25,7 +25,7 @@ const Cart = (props) => {
           {props.showsInCart ? <div className="list-group-item">
             <div className='row'>
               <button type="button" onClick={props.returnToShows} className="btn btn-outline-danger return-btn ml-2 float-right">Cancel</button>
-              <button type="button" onClick={props.addToCart} className="btn btn-outline-success return-btn ml-2 float-right">Purchase</button>
+              <button type="button" onClick={props.purchaseClick} className="btn btn-outline-success return-btn ml-2 float-right">Purchase</button>
             </div>
           </div> : ''}
         </div> 

@@ -8,9 +8,8 @@ const Shows = (props) => {
 
   return (
     <div className='Shows'>
-
       {filterShows.length > 0 ? filterShows.map(show =>
-        <li className="list-group-item highlightOnHover" onClick={props.showsExpandClick} key={show.id} id={show.id}>
+        <li className={"list-group-item highlightOnHover"} onClick={props.showsExpandClick} key={show.id} id={show.id}>
           <div className="row" id={show.id}>
             <div className="col-md-6 list-item-font" id={show.id}>{show.displayName}</div>
             <div className="col-md-3 list-item-font" id={show.id}>{show.venue.displayName}</div>

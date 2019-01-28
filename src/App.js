@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
+import { BrowserRouter, Route } from "react-router-dom"
 import './App.css';
 
 import Header from './Components/Header'
 import ShowList from './Components/Shows/ShowList'
-import ShowDetailView from './Components/Shows/ShowDetailView'
+// import ShowDetailView from './Components/Shows/ShowDetailView'
 import Loading from './Components/Loading'
-import Cart from './Components/Cart/Cart'
+// import Cart from './Components/Cart/Cart'
 import LoginView from './Components/LoginView/LoginView'
-import Footer from './Components/Footer'
+// import Footer from './Components/Footer'
 import SponsorBox from './Components/SponsorBox'
 import DetailCartView from './Components/DetailCartView'
 
@@ -26,18 +27,21 @@ class App extends Component {
     displayCart: false,
     filterString: '',
     inCart: [],
-    displayDetailCartView: false
+    displayDetailCartView: false,
+    artistDescription: null,
+    cart: {}
   }
 
 
   async componentDidMount() {
     const response = await fetch('https://api.songkick.com/api/3.0/venues/591/calendar.json?per_page=100&apikey=8ViJ6NJZPEwjp3Cp')
     const json = await response.json()
-    // console.log(json.resultsPage.results.event)
-    this.setState({ shows: json.resultsPage.results.event })
+    const shows = json.resultsPage.results.event
+    this.setState({ shows })
     const newState = { ...this.state }
-    const splitBandNames = newState.shows.map(show => show.displayName = show.displayName.split(' at Red Rocks')[0])
-    const splitVenueName = newState.shows.map(show => show.venue.displayName = show.venue.displayName.split(' Amphitheatre')[0])
+    newState.shows.map(show => show.displayName = show.displayName.split(' at Red Rocks')[0])
+    newState.shows.map(show => show.venue.displayName = show.venue.displayName.split(' Amphitheatre')[0])
+    newState.shows.map(show => show.start.date = show.start.date.split('-').splice(1, 3).concat(show.start.date.split('-')[0]).join('/'))
     this.setState(newState)
     // console.log('newState', this.state)
   }
@@ -59,16 +63,15 @@ class App extends Component {
     const newState = { ...this.state }
     newState.filterString = event.target.value
     this.setState(newState)
-
   }
 
   // Tab Functions
   tabClicked = (event) => {
-    const newState = {...this.state}
-    if(event.target.id === 'cart-tab'){
+    const newState = { ...this.state }
+    if (event.target.id === 'cart-tab') {
       newState.displayCart = true
     }
-    else{
+    else {
       newState.displayCart = false
     }
 
@@ -80,6 +83,7 @@ class App extends Component {
     const newState = { ...this.state }
     const clickedShow = newState.shows.find(show => (parseInt(show.id) === parseInt(event.target.id)))
     newState.displayDetailCartView = true
+    newState.displaySuccess = false
     newState.displayShow = clickedShow
 
     this.setState(newState)
@@ -106,63 +110,62 @@ class App extends Component {
     this.setState(newState)
   }
 
+  // Cart Functions
+  purchaseClick = (event) => {
+    const newState = { ...this.state }
+    newState.cart = newState.inCart
+  }
+
+  removeFromCart = (event) => {
+    console.log(event.target.id)
+  }
+
 
 
   render() {
     return (
-      <div className="App">
-        {this.state.loginView ?
-          <LoginView
-            returnHome={this.returnHome} /> :
-          this.state.shows ?
-            <React.Fragment>
-              <Header
-                searchShows={this.searchShows}
-                loginClick={this.loginClick} />
-              <div className='content-section'>
-                <div className='col-md-6 float-left'>
-                  <ShowList
-                    filterString={this.state.filterString}
-                    shows={this.state.shows}
-                    showsExpandClick={this.showsExpandClick} />
+      <BrowserRouter>
+        <div className="App">
+          {this.state.loginView ?
+            <LoginView
+              returnHome={this.returnHome} /> :
+            this.state.shows ?
+              <React.Fragment>
+                <Header
+                  searchShows={this.searchShows}
+                  loginClick={this.loginClick} />
+                <div className='content-section'>
+                  <div className='col-md-6 float-left'>
+                    <ShowList
+                      filterString={this.state.filterString}
+                      shows={this.state.shows}
+                      displayShow={this.state.displayShow}
+                      showsExpandClick={this.showsExpandClick} />
 
-                </div>
-              </div>
-              <div className='col-md-6 float-left'>
-                {this.state.displayCart || this.state.displayShow ?
-                  <DetailCartView
-                    inCart={this.state.inCart}
-                    tabClicked={this.tabClicked}
-                    returnToShows={this.returnToShows}
-                    displayShow={this.state.displayShow}
-                    addToCart={this.addToCart}
-                    showsExpandClick={this.showsExpandClick}
-                    displaySuccess={this.state.displaySuccess}
-                    displayWarning={this.state.displayWarning}
-                    displayCart={this.state.displayCart}
-                    showsInCart={this.state.inCart} />
-                  :
-                  <SponsorBox />}
-                {/* {this.state.displayDetailCartView ?
-                  <div className='col-md-12 float-left'>
-                    {this.state.displayCart ?
-                      <Cart showsInCart={this.state.inCart} />
-                      :
-                      <ShowDetailView
-                        returnToShows={this.returnToShows}
-                        displayShow={this.state.displayShow}
-                        addToCart={this.addToCart}
-                        showsExpandClick={this.showsExpandClick}
-                        displaySuccess={this.state.displaySuccess}
-                        displayWarning={this.state.displayWarning} />
-                    }
                   </div>
-                  : ''} */}
-              </div>
-            </React.Fragment> : <Loading />
-        }
+                </div>
+                <div className='col-md-6 float-left'>
+                  {this.state.displayCart || this.state.displayShow ?
+                    <DetailCartView
+                      purchaseClick={this.purchaseClick}
+                      inCart={this.state.inCart}
+                      tabClicked={this.tabClicked}
+                      returnToShows={this.returnToShows}
+                      displayShow={this.state.displayShow}
+                      addToCart={this.addToCart}
+                      showsExpandClick={this.showsExpandClick}
+                      displaySuccess={this.state.displaySuccess}
+                      displayWarning={this.state.displayWarning}
+                      displayCart={this.state.displayCart}
+                      showsInCart={this.state.inCart} />
+                    :
+                    <SponsorBox />}
+                </div>
+              </React.Fragment> : <Loading />
+          }
 
-      </div>
+        </div>
+      </BrowserRouter>
     );
   }
 }
