@@ -4,16 +4,16 @@ import '../../App.css';
 
 const Shows = (props) => {
   const filterString = props.filterString.toLowerCase()
-  const filterShows = props.shows.filter(show => show.displayName.toLowerCase().includes(filterString))
+  const filterShows = props.shows.filter(show => show.headliner.toLowerCase().includes(filterString))
 
   return (
     <div className='Shows'>
       {filterShows.length > 0 ? filterShows.map(show =>
-        <li className={"list-group-item highlightOnHover"} onClick={props.showsExpandClick} key={show.id} id={show.id}>
+        <li className={"list-group-item highlightOnHover"} key={show.id} id={show.id}>
           <div className="row" id={show.id}>
-            <div className="col-md-6 list-item-font" id={show.id}>{show.displayName}</div>
-            <div className="col-md-3 list-item-font" id={show.id}>{show.venue.displayName}</div>
-            <div className="col-md-3 list-item-font" id={show.id}>{show.start.date}</div>
+            <div className="col-md-3 list-item-font" id={show.id}>{show.date} <br/> Saturday</div>
+            <div className="col-md-7 list-item-font" id={show.id}>{show.headliner} <br/>{show.venue}</div>
+            <button id={show.id} onClick={props.showsExpandClick} type="button" class="btn btn-outline-dark col-md-2">Details</button>
 
           </div>
 

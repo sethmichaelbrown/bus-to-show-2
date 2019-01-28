@@ -22,8 +22,8 @@ const SponsorBox = (props) => {
           </div>
         </div>
           <div className="col-md-6 col-centered offset-md-3">
-            <button type="button" class="btn btn-primary btn-lg btn-block">Donate</button>
-            <button type="button" class="btn btn-secondary btn-lg btn-block">My Cart</button>
+            <button type="button" className="btn btn-primary btn-lg btn-block">Donate</button>
+            <button type="button" className="btn btn-secondary btn-lg btn-block">My Cart</button>
           </div>
         </div>
       </div>

@@ -17,31 +17,24 @@ import DetailCartView from './Components/DetailCartView'
 class App extends Component {
 
   state = {
-    pickupLocations: [{
-
-    }],
     displayShow: null,
     displaySuccess: false,
-    displayWarning: false,
     loginView: false,
     displayCart: false,
     filterString: '',
     inCart: [],
     displayDetailCartView: false,
     artistDescription: null,
-    cart: {}
   }
 
 
   async componentDidMount() {
-    const response = await fetch('https://api.songkick.com/api/3.0/venues/591/calendar.json?per_page=100&apikey=8ViJ6NJZPEwjp3Cp')
-    const json = await response.json()
-    const shows = json.resultsPage.results.event
+    const response = await fetch('https://something-innocuous.herokuapp.com/events')
+    const shows = await response.json()
     this.setState({ shows })
+
     const newState = { ...this.state }
-    newState.shows.map(show => show.displayName = show.displayName.split(' at Red Rocks')[0])
-    newState.shows.map(show => show.venue.displayName = show.venue.displayName.split(' Amphitheatre')[0])
-    newState.shows.map(show => show.start.date = show.start.date.split('-').splice(1, 3).concat(show.start.date.split('-')[0]).join('/'))
+    newState.shows.map(show => show.date = show.date.split('T')[0].split('-').splice(1, 3).concat(show.date.split('T')[0].split('-')[0]).join('/'))
     this.setState(newState)
     // console.log('newState', this.state)
   }
@@ -98,15 +91,21 @@ class App extends Component {
 
   addToCart = (event) => {
     const newState = { ...this.state }
-    const showToCart = newState.shows.find(show => (parseInt(show.id) === parseInt(newState.displayShow.id)))
-    if (showToCart.inCart) {
-      newState.displayWarning = true
-    }
-    else {
-      newState.inCart.push(showToCart)
+    if(!newState.inCart.length){
+      newState.inCart.push(newState.displayShow)
       newState.displaySuccess = true
-      newState.displayCart = true
     }
+    else{
+      const cartIds = newState.inCart.map(show => show.id)
+      const compareIds = cartIds.find(id => id == newState.displayShow.id)
+      if(!compareIds){
+         newState.inCart.push(newState.displayShow)
+      }
+      else{
+        console.log(event.target)
+      }
+    }
+    console.log(this.state)
     this.setState(newState)
   }
 
@@ -117,8 +116,9 @@ class App extends Component {
   }
 
   removeFromCart = (event) => {
-    console.log(event.target.id)
+    // console.log(event.target.id)
   }
+
 
 
 
@@ -147,6 +147,7 @@ class App extends Component {
                 <div className='col-md-6 float-left'>
                   {this.state.displayCart || this.state.displayShow ?
                     <DetailCartView
+                      pickupLocations={this.pickupLocations}
                       purchaseClick={this.purchaseClick}
                       inCart={this.state.inCart}
                       tabClicked={this.tabClicked}
