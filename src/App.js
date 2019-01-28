@@ -28,7 +28,8 @@ class App extends Component {
     filterString: '',
     inCart: [],
     displayDetailCartView: false,
-    artistDescription: null
+    artistDescription: null,
+    cart: {}
   }
 
 
@@ -38,9 +39,9 @@ class App extends Component {
     const shows = json.resultsPage.results.event
     this.setState({ shows })
     const newState = { ...this.state }
-    const splitBandNames = newState.shows.map(show => show.displayName = show.displayName.split(' at Red Rocks')[0])
-    const splitVenueName = newState.shows.map(show => show.venue.displayName = show.venue.displayName.split(' Amphitheatre')[0])
-    const dateFormat = newState.shows.map(show => show.start.date = show.start.date.split('-').splice(1, 3).concat(show.start.date.split('-')[0]).join('/'))
+    newState.shows.map(show => show.displayName = show.displayName.split(' at Red Rocks')[0])
+    newState.shows.map(show => show.venue.displayName = show.venue.displayName.split(' Amphitheatre')[0])
+    newState.shows.map(show => show.start.date = show.start.date.split('-').splice(1, 3).concat(show.start.date.split('-')[0]).join('/'))
     this.setState(newState)
     // console.log('newState', this.state)
   }
@@ -62,7 +63,6 @@ class App extends Component {
     const newState = { ...this.state }
     newState.filterString = event.target.value
     this.setState(newState)
-
   }
 
   // Tab Functions
@@ -83,6 +83,7 @@ class App extends Component {
     const newState = { ...this.state }
     const clickedShow = newState.shows.find(show => (parseInt(show.id) === parseInt(event.target.id)))
     newState.displayDetailCartView = true
+    newState.displaySuccess = false
     newState.displayShow = clickedShow
 
     this.setState(newState)
@@ -107,6 +108,16 @@ class App extends Component {
       newState.displayCart = true
     }
     this.setState(newState)
+  }
+
+  // Cart Functions
+  purchaseClick = (event) => {
+    const newState = { ...this.state }
+    newState.cart = newState.inCart
+  }
+
+  removeFromCart = (event) => {
+    console.log(event.target.id)
   }
 
 
@@ -136,6 +147,7 @@ class App extends Component {
                 <div className='col-md-6 float-left'>
                   {this.state.displayCart || this.state.displayShow ?
                     <DetailCartView
+                      purchaseClick={this.purchaseClick}
                       inCart={this.state.inCart}
                       tabClicked={this.tabClicked}
                       returnToShows={this.returnToShows}

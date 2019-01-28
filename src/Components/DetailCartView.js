@@ -20,35 +20,37 @@ class DetailCartView extends Component {
   }
 
 
-  render(){
+  render() {
     return (
-    <div className='DetailCartView container'>
-      <ul className="nav nav-tabs" id="myTab" role="tablist">
-        <li className="nav-item">
-          <a onClick={this.props.tabClicked} className="nav-link active" id="showDetails-tab" data-toggle="tab" href="#showDetails" role="tab" aria-controls="showDetails" aria-selected="true">Show Details</a>
-        </li>
-        <li className="nav-item">
-          <a onClick={this.props.tabClicked} className="nav-link" id="cart-tab" data-toggle="tab" href="#cart" role="tab" aria-controls="cart" aria-selected="false">My Cart</a>
-        </li>
-      </ul>
+      <div className='DetailCartView container'>
+        <ul className="nav nav-tabs" id="myTab" role="tablist">
+          <li className="nav-item">
+            <a onClick={this.props.tabClicked} className="nav-link active" id="showDetails-tab" data-toggle="tab" href="#showDetails" role="tab" aria-controls="showDetails" aria-selected="true">Show Details</a>
+          </li>
+          <li className="nav-item">
+            <a onClick={this.props.tabClicked} className="nav-link" id="cart-tab" data-toggle="tab" href="#cart" role="tab" aria-controls="cart" aria-selected="false">My Cart</a>
+          </li>
+        </ul>
 
-      <div className="tab-content" id="myTabContent">
-        <div className="tab-pane fade show active" id="showDetails" role="tabpanel" aria-labelledby="showDetails-tab">
-          <ShowDetailView
-            artistInfo={this.state.artistInfo}
-            returnToShows={this.props.returnToShows}
-            displayShow={this.props.displayShow}
-            addToCart={this.props.addToCart}
-            showsExpandClick={this.props.showsExpandClick}
-            displaySuccess={this.props.displaySuccess}
-            displayWarning={this.props.displayWarning} />
-        </div>
-        <div className="tab-pane fade" id="cart" role="tabpanel" aria-labelledby="cart-tab">
-          {this.props.inCart.length > 0 ? <Cart showsInCart={this.props.inCart} /> : <h1>Nothing in Cart!</h1>}
+        <div className="tab-content" id="myTabContent">
+          <div className="tab-pane fade show active" id="showDetails" role="tabpanel" aria-labelledby="showDetails-tab">
+            <ShowDetailView
+              artistInfo={this.state.artistInfo}
+              returnToShows={this.props.returnToShows}
+              displayShow={this.props.displayShow}
+              addToCart={this.props.addToCart}
+              showsExpandClick={this.props.showsExpandClick}
+              displaySuccess={this.props.displaySuccess}
+              displayWarning={this.props.displayWarning} />
+          </div>
+          <div className="tab-pane fade" id="cart" role="tabpanel" aria-labelledby="cart-tab">
+            {this.props.inCart.length > 0 ?
+              <Cart showsInCart={this.props.inCart}
+                purchaseClick={this.props.purchaseClick} /> : <h1>Nothing in Cart!</h1>}
+          </div>
         </div>
       </div>
-    </div>
-  )
+    )
   }
 }
 
