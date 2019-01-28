@@ -10,6 +10,7 @@ import Cart from './Components/Cart/Cart'
 import LoginView from './Components/LoginView/LoginView'
 import Footer from './Components/Footer'
 import SponsorBox from './Components/SponsorBox'
+import DetailCartView from './Components/DetailCartView'
 
 
 
@@ -25,7 +26,8 @@ class App extends Component {
     loginView: false,
     displayCart: false,
     filterString: '',
-    inCart: []
+    inCart: [],
+    displayDetailCartView: false
   }
 
 
@@ -44,8 +46,12 @@ class App extends Component {
 
 //----------------- (This gets data from server, but only if you comment out the other componentDidMount
 
+//Get All Route End Points so far:
+//https://something-innocuous.herokuapp.com/pickup_locations
+//https://something-innocuous.herokuapp.com/pickup_locations
+
   // async componentDidMount() {
-  //   const response = await fetch('https://something-innocuous.herokuapp.com/events', {mode: 'cors'})
+  //   const response = await fetch('https://something-innocuous.herokuapp.com/pickup_locations', {mode: 'cors'})
   //   const json = await response.json()
   //   console.log(json)
   //   this.setState({ dbShows: json })
@@ -53,17 +59,18 @@ class App extends Component {
   //   console.log('newState', this.state)
   // }
 
-  async componentDidMount() {
-    const response = await fetch('https://api.songkick.com/api/3.0/venues/591/calendar.json?per_page=100&apikey=8ViJ6NJZPEwjp3Cp')
-    const json = await response.json()
-    // console.log(json.resultsPage.results.event)
-    this.setState({ shows: json.resultsPage.results.event })
-    const newState = { ...this.state }
-    const splitBandNames = newState.shows.map(show => show.displayName = show.displayName.split(' at Red Rocks')[0])
-    const splitVenueName = newState.shows.map(show => show.venue.displayName = show.venue.displayName.split(' Amphitheatre')[0])
-    this.setState(newState)
-    // console.log('newState', this.state)
-  }
+  // async componentDidMount() {
+  //   const response = await fetch('
+  //   ')
+  //   const json = await response.json()
+  //   // console.log(json.resultsPage.results.event)
+  //   this.setState({ shows: json.resultsPage.results.event })
+  //   const newState = { ...this.state }
+  //   const splitBandNames = newState.shows.map(show => show.displayName = show.displayName.split(' at Red Rocks')[0])
+  //   const splitVenueName = newState.shows.map(show => show.venue.displayName = show.venue.displayName.split(' Amphitheatre')[0])
+  //   this.setState(newState)
+  //   // console.log('newState', this.state)
+  // }
 
 
   // Header Functions
@@ -86,10 +93,24 @@ class App extends Component {
 
   }
 
+  // Tab Functions
+  tabClicked = (event) => {
+    const newState = {...this.state}
+    if(event.target.id === 'cart-tab'){
+      newState.displayCart = true
+    }
+    else{
+      newState.displayCart = false
+    }
+
+    this.setState(newState)
+  }
+
   // Show Functions
   showsExpandClick = (event) => {
     const newState = { ...this.state }
     const clickedShow = newState.shows.find(show => (parseInt(show.id) === parseInt(event.target.id)))
+    newState.displayDetailCartView = true
     newState.displayShow = clickedShow
 
     this.setState(newState)
@@ -129,32 +150,46 @@ class App extends Component {
               <Header
                 searchShows={this.searchShows}
                 loginClick={this.loginClick} />
-              {!this.state.displayShow ?
-                <div className='content-section'>
-                  <div className='col-md-6 float-left'>
-                    <ShowList
-                      filterString={this.state.filterString}
-                      shows={this.state.shows}
-                      showsExpandClick={this.showsExpandClick} />
-                    {/* <SponsorBox /> */}
-                  </div>
-                </div> :
+              <div className='content-section'>
                 <div className='col-md-6 float-left'>
-                  <ShowDetailView
+                  <ShowList
+                    filterString={this.state.filterString}
+                    shows={this.state.shows}
+                    showsExpandClick={this.showsExpandClick} />
+
+                </div>
+              </div>
+              <div className='col-md-6 float-left'>
+                {this.state.displayCart || this.state.displayShow ?
+                  <DetailCartView
+                    inCart={this.state.inCart}
+                    tabClicked={this.tabClicked}
                     returnToShows={this.returnToShows}
                     displayShow={this.state.displayShow}
                     addToCart={this.addToCart}
                     showsExpandClick={this.showsExpandClick}
                     displaySuccess={this.state.displaySuccess}
-                    displayWarning={this.state.displayWarning} />
-
-                </div>}
-              {this.state.displayCart ?
-                <div className='col-md-6 float-right'>
-                  <Cart showsInCart={this.state.inCart} />
-                </div> : <SponsorBox />}
-
-              {/* <Footer /> */}
+                    displayWarning={this.state.displayWarning}
+                    displayCart={this.state.displayCart}
+                    showsInCart={this.state.inCart} />
+                  :
+                  <SponsorBox />}
+                {/* {this.state.displayDetailCartView ?
+                  <div className='col-md-12 float-left'>
+                    {this.state.displayCart ?
+                      <Cart showsInCart={this.state.inCart} />
+                      :
+                      <ShowDetailView
+                        returnToShows={this.returnToShows}
+                        displayShow={this.state.displayShow}
+                        addToCart={this.addToCart}
+                        showsExpandClick={this.showsExpandClick}
+                        displaySuccess={this.state.displaySuccess}
+                        displayWarning={this.state.displayWarning} />
+                    }
+                  </div>
+                  : ''} */}
+              </div>
             </React.Fragment> : <Loading />
         }
 
