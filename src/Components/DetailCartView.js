@@ -72,7 +72,7 @@ class DetailCartView extends Component {
               displaySuccess={this.props.displaySuccess}
               displayWarning={this.props.displayWarning} />
           </div>
-          <div className="tab-pane fade" id="cart" role="tabpanel" aria-labelledby="cart-tab">
+          <div className="tab-pane fade" id="cart" data-toggle="tab" role="tabpanel" aria-labelledby="cart-tab">
             {this.props.inCart.length > 0 ?
               <Cart
                 ticketQuantity={this.state.ticketQuantity}
