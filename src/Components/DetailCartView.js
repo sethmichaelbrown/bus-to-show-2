@@ -9,15 +9,17 @@ class DetailCartView extends Component {
     const pickups = await fetch('https://something-innocuous.herokuapp.com/pickup_locations')
     const pickupLocations = await pickups.json()
     this.setState({ pickupLocations })
-    // console.log('DCV newState', this.state)
+    console.log('DCV newState', this.state)
   }
 
   state = {
     rideId: null,
     ticketQuantity: null,
     displayAddBtn: false,
-    displayQuantity: false
+    displayQuantity: false,
   }
+
+
 
   selectRideId = (event) => {
     const newState = { ...this.state }
@@ -42,6 +44,7 @@ class DetailCartView extends Component {
     newState.ticketQuantity = event.target.value
     this.setState(newState)
   }
+  
 
 
 
@@ -75,6 +78,7 @@ class DetailCartView extends Component {
           <div className="tab-pane fade" id="cart" data-toggle="tab" role="tabpanel" aria-labelledby="cart-tab">
             {this.props.inCart.length > 0 ?
               <Cart
+                ticketPrice={this.state.ticketPrice}
                 ticketQuantity={this.state.ticketQuantity}
                 pickupLocations={this.state.pickupLocations}
                 showsInCart={this.props.inCart}
