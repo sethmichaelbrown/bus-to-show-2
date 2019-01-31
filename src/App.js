@@ -58,6 +58,43 @@ class App extends Component {
     this.setState(newState)
   }
 
+  purchase = async (cartObj) =>{
+    const inCartresponse = await fetch ('https://something-innocuous.herokuapp.com/pickup_parties', {
+      method: 'PATCH',
+      body: JSON.stringify(cartObj),
+      headers:{
+        'Content-Type': 'application/json'
+      }
+      })
+    let timeoutCartObj = {...cartObj}
+    timeoutCartObj.quantity
+    setTimeout(fetch('https://something-innocuous.herokuapp.com/pickup_parties', {
+    method: PATCH,
+    body: {inCart: InCart+cartObj.quantity},
+    headers:{
+      'Content-Type': 'application/json'
+    }
+    }), 600000)
+      const stripeResponse = await fetch ('https://api.stripe.com', {
+    method: PATCH,
+    body: JSON.stringify(cartObj),
+    headers:{
+      'Content-Type': 'application/json'
+    }
+    // }
+    // if(stripeResponse.paid){
+    // fetch ('https://something-innocuous.herokuapp.com/orders', {
+    // method: PATCH
+    // body: {inCart: InCart+cartObj.quantity}
+    // headers…
+    // …
+    // }
+    // } else {
+    // Display error message
+    //   }
+    // }
+
+
   // Tab Functions
   tabClicked = (event) => {
     const newState = { ...this.state }
