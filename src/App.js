@@ -106,7 +106,7 @@ class App extends Component {
         console.log(event.target)
       }
     }
-    console.log(this.state)
+    // console.log(this.state)
     this.setState(newState)
   }
 
@@ -124,6 +124,16 @@ class App extends Component {
     const newState = { ...this.state }
     newState.displayBorder = true
     this.setState(newState)
+
+    setTimeout(() => {
+      const newState = { ...this.state }
+      newState.displayBorder = false
+      this.setState(newState)
+    }, 2000)
+    // const newState = { ...this.state }
+    // newState.displayBorder = true
+    // this.setState(newState)
+    console.log('addBorder clicked')
   }
 
 

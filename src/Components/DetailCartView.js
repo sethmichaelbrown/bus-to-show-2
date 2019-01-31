@@ -81,6 +81,7 @@ class DetailCartView extends Component {
               <Cart
                 pickupLocations={this.state.pickupLocations}
                 purchaseClick={this.props.purchaseClick}
+                returnToShows={this.props.returnToShows}
                 rideId={this.state.rideId}
                 showsInCart={this.props.inCart}
                 ticketPrice={this.state.ticketPrice}
