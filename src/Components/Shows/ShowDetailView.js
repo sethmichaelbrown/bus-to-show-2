@@ -3,7 +3,7 @@ import '../../App.css';
 
 const ShowDetailView = (props) => {
 
-  // console.log(props)
+  // console.log("ShowDetailView",props)
 
   const show = props.displayShow
   const headlinerBio = show.headlinerBio.split('<a')[0]

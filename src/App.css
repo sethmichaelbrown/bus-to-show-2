@@ -1,3 +1,4 @@
+/* Shows Styling */
 .highlightOnHover:hover {
   background: rgba(248, 249, 250, .75);
 }
@@ -13,47 +14,6 @@
 
 .return-btn {
   display: inline-block;
-}
-
-.fixed-bottom {
-  display: flex;
-  align-items: flex-start
-}
-
-.footer-col>ul {
-  list-style-type: none;
-  font-size: 10px;
-  justify-content: flex-start;
-
-}
-
-.footer-col>li {
-  margin-left: 0;
-  padding-left: 0;
-}
-
-.footer-col>p {
-  font-size: 12px;
-}
-
-.alert-item {
-  border: none;
-}
-
-.login-image-section {
-  background: url('./Images/bts-future-selves-background-image.png');
-  background-position: top;
-  background-size: cover;
-  background-repeat: no-repeat;
-  height: 100vh;
-}
-
-.login-content {
-  display: flex;
-}
-
-.login-content-section {
-  margin: auto;
 }
 
 .list-item-font {
@@ -91,5 +51,61 @@
   border: solid;
   border-color: white;
   border-width: 1px;
+}
+
+/* Footer Styling */
+.fixed-bottom {
+  display: flex;
+  align-items: flex-start
+}
+
+.footer-col>ul {
+  list-style-type: none;
+  font-size: 10px;
+  justify-content: flex-start;
+
+}
+
+.footer-col>li {
+  margin-left: 0;
+  padding-left: 0;
+}
+
+.footer-col>p {
+  font-size: 12px;
+}
+
+
+/* Alert Styling */
+.alert-item {
+  border: none;
+}
+
+/* Login View Styling */
+.login-image-section {
+  background: url('./Images/bts-future-selves-background-image.png');
+  background-position: top;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
+}
+
+.login-content {
+  display: flex;
+}
+
+.login-content-section {
+  margin: auto;
+}
+
+/* Cart Styling */
+.nothing-in-cart-text{
+  text-align: center;
+  color: #616060;
+  opacity: 0.5;
+}
+
+.nothing-in-cart-image{
+ opacity: 0.5;
 }
 
