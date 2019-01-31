@@ -35,6 +35,7 @@ class App extends Component {
     const newState = { ...this.state }
     newState.shows.map(show => show.date = show.date.split('T')[0].split('-').splice(1, 3).concat(show.date.split('T')[0].split('-')[0]).join('/'))
     this.setState(newState)
+    console.log(this.state.inCart)
     // console.log('newState', this.state)
   }
 
@@ -128,10 +129,7 @@ class App extends Component {
       newState.displayBorder = false
       this.setState(newState)
     }, 2000)
-    // const newState = { ...this.state }
-    // newState.displayBorder = true
-    // this.setState(newState)
-    console.log('addBorder clicked')
+    
   }
 
 
