@@ -4,9 +4,7 @@ import './App.css';
 
 import Header from './Components/Header'
 import ShowList from './Components/Shows/ShowList'
-// import ShowDetailView from './Components/Shows/ShowDetailView'
 import Loading from './Components/Loading'
-// import Cart from './Components/Cart/Cart'
 import LoginView from './Components/LoginView/LoginView'
 // import Footer from './Components/Footer'
 import SponsorBox from './Components/SponsorBox'
@@ -37,6 +35,7 @@ class App extends Component {
     const newState = { ...this.state }
     newState.shows.map(show => show.date = show.date.split('T')[0].split('-').splice(1, 3).concat(show.date.split('T')[0].split('-')[0]).join('/'))
     this.setState(newState)
+    console.log(this.state.inCart)
     // console.log('newState', this.state)
   }
 
@@ -129,11 +128,8 @@ class App extends Component {
       const newState = { ...this.state }
       newState.displayBorder = false
       this.setState(newState)
-    }, 2000)
-    // const newState = { ...this.state }
-    // newState.displayBorder = true
-    // this.setState(newState)
-    console.log('addBorder clicked')
+    }, 1500)
+    
   }
 
 

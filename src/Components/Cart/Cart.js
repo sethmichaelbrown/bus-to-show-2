@@ -29,9 +29,13 @@ const Cart = (props) => {
           </ul>
           {props.showsInCart ? <div className="list-group-item">
             <div className='row'>
-              <button type="button" onClick={props.returnToShows} className="btn btn-outline-danger return-btn ml-2 float-right">Cancel</button>
-              <button type="button" onClick={props.purchaseClick} className="btn btn-outline-success return-btn ml-2 float-right">Purchase</button>
-              <span className='col-md-3 float-right'>{`Total: $${ticketCost}`}</span>
+              <div className="buttons-cont col-md-6">
+                <button type="button" onClick={props.returnToShows} className="btn btn-outline-danger return-btn ml-2">Cancel</button>
+                <button type="button" onClick={props.purchaseClick} className="btn btn-outline-success return-btn ml-2">Purchase</button>
+              </div>
+              <div className="total-cont offset-md-3 col-md-3">
+                <span className=''>{`Total: $${ticketCost}`}</span>
+              </div>
             </div>
           </div> : ''}
         </div>

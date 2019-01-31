@@ -66,11 +66,30 @@
   height: 25vh;
 }
 
+.content-section-details{
+  padding: 1.5%;
+  border-radius: 5px;
+  border: solid;
+  border-color: white;
+  border-width: 1px;
+}
+
 .add-border {
   transition: border 0.4s ease;
   opacity: 1;
   border-radius: 5px;
   border: solid;
   border-color: gray;
-  border-width: medium;
+  border-width: 1px;
+  
 }
+
+.remove-border {
+  transition: border 0.4s ease;
+  opacity: 1;
+  border-radius: 5px;
+  border: solid;
+  border-color: white;
+  border-width: 1px;
+}
+

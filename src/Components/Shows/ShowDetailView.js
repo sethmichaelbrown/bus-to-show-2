@@ -15,7 +15,7 @@ const ShowDetailView = (props) => {
   return (
     <div className='ShowDetailView'>
       {show ?
-        <div className={`${props.displayBorder ? 'add-border' : 'remove-border'}`}>
+        <div className={`content-section-details ${props.displayBorder ? 'add-border' : 'remove-border'}`}>
           <h3>{show.headliner}</h3>
           <div className="list-group">
             <div className="list-group-item">
