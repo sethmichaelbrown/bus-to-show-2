@@ -249,6 +249,7 @@ class App extends Component {
                       showsExpandClick={this.showsExpandClick}
                       showsInCart={this.state.inCart}
                       tabClicked={this.tabClicked}
+                      ticketQuantity={this.state.ticketQuantity}
                       validated={this.state.validated} />
                     :
                     <SponsorBox />}

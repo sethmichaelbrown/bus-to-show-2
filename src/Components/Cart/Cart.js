@@ -3,7 +3,7 @@ import '../../App.css';
 import CartItem from './CartItem'
 
 const Cart = (props) => {
-  // console.log('Cart', props.showsInCart)
+  console.log('Cart', props)
   const ticketCost = (parseInt(props.basePrice) * parseInt(props.ticketQuantity)).toFixed(2)
 
 
@@ -39,51 +39,28 @@ const Cart = (props) => {
                         <input type="text" className={`form-control ${props.validated ? 'is-valid' : 'is-invalid'}`} id="validationCustom01" placeholder="First name" required />
                         <div className="valid-feedback">
                           Looks good!
-      </div>
                       </div>
+                      </div>
+                      
                       <div className="col-md-4 mb-3">
                         <label htmlFor="validationCustom02">Last name</label>
                         <input type="text" className={`form-control ${props.validated ? 'is-valid' : 'is-invalid'}`} id="validationCustom02" placeholder="Last name" required />
-                        <div className="valid-feedback">
-                          Looks good!
-      </div>
-                      </div>
-                      <div className="col-md-4 mb-3">
-                        <label htmlFor="validationCustomUsername">Username</label>
-                        <div className="input-group">
-                          <div className="input-group-prepend">
-                            <span className="input-group-text" id="inputGroupPrepend">@</span>
+                          <div className="valid-feedback">
+                            Looks good!
                           </div>
-                          <input type="text" className={`form-control ${props.validated ? 'is-valid' : 'is-invalid'}`} id="validationCustomUsername" placeholder="Username" aria-describedby="inputGroupPrepend" required />
-                          <div className="invalid-feedback">
-                            Please choose a username.
-        </div>
-                        </div>
                       </div>
+                      
                     </div>
                     <div className="form-row">
                       <div className="col-md-6 mb-3">
-                        <label htmlFor="validationCustom03">City</label>
-                        <input type="text" className={`form-control ${props.validated ? 'is-valid' : 'is-invalid'}`} id="validationCustom03" placeholder="City" required />
+                        <label htmlFor="validationCustom03">Email</label>
+                        <input type="email" className={`form-control ${props.validated ? 'is-valid' : 'is-invalid'}`} id="validationCustom03" placeholder="City" required />
                         <div className="invalid-feedback">
-                          Please provide a valid city.
+                          Please provide a valid email.
       </div>
                       </div>
-                      <div className="col-md-3 mb-3">
-                        <label htmlFor="validationCustom04">State</label>
-                        <input type="text" className={`form-control ${props.validated ? 'is-valid' : 'is-invalid'}`} id="validationCustom04" placeholder="State" required />
-                        <div className="invalid-feedback">
-                          Please provide a valid state.
-      </div>
                       </div>
-                      <div className="col-md-3 mb-3">
-                        <label htmlFor="validationCustom05">Zip</label>
-                        <input type="text" className={`form-control ${props.validated ? 'is-valid' : 'is-invalid'}`} id="validationCustom05" placeholder="Zip" required />
-                        <div className="invalid-feedback">
-                          Please provide a valid zip.
-      </div>
-                      </div>
-                    </div>
+                  
                     <div className="form-group">
                       <div className="form-check">
                         <input className="form-check-input" type="checkbox" value="" id="invalidCheck" required />
