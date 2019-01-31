@@ -28,6 +28,7 @@ class App extends Component {
     ticketQuantity: null,
     displayAddBtn: false,
     displayQuantity: false,
+    validated: false,
 
     cartToSend: {
       eventId: null,
@@ -156,6 +157,15 @@ class App extends Component {
   }
 
   // Cart Functions
+  handleSubmit = (event) => {
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+    this.setState({ validated: true });
+  }
+
   purchaseClick = (event) => {
     const newState = { ...this.state }
     // console.log(event.target)
@@ -228,6 +238,7 @@ class App extends Component {
                       displayShow={this.state.displayShow}
                       displaySuccess={this.state.displaySuccess}
                       displayQuantity={this.state.displayQuantity}
+                      handleSubmit={this.handleSubmit}
                       inCart={this.state.inCart}
                       pickupLocations={this.state.pickupLocations}
                       purchaseClick={this.purchaseClick}
@@ -237,7 +248,8 @@ class App extends Component {
                       selectTicketQuantity={this.selectTicketQuantity}
                       showsExpandClick={this.showsExpandClick}
                       showsInCart={this.state.inCart}
-                      tabClicked={this.tabClicked} />
+                      tabClicked={this.tabClicked}
+                      validated={this.state.validated} />
                     :
                     <SponsorBox />}
                 </div>

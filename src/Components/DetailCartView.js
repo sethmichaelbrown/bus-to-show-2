@@ -37,13 +37,15 @@ const DetailCartView = (props) => {
           <div className="tab-pane fade" id="cart" data-toggle="tab" role="tabpanel" aria-labelledby="cart-tab">
             {props.inCart.length > 0 ?
               <Cart
+                handleSubmit={props.handleSubmit}
                 pickupLocations={props.pickupLocations}
                 purchaseClick={props.purchaseClick}
                 returnToShows={props.returnToShows}
                 rideId={props.rideId}
                 showsInCart={props.inCart}
                 ticketPrice={props.ticketPrice}
-                ticketQuantity={props.ticketQuantity} /> :
+                ticketQuantity={props.ticketQuantity}
+                validated={props.validated} /> :
               <div className="nothing-in-cart">
                 <div className="list-group">
                   <div className="list-group-item">
