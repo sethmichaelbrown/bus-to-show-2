@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import '../App.css';
 import ShowDetailView from './Shows/ShowDetailView'
 import Cart from './Cart/Cart'
+import logo from '../Images/Logos/bts-logo-gray.png'
 
 class DetailCartView extends Component {
 
@@ -85,7 +86,33 @@ class DetailCartView extends Component {
                 rideId={this.state.rideId}
                 showsInCart={this.props.inCart}
                 ticketPrice={this.state.ticketPrice}
-                ticketQuantity={this.state.ticketQuantity} /> : <h1>Nothing in Cart!</h1>}
+                ticketQuantity={this.state.ticketQuantity} /> :
+              <div className="nothing-in-cart">
+                <div className="list-group">
+                  <div className="list-group-item">
+                    <div className="row">
+                      <div className="col-md-2">Show</div>
+                      <div className="col-md-4">Departure Location</div>
+                      <div className="col-md-2">Date</div>
+                      <div className="col-md-2">Quantity</div>
+                    </div>
+                  </div>
+                  <div className="row container nothing-in-cart-text">
+                    <div className="col-md-12 mt-3">
+                      <h1>Nothing in Cart!</h1>
+                    </div>
+                    <div className="col-md-12 mt-3">
+                      <img 
+                        className='nothing-in-cart-image' 
+                        src={logo} 
+                        alt="bts-logo" 
+                        width="233" 
+                        height="100"/>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            }
           </div>
         </div>
       </div>

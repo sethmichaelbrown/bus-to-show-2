@@ -93,3 +93,14 @@
   border-width: 1px;
 }
 
+.nothing-in-cart-text{
+  text-align: center;
+  color: #616060;
+  opacity: 0.5;
+}
+
+.nothing-in-cart-image{
+ opacity: 0.5;
+
+}
+
