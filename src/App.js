@@ -214,7 +214,7 @@ class App extends Component {
 
   purchaseClick = (event) => {
     const newState = { ...this.state }
-    // console.log(event.target)
+    // con                              sole.log(event.target)
 
     newState.cartToSend.email = null
     newState.cartToSend.eventId = newState.inCart[0].id

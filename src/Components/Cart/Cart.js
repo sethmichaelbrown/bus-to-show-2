@@ -27,6 +27,7 @@ const Cart = (props) => {
               rideId={props.rideId}
               showsInCart={props.showsInCart} />
           </ul>
+
           {props.showsInCart ?
             <div className="list-group-item" >
               <div className="row">
@@ -38,57 +39,52 @@ const Cart = (props) => {
                         <input type="text" className={`form-control ${props.validated ? 'is-valid' : 'is-invalid'}`} id="validationCustom01" placeholder="First Name" required />
                         <div className="valid-feedback">
                           Looks good!
+                        </div>
                       </div>
-                      </div>
-                      
+
                       <div className="col-md-4 mb-3">
                         <label htmlFor="validationCustom02">Last Name</label>
                         <input type="text" className={`form-control ${props.validated ? 'is-valid' : 'is-invalid'}`} id="validationCustom02" placeholder="Last Name" required />
-                          <div className="valid-feedback">
-                            Looks good!
+                        <div className="valid-feedback">
+                          Looks good!
                           </div>
                       </div>
-                      
                     </div>
-                    
-                      
-                    
+
                     <div className="form-row">
                       <div className="col-md-6 mb-3">
                         <label htmlFor="validationCustom03">Email</label>
                         <input type="email" className={`form-control ${props.validated ? 'is-valid' : 'is-invalid'}`} id="validationCustom03" placeholder="Email address" required />
                         <div className="invalid-feedback">
                           Please provide a valid email.
-      </div>
+                          </div>
                       </div>
-                      </div>
+                    </div>
 
-                  {props.checked ?
-                    <div className="form-row">
-                      <div className="col-md-4 mb-3">
-                        <label htmlFor="validationCustom01">Will Call First Name</label>
-                        <input type="text" className='form-control' id="validationCustom01" placeholder="First name"/>
-                        <div className="valid-feedback">
-                          Looks good!
+                    {props.checked ?
+                      <div className="form-row">
+                        <div className="col-md-4 mb-3">
+                          <label htmlFor="validationCustom01">Will Call First Name</label>
+                          <input type="text" className='form-control' id="validationCustom01" placeholder="First name" />
+                          <div className="valid-feedback">
+                            Looks good!
                       </div>
-                      </div>
-                      
-                      <div className="col-md-4 mb-3">
-                        <label htmlFor="validationCustom02">Will Call Last Name</label>
-                        <input type="text" className='form-control' id="validationCustom02" placeholder="Last name"/>
+                        </div>
+
+                        <div className="col-md-4 mb-3">
+                          <label htmlFor="validationCustom02">Will Call Last Name</label>
+                          <input type="text" className='form-control' id="validationCustom02" placeholder="Last name" />
                           <div className="valid-feedback">
                             Looks good!
                           </div>
                         </div>
-                      </div> 
+                      </div>
                       :
-                       <div className="form-row">
-                      <div className="col-md-4 mb-3">
-                      <button onClick={props.handleCheck} type="button" className="btn btn-outline-primary">Click if tickets are for someone else!</button>
-                 </div>
-                  </div> }
-
-
+                      <div className="form-row">
+                        <div className="col-md-4 mb-3">
+                          <button onClick={props.handleCheck} type="button" className="btn btn-outline-primary">Click if tickets are for someone else!</button>
+                        </div>
+                      </div>}
 
                     <div className='row'>
                       <div className="buttons-cont col-md-6">
