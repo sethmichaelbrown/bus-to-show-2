@@ -21,8 +21,8 @@ const SponsorBox = (props) => {
           </p>
           </div>
         </div>
-        </div>
       </div>
+    </div>
 
   )
 }
