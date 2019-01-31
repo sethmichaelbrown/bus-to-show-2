@@ -36,7 +36,7 @@ class App extends Component {
     const newState = { ...this.state }
     newState.shows.map(show => show.date = show.date.split('T')[0].split('-').splice(1, 3).concat(show.date.split('T')[0].split('-')[0]).join('/'))
     this.setState(newState)
-    // console.log('newState', this.state)
+    console.log('newState', this.state)
   }
 
   // Header Functions
