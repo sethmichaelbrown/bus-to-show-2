@@ -23,7 +23,25 @@ class App extends Component {
     inCart: [],
     displayDetailCartView: false,
     artistDescription: null,
-    displayBorder: false
+    displayBorder: false,
+    rideId: null,
+    ticketQuantity: null,
+    displayAddBtn: false,
+    displayQuantity: false,
+    validated: false,
+    checked: false,
+
+    cartToSend: {
+      eventId: null,
+      pickupLocationId: null,
+      firstName: null,
+      lastName: null,
+      email: null,
+      willCallFirstName: null,
+      willCallLastName: null,
+      ticketQuantity: null,
+      totalPrice: null
+    }
   }
 
 
@@ -31,13 +49,40 @@ class App extends Component {
     const response = await fetch('https://something-innocuous.herokuapp.com/events')
     const shows = await response.json()
     this.setState({ shows })
-
     const newState = { ...this.state }
     newState.shows.map(show => show.date = show.date.split('T')[0].split('-').splice(1, 3).concat(show.date.split('T')[0].split('-')[0]).join('/'))
     this.setState(newState)
-    console.log(this.state.inCart)
-    // console.log('newState', this.state)
+
+    const pickups = await fetch('https://something-innocuous.herokuapp.com/pickup_locations')
+    const pickupLocations = await pickups.json()
+    this.setState({ pickupLocations })
+    // console.log('State', this.state)
   }
+
+  selectRideId = (event) => {
+    const newState = { ...this.state }
+    newState.rideId = event.target.value
+    if (event.target.value) {
+      newState.displayQuantity = true
+    }
+    else {
+      newState.displayQuantity = false
+    }
+    this.setState(newState)
+  }
+
+  selectTicketQuantity = (event) => {
+    const newState = { ...this.state }
+    if (event.target.value) {
+      newState.displayAddBtn = true
+    }
+    else {
+      newState.displayAddBtn = false
+    }
+    newState.ticketQuantity = event.target.value
+    this.setState(newState)
+  }
+
 
   // Header Functions
   loginClick = (event) => {
@@ -128,28 +173,60 @@ class App extends Component {
 
   addToCart = (event) => {
     const newState = { ...this.state }
-    if (!newState.inCart.length) {
+    if (newState.inCart.length === 0) {
       newState.inCart.push(newState.displayShow)
       newState.displaySuccess = true
     }
     else {
-      const cartIds = newState.inCart.map(show => show.id)
-      const compareIds = cartIds.find(id => id == newState.displayShow.id)
-      if (!compareIds) {
-        newState.inCart.push(newState.displayShow)
-      }
-      else {
-        console.log(event.target)
-      }
+      // const cartIds = newState.inCart.map(show => show.id)
+      // const compareIds = cartIds.find(id => id == newState.displayShow.id)
+      // if (!compareIds) {
+      //   newState.inCart.push(newState.displayShow)
+      // }
+      // else {
+      //   console.log(event.target)
+      // }
+
+      console.log('One event at a time.')
     }
     // console.log(this.state)
     this.setState(newState)
+    // console.log('STATE from BTN', this.state)
   }
 
   // Cart Functions
+  handleSubmit = (event) => {
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+    this.setState({ validated: true });
+  }
+
+  handleCheck = (event) => {
+    const newState = {...this.state}
+    newState.checked = true
+    this.setState(newState)  
+  }
+
   purchaseClick = (event) => {
     const newState = { ...this.state }
-    newState.cart = newState.inCart
+    // console.log(event.target)
+
+    newState.cartToSend.email = null
+    newState.cartToSend.eventId = newState.inCart[0].id
+    newState.cartToSend.firstName = null
+    newState.cartToSend.lastName = null
+    newState.cartToSend.pickupLocationId = newState.rideId
+    newState.cartToSend.ticketQuantity = newState.ticketQuantity
+    newState.cartToSend.totalPrice = null
+    newState.cartToSend.willCallFirstName = null
+    newState.cartToSend.willCallLastName = null
+    // console.log('STATE', newState)
+    // console.log('CART', newState.cartToSend)
+
+
   }
 
   removeFromCart = (event) => {
@@ -166,7 +243,7 @@ class App extends Component {
       newState.displayBorder = false
       this.setState(newState)
     }, 1500)
-    
+
   }
 
 
@@ -192,31 +269,39 @@ class App extends Component {
                       shows={this.state.shows}
                       displayShow={this.state.displayShow}
                       showsExpandClick={this.showsExpandClick} />
-
                   </div>
                 </div>
+
                 <div className='col-md-6 float-left'>
                   {this.state.displayCart || this.state.displayShow ?
                     <DetailCartView
                       addToCart={this.addToCart}
+                      checked={this.state.checked}
+                      displayAddBtn={this.state.displayAddBtn}
                       displayBorder={this.state.displayBorder}
                       displayCart={this.state.displayCart}
                       displayShow={this.state.displayShow}
                       displaySuccess={this.state.displaySuccess}
-                      displayWarning={this.state.displayWarning}
+                      displayQuantity={this.state.displayQuantity}
+                      handleSubmit={this.handleSubmit}
+                      handleCheck={this.handleCheck}
                       inCart={this.state.inCart}
-                      pickupLocations={this.pickupLocations}
+                      pickupLocations={this.state.pickupLocations}
                       purchaseClick={this.purchaseClick}
                       returnToShows={this.returnToShows}
+                      rideId={this.state.rideId}
+                      selectRideId={this.selectRideId}
+                      selectTicketQuantity={this.selectTicketQuantity}
                       showsExpandClick={this.showsExpandClick}
                       showsInCart={this.state.inCart}
-                      tabClicked={this.tabClicked} />
+                      tabClicked={this.tabClicked}
+                      ticketQuantity={this.state.ticketQuantity}
+                      validated={this.state.validated} />
                     :
                     <SponsorBox />}
                 </div>
               </React.Fragment> : <Loading />
           }
-
         </div>
       </BrowserRouter>
     );
