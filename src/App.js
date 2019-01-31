@@ -4,9 +4,7 @@ import './App.css';
 
 import Header from './Components/Header'
 import ShowList from './Components/Shows/ShowList'
-// import ShowDetailView from './Components/Shows/ShowDetailView'
 import Loading from './Components/Loading'
-// import Cart from './Components/Cart/Cart'
 import LoginView from './Components/LoginView/LoginView'
 // import Footer from './Components/Footer'
 import SponsorBox from './Components/SponsorBox'
