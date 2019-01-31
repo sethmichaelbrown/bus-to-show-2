@@ -128,7 +128,7 @@ class App extends Component {
       const newState = { ...this.state }
       newState.displayBorder = false
       this.setState(newState)
-    }, 2000)
+    }, 1500)
     
   }
 
