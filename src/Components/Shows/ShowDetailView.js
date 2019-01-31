@@ -2,18 +2,19 @@ import React from 'react'
 import '../../App.css';
 
 const ShowDetailView = (props) => {
-  const show = props.displayShow
-  console.log("!!", show)
+  
   // console.log(props)
 
+  const show = props.displayShow
+  const headlinerBio = show.headlinerBio.split('<a')[0]
   const noBio = 'Well. Nothing to see here, so I guess...have a kitten on us.'
   
-  // Width then heigth for the placekitten url
+  // placekitten.com/width/heigth of photo to be displayed
   const placeKitten = 'http://placekitten.com/174/174'
 
   return (
     <div className='ShowDetailView'>
-      {props.displayShow ?
+      {show ?
         <React.Fragment>
           <h3>{show.headliner}</h3>
           <div className="list-group">
@@ -35,7 +36,7 @@ const ShowDetailView = (props) => {
             <div className="list-group-item">
               <div className='row'>
                 <div className="col-md-8 artist-info bio-font">
-                  {show.headlinerBio ? show.headlinerBio : noBio}                
+                  {show.headlinerBio ? headlinerBio : noBio}                
                 </div>
                 <div className="col-md-4 artist-image">
                   <img src={show.headlinerImgLink ? show.headlinerImgLink : placeKitten} alt="headliner"/>     

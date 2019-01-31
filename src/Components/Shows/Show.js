@@ -6,6 +6,7 @@ const Shows = (props) => {
   const filterString = props.filterString.toLowerCase()
   const filterShows = props.shows.filter(show => show.headliner.toLowerCase().includes(filterString))
 
+
   return (
     <div className='Shows'>
       {filterShows.length > 0 ? filterShows.map(show =>
@@ -13,7 +14,7 @@ const Shows = (props) => {
           <div className="row" id={show.id}>
             <div className="col-md-3 list-item-font" id={show.id}>{show.date} <br/> Saturday</div>
             <div className="col-md-7 list-item-font" id={show.id}>{show.headliner} <br/>{show.venue}</div>
-            <button id={show.id} onClick={props.showsExpandClick} type="button" className="btn btn-outline-dark col-md-2">Details</button>
+            <button id={show.id} onMouseOver={props.showsExpandClick} type="button" className="btn btn-outline-dark col-md-2">Details</button>
 
           </div>
 

@@ -35,9 +35,9 @@ const Header = (props) => {
                 </div>
               </li>
             </ul>
-            <form className="form-inline my-2 my-lg-0">
-              <input onKeyUp={props.searchShows} className="form-control mr-sm-2" type="search" placeholder="Search Events..." aria-label="Search" />
-            </form>
+            <div className="form-inline my-2 my-lg-0">
+              <input onKeyUp={props.searchShows} className="form-control mr-sm-2"  placeholder="Search Events..." aria-label="Search" />
+            </div>
             {/* <button onClick={props.loginClick} className="btn btn-outline-primary my-2 my-sm-0">Login</button>
             <button onClick={props.signUpClick} className="btn btn-outline-secondary my-2 my-sm-0 ml-1">Sign Up</button> */}
           </div>
