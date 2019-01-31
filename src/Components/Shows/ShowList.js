@@ -19,6 +19,7 @@ const Shows = (props) => {
 
             {props.shows ?
               <Show
+                addBorder={props.addBorder}
                 displayShow={props.displayShow}
                 filterString={props.filterString}
                 shows={props.shows}

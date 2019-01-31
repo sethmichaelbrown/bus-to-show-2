@@ -56,12 +56,21 @@
   margin: auto;
 }
 
-.list-item-font{
+.list-item-font {
   font-size: 16px;
 }
 
-.bio-font{
+.bio-font {
   font-size: 10px;
   overflow: scroll;
   height: 25vh;
+}
+
+.add-border {
+  transition: border 0.4s ease;
+  opacity: 1;
+  border-radius: 5px;
+  border: solid;
+  border-color: gray;
+  border-width: medium;
 }

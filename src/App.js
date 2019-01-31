@@ -25,6 +25,7 @@ class App extends Component {
     inCart: [],
     displayDetailCartView: false,
     artistDescription: null,
+    displayBorder: false
   }
 
 
@@ -36,7 +37,7 @@ class App extends Component {
     const newState = { ...this.state }
     newState.shows.map(show => show.date = show.date.split('T')[0].split('-').splice(1, 3).concat(show.date.split('T')[0].split('-')[0]).join('/'))
     this.setState(newState)
-    console.log('newState', this.state)
+    // console.log('newState', this.state)
   }
 
   // Header Functions
@@ -91,21 +92,21 @@ class App extends Component {
 
   addToCart = (event) => {
     const newState = { ...this.state }
-    if(!newState.inCart.length){
+    if (!newState.inCart.length) {
       newState.inCart.push(newState.displayShow)
       newState.displaySuccess = true
     }
-    else{
+    else {
       const cartIds = newState.inCart.map(show => show.id)
       const compareIds = cartIds.find(id => id == newState.displayShow.id)
-      if(!compareIds){
-         newState.inCart.push(newState.displayShow)
+      if (!compareIds) {
+        newState.inCart.push(newState.displayShow)
       }
-      else{
+      else {
         console.log(event.target)
       }
     }
-    console.log(this.state)
+    // console.log(this.state)
     this.setState(newState)
   }
 
@@ -117,6 +118,22 @@ class App extends Component {
 
   removeFromCart = (event) => {
     // console.log(event.target.id)
+  }
+
+  addBorder = () => {
+    const newState = { ...this.state }
+    newState.displayBorder = true
+    this.setState(newState)
+
+    setTimeout(() => {
+      const newState = { ...this.state }
+      newState.displayBorder = false
+      this.setState(newState)
+    }, 2000)
+    // const newState = { ...this.state }
+    // newState.displayBorder = true
+    // this.setState(newState)
+    console.log('addBorder clicked')
   }
 
 
@@ -137,6 +154,7 @@ class App extends Component {
                 <div className='content-section'>
                   <div className='col-md-6 float-left'>
                     <ShowList
+                      addBorder={this.addBorder}
                       filterString={this.state.filterString}
                       shows={this.state.shows}
                       displayShow={this.state.displayShow}
@@ -147,18 +165,19 @@ class App extends Component {
                 <div className='col-md-6 float-left'>
                   {this.state.displayCart || this.state.displayShow ?
                     <DetailCartView
-                      pickupLocations={this.pickupLocations}
-                      purchaseClick={this.purchaseClick}
-                      inCart={this.state.inCart}
-                      tabClicked={this.tabClicked}
-                      returnToShows={this.returnToShows}
-                      displayShow={this.state.displayShow}
                       addToCart={this.addToCart}
-                      showsExpandClick={this.showsExpandClick}
+                      displayBorder={this.state.displayBorder}
+                      displayCart={this.state.displayCart}
+                      displayShow={this.state.displayShow}
                       displaySuccess={this.state.displaySuccess}
                       displayWarning={this.state.displayWarning}
-                      displayCart={this.state.displayCart}
-                      showsInCart={this.state.inCart} />
+                      inCart={this.state.inCart}
+                      pickupLocations={this.pickupLocations}
+                      purchaseClick={this.purchaseClick}
+                      returnToShows={this.returnToShows}
+                      showsExpandClick={this.showsExpandClick}
+                      showsInCart={this.state.inCart}
+                      tabClicked={this.tabClicked} />
                     :
                     <SponsorBox />}
                 </div>
