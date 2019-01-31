@@ -103,6 +103,45 @@ class App extends Component {
     this.setState(newState)
   }
 
+  purchase = async () => {
+    const cartObj = this.state.cartToSend
+    const inCartresponse = await fetch('https://something-innocuous.herokuapp.com/pickup_parties', {
+      method: 'PATCH',
+      body: JSON.stringify(cartObj),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    let timeoutCartObj = { ...cartObj }
+    timeoutCartObj.ticketQuantity = timeoutCartObj.ticketQuantity * (-1)
+    setTimeout(fetch('https://something-innocuous.herokuapp.com/pickup_parties', {
+      method: 'PATCH',
+      body: JSON.stringify(cartObj),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }), 600000)
+    const stripeResponse = await fetch('https://api.stripe.com', {
+      method: 'PATCH',
+      body: JSON.stringify(cartObj),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    if(stripeResponse.paid) {
+      fetch('https://something-innocuous.herokuapp.com/orders', {
+        method: 'POST',
+        body: JSON.stringify(cartObj),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+    } else {
+      console.log('REJECTED!!!!!!!!!!!!!!!!!')
+    }
+  }
+
+
   // Tab Functions
   tabClicked = (event) => {
     const newState = { ...this.state }
@@ -168,9 +207,9 @@ class App extends Component {
   }
 
   handleCheck = (event) => {
-    const newState = {...this.state}
+    const newState = { ...this.state }
     newState.checked = true
-    this.setState(newState)  
+    this.setState(newState)
   }
 
   purchaseClick = (event) => {
