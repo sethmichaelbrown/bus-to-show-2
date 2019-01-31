@@ -3,7 +3,13 @@ import '../../App.css';
 
 const ShowDetailView = (props) => {
   const show = props.displayShow
+  console.log("!!", show)
   // console.log(props)
+
+  const noBio = 'Well. Nothing to see here, so I guess...have a kitten on us.'
+  
+  // Width then heigth for the placekitten url
+  const placeKitten = 'http://placekitten.com/174/174'
 
   return (
     <div className='ShowDetailView'>
@@ -13,36 +19,43 @@ const ShowDetailView = (props) => {
           <div className="list-group">
             <div className="list-group-item">
               <div className="row">
-                <div className="col-md-4">Event</div>
-                <div className="col-md-2">Location</div>
-                <div className="col-md-2">Date</div>
-                <div className="col-md-2"></div>
+                <div className="col-md-4">Location</div>
+                <div className="col-md-4">Date</div>
+                <div className="col-md-4"></div>
               </div>
             </div>
 
             <div className="list-group-item">
               <div className="row">
-                <div className="col-md-4">{show.headliner}</div>
-                <div className="col-md-2">{show.venue}</div>
-                <div className="col-md-2">{show.date}</div>
-                <div className="col-md-2">Saturday</div>
+                <div className="col-md-4">{show.venue}</div>
+                <div className="col-md-4">{show.date}</div>
+                <div className="col-md-4">Saturday</div>
               </div>
             </div>
             <div className="list-group-item">
               <div className='row'>
-                <div className="col-md-8 artist-info"></div>
-                <div className="col-md-4 artist-image"></div>
+                <div className="col-md-8 artist-info bio-font">
+                  {show.headlinerBio ? show.headlinerBio : noBio}                
+                </div>
+                <div className="col-md-4 artist-image">
+                  <img src={show.headlinerImgLink ? show.headlinerImgLink : placeKitten} alt="headliner"/>     
+                </div>
               </div>
               <div className="row col-md-7 float-left">
                 <span>Departure Location</span>
-                <form class="was-validated">
-                  <div class="form-group">
-                    <select class="custom-select mt-2" onChange={props.selectRideId} required>
+                <form className="was-validated">
+                  <div className="form-group">
+                    <select className="custom-select mt-2" onChange={props.selectRideId} required>
                       <option value="">Select a Departure Location...</option>
                       {props.pickupLocations ?
                         props.pickupLocations.map(location => {
                           return (
-                            <option key={location.id} id={location.id} value={location.id}>{location.locationName}</option>
+                            <option
+                              key={location.id}
+                              id={location.id}
+                              value={location.id}>
+                              {location.locationName}
+                            </option>
                           )
                         })
                         : ''}
@@ -54,9 +67,9 @@ const ShowDetailView = (props) => {
                 {props.displayQuantity ?
                   <React.Fragment>
                     <span>Ticket Quantity</span>
-                    <form class="was-validated">
-                      <div class="form-group">
-                        <select class="custom-select mt-2" onChange={props.selectTicketQuantity} required>
+                    <form className="was-validated">
+                      <div className="form-group">
+                        <select className="custom-select mt-2" onChange={props.selectTicketQuantity} required>
                           <option value="">Select Quantity</option>
                           <option value="1">1</option>
                           <option value="2">2</option>

@@ -3,7 +3,8 @@ import '../../App.css';
 
 const CartItem = (props) => {
   // console.log('CI', props)
-
+  
+  // const ticketCost = (parseInt(props.ticketPrice) * parseInt(props.ticketQuantity)).toFixed(2)
   const pickupLocation = props.pickupLocations.find(location => parseInt(location.id) === parseInt(props.rideId))
 
   return (
@@ -19,8 +20,9 @@ const CartItem = (props) => {
               <form>
                 <input type="number" className="form-control" defaultValue={props.ticketQuantity}/>
               </form>
+               {/* <span>{`$${ticketCost}`}</span> */}
             </div>
-            <div className="col-md-2 list-item-font" 
+            <div className="col-md-1 list-item-font" 
               id={show.id}><button type="button" className="btn btn-sm btn-outline-danger">Remove</button>
             </div>
           </div>

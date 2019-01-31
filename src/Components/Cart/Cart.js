@@ -3,8 +3,8 @@ import '../../App.css';
 import CartItem from './CartItem'
 
 const Cart = (props) => {
-  // console.log('Cart', props)
-
+  // console.log('Cart', props.showsInCart)
+  const ticketCost = (parseInt(props.basePrice) * parseInt(props.ticketQuantity)).toFixed(2)
 
   return (
     <div className='Cart'>
@@ -20,7 +20,8 @@ const Cart = (props) => {
             </div>
           </div>
           <ul className="list-group">
-            <CartItem 
+            <CartItem
+              ticketPrice={props.ticketPrice}
               ticketQuantity={props.ticketQuantity}
               pickupLocations={props.pickupLocations}
               rideId={props.rideId}
@@ -30,10 +31,11 @@ const Cart = (props) => {
             <div className='row'>
               <button type="button" onClick={props.returnToShows} className="btn btn-outline-danger return-btn ml-2 float-right">Cancel</button>
               <button type="button" onClick={props.purchaseClick} className="btn btn-outline-success return-btn ml-2 float-right">Purchase</button>
+              <span className='col-md-3 float-right'>{`Total: $${ticketCost}`}</span>
             </div>
           </div> : ''}
-        </div> 
-        </React.Fragment>
+        </div>
+      </React.Fragment>
 
     </div>
   )
