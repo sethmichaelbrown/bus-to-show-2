@@ -175,17 +175,17 @@ class App extends Component {
 
   purchaseClick = (event) => {
     const newState = { ...this.state }
-    console.log(event.target)
+    // console.log(event.target)
 
-                                                            // newState.cartToSend.email = null
-                                                            // newState.cartToSend.eventId = newState.inCart[0].id
-                                                            // newState.cartToSend.firstName = null
-                                                            // newState.cartToSend.lastName = null
-                                                            // newState.cartToSend.pickupLocationId = newState.rideId
-                                                            // newState.cartToSend.ticketQuantity = newState.ticketQuantity
-                                                            // newState.cartToSend.totalPrice = null
-                                                            // newState.cartToSend.willCallFirstName = null
-                                                            // newState.cartToSend.willCallLastName = null
+    newState.cartToSend.email = null
+    newState.cartToSend.eventId = newState.inCart[0].id
+    newState.cartToSend.firstName = null
+    newState.cartToSend.lastName = null
+    newState.cartToSend.pickupLocationId = newState.rideId
+    newState.cartToSend.ticketQuantity = newState.ticketQuantity
+    newState.cartToSend.totalPrice = null
+    newState.cartToSend.willCallFirstName = null
+    newState.cartToSend.willCallLastName = null
     // console.log('STATE', newState)
     // console.log('CART', newState.cartToSend)
 
