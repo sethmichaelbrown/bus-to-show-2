@@ -3,14 +3,13 @@ import '../../App.css';
 import CartItem from './CartItem'
 
 const Cart = (props) => {
-  console.log('Cart', props)
+  // console.log('Cart', props)
   const ticketCost = (parseInt(props.basePrice) * parseInt(props.ticketQuantity)).toFixed(2)
 
 
   return (
     <div className='Cart'>
       <React.Fragment>
-        <h2>My Cart</h2>
         <div className="list-group">
           <div className="list-group-item">
             <div className="row">
@@ -35,43 +34,62 @@ const Cart = (props) => {
                   <form className="needs-validation" noValidate>
                     <div className="form-row">
                       <div className="col-md-4 mb-3">
-                        <label htmlFor="validationCustom01">First name</label>
-                        <input type="text" className={`form-control ${props.validated ? 'is-valid' : 'is-invalid'}`} id="validationCustom01" placeholder="First name" required />
+                        <label htmlFor="validationCustom01">First Name</label>
+                        <input type="text" className={`form-control ${props.validated ? 'is-valid' : 'is-invalid'}`} id="validationCustom01" placeholder="First Name" required />
                         <div className="valid-feedback">
                           Looks good!
                       </div>
                       </div>
                       
                       <div className="col-md-4 mb-3">
-                        <label htmlFor="validationCustom02">Last name</label>
-                        <input type="text" className={`form-control ${props.validated ? 'is-valid' : 'is-invalid'}`} id="validationCustom02" placeholder="Last name" required />
+                        <label htmlFor="validationCustom02">Last Name</label>
+                        <input type="text" className={`form-control ${props.validated ? 'is-valid' : 'is-invalid'}`} id="validationCustom02" placeholder="Last Name" required />
                           <div className="valid-feedback">
                             Looks good!
                           </div>
                       </div>
                       
                     </div>
+                    
+                      
+                    
                     <div className="form-row">
                       <div className="col-md-6 mb-3">
                         <label htmlFor="validationCustom03">Email</label>
-                        <input type="email" className={`form-control ${props.validated ? 'is-valid' : 'is-invalid'}`} id="validationCustom03" placeholder="City" required />
+                        <input type="email" className={`form-control ${props.validated ? 'is-valid' : 'is-invalid'}`} id="validationCustom03" placeholder="Email address" required />
                         <div className="invalid-feedback">
                           Please provide a valid email.
       </div>
                       </div>
                       </div>
-                  
-                    <div className="form-group">
-                      <div className="form-check">
-                        <input className="form-check-input" type="checkbox" value="" id="invalidCheck" required />
-                        <label className="form-check-label" htmlFor="invalidCheck">
-                          Agree to terms and conditions
-      </label>
-                        <div className="invalid-feedback">
-                          You must agree before submitting.
-      </div>
+
+                  {props.checked ?
+                    <div className="form-row">
+                      <div className="col-md-4 mb-3">
+                        <label htmlFor="validationCustom01">Will Call First Name</label>
+                        <input type="text" className='form-control' id="validationCustom01" placeholder="First name"/>
+                        <div className="valid-feedback">
+                          Looks good!
                       </div>
-                    </div>
+                      </div>
+                      
+                      <div className="col-md-4 mb-3">
+                        <label htmlFor="validationCustom02">Will Call Last Name</label>
+                        <input type="text" className='form-control' id="validationCustom02" placeholder="Last name"/>
+                          <div className="valid-feedback">
+                            Looks good!
+                          </div>
+                        </div>
+                      </div> 
+                      :
+                       <div className="form-row">
+                      <div className="col-md-4 mb-3">
+                      <button onClick={props.handleCheck} type="button" className="btn btn-outline-primary">Click if tickets are for someone else!</button>
+                 </div>
+                  </div> }
+
+
+
                     <div className='row'>
                       <div className="buttons-cont col-md-6">
                         <button type="button" onClick={props.returnToShows} className="btn btn-outline-danger return-btn ml-2">Cancel</button>

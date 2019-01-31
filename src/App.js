@@ -29,6 +29,7 @@ class App extends Component {
     displayAddBtn: false,
     displayQuantity: false,
     validated: false,
+    checked: false,
 
     cartToSend: {
       eventId: null,
@@ -166,19 +167,25 @@ class App extends Component {
     this.setState({ validated: true });
   }
 
+  handleCheck = (event) => {
+    const newState = {...this.state}
+    newState.checked = true
+    this.setState(newState)  
+  }
+
   purchaseClick = (event) => {
     const newState = { ...this.state }
-    // console.log(event.target)
+    console.log(event.target)
 
-    newState.cartToSend.email = null
-    newState.cartToSend.eventId = newState.inCart[0].id
-    newState.cartToSend.firstName = null
-    newState.cartToSend.lastName = null
-    newState.cartToSend.pickupLocationId = newState.rideId
-    newState.cartToSend.ticketQuantity = newState.ticketQuantity
-    newState.cartToSend.totalPrice = null
-    newState.cartToSend.willCallFirstName = null
-    newState.cartToSend.willCallLastName = null
+                                                            // newState.cartToSend.email = null
+                                                            // newState.cartToSend.eventId = newState.inCart[0].id
+                                                            // newState.cartToSend.firstName = null
+                                                            // newState.cartToSend.lastName = null
+                                                            // newState.cartToSend.pickupLocationId = newState.rideId
+                                                            // newState.cartToSend.ticketQuantity = newState.ticketQuantity
+                                                            // newState.cartToSend.totalPrice = null
+                                                            // newState.cartToSend.willCallFirstName = null
+                                                            // newState.cartToSend.willCallLastName = null
     // console.log('STATE', newState)
     // console.log('CART', newState.cartToSend)
 
@@ -232,6 +239,7 @@ class App extends Component {
                   {this.state.displayCart || this.state.displayShow ?
                     <DetailCartView
                       addToCart={this.addToCart}
+                      checked={this.state.checked}
                       displayAddBtn={this.state.displayAddBtn}
                       displayBorder={this.state.displayBorder}
                       displayCart={this.state.displayCart}
@@ -239,6 +247,7 @@ class App extends Component {
                       displaySuccess={this.state.displaySuccess}
                       displayQuantity={this.state.displayQuantity}
                       handleSubmit={this.handleSubmit}
+                      handleCheck={this.handleCheck}
                       inCart={this.state.inCart}
                       pickupLocations={this.state.pickupLocations}
                       purchaseClick={this.purchaseClick}
