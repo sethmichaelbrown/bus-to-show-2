@@ -17,6 +17,7 @@ class DetailCartView extends Component {
     ticketQuantity: null,
     displayAddBtn: false,
     displayQuantity: false,
+    displayBorder: false,
   }
 
 
@@ -24,10 +25,10 @@ class DetailCartView extends Component {
   selectRideId = (event) => {
     const newState = { ...this.state }
     newState.rideId = event.target.value
-    if(event.target.value){
+    if (event.target.value) {
       newState.displayQuantity = true
     }
-    else{
+    else {
       newState.displayQuantity = false
     }
     this.setState(newState)
@@ -35,16 +36,15 @@ class DetailCartView extends Component {
 
   selectTicketQuantity = (event) => {
     const newState = { ...this.state }
-    if(event.target.value){
+    if (event.target.value) {
       newState.displayAddBtn = true
     }
-    else{
+    else {
       newState.displayAddBtn = false
     }
     newState.ticketQuantity = event.target.value
     this.setState(newState)
   }
-  
 
 
 
@@ -63,27 +63,28 @@ class DetailCartView extends Component {
         <div className="tab-content" id="myTabContent">
           <div className="tab-pane fade show active" id="showDetails" role="tabpanel" aria-labelledby="showDetails-tab">
             <ShowDetailView
-              displayQuantity={this.state.displayQuantity}
+              addToCart={this.props.addToCart}
               displayAddBtn={this.state.displayAddBtn}
-              selectTicketQuantity={this.selectTicketQuantity}
-              selectRideId={this.selectRideId}
+              displayBorder={this.props.displayBorder}
+              displayQuantity={this.state.displayQuantity}
+              displayShow={this.props.displayShow}
+              displaySuccess={this.props.displaySuccess}
+              displayWarning={this.props.displayWarning}
               pickupLocations={this.state.pickupLocations}
               returnToShows={this.props.returnToShows}
-              displayShow={this.props.displayShow}
-              addToCart={this.props.addToCart}
-              showsExpandClick={this.props.showsExpandClick}
-              displaySuccess={this.props.displaySuccess}
-              displayWarning={this.props.displayWarning} />
+              selectRideId={this.selectRideId}
+              selectTicketQuantity={this.selectTicketQuantity}
+              showsExpandClick={this.props.showsExpandClick} />
           </div>
           <div className="tab-pane fade" id="cart" data-toggle="tab" role="tabpanel" aria-labelledby="cart-tab">
             {this.props.inCart.length > 0 ?
               <Cart
-                ticketPrice={this.state.ticketPrice}
-                ticketQuantity={this.state.ticketQuantity}
                 pickupLocations={this.state.pickupLocations}
-                showsInCart={this.props.inCart}
+                purchaseClick={this.props.purchaseClick}
                 rideId={this.state.rideId}
-                purchaseClick={this.props.purchaseClick} /> : <h1>Nothing in Cart!</h1>}
+                showsInCart={this.props.inCart}
+                ticketPrice={this.state.ticketPrice}
+                ticketQuantity={this.state.ticketQuantity} /> : <h1>Nothing in Cart!</h1>}
           </div>
         </div>
       </div>

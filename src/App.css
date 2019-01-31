@@ -65,3 +65,7 @@
   overflow: scroll;
   height: 25vh;
 }
+
+add-border {
+  display: none;
+}

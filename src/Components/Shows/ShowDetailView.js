@@ -2,20 +2,20 @@ import React from 'react'
 import '../../App.css';
 
 const ShowDetailView = (props) => {
-  
+
   // console.log(props)
 
   const show = props.displayShow
   const headlinerBio = show.headlinerBio.split('<a')[0]
   const noBio = 'Well. Nothing to see here, so I guess...have a kitten on us.'
-  
+
   // placekitten.com/width/heigth of photo to be displayed
   const placeKitten = 'http://placekitten.com/174/174'
 
   return (
     <div className='ShowDetailView'>
       {show ?
-        <React.Fragment>
+        <div className={`${props.displayBorder ? 'add-border' : ''}`}>
           <h3>{show.headliner}</h3>
           <div className="list-group">
             <div className="list-group-item">
@@ -36,10 +36,10 @@ const ShowDetailView = (props) => {
             <div className="list-group-item">
               <div className='row'>
                 <div className="col-md-8 artist-info bio-font">
-                  {show.headlinerBio ? headlinerBio : noBio}                
+                  {show.headlinerBio ? headlinerBio : noBio}
                 </div>
                 <div className="col-md-4 artist-image">
-                  <img src={show.headlinerImgLink ? show.headlinerImgLink : placeKitten} alt="headliner"/>     
+                  <img src={show.headlinerImgLink ? show.headlinerImgLink : placeKitten} alt="headliner" />
                 </div>
               </div>
               <div className="row col-md-7 float-left">
@@ -54,9 +54,7 @@ const ShowDetailView = (props) => {
                             <option
                               key={location.id}
                               id={location.id}
-                              value={location.id}>
-                              {location.locationName}
-                            </option>
+                              value={location.id}>{location.locationName}</option>
                           )
                         })
                         : ''}
@@ -103,7 +101,7 @@ const ShowDetailView = (props) => {
               </div> : ''}
           </div>
 
-        </React.Fragment> : ''}
+        </div> : ''}
 
     </div>
   )
