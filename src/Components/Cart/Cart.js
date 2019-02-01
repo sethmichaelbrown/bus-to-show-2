@@ -36,25 +36,19 @@ const Cart = (props) => {
                     <div className="form-row">
                       <div className="col-md-4 mb-3">
                         <label htmlFor="firstName">First Name</label>
-                        <input onKeyUp={props.updatePurchaseField} type="text" className={`form-control ${props.validated ? 'is-valid' : 'is-invalid'}`} id="firstName" placeholder="First Name" required />
-                        <div className="valid-feedback">
-                          Looks good!
-                        </div>
+                        <input onKeyUp={props.updatePurchaseField} type="text" className={`form-control ${props.validatedElements.fName ? 'is-valid' : 'is-invalid'}`} id="firstName" placeholder="First Name" required />
                       </div>
 
                       <div className="col-md-4 mb-3">
                         <label htmlFor="lastName">Last Name</label>
-                        <input onKeyUp={props.updatePurchaseField} type="text" className={`form-control ${props.validated ? 'is-valid' : 'is-invalid'}`} id="lastName" placeholder="Last Name" required />
-                        <div className="valid-feedback">
-                          Looks good!
-                          </div>
+                        <input onKeyUp={props.updatePurchaseField} type="text" className={`form-control ${props.validatedElements.lName ? 'is-valid' : 'is-invalid'}`} id="lastName" placeholder="Last Name" required />
                       </div>
                     </div>
 
                     <div className="form-row">
                       <div className="col-md-6 mb-3">
                         <label htmlFor="email">Email</label>
-                        <input onKeyUp={props.updatePurchaseField} type="email" className={`form-control ${props.validated ? 'is-valid' : 'is-invalid'}`} id="email" placeholder="Email address" required />
+                        <input onKeyUp={props.updatePurchaseField} type="email" className={`form-control ${props.validatedElements.email ? 'is-valid' : 'is-invalid'}`} id="email" placeholder="Email address" required />
                         <div className="invalid-feedback">
                           Please provide a valid email.
                           </div>
@@ -65,18 +59,12 @@ const Cart = (props) => {
                       <div className="form-row">
                         <div className="col-md-4 mb-3">
                           <label htmlFor="willCallFirstName">Will Call First Name</label>
-                          <input onKeyUp={props.updatePurchaseField} type="text" className='form-control' id="willCallFirstName" placeholder="First Name" />
-                          <div className="valid-feedback">
-                            Looks good!
-                      </div>
+                          <input onKeyUp={props.updatePurchaseField} type="text" className='form-control' id="willCallFirstName" placeholder="First Name" />     
                         </div>
 
                         <div className="col-md-4 mb-3">
                           <label htmlFor="willCallLastName">Will Call Last Name</label>
                           <input onKeyUp={props.updatePurchaseField} type="text" className='form-control' id="willCallLastName" placeholder="Last Name" />
-                          <div className="valid-feedback">
-                            Looks good!
-                          </div>
                         </div>
                       </div>
                       :
@@ -100,9 +88,7 @@ const Cart = (props) => {
 
                 </div>
               </div>
-
             </div> : ''}
-
         </div>
       </React.Fragment>
 

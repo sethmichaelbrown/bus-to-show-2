@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route } from "react-router-dom"
+import Validator from 'validator'
 import './App.css';
 
 import Header from './Components/Header'
@@ -29,6 +30,11 @@ class App extends Component {
     displayAddBtn: false,
     displayQuantity: false,
     validated: false,
+    validatedElements: { 
+        fName: false, 
+        lName: false, 
+        email: false 
+        },
     checked: false,
 
     cartToSend: {
@@ -203,8 +209,7 @@ class App extends Component {
     // if (form.checkValidity() === false) {
     //   event.preventDefault();
     //   event.stopPropagation();
-    // }
-    // this.setState({ validated: true });
+
   }
 
   handleCheck = (event) => {
@@ -216,8 +221,40 @@ class App extends Component {
   updatePurchaseField = (event) => {
     const newState = { ...this.state }
     const updateField = event.target.id
-    newState.cartToSend[updateField] = event.target.value
-    this.setState(newState)
+    let validEmail
+    let validFirstName
+    let validLastName
+
+    if (!newState.validated) {
+      if (updateField === 'email') {
+        validEmail = Validator.isEmail(event.target.value)
+        newState.validatedElements.email = validEmail
+        let email = this.state.validatedElements.email
+        this.setState({ email: newState.validatedElements.email})
+      }
+      else if (updateField === 'firstName') {
+        validFirstName = Validator.isAlpha(event.target.value)
+        newState.validatedElements.fName = validFirstName
+        let fName = this.state.validatedElements.fName
+        this.setState({ fName: newState.validatedElements.fName})
+      }
+      else {
+        validLastName = Validator.isAlpha(event.target.value)
+        newState.validatedElements.lName = validLastName
+        let lName = this.state.validatedElements.lName
+        this.setState({ lName: newState.validatedElements.lName})
+      }
+    }
+
+    if (validEmail && validFirstName && validLastName) {
+      newState.cartToSend[updateField] = event.target.value
+      newState.validated = true
+      this.setState({ cartToSend: newState.cartToSend, validated: newState.validated })
+    }
+    else {
+      console.log('ERROR!')
+    }
+
   }
 
 
@@ -305,7 +342,8 @@ class App extends Component {
                       tabClicked={this.tabClicked}
                       ticketQuantity={this.state.ticketQuantity}
                       updatePurchaseField={this.updatePurchaseField}
-                      validated={this.state.validated} />
+                      validated={this.state.validated}
+                      validatedElements={this.state.validatedElements} />
                     :
                     <SponsorBox />}
                 </div>
