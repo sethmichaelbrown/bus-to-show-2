@@ -43,11 +43,14 @@ const DetailCartView = (props) => {
               handleSubmit={props.handleSubmit}
               pickupLocations={props.pickupLocations}
               purchaseClick={props.purchaseClick}
+              removeFromCart={props.removeFromCart}
               returnToShows={props.returnToShows}
               rideId={props.rideId}
               showsInCart={props.inCart}
               ticketPrice={props.ticketPrice}
               ticketQuantity={props.ticketQuantity}
+              updatePurchaseField={props.updatePurchaseField}
+              validatedElements={props.validatedElements}
               validated={props.validated} /> :
             <div className="nothing-in-cart">
               <div className="list-group">
