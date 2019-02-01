@@ -4,7 +4,7 @@ import CartItem from './CartItem'
 
 const Cart = (props) => {
   // console.log('Cart', props)
-  const ticketCost = (parseInt(props.basePrice) * parseInt(props.ticketQuantity)).toFixed(2)
+  const ticketCost = 15
 
 
   return (
