@@ -24,6 +24,7 @@ const Cart = (props) => {
               ticketPrice={props.ticketPrice}
               ticketQuantity={props.ticketQuantity}
               pickupLocations={props.pickupLocations}
+              removeFromCart={props.removeFromCart}
               rideId={props.rideId}
               showsInCart={props.showsInCart} />
           </ul>
@@ -48,7 +49,7 @@ const Cart = (props) => {
                     <div className="form-row">
                       <div className="col-md-6 mb-3">
                         <label htmlFor="email">Email</label>
-                        <input onKeyUp={props.updatePurchaseField} type="email" className={`form-control ${props.validatedElements.email ? 'is-valid' : 'is-invalid'}`} id="email" placeholder="Email address" required />
+                        <input onChange={props.updatePurchaseField} type="email" className={`form-control ${props.validatedElements.email ? 'is-valid' : 'is-invalid'}`} id="email" placeholder="Email address" required />
                         <div className="invalid-feedback">
                           Please provide a valid email.
                           </div>

@@ -31,11 +31,14 @@ class App extends Component {
     displayQuantity: false,
     validated: false,
     validatedElements: { 
-        fName: false, 
-        lName: false, 
-        email: false 
+        fName: null, 
+        lName: null, 
+        email: null,
+        wCFName: null,
+        wCLName: null 
         },
     checked: false,
+    totalCost: 0,
 
     cartToSend: {
       eventId: null,
@@ -46,7 +49,7 @@ class App extends Component {
       willCallFirstName: null,
       willCallLastName: null,
       ticketQuantity: null,
-      totalPrice: null
+      totalCost: null
     }
   }
 
@@ -221,61 +224,59 @@ class App extends Component {
   updatePurchaseField = (event) => {
     const newState = { ...this.state }
     const updateField = event.target.id
-    let validEmail
-    let validFirstName
-    let validLastName
+    const value = event.target.value
+    const vE = newState.validatedElements
 
     if (!newState.validated) {
-      if (updateField === 'email') {
-        validEmail = Validator.isEmail(event.target.value)
-        newState.validatedElements.email = validEmail
-        let email = this.state.validatedElements.email
-        this.setState({ email: newState.validatedElements.email})
+      if (updateField === 'email' && Validator.isEmail(value)) {
+        vE.email = value
       }
-      else if (updateField === 'firstName') {
-        validFirstName = Validator.isAlpha(event.target.value)
-        newState.validatedElements.fName = validFirstName
-        let fName = this.state.validatedElements.fName
-        this.setState({ fName: newState.validatedElements.fName})
+      else if (updateField === 'firstName' && Validator.isAlpha(value)) {
+        vE.fName = value
+      }
+      else if (updateField === 'lastName' && Validator.isAlpha(value)) {
+        vE.lName = value
+      }
+      else if(updateField === 'willCallFirstName' && Validator.isAlpha(value)){
+        vE.wCFName = value
+      }
+      else if(updateField === 'willCallLastName' && Validator.isAlpha(value)){
+        vE.wCLName = value
       }
       else {
-        validLastName = Validator.isAlpha(event.target.value)
-        newState.validatedElements.lName = validLastName
-        let lName = this.state.validatedElements.lName
-        this.setState({ lName: newState.validatedElements.lName})
+        return 'Please input valid items'
       }
     }
 
-    if (validEmail && validFirstName && validLastName) {
-      newState.cartToSend[updateField] = event.target.value
-      newState.validated = true
-      this.setState({ cartToSend: newState.cartToSend, validated: newState.validated })
+
+    if (this.state.validatedElements.fName && this.state.validatedElements.lName && this.state.validatedElements.email) {
+      const cTS = newState.cartToSend
+
+      cTS.firstName = this.state.validatedElements.fName
+      cTS.lastName = this.state.validatedElements.lName
+      cTS.email = this.state.validatedElements.email
+      cTS.eventId = this.state.inCart[0].id
+      cTS.ticketQuantity = this.state.ticketQuantity
+      cTS.pickupLocationId = this.state.rideId
+      cTS.willCallFirstName = this.state.validatedElements.wCFName
+      cTS.willCallLastName = this.state.validatedElements.wCLName
+      cTS.totalCost = this.state.totalCost
+
+   
+      this.setState({ cartToSend: newState.cartToSend })
+      console.log(this.state)
     }
     else {
-      console.log('ERROR!')
+      return 'ERROR!'
     }
-
-  }
-
-
-  purchaseClick = (event) => {
-    const newState = { ...this.state }
-    // console.log(event.target)
-
-    newState.cartToSend.eventId = newState.inCart[0].id
-    newState.cartToSend.pickupLocationId = newState.rideId
-    newState.cartToSend.ticketQuantity = newState.ticketQuantity
-    newState.cartToSend.totalPrice = null
-    newState.cartToSend.willCallFirstName = null
-    newState.cartToSend.willCallLastName = null
-    // console.log('STATE', newState)
-    // console.log('CART', newState.cartToSend)
-
 
   }
 
   removeFromCart = (event) => {
-    // console.log(event.target.id)
+   const newState = {...this.state}
+   newState.inCart = []
+   newState.displaySuccess = false
+   this.setState(newState)
   }
 
   addBorder = () => {
@@ -333,6 +334,7 @@ class App extends Component {
                       inCart={this.state.inCart}
                       pickupLocations={this.state.pickupLocations}
                       purchaseClick={this.purchaseClick}
+                      removeFromCart={this.removeFromCart}
                       returnToShows={this.returnToShows}
                       rideId={this.state.rideId}
                       selectRideId={this.selectRideId}
