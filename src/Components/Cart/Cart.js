@@ -80,7 +80,7 @@ const Cart = (props) => {
 
                     <div className="form-row">
                       <div className="col-md-4 mb-3">
-                        <input type="text" className='form-control' id="discountCode" placeholder="Discount Code" />
+                        <input onKeyUp={props.updatePurchaseField} type="text" className='form-control' id="discountCode" placeholder="Discount Code" />
                       </div>
                     </div>
 
