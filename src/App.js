@@ -49,7 +49,7 @@ class App extends Component {
       willCallFirstName: null,
       willCallLastName: null,
       ticketQuantity: 0,
-      totalCost: null
+      totalCost: 0
     }
   }
 
@@ -65,7 +65,7 @@ class App extends Component {
     const pickups = await fetch('https://something-innocuous.herokuapp.com/pickup_locations')
     const pickupLocations = await pickups.json()
     this.setState({ pickupLocations })
-    console.log('State', this.state)
+    // console.log('State', this.state)
   }
 
   selectRideId = (event) => {
@@ -182,12 +182,19 @@ class App extends Component {
 
   addToCart = (event) => {
     const newState = { ...this.state }
+    const pickupLocation = this.state.pickupLocations.filter(location => location.id == this.state.rideId)[0]
+    const basePrice = parseInt(pickupLocation.basePrice)
+    const ticketQuantity = parseInt(this.state.ticketQuantity)
+    const processingFee = parseInt((basePrice * ticketQuantity) * (0.1))
+    const cost = ((basePrice * ticketQuantity) + processingFee)
+    newState.totalCost = cost.toFixed(2)
+
     if (newState.inCart.length === 0) {
       newState.inCart.push(newState.displayShow)
       newState.displaySuccess = true
     }
     else {
-      // // Turn on if multiple shows desired
+      // // Turn on if multiple shows in cart desired
 
       // const cartIds = newState.inCart.map(show => show.id)
       // const compareIds = cartIds.find(id => id == newState.displayShow.id)
@@ -201,6 +208,7 @@ class App extends Component {
       console.log('One event at a time.')
     }
     this.setState(newState)
+    console.log(newState)
   }
 
 
@@ -239,7 +247,6 @@ class App extends Component {
       }
     }
 
-
     this.setState({ validatedElement: newState.validatedElements })
 
     // Populates cartToSend
@@ -257,12 +264,10 @@ class App extends Component {
       cTS.totalCost = this.state.totalCost
 
       this.setState({ cartToSend: newState.cartToSend })
-      console.log(this.state)
     }
     else {
       return 'ERROR!'
     }
-
   }
 
   removeFromCart = (event) => {
@@ -275,6 +280,12 @@ class App extends Component {
   quantityChange = (event) => {
     const newState = { ...this.state }
     newState.ticketQuantity = event.target.value
+    const pickupLocation = this.state.pickupLocations.filter(location => location.id == this.state.rideId)[0]
+    const basePrice = parseInt(pickupLocation.basePrice)
+    const ticketQuantity = parseInt(newState.ticketQuantity)
+    const processingFee = parseInt((basePrice * ticketQuantity) * (0.1))
+    const cost = ((basePrice * ticketQuantity) + processingFee)
+    newState.totalCost = cost.toFixed(2)
     this.setState(newState)
   }
 
@@ -288,9 +299,7 @@ class App extends Component {
       newState.displayBorder = false
       this.setState(newState)
     }, 1500)
-
   }
-
 
   render() {
     return (
@@ -341,6 +350,7 @@ class App extends Component {
                       showsInCart={this.state.inCart}
                       tabClicked={this.tabClicked}
                       ticketQuantity={this.state.ticketQuantity}
+                      totalCost={this.state.totalCost}
                       updatePurchaseField={this.updatePurchaseField}
                       validated={this.state.validated}
                       validatedElements={this.state.validatedElements} />

@@ -6,6 +6,7 @@ const CartItem = (props) => {
   
   // const ticketCost = (parseInt(props.ticketPrice) * parseInt(props.ticketQuantity)).toFixed(2)
   const pickupLocation = props.pickupLocations.find(location => parseInt(location.id) === parseInt(props.rideId))
+ 
 
   return (
     <div className='CartItem'>
