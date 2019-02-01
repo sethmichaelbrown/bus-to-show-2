@@ -30,13 +30,13 @@ class App extends Component {
     displayAddBtn: false,
     displayQuantity: false,
     validated: false,
-    validatedElements: { 
-        fName: null, 
-        lName: null, 
-        email: null,
-        wCFName: null,
-        wCLName: null 
-        },
+    validatedElements: {
+      fName: null,
+      lName: null,
+      email: null,
+      wCFName: null,
+      wCLName: null
+    },
     checked: false,
     totalCost: 0,
 
@@ -48,8 +48,8 @@ class App extends Component {
       email: '',
       willCallFirstName: null,
       willCallLastName: null,
-      ticketQuantity: null,
-      totalCost: null
+      ticketQuantity: 0,
+      totalCost: 0
     }
   }
 
@@ -182,11 +182,20 @@ class App extends Component {
 
   addToCart = (event) => {
     const newState = { ...this.state }
+    const pickupLocation = this.state.pickupLocations.filter(location => location.id == this.state.rideId)[0]
+    const basePrice = parseInt(pickupLocation.basePrice)
+    const ticketQuantity = parseInt(this.state.ticketQuantity)
+    const processingFee = parseInt((basePrice * ticketQuantity) * (0.1))
+    const cost = ((basePrice * ticketQuantity) + processingFee)
+    newState.totalCost = cost.toFixed(2)
+
     if (newState.inCart.length === 0) {
       newState.inCart.push(newState.displayShow)
       newState.displaySuccess = true
     }
     else {
+      // // Turn on if multiple shows in cart desired
+
       // const cartIds = newState.inCart.map(show => show.id)
       // const compareIds = cartIds.find(id => id == newState.displayShow.id)
       // if (!compareIds) {
@@ -198,23 +207,12 @@ class App extends Component {
 
       console.log('One event at a time.')
     }
-    // console.log(this.state)
     this.setState(newState)
-    // console.log('STATE from BTN', this.state)
+    console.log(newState)
   }
+
 
   // Cart Functions
-  handleSubmit = (event) => {
-    //  event.preventDefault();
-    console.log(event.target)
-    console.log(this.state)
-    // const form = event.currentTarget;
-    // if (form.checkValidity() === false) {
-    //   event.preventDefault();
-    //   event.stopPropagation();
-
-  }
-
   handleCheck = (event) => {
     const newState = { ...this.state }
     newState.checked = true
@@ -227,6 +225,7 @@ class App extends Component {
     const value = event.target.value
     const vE = newState.validatedElements
 
+    // Checks fields via npm package validator
     if (!newState.validated) {
       if (updateField === 'email' && Validator.isEmail(value)) {
         vE.email = value
@@ -237,10 +236,10 @@ class App extends Component {
       else if (updateField === 'lastName' && Validator.isAlpha(value)) {
         vE.lName = value
       }
-      else if(updateField === 'willCallFirstName' && Validator.isAlpha(value)){
+      else if (updateField === 'willCallFirstName' && Validator.isAlpha(value)) {
         vE.wCFName = value
       }
-      else if(updateField === 'willCallLastName' && Validator.isAlpha(value)){
+      else if (updateField === 'willCallLastName' && Validator.isAlpha(value)) {
         vE.wCLName = value
       }
       else {
@@ -248,7 +247,9 @@ class App extends Component {
       }
     }
 
+    this.setState({ validatedElement: newState.validatedElements })
 
+    // Populates cartToSend
     if (this.state.validatedElements.fName && this.state.validatedElements.lName && this.state.validatedElements.email) {
       const cTS = newState.cartToSend
 
@@ -262,21 +263,30 @@ class App extends Component {
       cTS.willCallLastName = this.state.validatedElements.wCLName
       cTS.totalCost = this.state.totalCost
 
-   
       this.setState({ cartToSend: newState.cartToSend })
-      console.log(this.state)
     }
     else {
       return 'ERROR!'
     }
-
   }
 
   removeFromCart = (event) => {
-   const newState = {...this.state}
-   newState.inCart = []
-   newState.displaySuccess = false
-   this.setState(newState)
+    const newState = { ...this.state }
+    newState.inCart = []
+    newState.displaySuccess = false
+    this.setState(newState)
+  }
+
+  quantityChange = (event) => {
+    const newState = { ...this.state }
+    newState.ticketQuantity = event.target.value
+    const pickupLocation = this.state.pickupLocations.filter(location => location.id == this.state.rideId)[0]
+    const basePrice = parseInt(pickupLocation.basePrice)
+    const ticketQuantity = parseInt(newState.ticketQuantity)
+    const processingFee = parseInt((basePrice * ticketQuantity) * (0.1))
+    const cost = ((basePrice * ticketQuantity) + processingFee)
+    newState.totalCost = cost.toFixed(2)
+    this.setState(newState)
   }
 
   addBorder = () => {
@@ -289,11 +299,7 @@ class App extends Component {
       newState.displayBorder = false
       this.setState(newState)
     }, 1500)
-
   }
-
-
-
 
   render() {
     return (
@@ -334,6 +340,7 @@ class App extends Component {
                       inCart={this.state.inCart}
                       pickupLocations={this.state.pickupLocations}
                       purchaseClick={this.purchaseClick}
+                      quantityChange={this.quantityChange}
                       removeFromCart={this.removeFromCart}
                       returnToShows={this.returnToShows}
                       rideId={this.state.rideId}
@@ -343,6 +350,7 @@ class App extends Component {
                       showsInCart={this.state.inCart}
                       tabClicked={this.tabClicked}
                       ticketQuantity={this.state.ticketQuantity}
+                      totalCost={this.state.totalCost}
                       updatePurchaseField={this.updatePurchaseField}
                       validated={this.state.validated}
                       validatedElements={this.state.validatedElements} />

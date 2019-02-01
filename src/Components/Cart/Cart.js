@@ -3,9 +3,11 @@ import '../../App.css';
 import CartItem from './CartItem'
 
 const Cart = (props) => {
-  // console.log('Cart', props)
-  const ticketCost = 15
+  console.log('Cart', props)
 
+  const cost = parseInt(props.totalCost)
+  // console.log(cost)
+  const totalCost = cost.toFixed(2)
 
   return (
     <div className='Cart'>
@@ -26,7 +28,8 @@ const Cart = (props) => {
               pickupLocations={props.pickupLocations}
               removeFromCart={props.removeFromCart}
               rideId={props.rideId}
-              showsInCart={props.showsInCart} />
+              showsInCart={props.showsInCart}
+              quantityChange={props.quantityChange} />
           </ul>
 
           {props.showsInCart ?
@@ -81,7 +84,7 @@ const Cart = (props) => {
                         <button type="submit" className="btn btn-outline-success return-btn ml-2">Purchase</button>
                       </div>
                       <div className="total-cont offset-md-3 col-md-3">
-                        <span className=''>{`Total: $${ticketCost}`}</span>
+                        <span onChange={props.updateTotal} className=''>{`Total: $${totalCost}`}</span>
                       </div>
 
                     </div>

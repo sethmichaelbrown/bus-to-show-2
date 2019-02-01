@@ -6,6 +6,7 @@ const CartItem = (props) => {
   
   // const ticketCost = (parseInt(props.ticketPrice) * parseInt(props.ticketQuantity)).toFixed(2)
   const pickupLocation = props.pickupLocations.find(location => parseInt(location.id) === parseInt(props.rideId))
+ 
 
   return (
     <div className='CartItem'>
@@ -18,7 +19,7 @@ const CartItem = (props) => {
             <div className="col-md-2 list-item-font" id={show.id}>{show.date}</div>
             <div className="form-group col-md-2">
               <form>
-                <input type="number" className="form-control" defaultValue={props.ticketQuantity}/>
+                <input onChange={props.quantityChange}type="number" className="form-control" defaultValue={props.ticketQuantity}/>
               </form>
                {/* <span>{`$${ticketCost}`}</span> */}
             </div>
