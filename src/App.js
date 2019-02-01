@@ -30,13 +30,13 @@ class App extends Component {
     displayAddBtn: false,
     displayQuantity: false,
     validated: false,
-    validatedElements: { 
-        fName: null, 
-        lName: null, 
-        email: null,
-        wCFName: null,
-        wCLName: null 
-        },
+    validatedElements: {
+      fName: null,
+      lName: null,
+      email: null,
+      wCFName: null,
+      wCLName: null
+    },
     checked: false,
     totalCost: 0,
 
@@ -48,7 +48,7 @@ class App extends Component {
       email: '',
       willCallFirstName: null,
       willCallLastName: null,
-      ticketQuantity: null,
+      ticketQuantity: 0,
       totalCost: null
     }
   }
@@ -202,7 +202,7 @@ class App extends Component {
     }
     this.setState(newState)
   }
-  
+
 
   // Cart Functions
   handleCheck = (event) => {
@@ -217,7 +217,7 @@ class App extends Component {
     const value = event.target.value
     const vE = newState.validatedElements
 
-// Checks fields via npm package validator
+    // Checks fields via npm package validator
     if (!newState.validated) {
       if (updateField === 'email' && Validator.isEmail(value)) {
         vE.email = value
@@ -228,10 +228,10 @@ class App extends Component {
       else if (updateField === 'lastName' && Validator.isAlpha(value)) {
         vE.lName = value
       }
-      else if(updateField === 'willCallFirstName' && Validator.isAlpha(value)){
+      else if (updateField === 'willCallFirstName' && Validator.isAlpha(value)) {
         vE.wCFName = value
       }
-      else if(updateField === 'willCallLastName' && Validator.isAlpha(value)){
+      else if (updateField === 'willCallLastName' && Validator.isAlpha(value)) {
         vE.wCLName = value
       }
       else {
@@ -240,9 +240,9 @@ class App extends Component {
     }
 
 
-    this.setState({validatedElement: newState.validatedElements})
+    this.setState({ validatedElement: newState.validatedElements })
 
-// Populates cartToSend
+    // Populates cartToSend
     if (this.state.validatedElements.fName && this.state.validatedElements.lName && this.state.validatedElements.email) {
       const cTS = newState.cartToSend
 
@@ -257,6 +257,7 @@ class App extends Component {
       cTS.totalCost = this.state.totalCost
 
       this.setState({ cartToSend: newState.cartToSend })
+      console.log(this.state)
     }
     else {
       return 'ERROR!'
@@ -265,10 +266,16 @@ class App extends Component {
   }
 
   removeFromCart = (event) => {
-   const newState = {...this.state}
-   newState.inCart = []
-   newState.displaySuccess = false
-   this.setState(newState)
+    const newState = { ...this.state }
+    newState.inCart = []
+    newState.displaySuccess = false
+    this.setState(newState)
+  }
+
+  quantityChange = (event) => {
+    const newState = { ...this.state }
+    newState.ticketQuantity = event.target.value
+    this.setState(newState)
   }
 
   addBorder = () => {
