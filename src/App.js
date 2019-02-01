@@ -51,7 +51,8 @@ class App extends Component {
       willCallFirstName: null,
       willCallLastName: null,
       ticketQuantity: 0,
-      totalCost: 0
+      totalCost: 0,
+      discountCode: ''
     }
   }
 
@@ -226,6 +227,7 @@ class App extends Component {
     const updateField = event.target.id
     const value = event.target.value
     const vE = newState.validatedElements
+    let discountCode = ''
 
     // Checks fields via npm package validator
     if (!newState.validated) {
@@ -243,6 +245,9 @@ class App extends Component {
       }
       else if (updateField === 'willCallLastName' && Validator.isAlpha(value)) {
         vE.wCLName = value
+      }
+      else if (updateField === 'discountCode'){
+        discountCode = value
       }
       else {
         return 'Please input valid items'
@@ -264,6 +269,7 @@ class App extends Component {
       cTS.willCallFirstName = this.state.validatedElements.wCFName
       cTS.willCallLastName = this.state.validatedElements.wCLName
       cTS.totalCost = this.state.totalCost
+      cTS.discountCode = discountCode
 
       this.setState({ cartToSend: newState.cartToSend })
     }
