@@ -32,19 +32,19 @@ const Cart = (props) => {
             <div className="list-group-item" >
               <div className="row">
                 <div className="col-md-12">
-                  <form className="needs-validation" noValidate>
+                  <form className="needs-validation" onSubmit={props.handleSubmit} noValidate>
                     <div className="form-row">
                       <div className="col-md-4 mb-3">
-                        <label htmlFor="validationCustom01">First Name</label>
-                        <input type="text" className={`form-control ${props.validated ? 'is-valid' : 'is-invalid'}`} id="validationCustom01" placeholder="First Name" required />
+                        <label htmlFor="firstName">First Name</label>
+                        <input onKeyUp={props.updatePurchaseField} type="text" className={`form-control ${props.validated ? 'is-valid' : 'is-invalid'}`} id="firstName" placeholder="First Name" required />
                         <div className="valid-feedback">
                           Looks good!
                         </div>
                       </div>
 
                       <div className="col-md-4 mb-3">
-                        <label htmlFor="validationCustom02">Last Name</label>
-                        <input type="text" className={`form-control ${props.validated ? 'is-valid' : 'is-invalid'}`} id="validationCustom02" placeholder="Last Name" required />
+                        <label htmlFor="lastName">Last Name</label>
+                        <input onKeyUp={props.updatePurchaseField} type="text" className={`form-control ${props.validated ? 'is-valid' : 'is-invalid'}`} id="lastName" placeholder="Last Name" required />
                         <div className="valid-feedback">
                           Looks good!
                           </div>
@@ -53,8 +53,8 @@ const Cart = (props) => {
 
                     <div className="form-row">
                       <div className="col-md-6 mb-3">
-                        <label htmlFor="validationCustom03">Email</label>
-                        <input type="email" className={`form-control ${props.validated ? 'is-valid' : 'is-invalid'}`} id="validationCustom03" placeholder="Email address" required />
+                        <label htmlFor="email">Email</label>
+                        <input onKeyUp={props.updatePurchaseField} type="email" className={`form-control ${props.validated ? 'is-valid' : 'is-invalid'}`} id="email" placeholder="Email address" required />
                         <div className="invalid-feedback">
                           Please provide a valid email.
                           </div>
@@ -64,16 +64,16 @@ const Cart = (props) => {
                     {props.checked ?
                       <div className="form-row">
                         <div className="col-md-4 mb-3">
-                          <label htmlFor="validationCustom01">Will Call First Name</label>
-                          <input type="text" className='form-control' id="validationCustom01" placeholder="First name" />
+                          <label htmlFor="willCallFirstName">Will Call First Name</label>
+                          <input onKeyUp={props.updatePurchaseField} type="text" className='form-control' id="willCallFirstName" placeholder="First Name" />
                           <div className="valid-feedback">
                             Looks good!
                       </div>
                         </div>
 
                         <div className="col-md-4 mb-3">
-                          <label htmlFor="validationCustom02">Will Call Last Name</label>
-                          <input type="text" className='form-control' id="validationCustom02" placeholder="Last name" />
+                          <label htmlFor="willCallLastName">Will Call Last Name</label>
+                          <input onKeyUp={props.updatePurchaseField} type="text" className='form-control' id="willCallLastName" placeholder="Last Name" />
                           <div className="valid-feedback">
                             Looks good!
                           </div>
@@ -89,7 +89,7 @@ const Cart = (props) => {
                     <div className='row'>
                       <div className="buttons-cont col-md-6">
                         <button type="button" onClick={props.returnToShows} className="btn btn-outline-danger return-btn ml-2">Cancel</button>
-                        <button type="button" onClick={props.handleSubmit} className="btn btn-outline-success return-btn ml-2">Purchase</button>
+                        <button type="submit" className="btn btn-outline-success return-btn ml-2">Purchase</button>
                       </div>
                       <div className="total-cont offset-md-3 col-md-3">
                         <span className=''>{`Total: $${ticketCost}`}</span>

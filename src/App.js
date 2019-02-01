@@ -34,9 +34,9 @@ class App extends Component {
     cartToSend: {
       eventId: null,
       pickupLocationId: null,
-      firstName: null,
-      lastName: null,
-      email: null,
+      firstName: '',
+      lastName: '',
+      email: '',
       willCallFirstName: null,
       willCallLastName: null,
       ticketQuantity: null,
@@ -83,7 +83,6 @@ class App extends Component {
     this.setState(newState)
   }
 
-
   // Header Functions
   loginClick = (event) => {
     const newState = { ...this.state }
@@ -105,7 +104,7 @@ class App extends Component {
 
   purchase = async () => {
     const cartObj = this.state.cartToSend
-    const inCartresponse = await fetch('https://something-innocuous.herokuapp.com/pickup_parties', {
+    const inCartResponse = await fetch('https://something-innocuous.herokuapp.com/pickup_parties', {
       method: 'PATCH',
       body: JSON.stringify(cartObj),
       headers: {
@@ -128,7 +127,7 @@ class App extends Component {
         'Content-Type': 'application/json'
       }
     })
-    if(stripeResponse.paid) {
+    if (stripeResponse.paid) {
       fetch('https://something-innocuous.herokuapp.com/orders', {
         method: 'POST',
         body: JSON.stringify(cartObj),
@@ -140,7 +139,6 @@ class App extends Component {
       console.log('REJECTED!!!!!!!!!!!!!!!!!')
     }
   }
-
 
   // Tab Functions
   tabClicked = (event) => {
@@ -198,8 +196,9 @@ class App extends Component {
 
   // Cart Functions
   handleSubmit = (event) => {
-     event.preventDefault();
-    console.log('Purchase Clicked')
+    //  event.preventDefault();
+    console.log(event.target)
+    console.log(this.state)
     // const form = event.currentTarget;
     // if (form.checkValidity() === false) {
     //   event.preventDefault();
@@ -214,14 +213,19 @@ class App extends Component {
     this.setState(newState)
   }
 
+  updatePurchaseField = (event) => {
+    const newState = { ...this.state }
+    const updateField = event.target.id
+    newState.cartToSend[updateField] = event.target.value
+    this.setState(newState)
+  }
+
+
   purchaseClick = (event) => {
     const newState = { ...this.state }
-    // con                              sole.log(event.target)
+    // console.log(event.target)
 
-    newState.cartToSend.email = null
     newState.cartToSend.eventId = newState.inCart[0].id
-    newState.cartToSend.firstName = null
-    newState.cartToSend.lastName = null
     newState.cartToSend.pickupLocationId = newState.rideId
     newState.cartToSend.ticketQuantity = newState.ticketQuantity
     newState.cartToSend.totalPrice = null
@@ -300,6 +304,7 @@ class App extends Component {
                       showsInCart={this.state.inCart}
                       tabClicked={this.tabClicked}
                       ticketQuantity={this.state.ticketQuantity}
+                      updatePurchaseField={this.updatePurchaseField}
                       validated={this.state.validated} />
                     :
                     <SponsorBox />}
