@@ -6,6 +6,7 @@ import './App.css';
 import Header from './Components/Header'
 import ShowList from './Components/Shows/ShowList'
 import Loading from './Components/Loading'
+import StripeView from './Components/StripeView'
 import LoginView from './Components/LoginView/LoginView'
 // import Footer from './Components/Footer'
 import SponsorBox from './Components/SponsorBox'
@@ -20,6 +21,7 @@ class App extends Component {
     displaySuccess: false,
     loginView: false,
     displayCart: false,
+    displayStripe: false,
     filterString: '',
     inCart: [],
     displayDetailCartView: false,
@@ -301,6 +303,12 @@ class App extends Component {
     }, 1500)
   }
 
+  purchaseClick = (event) => {
+    const newState = { ...this.state }
+    newState.displayStripe = true
+    this.setState({displayStripe: newState.displayStripe})
+  }
+
   render() {
     return (
       <BrowserRouter>
@@ -314,6 +322,7 @@ class App extends Component {
                   searchShows={this.searchShows}
                   loginClick={this.loginClick} />
                 <div className='content-section'>
+                {this.state.displayStripe ? <StripeView /> : ''}
                   <div className='col-md-6 float-left'>
                     <ShowList
                       addBorder={this.addBorder}
