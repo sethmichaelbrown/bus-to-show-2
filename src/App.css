@@ -108,3 +108,14 @@
 .nothing-in-cart-image{
  opacity: 0.5;
 }
+
+.show-list-item{
+  color: #ff420f;
+}
+
+.show-list-item:nth-child(odd){
+  color: white;
+  background-color: rgba(255, 66, 15, 0.75)
+}
+
+
