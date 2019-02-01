@@ -19,7 +19,7 @@ const Shows = (props) => {
               onClick={props.addBorder} 
               onMouseOver={props.showsExpandClick} 
               type="button" 
-              className='btn btn-light col-md-2 changing-btn'>Details</button>
+              className='btn btn-outline-secondary col-md-2'>Details</button>
 
           </div>
 
