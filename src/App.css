@@ -1,9 +1,10 @@
+/* Shows Styling */
 .highlightOnHover:hover {
   background: rgba(248, 249, 250, .75);
 }
 
 .list-group {
-  max-height: 80vh;
+  max-height: 90vh;
   overflow: scroll;
 }
 
@@ -15,6 +16,44 @@
   display: inline-block;
 }
 
+.list-item-font {
+  font-size: 16px;
+}
+
+.bio-font {
+  font-size: 10px;
+  overflow: scroll;
+  height: 25vh;
+}
+
+.content-section-details{
+  padding: 1.5%;
+  border-radius: 5px;
+  border: solid;
+  border-color: white;
+  border-width: 1px;
+}
+
+.add-border {
+  transition: border 0.4s ease;
+  opacity: 1;
+  border-radius: 5px;
+  border: solid;
+  border-color: gray;
+  border-width: 1px;
+  
+}
+
+.remove-border {
+  transition: border 0.4s ease;
+  opacity: 1;
+  border-radius: 5px;
+  border: solid;
+  border-color: white;
+  border-width: 1px;
+}
+
+/* Footer Styling */
 .fixed-bottom {
   display: flex;
   align-items: flex-start
@@ -36,10 +75,13 @@
   font-size: 12px;
 }
 
+
+/* Alert Styling */
 .alert-item {
   border: none;
 }
 
+/* Login View Styling */
 .login-image-section {
   background: url('./Images/bts-future-selves-background-image.png');
   background-position: top;
@@ -56,6 +98,14 @@
   margin: auto;
 }
 
-.list-item-font{
-  font-size: 12px;
+/* Cart Styling */
+.nothing-in-cart-text{
+  text-align: center;
+  color: #616060;
+  opacity: 0.5;
 }
+
+.nothing-in-cart-image{
+ opacity: 0.5;
+}
+
