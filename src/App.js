@@ -65,7 +65,7 @@ class App extends Component {
     const pickups = await fetch('https://something-innocuous.herokuapp.com/pickup_locations')
     const pickupLocations = await pickups.json()
     this.setState({ pickupLocations })
-    // console.log('State', this.state)
+    console.log('State', this.state)
   }
 
   selectRideId = (event) => {
@@ -187,6 +187,8 @@ class App extends Component {
       newState.displaySuccess = true
     }
     else {
+      // // Turn on if multiple shows desired
+
       // const cartIds = newState.inCart.map(show => show.id)
       // const compareIds = cartIds.find(id => id == newState.displayShow.id)
       // if (!compareIds) {
@@ -198,23 +200,10 @@ class App extends Component {
 
       console.log('One event at a time.')
     }
-    // console.log(this.state)
     this.setState(newState)
-    // console.log('STATE from BTN', this.state)
   }
 
   // Cart Functions
-  handleSubmit = (event) => {
-    //  event.preventDefault();
-    console.log(event.target)
-    console.log(this.state)
-    // const form = event.currentTarget;
-    // if (form.checkValidity() === false) {
-    //   event.preventDefault();
-    //   event.stopPropagation();
-
-  }
-
   handleCheck = (event) => {
     const newState = { ...this.state }
     newState.checked = true
@@ -247,6 +236,8 @@ class App extends Component {
         return 'Please input valid items'
       }
     }
+
+    this.setState({validatedElement: newState.validatedElements})
 
 
     if (this.state.validatedElements.fName && this.state.validatedElements.lName && this.state.validatedElements.email) {
@@ -291,8 +282,6 @@ class App extends Component {
     }, 1500)
 
   }
-
-
 
 
   render() {
