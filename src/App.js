@@ -50,7 +50,7 @@ class App extends Component {
     const shows = await response.json()
     this.setState({ shows })
     const newState = { ...this.state }
-    newState.shows.map(show => show.date = show.date.split('T')[0].split('-').splice(1, 3).concat(show.date.split('T')[0].split('-')[0]).join('/'))
+    newState.shows.map(show => show.date = show.dateTime.split('T')[0].split('-').splice(1, 3).concat(show.dateTime.split('T')[0].split('-')[0]).join('/'))
     this.setState(newState)
 
     const pickups = await fetch('https://something-innocuous.herokuapp.com/pickup_locations')
@@ -198,12 +198,14 @@ class App extends Component {
 
   // Cart Functions
   handleSubmit = (event) => {
-    const form = event.currentTarget;
-    if (form.checkValidity() === false) {
-      event.preventDefault();
-      event.stopPropagation();
-    }
-    this.setState({ validated: true });
+     event.preventDefault();
+    console.log('Purchase Clicked')
+    // const form = event.currentTarget;
+    // if (form.checkValidity() === false) {
+    //   event.preventDefault();
+    //   event.stopPropagation();
+    // }
+    // this.setState({ validated: true });
   }
 
   handleCheck = (event) => {
