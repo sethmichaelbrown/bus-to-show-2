@@ -6,6 +6,7 @@ import './App.css';
 import Header from './Components/Header'
 import ShowList from './Components/Shows/ShowList'
 import Loading from './Components/Loading'
+import StripeView from './Components/StripeView'
 import LoginView from './Components/LoginView/LoginView'
 // import Footer from './Components/Footer'
 import SponsorBox from './Components/SponsorBox'
@@ -20,6 +21,7 @@ class App extends Component {
     displaySuccess: false,
     loginView: false,
     displayCart: false,
+    displayStripe: false,
     filterString: '',
     inCart: [],
     displayDetailCartView: false,
@@ -49,7 +51,8 @@ class App extends Component {
       willCallFirstName: null,
       willCallLastName: null,
       ticketQuantity: 0,
-      totalCost: 0
+      totalCost: 0,
+      discountCode: ''
     }
   }
 
@@ -224,6 +227,7 @@ class App extends Component {
     const updateField = event.target.id
     const value = event.target.value
     const vE = newState.validatedElements
+    let discountCode = ''
 
     // Checks fields via npm package validator
     if (!newState.validated) {
@@ -241,6 +245,9 @@ class App extends Component {
       }
       else if (updateField === 'willCallLastName' && Validator.isAlpha(value)) {
         vE.wCLName = value
+      }
+      else if (updateField === 'discountCode'){
+        discountCode = value
       }
       else {
         return 'Please input valid items'
@@ -262,6 +269,7 @@ class App extends Component {
       cTS.willCallFirstName = this.state.validatedElements.wCFName
       cTS.willCallLastName = this.state.validatedElements.wCLName
       cTS.totalCost = this.state.totalCost
+      cTS.discountCode = discountCode
 
       this.setState({ cartToSend: newState.cartToSend })
     }
@@ -301,6 +309,12 @@ class App extends Component {
     }, 1500)
   }
 
+  purchaseClick = (event) => {
+    const newState = { ...this.state }
+    newState.displayStripe = true
+    this.setState({displayStripe: newState.displayStripe})
+  }
+
   render() {
     return (
       <BrowserRouter>
@@ -314,6 +328,7 @@ class App extends Component {
                   searchShows={this.searchShows}
                   loginClick={this.loginClick} />
                 <div className='content-section'>
+                {this.state.displayStripe ? <StripeView /> : ''}
                   <div className='col-md-6 float-left'>
                     <ShowList
                       addBorder={this.addBorder}

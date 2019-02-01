@@ -3,7 +3,7 @@ import '../../App.css';
 import CartItem from './CartItem'
 
 const Cart = (props) => {
-  console.log('Cart', props)
+  // console.log('Cart', props)
 
   const cost = parseInt(props.totalCost)
   // console.log(cost)
@@ -63,7 +63,7 @@ const Cart = (props) => {
                       <div className="form-row">
                         <div className="col-md-4 mb-3">
                           <label htmlFor="willCallFirstName">Will Call First Name</label>
-                          <input onKeyUp={props.updatePurchaseField} type="text" className='form-control' id="willCallFirstName" placeholder="First Name" />     
+                          <input onKeyUp={props.updatePurchaseField} type="text" className='form-control' id="willCallFirstName" placeholder="First Name" />
                         </div>
 
                         <div className="col-md-4 mb-3">
@@ -78,13 +78,32 @@ const Cart = (props) => {
                         </div>
                       </div>}
 
-                    <div className='row'>
-                      <div className="buttons-cont col-md-6">
-                        <button type="button" onClick={props.returnToShows} className="btn btn-outline-danger return-btn ml-2">Cancel</button>
-                        <button type="submit" className="btn btn-outline-success return-btn ml-2">Purchase</button>
+                    <div className="form-row">
+                      <div className="col-md-4 mb-3">
+                        <input type="text" className='form-control' id="discountCode" placeholder="Discount Code" />
                       </div>
-                      <div className="total-cont offset-md-3 col-md-3">
-                        <span onChange={props.updateTotal} className=''>{`Total: $${totalCost}`}</span>
+                    </div>
+
+                    <div className='form-row purchase-btn-area'>
+                      <div className="buttons-cont col-md-6">
+                        
+                        <form action="/orders/charge" method="POST" className='buttons-cont col-md-6'>
+                          <script
+                            src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                            data-key="pk_test_J0CdRMCGmBlrlOiGKnGgUEwT"
+                            data-amount="2500"
+                            data-name="Web Development Ebook"
+                            data-description="Ebook written by Brad Traversy"
+                            data-locale="auto">
+                          </script>
+                          <button type="button" onClick={props.returnToShows} className="btn btn-outline-danger return-btn">Cancel</button>
+                          <button onClick={props.purchaseClick} type="submit" class="btn btn-outline-success">Purchase</button>
+                        </form>
+
+                        {/* <button  type="submit" className="btn btn-outline-success return-btn ml-2">Purchase</button> */}
+                      </div>
+                      <div className="total-cont col-md-6 float-right">
+                        <h4>Cart Total: <span onChange={props.updateTotal} class="badge badge-secondary">{`$${totalCost}`}</span></h4>
                       </div>
 
                     </div>
