@@ -43,6 +43,7 @@ const DetailCartView = (props) => {
               handleSubmit={props.handleSubmit}
               pickupLocations={props.pickupLocations}
               purchaseClick={props.purchaseClick}
+              quantityChange={props.quantityChange}
               removeFromCart={props.removeFromCart}
               returnToShows={props.returnToShows}
               rideId={props.rideId}

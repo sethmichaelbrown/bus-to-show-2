@@ -26,7 +26,8 @@ const Cart = (props) => {
               pickupLocations={props.pickupLocations}
               removeFromCart={props.removeFromCart}
               rideId={props.rideId}
-              showsInCart={props.showsInCart} />
+              showsInCart={props.showsInCart}
+              quantityChange={props.quantityChange} />
           </ul>
 
           {props.showsInCart ?

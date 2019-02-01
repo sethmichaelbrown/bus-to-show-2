@@ -202,6 +202,7 @@ class App extends Component {
     }
     this.setState(newState)
   }
+  
 
   // Cart Functions
   handleCheck = (event) => {
@@ -216,6 +217,7 @@ class App extends Component {
     const value = event.target.value
     const vE = newState.validatedElements
 
+// Checks fields via npm package validator
     if (!newState.validated) {
       if (updateField === 'email' && Validator.isEmail(value)) {
         vE.email = value
@@ -237,9 +239,10 @@ class App extends Component {
       }
     }
 
+
     this.setState({validatedElement: newState.validatedElements})
 
-
+// Populates cartToSend
     if (this.state.validatedElements.fName && this.state.validatedElements.lName && this.state.validatedElements.email) {
       const cTS = newState.cartToSend
 
@@ -253,9 +256,7 @@ class App extends Component {
       cTS.willCallLastName = this.state.validatedElements.wCLName
       cTS.totalCost = this.state.totalCost
 
-   
       this.setState({ cartToSend: newState.cartToSend })
-      console.log(this.state)
     }
     else {
       return 'ERROR!'
@@ -323,6 +324,7 @@ class App extends Component {
                       inCart={this.state.inCart}
                       pickupLocations={this.state.pickupLocations}
                       purchaseClick={this.purchaseClick}
+                      quantityChange={this.quantityChange}
                       removeFromCart={this.removeFromCart}
                       returnToShows={this.returnToShows}
                       rideId={this.state.rideId}
