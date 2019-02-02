@@ -21,7 +21,7 @@ class App extends Component {
     displaySuccess: false,
     loginView: false,
     displayCart: false,
-    displayPurchase: false,
+    displayPurchaseBtn: false,
     filterString: '',
     inCart: [],
     displayDetailCartView: false,
@@ -116,22 +116,6 @@ class App extends Component {
 
   purchase = async () => {
     const cartObj = this.state.cartToSend
-    const inCartResponse = await fetch('https://something-innocuous.herokuapp.com/pickup_parties', {
-      method: 'PATCH',
-      body: JSON.stringify(cartObj),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-    let timeoutCartObj = { ...cartObj }
-    timeoutCartObj.ticketQuantity = timeoutCartObj.ticketQuantity * (-1)
-    setTimeout(fetch('https://something-innocuous.herokuapp.com/pickup_parties', {
-      method: 'PATCH',
-      body: JSON.stringify(cartObj),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    }), 600000)
     const stripeResponse = await fetch('https://api.stripe.com', {
       method: 'PATCH',
       body: JSON.stringify(cartObj),
@@ -211,7 +195,7 @@ class App extends Component {
       console.log('One event at a time.')
     }
     this.setState(newState)
-    console.log(newState)
+    
   }
 
 
@@ -271,7 +255,7 @@ class App extends Component {
       cTS.totalCost = this.state.totalCost
       cTS.discountCode = discountCode
 
-      this.setState({ displayPurchase: true})
+      this.setState({ displayPurchaseBtn: true})
       this.setState({ cartToSend: newState.cartToSend })
     }
     else {
@@ -371,7 +355,7 @@ render() {
                     displayBorder={this.state.displayBorder}
                     displayCart={this.state.displayCart}
                     displayShow={this.state.displayShow}
-                    displayPurchase={this.state.displayPurchase}
+                    displayPurchaseBtn={this.state.displayPurchaseBtn}
                     displaySuccess={this.state.displaySuccess}
                     displayQuantity={this.state.displayQuantity}
                     handleSubmit={this.handleSubmit}

@@ -89,7 +89,7 @@ const Cart = (props) => {
                   <div className='form-row'>
                     <div className="col-md-4">
                       <Checkout
-                        displayPurchase={props.displayPurchase}
+                        displayPurchaseBtn={props.displayPurchaseBtn}
                         totalCost={totalCost}
                         showsInCart={props.showsInCart}></Checkout>
                     </div>

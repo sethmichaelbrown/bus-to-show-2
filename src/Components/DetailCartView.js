@@ -39,7 +39,7 @@ const DetailCartView = (props) => {
           {props.inCart.length > 0 ?
             <Cart
               checked={props.checked}
-              displayPurchase={props.displayPurchase}
+              displayPurchaseBtn={props.displayPurchaseBtn}
               handleCheck={props.handleCheck}
               handleSubmit={props.handleSubmit}
               pickupLocations={props.pickupLocations}
