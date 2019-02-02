@@ -86,23 +86,17 @@ const Cart = (props) => {
                   </form>
 
                   <div className='form-row purchase-btn-area'>
-                    <div className="buttons-cont col-md-6">
-
-                      {/* <button  type="submit" className="btn btn-outline-success return-btn ml-2">Purchase</button> */}
-                    </div>
                     <div className='form-row'>
-                      
+
                       <Checkout
-                        displayPurchase={props.displayPurchase} 
-                        totalCost={totalCost} 
+                        displayPurchase={props.displayPurchase}
+                        totalCost={totalCost}
                         showsInCart={props.showsInCart}></Checkout>
 
-                      {/* <div className="total-cont col-md-6 float-right"> */}
-                      <h4>Cart Total: <span onChange={props.updateTotal} class="badge badge-secondary">{`$${totalCost}`}</span></h4>
                     </div>
-
-
                   </div>
+
+
                 </div>
               </div>
             </div> : ''}
@@ -114,3 +108,7 @@ const Cart = (props) => {
 }
 
 export default Cart;
+
+{/* <h4>Cart Total:
+  <span onChange={props.updateTotal} class="badge badge-secondary">{`$${totalCost}`}</span>
+</h4> */}
