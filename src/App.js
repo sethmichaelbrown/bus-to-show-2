@@ -1,15 +1,9 @@
 import React, { Component } from 'react'
 import { BrowserRouter, Route } from "react-router-dom"
-import {Elements, StripeProvider} from 'react-stripe-elements'
 import Validator from 'validator'
 import './App.css';
-<<<<<<< HEAD
-
-import CheckoutForm from './CheckoutForm'
-=======
 import StripeCheckout from 'react-stripe-checkout';
 import axios from 'axios';
->>>>>>> bb88f964cabefda23106249dc44a68a3b8e49726
 import Header from './Components/Header'
 import ShowList from './Components/Shows/ShowList'
 import Loading from './Components/Loading'
@@ -27,7 +21,7 @@ class App extends Component {
     displaySuccess: false,
     loginView: false,
     displayCart: false,
-    displayStripe: false,
+    displayPurchase: false,
     filterString: '',
     inCart: [],
     displayDetailCartView: false,
@@ -277,6 +271,7 @@ class App extends Component {
       cTS.totalCost = this.state.totalCost
       cTS.discountCode = discountCode
 
+      this.setState({ displayPurchase: true})
       this.setState({ cartToSend: newState.cartToSend })
     }
     else {
@@ -346,7 +341,6 @@ async submit(ev) {
 
 render() {
   return (
-     <StripeProvider apiKey="pk_test_TYooMQauvdEDq54NiTphI7jx">
     <BrowserRouter>
       <div className="App">
         {this.state.loginView ?
@@ -377,7 +371,7 @@ render() {
                     displayBorder={this.state.displayBorder}
                     displayCart={this.state.displayCart}
                     displayShow={this.state.displayShow}
-                    displayStripe={this.state.displayStripe}
+                    displayPurchase={this.state.displayPurchase}
                     displaySuccess={this.state.displaySuccess}
                     displayQuantity={this.state.displayQuantity}
                     handleSubmit={this.handleSubmit}
@@ -406,7 +400,6 @@ render() {
         }
       </div>
     </BrowserRouter>
-     </StripeProvider> 
   );
 }
 }

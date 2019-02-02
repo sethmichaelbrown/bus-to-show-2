@@ -1,18 +1,12 @@
 import React from 'react';
 import '../../App.css';
-<<<<<<< HEAD
-import CartItem from './CartItem'
-import {CardElement, injectStripe} from 'react-stripe-elements';
-=======
 import CartItem from './CartItem';
 import Checkout from './Stripe_Checkout';
->>>>>>> bb88f964cabefda23106249dc44a68a3b8e49726
 
 const Cart = (props) => {
   // console.log('Cart', props)
 
   const cost = parseInt(props.totalCost)
-  // console.log(cost)
   const totalCost = cost.toFixed(2)
 
   return (
@@ -91,44 +85,24 @@ const Cart = (props) => {
                     </div>
                   </form>
 
-<<<<<<< HEAD
                   <div className='form-row purchase-btn-area'>
                     <div className="buttons-cont col-md-6">
-                    <form action="https://something-innocuous.herokuapp.com/orders/charge" method="POST">
-    <script
-      src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-      data-key="pk_test_J0CdRMCGmBlrlOiGKnGgUEwT"
-      data-amount="7500"
-      data-name="Web Development Ebook"
-      data-description="Ebook written by Brad Traversy"
-      data-locale="auto">
-    </script>
-    <button type="submit" className="btn btn-outline-dark text-white btn-lg">Purchase For $25</button>
-  </form>
+
                       {/* <button  type="submit" className="btn btn-outline-success return-btn ml-2">Purchase</button> */}
                     </div>
-                    <div className="total-cont col-md-6 float-right">
+                    <div className='form-row'>
+                      
+                      <Checkout
+                        displayPurchase={props.displayPurchase} 
+                        totalCost={totalCost} 
+                        showsInCart={props.showsInCart}></Checkout>
+
+                      {/* <div className="total-cont col-md-6 float-right"> */}
                       <h4>Cart Total: <span onChange={props.updateTotal} class="badge badge-secondary">{`$${totalCost}`}</span></h4>
                     </div>
 
+
                   </div>
-=======
-                    <div className='form-row purchase-btn-area'>
-                      <div className="buttons-cont col-md-6">
-
-                        {/* <button  type="submit" className="btn btn-outline-success return-btn ml-2">Purchase</button> */}
-                      </div>
-                      <div className='form-row'>
-                        <Checkout totalCost={totalCost} showsInCart={props.showsInCart}></Checkout>
-                     
-                      {/* <div className="total-cont col-md-6 float-right"> */}
-                        <h4>Cart Total: <span onChange={props.updateTotal} class="badge badge-secondary">{`$${totalCost}`}</span></h4>
-                      </div>
->>>>>>> bb88f964cabefda23106249dc44a68a3b8e49726
-
-
-                  
-
                 </div>
               </div>
             </div> : ''}

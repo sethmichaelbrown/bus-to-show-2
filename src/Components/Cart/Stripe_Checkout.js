@@ -26,9 +26,9 @@ export default class Checkout extends React.Component {
           amount={this.props.totalCost*100}
           currency='USD'
         >
-        <button className="btn btn-outline-success">
+        {this.props.displayPurchase ? <button className="btn btn-outline-success">
             Purchase
-        </button>
+        </button> : ''}
         </StripeCheckout>
       )
     }

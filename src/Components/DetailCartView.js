@@ -1,9 +1,7 @@
 import React from 'react'
 import '../App.css';
 import ShowDetailView from './Shows/ShowDetailView'
-import {Elements, StripeProvider} from 'react-stripe-elements'
 import Cart from './Cart/Cart'
-import CheckoutForm from '../CheckoutForm'
 import logo from '../Images/Logos/bts-logo-gray.png'
 
 const DetailCartView = (props) => {
@@ -39,20 +37,9 @@ const DetailCartView = (props) => {
         </div>
         <div className="tab-pane fade" id="cart" data-toggle="tab" role="tabpanel" aria-labelledby="cart-tab">
           {props.inCart.length > 0 ?
-          props.displayStripe ? 
-             <div className="list-group">
-                <div className="list-group-item">
-                  <div className="row container">
-          
-          <Elements>
-            <CheckoutForm />
-          </Elements>
-        </div>
-        </div>
-        </div>
-        :
             <Cart
               checked={props.checked}
+              displayPurchase={props.displayPurchase}
               handleCheck={props.handleCheck}
               handleSubmit={props.handleSubmit}
               pickupLocations={props.pickupLocations}
