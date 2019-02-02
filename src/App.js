@@ -8,7 +8,6 @@ import CheckoutForm from './CheckoutForm'
 import Header from './Components/Header'
 import ShowList from './Components/Shows/ShowList'
 import Loading from './Components/Loading'
-import StripeView from './Components/StripeView'
 import LoginView from './Components/LoginView/LoginView'
 // import Footer from './Components/Footer'
 import SponsorBox from './Components/SponsorBox'
@@ -23,7 +22,7 @@ class App extends Component {
     displaySuccess: false,
     loginView: false,
     displayCart: false,
-    displayStripe: true,
+    displayStripe: false,
     filterString: '',
     inCart: [],
     displayDetailCartView: false,
@@ -313,9 +312,9 @@ class App extends Component {
 
   purchaseClick = (event) => {
     console.log('hello')
-  event.preventDefault()
-  console.log(event.target)
-  console.log(event.target.stripeEmail.value)
+  // event.preventDefault()
+  // console.log(event.target)
+  // console.log(event.target.stripeEmail.value)
   // const response = await fetch('https://something-innocuous.herokuapp.com/orders/charge', {
   //   method: 'POST',
   //   body: JSON.stringify({
@@ -354,14 +353,6 @@ render() {
                 searchShows={this.searchShows}
                 loginClick={this.loginClick} />
               <div className='content-section'>
-        
-               
-        <div className="example">
-          <h1>React Stripe Elements Example</h1>
-          <Elements>
-            <CheckoutForm />
-          </Elements>
-        </div>
                 <div className='col-md-6 float-left'>
                   <ShowList
                     addBorder={this.addBorder}
@@ -381,6 +372,7 @@ render() {
                     displayBorder={this.state.displayBorder}
                     displayCart={this.state.displayCart}
                     displayShow={this.state.displayShow}
+                    displayStripe={this.state.displayStripe}
                     displaySuccess={this.state.displaySuccess}
                     displayQuantity={this.state.displayQuantity}
                     handleSubmit={this.handleSubmit}

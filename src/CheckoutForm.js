@@ -14,10 +14,12 @@ class CheckoutForm extends Component {
 
   render() {
     return (
+      <div className="row container">
       <div className="checkout">
         <p>Would you like to complete the purchase?</p>
         <CardElement />
-        <button onClick={this.submit}>Send</button>
+        <button type="button" class="btn btn-outline-dark" onClick={this.submit}>Send</button>
+      </div>
       </div>
     );
   }
