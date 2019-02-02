@@ -40,12 +40,12 @@ const Cart = (props) => {
                     <div className="form-row">
                       <div className="col-md-4 mb-3">
                         <label htmlFor="firstName">First Name</label>
-                        <input onKeyUp={props.updatePurchaseField} type="text" className={`form-control ${props.validatedElements.fName ? 'is-valid' : 'is-invalid'}`} id="firstName" placeholder="First Name" required />
+                        <input onChange={props.updatePurchaseField} type="text" className={`form-control ${props.validatedElements.fName ? 'is-valid' : 'is-invalid'}`} id="firstName" placeholder="First Name" required />
                       </div>
 
                       <div className="col-md-4 mb-3">
                         <label htmlFor="lastName">Last Name</label>
-                        <input onKeyUp={props.updatePurchaseField} type="text" className={`form-control ${props.validatedElements.lName ? 'is-valid' : 'is-invalid'}`} id="lastName" placeholder="Last Name" required />
+                        <input onChange={props.updatePurchaseField} type="text" className={`form-control ${props.validatedElements.lName ? 'is-valid' : 'is-invalid'}`} id="lastName" placeholder="Last Name" required />
                       </div>
                     </div>
 
@@ -63,12 +63,12 @@ const Cart = (props) => {
                       <div className="form-row">
                         <div className="col-md-4 mb-3">
                           <label htmlFor="willCallFirstName">Will Call First Name</label>
-                          <input onKeyUp={props.updatePurchaseField} type="text" className='form-control' id="willCallFirstName" placeholder="First Name" />
+                          <input onChange={props.updatePurchaseField} type="text" className='form-control' id="willCallFirstName" placeholder="First Name" />
                         </div>
 
                         <div className="col-md-4 mb-3">
                           <label htmlFor="willCallLastName">Will Call Last Name</label>
-                          <input onKeyUp={props.updatePurchaseField} type="text" className='form-control' id="willCallLastName" placeholder="Last Name" />
+                          <input onChange={props.updatePurchaseField} type="text" className='form-control' id="willCallLastName" placeholder="Last Name" />
                         </div>
                       </div>
                       :
@@ -80,23 +80,31 @@ const Cart = (props) => {
 
                     <div className="form-row">
                       <div className="col-md-4 mb-3">
-                        <input onKeyUp={props.updatePurchaseField} type="text" className='form-control' id="discountCode" placeholder="Discount Code" />
+                        <input onChange={props.updatePurchaseField} type="text" className='form-control' id="discountCode" placeholder="Discount Code" />
                       </div>
                     </div>
                   </form>
 
-                  <div className='form-row purchase-btn-area'>
-                    <div className='form-row'>
 
+                  <div className='form-row'>
+                    <div className="col-md-4">
                       <Checkout
                         displayPurchase={props.displayPurchase}
                         totalCost={totalCost}
                         showsInCart={props.showsInCart}></Checkout>
-
                     </div>
+
+
+
+                    <div className='form-row'>
+                      <div className="col-md-8 total-field">
+                        <h4>Cart Total:
+                          <span onChange={props.updateTotal} className="badge badge-secondary">{`$${totalCost}`}</span>
+                        </h4>
+                      </div>
+                    </div>
+
                   </div>
-
-
                 </div>
               </div>
             </div> : ''}
@@ -108,7 +116,3 @@ const Cart = (props) => {
 }
 
 export default Cart;
-
-{/* <h4>Cart Total:
-  <span onChange={props.updateTotal} class="badge badge-secondary">{`$${totalCost}`}</span>
-</h4> */}

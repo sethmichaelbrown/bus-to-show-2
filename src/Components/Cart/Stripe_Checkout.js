@@ -13,6 +13,7 @@ export default class Checkout extends React.Component {
     });
   }
 
+
   // ...
 
   render() {
@@ -25,11 +26,9 @@ export default class Checkout extends React.Component {
         description={this.props.showsInCart}
         amount={this.props.totalCost * 100}
         currency='USD'>
-        <div className="col-md-6">
           <button 
             className={`btn ${this.props.displayPurchase ? 'btn-outline-success' : 'btn-secondary'}` }
             disabled={this.props.displayPurchase ? '' : 'disabled'}>Purchase</button>
-        </div>
       </StripeCheckout>
     )
   }
