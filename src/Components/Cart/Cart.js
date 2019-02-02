@@ -7,6 +7,7 @@ const Cart = (props) => {
   // console.log('Cart', props)
 
   const cost = parseInt(props.totalCost)
+  // console.log(cost)
   const totalCost = cost.toFixed(2)
 
   return (
@@ -40,12 +41,12 @@ const Cart = (props) => {
                     <div className="form-row">
                       <div className="col-md-4 mb-3">
                         <label htmlFor="firstName">First Name</label>
-                        <input onChange={props.updatePurchaseField} type="text" className={`form-control ${props.validatedElements.fName ? 'is-valid' : 'is-invalid'}`} id="firstName" placeholder="First Name" required />
+                        <input onKeyUp={props.updatePurchaseField} type="text" className={`form-control ${props.validatedElements.fName ? 'is-valid' : 'is-invalid'}`} id="firstName" placeholder="First Name" required />
                       </div>
 
                       <div className="col-md-4 mb-3">
                         <label htmlFor="lastName">Last Name</label>
-                        <input onChange={props.updatePurchaseField} type="text" className={`form-control ${props.validatedElements.lName ? 'is-valid' : 'is-invalid'}`} id="lastName" placeholder="Last Name" required />
+                        <input onKeyUp={props.updatePurchaseField} type="text" className={`form-control ${props.validatedElements.lName ? 'is-valid' : 'is-invalid'}`} id="lastName" placeholder="Last Name" required />
                       </div>
                     </div>
 
@@ -63,12 +64,12 @@ const Cart = (props) => {
                       <div className="form-row">
                         <div className="col-md-4 mb-3">
                           <label htmlFor="willCallFirstName">Will Call First Name</label>
-                          <input onChange={props.updatePurchaseField} type="text" className='form-control' id="willCallFirstName" placeholder="First Name" />
+                          <input onKeyUp={props.updatePurchaseField} type="text" className='form-control' id="willCallFirstName" placeholder="First Name" />
                         </div>
 
                         <div className="col-md-4 mb-3">
                           <label htmlFor="willCallLastName">Will Call Last Name</label>
-                          <input onChange={props.updatePurchaseField} type="text" className='form-control' id="willCallLastName" placeholder="Last Name" />
+                          <input onKeyUp={props.updatePurchaseField} type="text" className='form-control' id="willCallLastName" placeholder="Last Name" />
                         </div>
                       </div>
                       :
@@ -80,31 +81,31 @@ const Cart = (props) => {
 
                     <div className="form-row">
                       <div className="col-md-4 mb-3">
-                        <input onChange={props.updatePurchaseField} type="text" className='form-control' id="discountCode" placeholder="Discount Code" />
+                        <input onKeyUp={props.updatePurchaseField} type="text" className='form-control' id="discountCode" placeholder="Discount Code" />
                       </div>
+                    </div>
+
+                    <div className='form-row purchase-btn-area'>
+                      <div className="buttons-cont col-md-6">
+
+                        {/* <button  type="submit" className="btn btn-outline-success return-btn ml-2">Purchase</button> */}
+                      </div>
+                      <div className='form-row'>
+                        <Checkout 
+                          purchase={props.purchase} 
+                          totalCost={totalCost} 
+                          showsInCart={props.showsInCart}>
+                        </Checkout>
+                     
+                      {/* <div className="total-cont col-md-6 float-right"> */}
+                        <h4>Cart Total: <span onChange={props.updateTotal} class="badge badge-secondary">{`$${totalCost}`}</span></h4>
+                      </div>
+
                     </div>
                   </form>
 
+                  
 
-                  <div className='form-row'>
-                    <div className="col-md-4">
-                      <Checkout
-                        displayPurchaseBtn={props.displayPurchaseBtn}
-                        totalCost={totalCost}
-                        showsInCart={props.showsInCart}></Checkout>
-                    </div>
-
-
-
-                    <div className='form-row'>
-                      <div className="col-md-8 total-field">
-                        <h4>Cart Total:
-                          <span onChange={props.updateTotal} className="badge badge-secondary">{`$${totalCost}`}</span>
-                        </h4>
-                      </div>
-                    </div>
-
-                  </div>
                 </div>
               </div>
             </div> : ''}
@@ -114,5 +115,3 @@ const Cart = (props) => {
     </div>
   )
 }
-
-export default Cart;

@@ -48,8 +48,8 @@ class App extends Component {
       firstName: '',
       lastName: '',
       email: '',
-      willCallFirstName: null,
-      willCallLastName: null,
+      willCallFirstName: '',
+      willCallLastName: '',
       ticketQuantity: 0,
       totalCost: 0,
       discountCode: ''
@@ -116,24 +116,15 @@ class App extends Component {
 
   purchase = async () => {
     const cartObj = this.state.cartToSend
-    const stripeResponse = await fetch('https://api.stripe.com', {
-      method: 'PATCH',
+    console.log('cartToSend:   ', this.state.cartToSend)
+    console.log('cartObj:   ', cartObj)
+    fetch('http://localhost:3000/orders', {
+      method: 'POST',
       body: JSON.stringify(cartObj),
       headers: {
         'Content-Type': 'application/json'
       }
     })
-    if (stripeResponse.paid) {
-      fetch('https://something-innocuous.herokuapp.com/orders', {
-        method: 'POST',
-        body: JSON.stringify(cartObj),
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
-    } else {
-      console.log('REJECTED!!!!!!!!!!!!!!!!!')
-    }
   }
 
   // Tab Functions
@@ -167,7 +158,8 @@ class App extends Component {
     this.setState(newState)
   }
 
-  addToCart = (event) => {
+  addToCart = async(event) => {
+  
     const newState = { ...this.state }
     const pickupLocation = this.state.pickupLocations.filter(location => location.id == this.state.rideId)[0]
     const basePrice = parseInt(pickupLocation.basePrice)
@@ -194,8 +186,36 @@ class App extends Component {
 
       console.log('One event at a time.')
     }
+    const cartObj = {
+      pickupLocationId: this.state.rideId,
+      eventId:this.state.inCart[0].id,
+      ticketQuantity: this.state.ticketQuantity,
+    }
+    console.log('cartObj',cartObj)
+    await fetch('http://localhost:3000/pickup_parties', {
+      method: 'PATCH',
+      body: JSON.stringify({
+        pickupLocationId: this.state.rideId,
+        eventId:this.state.inCart[0].id,
+        ticketQuantity: parseInt(this.state.ticketQuantity),
+      }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    setTimeout(fetch('http://localhost:3000/pickup_parties', {
+      method: 'PATCH',
+      body: JSON.stringify({
+        pickupLocationId: this.state.rideId,
+        eventId:this.state.inCart[0].id,
+        ticketQuantity: parseInt(this.state.ticketQuantity)*-1,
+      }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }), 4000)
+
     this.setState(newState)
-    
   }
 
 
@@ -248,11 +268,11 @@ class App extends Component {
       cTS.lastName = this.state.validatedElements.lName
       cTS.email = this.state.validatedElements.email
       cTS.eventId = this.state.inCart[0].id
-      cTS.ticketQuantity = this.state.ticketQuantity
-      cTS.pickupLocationId = this.state.rideId
+      cTS.ticketQuantity = parseInt(this.state.ticketQuantity)
+      cTS.pickupLocationId = parseInt(this.state.rideId)
       cTS.willCallFirstName = this.state.validatedElements.wCFName
       cTS.willCallLastName = this.state.validatedElements.wCLName
-      cTS.totalCost = this.state.totalCost
+      cTS.totalCost = parseInt(this.state.totalCost)
       cTS.discountCode = discountCode
 
       this.setState({ displayPurchaseBtn: true})
@@ -337,12 +357,38 @@ render() {
                 loginClick={this.loginClick} />
               <div className='content-section'>
                 <div className='col-md-6 float-left'>
-                  <ShowList
-                    addBorder={this.addBorder}
-                    filterString={this.state.filterString}
-                    shows={this.state.shows}
-                    displayShow={this.state.displayShow}
-                    showsExpandClick={this.showsExpandClick} />
+                  {this.state.displayCart || this.state.displayShow ?
+                    <DetailCartView
+                      addToCart={this.addToCart}
+                      checked={this.state.checked}
+                      displayAddBtn={this.state.displayAddBtn}
+                      displayBorder={this.state.displayBorder}
+                      displayCart={this.state.displayCart}
+                      displayShow={this.state.displayShow}
+                      displaySuccess={this.state.displaySuccess}
+                      displayQuantity={this.state.displayQuantity}
+                      handleSubmit={this.handleSubmit}
+                      handleCheck={this.handleCheck}
+                      inCart={this.state.inCart}
+                      pickupLocations={this.state.pickupLocations}
+                      purchaseClick={this.purchaseClick}
+                      quantityChange={this.quantityChange}
+                      removeFromCart={this.removeFromCart}
+                      returnToShows={this.returnToShows}
+                      rideId={this.state.rideId}
+                      selectRideId={this.selectRideId}
+                      selectTicketQuantity={this.selectTicketQuantity}
+                      showsExpandClick={this.showsExpandClick}
+                      showsInCart={this.state.inCart}
+                      tabClicked={this.tabClicked}
+                      ticketQuantity={this.state.ticketQuantity}
+                      totalCost={this.state.totalCost}
+                      updatePurchaseField={this.updatePurchaseField}
+                      validated={this.state.validated}
+                      validatedElements={this.state.validatedElements} 
+                      purchase={this.purchase}/>
+                    :
+                    <SponsorBox />}
                 </div>
               </div>
 

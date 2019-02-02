@@ -14,7 +14,12 @@ export default class Checkout extends React.Component {
             "Content-Type": "application/json",
         },
       }).then(response => {
-        response.json().then(data =>data);
+          if (response.ok){
+            console.log('inside Checkout response')
+            this.props.purchase()
+            console.log('props',this.props)
+          }
+        // 
         });
       };
    
