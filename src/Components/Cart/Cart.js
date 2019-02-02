@@ -1,10 +1,10 @@
 import React from 'react'
 import '../../App.css';
 import CartItem from './CartItem'
-
+import Checkout from '../../Checkout'
 const Cart = (props) => {
   // console.log('Cart', props)
-
+  
   const cost = parseInt(props.totalCost)
   // console.log(cost)
   const totalCost = cost.toFixed(2)
@@ -85,26 +85,16 @@ const Cart = (props) => {
                     </div>
 
                     <div className='form-row purchase-btn-area'>
-                      <div className="buttons-cont col-md-6">
-                        
-                        <form action="/orders/charge" method="POST" className='buttons-cont col-md-6'>
-                          <script
-                            src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                            data-key="pk_test_J0CdRMCGmBlrlOiGKnGgUEwT"
-                            data-amount="2500"
-                            data-name="Web Development Ebook"
-                            data-description="Ebook written by Brad Traversy"
-                            data-locale="auto">
-                          </script>
-                          <button type="button" onClick={props.returnToShows} className="btn btn-outline-danger return-btn">Cancel</button>
-                          <button onClick={props.purchaseClick} type="submit" class="btn btn-outline-success">Purchase</button>
-                        </form>
-
-                        {/* <button  type="submit" className="btn btn-outline-success return-btn ml-2">Purchase</button> */}
+                      <div className="buttons-cont col-md-6">  
                       </div>
                       <div className="total-cont col-md-6 float-right">
-                        <h4>Cart Total: <span onChange={props.updateTotal} class="badge badge-secondary">{`$${totalCost}`}</span></h4>
+                        <h4>Cart Total: <span onChange={props.updateTotal} className="badge badge-secondary">{`$${totalCost}`}</span></h4>
                       </div>
+                        <Checkout
+                          name={'Bus to Show'}
+                          description={`${props.ticketQuantity} BtS tickets`}
+                          amount={totalCost}
+                        />
 
                     </div>
                   </form>

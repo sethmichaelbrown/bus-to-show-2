@@ -328,7 +328,7 @@ class App extends Component {
                   searchShows={this.searchShows}
                   loginClick={this.loginClick} />
                 <div className='content-section'>
-                {this.state.displayStripe ? <StripeView /> : ''}
+                {/* {this.state.displayStripe ? <StripeView /> : ''} */}
                   <div className='col-md-6 float-left'>
                     <ShowList
                       addBorder={this.addBorder}
