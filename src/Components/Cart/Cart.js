@@ -4,10 +4,8 @@ import CartItem from './CartItem';
 import Checkout from './Stripe_Checkout';
 
 const Cart = (props) => {
-  // console.log('Cart', props)
   
   const cost = parseInt(props.totalCost)
-  // console.log(cost)
   const totalCost = cost.toFixed(2)
 
   return (
