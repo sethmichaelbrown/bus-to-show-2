@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { BrowserRouter, Route } from "react-router-dom"
 import Validator from 'validator'
 import './App.css';
-
+import StripeCheckout from 'react-stripe-checkout';
+import axios from 'axios';
 import Header from './Components/Header'
 import ShowList from './Components/Shows/ShowList'
 import Loading from './Components/Loading'
