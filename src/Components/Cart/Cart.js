@@ -1,7 +1,8 @@
-import React from 'react'
+import React from 'react';
 import '../../App.css';
-import CartItem from './CartItem'
-import Checkout from '../../Checkout'
+import CartItem from './CartItem';
+import Checkout from './Stripe_Checkout';
+
 const Cart = (props) => {
   // console.log('Cart', props)
   
@@ -85,20 +86,14 @@ const Cart = (props) => {
                     </div>
 
                     <div className='form-row purchase-btn-area'>
-                      <div className="buttons-cont col-md-6">  
+                      <div className="buttons-cont col-md-6">
                       </div>
-                      <div className="total-cont col-md-6 float-right">
-                        <h4>Cart Total: <span onChange={props.updateTotal} className="badge badge-secondary">{`$${totalCost}`}</span></h4>
+                      <div className='form-row'>
+                        <Checkout totalCost={totalCost} showsInCart={props.showsInCart}></Checkout>
+                        <h4>Cart Total: <span onChange={props.updateTotal} class="badge badge-secondary">{`$${totalCost}`}</span></h4>
                       </div>
-                        <Checkout
-                          name={'Bus to Show'}
-                          description={`${props.ticketQuantity} BtS tickets`}
-                          amount={totalCost}
-                        />
-
                     </div>
                   </form>
-
                 </div>
               </div>
             </div> : ''}
