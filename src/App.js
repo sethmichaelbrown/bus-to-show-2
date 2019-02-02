@@ -49,8 +49,8 @@ class App extends Component {
       firstName: '',
       lastName: '',
       email: '',
-      willCallFirstName: null,
-      willCallLastName: null,
+      willCallFirstName: '',
+      willCallLastName: '',
       ticketQuantity: 0,
       totalCost: 0,
       discountCode: ''
@@ -117,17 +117,15 @@ class App extends Component {
 
   purchase = async () => {
     const cartObj = this.state.cartToSend
-    if (true) {
-      fetch('https://something-innocuous.herokuapp.com/orders', {
-        method: 'POST',
-        body: JSON.stringify(cartObj),
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
-    } else {
-      console.log('REJECTED!!!!!!!!!!!!!!!!!')
-    }
+    console.log('cartToSend:   ', this.state.cartToSend)
+    console.log('cartObj:   ', cartObj)
+    fetch('http://localhost:3000/orders', {
+      method: 'POST',
+      body: JSON.stringify(cartObj),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
   }
 
   // Tab Functions
@@ -271,11 +269,11 @@ class App extends Component {
       cTS.lastName = this.state.validatedElements.lName
       cTS.email = this.state.validatedElements.email
       cTS.eventId = this.state.inCart[0].id
-      cTS.ticketQuantity = this.state.ticketQuantity
-      cTS.pickupLocationId = this.state.rideId
+      cTS.ticketQuantity = parseInt(this.state.ticketQuantity)
+      cTS.pickupLocationId = parseInt(this.state.rideId)
       cTS.willCallFirstName = this.state.validatedElements.wCFName
       cTS.willCallLastName = this.state.validatedElements.wCLName
-      cTS.totalCost = this.state.totalCost
+      cTS.totalCost = parseInt(this.state.totalCost)
       cTS.discountCode = discountCode
 
       this.setState({ cartToSend: newState.cartToSend })
@@ -375,7 +373,8 @@ class App extends Component {
                       totalCost={this.state.totalCost}
                       updatePurchaseField={this.updatePurchaseField}
                       validated={this.state.validated}
-                      validatedElements={this.state.validatedElements} />
+                      validatedElements={this.state.validatedElements} 
+                      purchase={this.purchase}/>
                     :
                     <SponsorBox />}
                 </div>

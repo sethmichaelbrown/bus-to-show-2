@@ -91,7 +91,11 @@ const Cart = (props) => {
                         {/* <button  type="submit" className="btn btn-outline-success return-btn ml-2">Purchase</button> */}
                       </div>
                       <div className='form-row'>
-                        <Checkout totalCost={totalCost} showsInCart={props.showsInCart}></Checkout>
+                        <Checkout 
+                          purchase={props.purchase} 
+                          totalCost={totalCost} 
+                          showsInCart={props.showsInCart}>
+                        </Checkout>
                      
                       {/* <div className="total-cont col-md-6 float-right"> */}
                         <h4>Cart Total: <span onChange={props.updateTotal} class="badge badge-secondary">{`$${totalCost}`}</span></h4>
