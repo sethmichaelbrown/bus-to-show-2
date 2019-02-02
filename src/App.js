@@ -3,8 +3,13 @@ import { BrowserRouter, Route } from "react-router-dom"
 import {Elements, StripeProvider} from 'react-stripe-elements'
 import Validator from 'validator'
 import './App.css';
+<<<<<<< HEAD
 
 import CheckoutForm from './CheckoutForm'
+=======
+import StripeCheckout from 'react-stripe-checkout';
+import axios from 'axios';
+>>>>>>> bb88f964cabefda23106249dc44a68a3b8e49726
 import Header from './Components/Header'
 import ShowList from './Components/Shows/ShowList'
 import Loading from './Components/Loading'

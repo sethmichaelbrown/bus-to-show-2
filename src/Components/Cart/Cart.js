@@ -1,7 +1,12 @@
-import React from 'react'
+import React from 'react';
 import '../../App.css';
+<<<<<<< HEAD
 import CartItem from './CartItem'
 import {CardElement, injectStripe} from 'react-stripe-elements';
+=======
+import CartItem from './CartItem';
+import Checkout from './Stripe_Checkout';
+>>>>>>> bb88f964cabefda23106249dc44a68a3b8e49726
 
 const Cart = (props) => {
   // console.log('Cart', props)
@@ -86,6 +91,7 @@ const Cart = (props) => {
                     </div>
                   </form>
 
+<<<<<<< HEAD
                   <div className='form-row purchase-btn-area'>
                     <div className="buttons-cont col-md-6">
                     <form action="https://something-innocuous.herokuapp.com/orders/charge" method="POST">
@@ -106,7 +112,22 @@ const Cart = (props) => {
                     </div>
 
                   </div>
+=======
+                    <div className='form-row purchase-btn-area'>
+                      <div className="buttons-cont col-md-6">
 
+                        {/* <button  type="submit" className="btn btn-outline-success return-btn ml-2">Purchase</button> */}
+                      </div>
+                      <div className='form-row'>
+                        <Checkout totalCost={totalCost} showsInCart={props.showsInCart}></Checkout>
+                     
+                      {/* <div className="total-cont col-md-6 float-right"> */}
+                        <h4>Cart Total: <span onChange={props.updateTotal} class="badge badge-secondary">{`$${totalCost}`}</span></h4>
+                      </div>
+>>>>>>> bb88f964cabefda23106249dc44a68a3b8e49726
+
+
+                  
 
                 </div>
               </div>
