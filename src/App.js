@@ -117,30 +117,7 @@ class App extends Component {
 
   purchase = async () => {
     const cartObj = this.state.cartToSend
-    const inCartResponse = await fetch('https://something-innocuous.herokuapp.com/pickup_parties', {
-      method: 'PATCH',
-      body: JSON.stringify(cartObj),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-    let timeoutCartObj = { ...cartObj }
-    timeoutCartObj.ticketQuantity = timeoutCartObj.ticketQuantity * (-1)
-    setTimeout(fetch('https://something-innocuous.herokuapp.com/pickup_parties', {
-      method: 'PATCH',
-      body: JSON.stringify(cartObj),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    }), 600000)
-    const stripeResponse = await fetch('https://api.stripe.com', {
-      method: 'PATCH',
-      body: JSON.stringify(cartObj),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-    if (stripeResponse.paid) {
+    if (true) {
       fetch('https://something-innocuous.herokuapp.com/orders', {
         method: 'POST',
         body: JSON.stringify(cartObj),
@@ -184,7 +161,8 @@ class App extends Component {
     this.setState(newState)
   }
 
-  addToCart = (event) => {
+  addToCart = async(event) => {
+  
     const newState = { ...this.state }
     const pickupLocation = this.state.pickupLocations.filter(location => location.id == this.state.rideId)[0]
     const basePrice = parseInt(pickupLocation.basePrice)
@@ -211,8 +189,36 @@ class App extends Component {
 
       console.log('One event at a time.')
     }
+    const cartObj = {
+      pickupLocationId: this.state.rideId,
+      eventId:this.state.inCart[0].id,
+      ticketQuantity: this.state.ticketQuantity,
+    }
+    console.log('cartObj',cartObj)
+    await fetch('http://localhost:3000/pickup_parties', {
+      method: 'PATCH',
+      body: JSON.stringify({
+        pickupLocationId: this.state.rideId,
+        eventId:this.state.inCart[0].id,
+        ticketQuantity: parseInt(this.state.ticketQuantity),
+      }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    setTimeout(fetch('http://localhost:3000/pickup_parties', {
+      method: 'PATCH',
+      body: JSON.stringify({
+        pickupLocationId: this.state.rideId,
+        eventId:this.state.inCart[0].id,
+        ticketQuantity: parseInt(this.state.ticketQuantity)*-1,
+      }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }), 4000)
+
     this.setState(newState)
-    console.log(newState)
   }
 
 
