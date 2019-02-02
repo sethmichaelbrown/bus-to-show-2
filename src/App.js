@@ -1,8 +1,10 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import { BrowserRouter, Route } from "react-router-dom"
+import {Elements, StripeProvider} from 'react-stripe-elements'
 import Validator from 'validator'
 import './App.css';
 
+import CheckoutForm from './CheckoutForm'
 import Header from './Components/Header'
 import ShowList from './Components/Shows/ShowList'
 import Loading from './Components/Loading'
@@ -21,7 +23,7 @@ class App extends Component {
     displaySuccess: false,
     loginView: false,
     displayCart: false,
-    displayStripe: false,
+    displayStripe: true,
     filterString: '',
     inCart: [],
     displayDetailCartView: false,
@@ -246,7 +248,7 @@ class App extends Component {
       else if (updateField === 'willCallLastName' && Validator.isAlpha(value)) {
         vE.wCLName = value
       }
-      else if (updateField === 'discountCode'){
+      else if (updateField === 'discountCode') {
         discountCode = value
       }
       else {
@@ -310,74 +312,106 @@ class App extends Component {
   }
 
   purchaseClick = (event) => {
-    const newState = { ...this.state }
-    newState.displayStripe = true
-    this.setState({displayStripe: newState.displayStripe})
-  }
+    console.log('hello')
+  event.preventDefault()
+  console.log(event.target)
+  console.log(event.target.stripeEmail.value)
+  // const response = await fetch('https://something-innocuous.herokuapp.com/orders/charge', {
+  //   method: 'POST',
+  //   body: JSON.stringify({
+  //     amount: this.state.cartToSend.totalCost,
+  //     stripeEmail: event.target.stripeEmail.value,
+  //     stripeToken: event.target.stripeToken.value,
+  //   }),
+  //   headers: {
+  //     'Content-Type': 'application/json'
+  //   }
+  // })
+}
 
-  render() {
-    return (
-      <BrowserRouter>
-        <div className="App">
-          {this.state.loginView ?
-            <LoginView
-              returnHome={this.returnHome} /> :
-            this.state.shows ?
-              <React.Fragment>
-                <Header
-                  searchShows={this.searchShows}
-                  loginClick={this.loginClick} />
-                <div className='content-section'>
-                {this.state.displayStripe ? <StripeView /> : ''}
-                  <div className='col-md-6 float-left'>
-                    <ShowList
-                      addBorder={this.addBorder}
-                      filterString={this.state.filterString}
-                      shows={this.state.shows}
-                      displayShow={this.state.displayShow}
-                      showsExpandClick={this.showsExpandClick} />
-                  </div>
-                </div>
+async submit(ev) {
+  let {token} = await this.props.stripe.createToken({name: "Name"});
+  let response = await fetch("/charge", {
+    method: "POST",
+    headers: {"Content-Type": "text/plain"},
+    body: token.id
+  });
 
-                <div className='col-md-6 float-left'>
-                  {this.state.displayCart || this.state.displayShow ?
-                    <DetailCartView
-                      addToCart={this.addToCart}
-                      checked={this.state.checked}
-                      displayAddBtn={this.state.displayAddBtn}
-                      displayBorder={this.state.displayBorder}
-                      displayCart={this.state.displayCart}
-                      displayShow={this.state.displayShow}
-                      displaySuccess={this.state.displaySuccess}
-                      displayQuantity={this.state.displayQuantity}
-                      handleSubmit={this.handleSubmit}
-                      handleCheck={this.handleCheck}
-                      inCart={this.state.inCart}
-                      pickupLocations={this.state.pickupLocations}
-                      purchaseClick={this.purchaseClick}
-                      quantityChange={this.quantityChange}
-                      removeFromCart={this.removeFromCart}
-                      returnToShows={this.returnToShows}
-                      rideId={this.state.rideId}
-                      selectRideId={this.selectRideId}
-                      selectTicketQuantity={this.selectTicketQuantity}
-                      showsExpandClick={this.showsExpandClick}
-                      showsInCart={this.state.inCart}
-                      tabClicked={this.tabClicked}
-                      ticketQuantity={this.state.ticketQuantity}
-                      totalCost={this.state.totalCost}
-                      updatePurchaseField={this.updatePurchaseField}
-                      validated={this.state.validated}
-                      validatedElements={this.state.validatedElements} />
-                    :
-                    <SponsorBox />}
-                </div>
-              </React.Fragment> : <Loading />
-          }
+  if (response.ok) console.log("Purchase Complete!")
+}
+
+render() {
+  return (
+     <StripeProvider apiKey="pk_test_TYooMQauvdEDq54NiTphI7jx">
+    <BrowserRouter>
+      <div className="App">
+        {this.state.loginView ?
+          <LoginView
+            returnHome={this.returnHome} /> :
+          this.state.shows ?
+            <React.Fragment>
+              <Header
+                searchShows={this.searchShows}
+                loginClick={this.loginClick} />
+              <div className='content-section'>
+        
+               
+        <div className="example">
+          <h1>React Stripe Elements Example</h1>
+          <Elements>
+            <CheckoutForm />
+          </Elements>
         </div>
-      </BrowserRouter>
-    );
-  }
+                <div className='col-md-6 float-left'>
+                  <ShowList
+                    addBorder={this.addBorder}
+                    filterString={this.state.filterString}
+                    shows={this.state.shows}
+                    displayShow={this.state.displayShow}
+                    showsExpandClick={this.showsExpandClick} />
+                </div>
+              </div>
+
+              <div className='col-md-6 float-left'>
+                {this.state.displayCart || this.state.displayShow ?
+                  <DetailCartView
+                    addToCart={this.addToCart}
+                    checked={this.state.checked}
+                    displayAddBtn={this.state.displayAddBtn}
+                    displayBorder={this.state.displayBorder}
+                    displayCart={this.state.displayCart}
+                    displayShow={this.state.displayShow}
+                    displaySuccess={this.state.displaySuccess}
+                    displayQuantity={this.state.displayQuantity}
+                    handleSubmit={this.handleSubmit}
+                    handleCheck={this.handleCheck}
+                    inCart={this.state.inCart}
+                    pickupLocations={this.state.pickupLocations}
+                    purchaseClick={this.purchaseClick}
+                    quantityChange={this.quantityChange}
+                    removeFromCart={this.removeFromCart}
+                    returnToShows={this.returnToShows}
+                    rideId={this.state.rideId}
+                    selectRideId={this.selectRideId}
+                    selectTicketQuantity={this.selectTicketQuantity}
+                    showsExpandClick={this.showsExpandClick}
+                    showsInCart={this.state.inCart}
+                    tabClicked={this.tabClicked}
+                    ticketQuantity={this.state.ticketQuantity}
+                    totalCost={this.state.totalCost}
+                    updatePurchaseField={this.updatePurchaseField}
+                    validated={this.state.validated}
+                    validatedElements={this.state.validatedElements} />
+                  :
+                  <SponsorBox />}
+              </div>
+            </React.Fragment> : <Loading />
+        }
+      </div>
+    </BrowserRouter>
+     </StripeProvider> 
+  );
+}
 }
 
 export default App;

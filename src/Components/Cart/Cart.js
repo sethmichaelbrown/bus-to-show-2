@@ -1,6 +1,7 @@
 import React from 'react'
 import '../../App.css';
 import CartItem from './CartItem'
+import {CardElement, injectStripe} from 'react-stripe-elements';
 
 const Cart = (props) => {
   // console.log('Cart', props)
@@ -83,31 +84,29 @@ const Cart = (props) => {
                         <input onKeyUp={props.updatePurchaseField} type="text" className='form-control' id="discountCode" placeholder="Discount Code" />
                       </div>
                     </div>
-
-                    <div className='form-row purchase-btn-area'>
-                      <div className="buttons-cont col-md-6">
-                        
-                        <form action="/orders/charge" method="POST" className='buttons-cont col-md-6'>
-                          <script
-                            src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                            data-key="pk_test_J0CdRMCGmBlrlOiGKnGgUEwT"
-                            data-amount="2500"
-                            data-name="Web Development Ebook"
-                            data-description="Ebook written by Brad Traversy"
-                            data-locale="auto">
-                          </script>
-                          <button type="button" onClick={props.returnToShows} className="btn btn-outline-danger return-btn">Cancel</button>
-                          <button onClick={props.purchaseClick} type="submit" class="btn btn-outline-success">Purchase</button>
-                        </form>
-
-                        {/* <button  type="submit" className="btn btn-outline-success return-btn ml-2">Purchase</button> */}
-                      </div>
-                      <div className="total-cont col-md-6 float-right">
-                        <h4>Cart Total: <span onChange={props.updateTotal} class="badge badge-secondary">{`$${totalCost}`}</span></h4>
-                      </div>
-
-                    </div>
                   </form>
+
+                  <div className='form-row purchase-btn-area'>
+                    <div className="buttons-cont col-md-6">
+                    <form action="https://something-innocuous.herokuapp.com/orders/charge" method="POST">
+    <script
+      src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+      data-key="pk_test_J0CdRMCGmBlrlOiGKnGgUEwT"
+      data-amount="7500"
+      data-name="Web Development Ebook"
+      data-description="Ebook written by Brad Traversy"
+      data-locale="auto">
+    </script>
+    <button type="submit" className="btn btn-outline-dark text-white btn-lg">Purchase For $25</button>
+  </form>
+                      {/* <button  type="submit" className="btn btn-outline-success return-btn ml-2">Purchase</button> */}
+                    </div>
+                    <div className="total-cont col-md-6 float-right">
+                      <h4>Cart Total: <span onChange={props.updateTotal} class="badge badge-secondary">{`$${totalCost}`}</span></h4>
+                    </div>
+
+                  </div>
+
 
                 </div>
               </div>
