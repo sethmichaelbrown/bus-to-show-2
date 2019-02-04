@@ -160,9 +160,9 @@ class App extends Component {
   
     const newState = { ...this.state }
     const pickupLocation = this.state.pickupLocations.filter(location => location.id == this.state.rideId)[0]
-    const basePrice = parseInt(pickupLocation.basePrice)
+    const basePrice = Number(pickupLocation.basePrice)
     const ticketQuantity = parseInt(this.state.ticketQuantity)
-    const processingFee = parseInt((basePrice * ticketQuantity) * (0.1))
+    const processingFee = Number((basePrice * ticketQuantity) * (0.1))
     const cost = ((basePrice * ticketQuantity) + processingFee)
     newState.totalCost = cost.toFixed(2)
     if (newState.inCart.length === 0) {
@@ -271,7 +271,7 @@ class App extends Component {
       cTS.pickupLocationId = parseInt(this.state.rideId)
       cTS.willCallFirstName = this.state.validatedElements.wCFName
       cTS.willCallLastName = this.state.validatedElements.wCLName
-      cTS.totalCost = parseInt(this.state.totalCost)
+      cTS.totalCost = Number(this.state.totalCost)
       cTS.discountCode = discountCode
 
       this.setState({ cartToSend: newState.cartToSend })
@@ -293,9 +293,9 @@ class App extends Component {
     const newState = { ...this.state }
     newState.ticketQuantity = event.target.value
     const pickupLocation = this.state.pickupLocations.filter(location => location.id == this.state.rideId)[0]
-    const basePrice = parseInt(pickupLocation.basePrice)
+    const basePrice = Number(pickupLocation.basePrice)
     const ticketQuantity = parseInt(newState.ticketQuantity)
-    const processingFee = parseInt((basePrice * ticketQuantity) * (0.1))
+    const processingFee = Number((basePrice * ticketQuantity) * (0.1))
     const cost = ((basePrice * ticketQuantity) + processingFee)
     newState.totalCost = cost.toFixed(2)
     this.setState(newState)
