@@ -2,7 +2,6 @@ import React from 'react'
 import '../../App.css';
 
 const ShowDetailView = (props) => {
-
   // console.log("ShowDetailView",props)
 
   const show = props.displayShow
@@ -42,7 +41,7 @@ const ShowDetailView = (props) => {
                   <img src={show.headlinerImgLink ? show.headlinerImgLink : placeKitten} alt="headliner" />
                 </div>
               </div>
-              <div className="row col-md-7 float-left">
+              <div className="row col-md-7">
                 <span>Departure Location</span>
                 <form className="was-validated">
                   <div className="form-group">
@@ -62,25 +61,22 @@ const ShowDetailView = (props) => {
                   </div>
                 </form>
               </div>
-              <div className="row col-md-5 float-right">
+              <div className="row col-md-5">
                 {props.displayQuantity ?
                   <React.Fragment>
                     <span>Ticket Quantity</span>
                     <form className="was-validated">
                       <div className="form-group">
-                        <select className="custom-select mt-2" onChange={props.selectTicketQuantity} required>
+                        {props.ticketsAvailable.length === 0 ? 
+                        <button type="button" disabled='disabled' className="btn btn-danger mt-1">Sold Out!</button> :
+                        <select
+                          className="custom-select mt-2"
+                          onChange={props.selectTicketQuantity}
+                          disabled={props.ticketsAvailable.length === 0 ? 'disabled' : ''}
+                          required>
                           <option value="">Select Quantity</option>
-                          <option value="1">1</option>
-                          <option value="2">2</option>
-                          <option value="3">3</option>
-                          <option value="4">4</option>
-                          <option value="5">5</option>
-                          <option value="6">6</option>
-                          <option value="7">7</option>
-                          <option value="8">8</option>
-                          <option value="9">9</option>
-                          <option value="10">10</option>
-                        </select>
+                          {props.ticketsAvailable.map(number => <option value={number}>{number}</option>)}
+                        </select>}
                       </div>
                     </form>
                   </React.Fragment> : ''}
@@ -93,14 +89,14 @@ const ShowDetailView = (props) => {
                   <button role="tabpanel" aria-labelledby="cart-tab" type="button" onClick={props.addToCart} className="btn btn-outline-primary return-btn ml-2 float-right">Add to Cart</button> : ''}
               </div>
             </div>
-            
+
             {props.displaySuccess ?
               <div className="list-group-item alert-item">
                 <div className='row'>
                   <div className="alert alert-success" role="alert"> Added {show.headliner} - {show.date} to cart!</div>
                 </div>
               </div> : ''}
-              {props.displayWarning ?
+            {props.displayWarning ?
               <div className="list-group-item alert-item">
                 <div className='row'>
                   <div className="alert alert-warning" role="alert">Please either complete purchase of item in cart, or remove it to procceed.</div>
