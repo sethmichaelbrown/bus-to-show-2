@@ -65,9 +65,19 @@ class App extends Component {
     const shows = await response.json()
     this.setState({ shows })
 
+
+    const allEvents=await fetch('https://something-innocuous.herokuapp.com/events')
+    const eventsList=await allEvents.json()
+    const eventsListIds=[]
+    for (let i=0; i<eventsList.length; i++){
+      eventsListIds.push(eventsList[i].id)
+    }
+
+
     const pickups = await fetch('https://something-innocuous.herokuapp.com/pickup_locations')
     const pickupLocations = await pickups.json()
-    this.setState({ pickupLocations })
+    const filteredPickupLocations=pickupLocations.filter(location=>eventsListIds.includes(location.id))
+    this.setState({ pickupLocations:filteredPickupLocations })
     // console.log('State', this.state)
   }
 
