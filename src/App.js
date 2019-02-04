@@ -168,7 +168,6 @@ class App extends Component {
     const processingFee = parseInt((basePrice * ticketQuantity) * (0.1))
     const cost = ((basePrice * ticketQuantity) + processingFee)
     newState.totalCost = cost.toFixed(2)
-
     if (newState.inCart.length === 0) {
       newState.inCart.push(newState.displayShow)
       newState.displaySuccess = true
@@ -193,7 +192,8 @@ class App extends Component {
       ticketQuantity: this.state.ticketQuantity,
     }
     console.log('cartObj',cartObj)
-    await fetch('http://localhost:3000/pickup_parties', {
+    this.setState(newState)
+    fetch('http://localhost:3000/pickup_parties', {
       method: 'PATCH',
       body: JSON.stringify({
         pickupLocationId: this.state.rideId,
@@ -215,8 +215,8 @@ class App extends Component {
         'Content-Type': 'application/json'
       }
     }), 4000)
-
-    this.setState(newState)
+    console.log('state updated',this.state)
+    
   }
 
 
@@ -264,6 +264,7 @@ class App extends Component {
     // Populates cartToSend
     if (this.state.validatedElements.fName && this.state.validatedElements.lName && this.state.validatedElements.email) {
       const cTS = newState.cartToSend
+      newState.validated = true
 
       cTS.firstName = this.state.validatedElements.fName
       cTS.lastName = this.state.validatedElements.lName
@@ -277,6 +278,7 @@ class App extends Component {
       cTS.discountCode = discountCode
 
       this.setState({ cartToSend: newState.cartToSend })
+      this.setState({ validated: newState.validated })
     }
     else {
       return 'ERROR!'
