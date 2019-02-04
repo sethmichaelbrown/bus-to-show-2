@@ -57,12 +57,13 @@ class App extends Component {
 
   async componentDidMount() {
     const response = await fetch('https://something-innocuous.herokuapp.com/events')
+    // const response = await fetch('http://localhost:3000/events')
     const shows = await response.json()
     this.setState({ shows })
     const newState = { ...this.state }
-    newState.shows.map(show => show.date = show.dateTime.split('T')[0].split('-').splice(1, 3).concat(show.dateTime.split('T')[0].split('-')[0]).join('/'))
+    // newState.shows.map(show => show.date = show.date.split('T')[0].split('-').splice(1, 3).concat(show.date.split('T')[0].split('-')[0]).join('/'))
     this.setState(newState)
-
+    console.log(this.state.shows)
     const pickups = await fetch('https://something-innocuous.herokuapp.com/pickup_locations')
     const pickupLocations = await pickups.json()
     this.setState({ pickupLocations })
@@ -190,7 +191,7 @@ class App extends Component {
     }
     console.log('cartObj',cartObj)
     this.setState(newState)
-    fetch('http://localhost:3000/pickup_parties', {
+    await fetch('http://localhost:3000/pickup_parties', {
       method: 'PATCH',
       body: JSON.stringify({
         pickupLocationId: this.state.rideId,
@@ -201,7 +202,7 @@ class App extends Component {
         'Content-Type': 'application/json'
       }
     })
-    setTimeout(await fetch('http://localhost:3000/pickup_parties', {
+    setTimeout(fetch('http://localhost:3000/pickup_parties', {
       method: 'PATCH',
       body: JSON.stringify({
         pickupLocationId: this.state.rideId,
