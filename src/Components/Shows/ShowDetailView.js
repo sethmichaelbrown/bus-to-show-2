@@ -15,27 +15,23 @@ const ShowDetailView = (props) => {
     <div className='ShowDetailView'>
       {show ?
         <div className={`content-section-details ${props.displayBorder ? 'add-border' : 'remove-border'}`}>
-          <h3>{show.headliner}</h3>
-          {props.displaySuccess ?
-            <div className="list-group-item alert-item">
-              <div className='row'>
-                <div className="alert alert-success" role="alert"> Added {show.headliner} - {show.date} to cart!</div>
-              </div>
-            </div> : ''}
-          {props.displayWarning ?
-            <div className="list-group-item alert-item">
-              <div className='row'>
-                <div className="alert alert-warning" role="alert">Please either complete purchase of item in cart, or remove it to procceed.</div>
-              </div>
-            </div> : ''}
+          <h4>{show.headliner}</h4>
           <div className="list-group">
-            <div className="list-group-item">
-              <div className="row">
-                <div className="col-md-4">Location</div>
-                <div className="col-md-4">Date</div>
-                <div className="col-md-4"></div>
-              </div>
-            </div>
+            {props.displayWarning ?
+            <div className="list-group-item alert-item">
+                <div className="alert alert-warning" role="alert">Please either complete purchase of item in cart, or remove it to procceed.</div>
+            </div> :          
+              props.displaySuccess ?
+              <div className="list-group-item alert-item">
+                  <div className="alert alert-success" role="alert"> Added {show.headliner} - {show.date} to cart!</div>
+              </div> :
+              <div className="list-group-item">
+                <div className="row">
+                  <div className="col-md-4">Location</div>
+                  <div className="col-md-4">Date</div>
+                  <div className="col-md-4"></div>
+                </div>
+              </div>}
 
             <div className="list-group-item">
               <div className="row">
@@ -53,11 +49,11 @@ const ShowDetailView = (props) => {
                   <img src={show.headlinerImgLink ? show.headlinerImgLink : placeKitten} alt="headliner" />
                 </div>
               </div>
-              <div className="row col-md-7">
+              <div className="row col-md-10">
                 <span>Departure Location</span>
                 <form className="was-validated">
                   <div className="form-group">
-                    <select className="custom-select mt-2" onChange={props.selectPickupLocationId} required>
+                    <select className="custom-select" onChange={props.selectPickupLocationId} required>
                       <option value="">Select a Departure Location...</option>
                       {props.pickupLocations ?
                         props.pickupLocations.map(location => {
@@ -82,7 +78,7 @@ const ShowDetailView = (props) => {
                         {props.ticketsAvailable.length === 0 ?
                           <button type="button" disabled='disabled' className="btn btn-lg btn-danger mt-1">Sold Out!</button> :
                           <select
-                            className="custom-select mt-2"
+                            className="custom-select"
                             onChange={props.selectTicketQuantity}
                             disabled={props.ticketsAvailable.length === 0 ? 'disabled' : ''}
                             required>

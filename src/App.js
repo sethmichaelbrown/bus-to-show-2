@@ -23,6 +23,7 @@ class App extends Component {
   state = {
     displayShow: null,
     displaySuccess: false,
+    displayWarning: false,
     loginView: false,
     displayCart: false,
     displayStripe: false,
@@ -181,7 +182,7 @@ class App extends Component {
       newState.displaySuccess = true
     }
     else {
-      console.log('One event at a time.') // Display alert? One show at a time?
+      newState.displayWarning = true 
     }
 
     const cartObj = {
@@ -375,6 +376,7 @@ class App extends Component {
                       displayQuantity={this.state.displayQuantity}
                       displayShow={this.state.displayShow}
                       displaySuccess={this.state.displaySuccess}
+                      displayWarning={this.state.displayWarning}
                       handleCheck={this.handleCheck}
                       handleSubmit={this.handleSubmit}
                       inCart={this.state.inCart}
