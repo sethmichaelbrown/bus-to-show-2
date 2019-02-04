@@ -49,8 +49,8 @@ class App extends Component {
       firstName: '',
       lastName: '',
       email: '',
-      willCallFirstName: null,
-      willCallLastName: null,
+      willCallFirstName: '',
+      willCallLastName: '',
       ticketQuantity: 0,
       totalCost: 0,
       discountCode: ''
@@ -117,40 +117,15 @@ class App extends Component {
 
   purchase = async () => {
     const cartObj = this.state.cartToSend
-    const inCartResponse = await fetch('https://something-innocuous.herokuapp.com/pickup_parties', {
-      method: 'PATCH',
+    console.log('cartToSend:   ', this.state.cartToSend)
+    console.log('cartObj:   ', cartObj)
+    fetch('http://localhost:3000/orders', {
+      method: 'POST',
       body: JSON.stringify(cartObj),
       headers: {
         'Content-Type': 'application/json'
       }
     })
-    let timeoutCartObj = { ...cartObj }
-    timeoutCartObj.ticketQuantity = timeoutCartObj.ticketQuantity * (-1)
-    setTimeout(fetch('https://something-innocuous.herokuapp.com/pickup_parties', {
-      method: 'PATCH',
-      body: JSON.stringify(cartObj),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    }), 600000)
-    const stripeResponse = await fetch('https://api.stripe.com', {
-      method: 'PATCH',
-      body: JSON.stringify(cartObj),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-    if (stripeResponse.paid) {
-      fetch('https://something-innocuous.herokuapp.com/orders', {
-        method: 'POST',
-        body: JSON.stringify(cartObj),
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
-    } else {
-      console.log('REJECTED!!!!!!!!!!!!!!!!!')
-    }
   }
 
   // Tab Functions
@@ -184,7 +159,8 @@ class App extends Component {
     this.setState(newState)
   }
 
-  addToCart = (event) => {
+  addToCart = async(event) => {
+  
     const newState = { ...this.state }
     const pickupLocation = this.state.pickupLocations.filter(location => location.id == this.state.rideId)[0]
     const basePrice = parseInt(pickupLocation.basePrice)
@@ -192,7 +168,6 @@ class App extends Component {
     const processingFee = parseInt((basePrice * ticketQuantity) * (0.1))
     const cost = ((basePrice * ticketQuantity) + processingFee)
     newState.totalCost = cost.toFixed(2)
-
     if (newState.inCart.length === 0) {
       newState.inCart.push(newState.displayShow)
       newState.displaySuccess = true
@@ -211,8 +186,37 @@ class App extends Component {
 
       console.log('One event at a time.')
     }
+    const cartObj = {
+      pickupLocationId: this.state.rideId,
+      eventId:this.state.inCart[0].id,
+      ticketQuantity: this.state.ticketQuantity,
+    }
+    console.log('cartObj',cartObj)
     this.setState(newState)
-    console.log(newState)
+    fetch('http://localhost:3000/pickup_parties', {
+      method: 'PATCH',
+      body: JSON.stringify({
+        pickupLocationId: this.state.rideId,
+        eventId:this.state.inCart[0].id,
+        ticketQuantity: parseInt(this.state.ticketQuantity),
+      }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    setTimeout(fetch('http://localhost:3000/pickup_parties', {
+      method: 'PATCH',
+      body: JSON.stringify({
+        pickupLocationId: this.state.rideId,
+        eventId:this.state.inCart[0].id,
+        ticketQuantity: parseInt(this.state.ticketQuantity)*-1,
+      }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }), 4000)
+    console.log('state updated',this.state)
+    
   }
 
 
@@ -260,19 +264,21 @@ class App extends Component {
     // Populates cartToSend
     if (this.state.validatedElements.fName && this.state.validatedElements.lName && this.state.validatedElements.email) {
       const cTS = newState.cartToSend
+      newState.validated = true
 
       cTS.firstName = this.state.validatedElements.fName
       cTS.lastName = this.state.validatedElements.lName
       cTS.email = this.state.validatedElements.email
       cTS.eventId = this.state.inCart[0].id
-      cTS.ticketQuantity = this.state.ticketQuantity
-      cTS.pickupLocationId = this.state.rideId
+      cTS.ticketQuantity = parseInt(this.state.ticketQuantity)
+      cTS.pickupLocationId = parseInt(this.state.rideId)
       cTS.willCallFirstName = this.state.validatedElements.wCFName
       cTS.willCallLastName = this.state.validatedElements.wCLName
-      cTS.totalCost = this.state.totalCost
+      cTS.totalCost = parseInt(this.state.totalCost)
       cTS.discountCode = discountCode
 
       this.setState({ cartToSend: newState.cartToSend })
+      this.setState({ validated: newState.validated })
     }
     else {
       return 'ERROR!'
@@ -369,7 +375,8 @@ class App extends Component {
                       totalCost={this.state.totalCost}
                       updatePurchaseField={this.updatePurchaseField}
                       validated={this.state.validated}
-                      validatedElements={this.state.validatedElements} />
+                      validatedElements={this.state.validatedElements} 
+                      purchase={this.purchase}/>
                     :
                     <SponsorBox />}
                 </div>

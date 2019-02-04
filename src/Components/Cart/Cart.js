@@ -6,9 +6,10 @@ import Checkout from './Stripe_Checkout';
 const Cart = (props) => {
   // console.log('Cart', props)
 
-  const cost = parseInt(props.totalCost)
+  let cost = parseInt(props.totalCost)
   // console.log(cost)
-  const totalCost = cost.toFixed(2)
+  let totalCost = cost.toFixed(2)
+
 
   return (
     <div className='Cart'>
@@ -91,10 +92,15 @@ const Cart = (props) => {
                         {/* <button  type="submit" className="btn btn-outline-success return-btn ml-2">Purchase</button> */}
                       </div>
                       <div className='form-row'>
-                        <Checkout totalCost={totalCost} showsInCart={props.showsInCart}></Checkout>
+                        <Checkout 
+                          validated={props.validated}
+                          purchase={props.purchase} 
+                          totalCost={totalCost} 
+                          showsInCart={props.showsInCart}>
+                        </Checkout>
                      
                       {/* <div className="total-cont col-md-6 float-right"> */}
-                        <h4>Cart Total: <span onChange={props.updateTotal} class="badge badge-secondary">{`$${totalCost}`}</span></h4>
+                        <h4>Cart Total: <span  className="badge badge-secondary">{`$${totalCost}`}</span></h4>
                       </div>
 
                     </div>
