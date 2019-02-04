@@ -22,7 +22,7 @@ export default class Checkout extends React.Component {
         // 
         });
       };
-      
+
     render() {
       return (
         <StripeCheckout
