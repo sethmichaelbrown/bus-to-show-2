@@ -30,7 +30,7 @@ const DetailCartView = (props) => {
             displayWarning={props.displayWarning}
             pickupLocations={props.pickupLocations}
             returnToShows={props.returnToShows}
-            selectpickupLocationId={props.selectpickupLocationId}
+            selectPickupLocationId={props.selectPickupLocationId}
             selectTicketQuantity={props.selectTicketQuantity}
             showsExpandClick={props.showsExpandClick}
             ticketQuantity={props.ticketQuantity} />
@@ -57,7 +57,7 @@ const DetailCartView = (props) => {
               /> :
             <div className="nothing-in-cart">
               <div className="list-group">
-                <div className="list-group-item">
+                <div className="list-group-item lgi-header">
                   <div className="row">
                     <div className="col-md-2">Show</div>
                     <div className="col-md-4">Departure Location</div>
