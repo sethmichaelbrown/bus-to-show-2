@@ -31,7 +31,7 @@ class App extends Component {
     displayDetailCartView: false,
     artistDescription: null,
     displayBorder: false,
-    rideId: null,
+    pickupLocationId: null,
     ticketQuantity: null,
     displayAddBtn: false,
     displayQuantity: false,
@@ -71,9 +71,9 @@ class App extends Component {
     // console.log('State', this.state)
   }
 
-  selectRideId = (event) => {
+  selectpickupLocationId = (event) => {
     const newState = { ...this.state }
-    newState.rideId = event.target.value
+    newState.pickupLocationId = event.target.value
     if (event.target.value) {
       newState.displayQuantity = true
     }
@@ -148,7 +148,7 @@ class App extends Component {
   addToCart = async () => {
     const newState = { ...this.state }
 
-    const pickupLocation = this.state.pickupLocations.filter(location => location.id == this.state.rideId)[0]
+    const pickupLocation = this.state.pickupLocations.filter(location => location.id == this.state.pickupLocationId)[0]
     const basePrice = Number(pickupLocation.basePrice)
     const ticketQuantity = parseInt(this.state.ticketQuantity)
     const processingFee = Number((basePrice * ticketQuantity) * (0.1))
@@ -165,7 +165,7 @@ class App extends Component {
     }
 
     const cartObj = {
-      pickupLocationId: this.state.rideId,
+      pickupLocationId: this.state.pickupLocationId,
       eventId: this.state.inCart[0].id,
       ticketQuantity: this.state.ticketQuantity,
     }
@@ -174,7 +174,7 @@ class App extends Component {
     fetch('http://localhost:3000/pickup_parties', {
       method: 'PATCH',
       body: JSON.stringify({
-        pickupLocationId: this.state.rideId,
+        pickupLocationId: this.state.pickupLocationId,
         eventId: this.state.inCart[0].id,
         ticketQuantity: parseInt(this.state.ticketQuantity),
       }),
@@ -186,7 +186,7 @@ class App extends Component {
     setTimeout(fetch('http://localhost:3000/pickup_parties', {
       method: 'PATCH',
       body: JSON.stringify({
-        pickupLocationId: this.state.rideId,
+        pickupLocationId: this.state.pickupLocationId,
         eventId: this.state.inCart[0].id,
         ticketQuantity: parseInt(this.state.ticketQuantity) * -1,
       }),
@@ -260,7 +260,7 @@ class App extends Component {
       cTS.email = this.state.validatedElements.email
       cTS.eventId = this.state.inCart[0].id
       cTS.ticketQuantity = parseInt(this.state.ticketQuantity)
-      cTS.pickupLocationId = parseInt(this.state.rideId)
+      cTS.pickupLocationId = parseInt(this.state.pickupLocationId)
       cTS.totalCost = Number(this.state.totalCost)
       cTS.discountCode = discountCode
 
@@ -297,7 +297,7 @@ class App extends Component {
     const newState = { ...this.state }
     newState.ticketQuantity = event.target.value
 
-    const pickupLocation = this.state.pickupLocations.filter(location => location.id == this.state.rideId)[0]
+    const pickupLocation = this.state.pickupLocations.filter(location => location.id == this.state.pickupLocationId)[0]
     const basePrice = Number(pickupLocation.basePrice)
     const ticketQuantity = parseInt(newState.ticketQuantity)
     const processingFee = Number((basePrice * ticketQuantity) * (0.1))
@@ -362,8 +362,8 @@ class App extends Component {
                       quantityChange={this.quantityChange}
                       removeFromCart={this.removeFromCart}
                       returnToShows={this.returnToShows}
-                      rideId={this.state.rideId}
-                      selectRideId={this.selectRideId}
+                      pickupLocationId={this.state.pickupLocationId}
+                      selectpickupLocationId={this.selectpickupLocationId}
                       selectTicketQuantity={this.selectTicketQuantity}
                       showsExpandClick={this.showsExpandClick}
                       showsInCart={this.state.inCart}
