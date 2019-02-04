@@ -15,9 +15,7 @@ export default class Checkout extends React.Component {
         },
       }).then(response => {
           if (response.ok){
-            console.log('inside Checkout response')
             this.props.purchase()
-            console.log('props',this.props)
           }
         // 
         });
