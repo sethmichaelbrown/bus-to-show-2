@@ -25,7 +25,6 @@ export default class Checkout extends React.Component {
       
     render() {
       return (
-        // ...
         <StripeCheckout
           token={this.onToken}
           stripeKey="pk_test_J0CdRMCGmBlrlOiGKnGgUEwT"
@@ -33,9 +32,10 @@ export default class Checkout extends React.Component {
           amount={this.props.totalCost*100}
           currency='USD'
         >
-        <button className="btn btn-outline-success">
-            Purchase
-        </button>
+        <button 
+            className={`btn ${this.props.validated ? 'btn-outline-success' : 'btn-secondary'}`}
+            disabled={this.props.validated ? '' : 'disabled'}>
+            Purchase</button>
         </StripeCheckout>
       )
     }
