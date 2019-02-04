@@ -30,7 +30,7 @@ const DetailCartView = (props) => {
             displayWarning={props.displayWarning}
             pickupLocations={props.pickupLocations}
             returnToShows={props.returnToShows}
-            selectRideId={props.selectRideId}
+            selectPickupLocationId={props.selectPickupLocationId}
             selectTicketQuantity={props.selectTicketQuantity}
             showsExpandClick={props.showsExpandClick}
             ticketQuantity={props.ticketQuantity} />
@@ -43,18 +43,21 @@ const DetailCartView = (props) => {
               handleSubmit={props.handleSubmit}
               pickupLocations={props.pickupLocations}
               purchaseClick={props.purchaseClick}
+              quantityChange={props.quantityChange}
               removeFromCart={props.removeFromCart}
               returnToShows={props.returnToShows}
-              rideId={props.rideId}
+              pickupLocationId={props.pickupLocationId}
               showsInCart={props.inCart}
-              ticketPrice={props.ticketPrice}
+              totalCost={props.totalCost}
               ticketQuantity={props.ticketQuantity}
               updatePurchaseField={props.updatePurchaseField}
               validatedElements={props.validatedElements}
-              validated={props.validated} /> :
+              validated={props.validated}
+              purchase={props.purchase}
+              /> :
             <div className="nothing-in-cart">
               <div className="list-group">
-                <div className="list-group-item">
+                <div className="list-group-item lgi-header">
                   <div className="row">
                     <div className="col-md-2">Show</div>
                     <div className="col-md-4">Departure Location</div>
