@@ -7,7 +7,6 @@ const Cart = (props) => {
   // console.log('Cart', props)
 
   let cost = Number(props.totalCost)
-  // console.log(cost)
   let totalCost = cost.toFixed(2)
 
 
@@ -42,19 +41,34 @@ const Cart = (props) => {
                     <div className="form-row">
                       <div className="col-md-4 mb-3">
                         <label htmlFor="firstName">First Name</label>
-                        <input onKeyUp={props.updatePurchaseField} type="text" className={`form-control ${props.validatedElements.fName ? 'is-valid' : 'is-invalid'}`} id="firstName" placeholder="First Name" required />
+                        <input onKeyUp={props.updatePurchaseField} 
+                          type="text" 
+                          className={`form-control ${props.validatedElements.fName ? 'is-valid' : 'is-invalid'}`} 
+                          id="firstName" 
+                          placeholder="First Name" 
+                          required />
                       </div>
 
                       <div className="col-md-4 mb-3">
                         <label htmlFor="lastName">Last Name</label>
-                        <input onKeyUp={props.updatePurchaseField} type="text" className={`form-control ${props.validatedElements.lName ? 'is-valid' : 'is-invalid'}`} id="lastName" placeholder="Last Name" required />
+                        <input onKeyUp={props.updatePurchaseField} 
+                          type="text" 
+                          className={`form-control ${props.validatedElements.lName ? 'is-valid' : 'is-invalid'}`} 
+                          id="lastName" 
+                          placeholder="Last Name" 
+                          required />
                       </div>
                     </div>
 
                     <div className="form-row">
                       <div className="col-md-6 mb-3">
                         <label htmlFor="email">Email</label>
-                        <input onChange={props.updatePurchaseField} type="email" className={`form-control ${props.validatedElements.email ? 'is-valid' : 'is-invalid'}`} id="email" placeholder="Email address" required />
+                        <input onChange={props.updatePurchaseField} 
+                          type="email" 
+                          className={`form-control ${props.validatedElements.email ? 'is-valid' : 'is-invalid'}`} 
+                          id="email" 
+                          placeholder="Email address" 
+                          required />
                         <div className="invalid-feedback">
                           Please provide a valid email.
                           </div>
@@ -65,24 +79,44 @@ const Cart = (props) => {
                       <div className="form-row">
                         <div className="col-md-4 mb-3">
                           <label htmlFor="willCallFirstName">Will Call First Name</label>
-                          <input onKeyUp={props.updatePurchaseField} type="text" className='form-control' id="willCallFirstName" placeholder="First Name" />
+                          <input
+                            onKeyUp={props.updatePurchaseField}
+                            type="text"
+                            className='form-control'
+                            id="willCallFirstName"
+                            placeholder="First Name"
+                            defaultValue={props.validatedElements.fName} />
                         </div>
 
                         <div className="col-md-4 mb-3">
                           <label htmlFor="willCallLastName">Will Call Last Name</label>
-                          <input onKeyUp={props.updatePurchaseField} type="text" className='form-control' id="willCallLastName" placeholder="Last Name" />
+                          <input
+                            onKeyUp={props.updatePurchaseField}
+                            type="text"
+                            className='form-control'
+                            id="willCallLastName"
+                            placeholder="Last Name"
+                            defaultValue={props.validatedElements.lName} />
                         </div>
                       </div>
                       :
                       <div className="form-row">
                         <div className="col-md-4 mb-3">
-                          <button onClick={props.handleCheck} type="button" className="btn btn-outline-primary">Click if tickets are for someone else!</button>
+                          <button 
+                            onClick={props.handleCheck} 
+                            type="button" 
+                            className="btn btn-outline-primary">Click if tickets are for someone else!</button>
                         </div>
                       </div>}
 
                     <div className="form-row">
                       <div className="col-md-4 mb-3">
-                        <input onKeyUp={props.updatePurchaseField} type="text" className='form-control' id="discountCode" placeholder="Discount Code" />
+                        <input 
+                          onKeyUp={props.updatePurchaseField} 
+                          type="text" 
+                          className='form-control' 
+                          id="discountCode" 
+                          placeholder="Discount Code" />
                       </div>
                     </div>
 
@@ -92,21 +126,23 @@ const Cart = (props) => {
                         {/* <button  type="submit" className="btn btn-outline-success return-btn ml-2">Purchase</button> */}
                       </div>
                       <div className='form-row'>
-                        <Checkout 
+                        <Checkout
                           validated={props.validated}
-                          purchase={props.purchase} 
-                          totalCost={totalCost} 
+                          purchase={props.purchase}
+                          totalCost={totalCost}
                           showsInCart={props.showsInCart}>
                         </Checkout>
-                     
-                      {/* <div className="total-cont col-md-6 float-right"> */}
-                        <h4>Cart Total: <span  className="badge badge-secondary">{`$${totalCost}`}</span></h4>
+
+                        {/* <div className="total-cont col-md-6 float-right"> */}
+                        <h4>Cart Total: 
+                            <span className="badge badge-secondary">{`$${totalCost}`}</span>
+                        Î</h4>
                       </div>
 
                     </div>
                   </form>
 
-                  
+
 
                 </div>
               </div>
