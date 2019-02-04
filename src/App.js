@@ -137,9 +137,9 @@ class App extends Component {
 
     this.setState(newState)
 
-    const response = await fetch('http://localhost:3000/pickup_locations')
-    const locations = await response.json()
-    console.log(locations)
+    // const response = await fetch('http://localhost:3000/pickup_locations')
+    // const locations = await response.json()
+    // console.log(locations)
   }
 
   returnToShows = () => {
