@@ -94,7 +94,7 @@ class App extends Component {
     if(matchedLocation){
       const capacityLessInCart = parseInt(matchedLocation.capacity) - parseInt(matchedLocation.inCart)
       numArray = [...Array(capacityLessInCart).keys()].map(i => i+1)
-      // newState.ticketsAvailable = numArray
+      newState.ticketsAvailable = numArray
     }
     else{
       console.log('Error!!')

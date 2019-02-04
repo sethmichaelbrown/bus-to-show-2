@@ -2,8 +2,7 @@ import React from 'react'
 import '../../App.css';
 
 const ShowDetailView = (props) => {
-
-  console.log("ShowDetailView",props)
+  // console.log("ShowDetailView",props)
 
   const show = props.displayShow
   const headlinerBio = show.headlinerBio.split('<a')[0]
@@ -42,7 +41,7 @@ const ShowDetailView = (props) => {
                   <img src={show.headlinerImgLink ? show.headlinerImgLink : placeKitten} alt="headliner" />
                 </div>
               </div>
-              <div className="row col-md-7 float-left">
+              <div className="row col-md-7">
                 <span>Departure Location</span>
                 <form className="was-validated">
                   <div className="form-group">
@@ -62,31 +61,22 @@ const ShowDetailView = (props) => {
                   </div>
                 </form>
               </div>
-              <div className="row col-md-5 float-right">
+              <div className="row col-md-5">
                 {props.displayQuantity ?
                   <React.Fragment>
                     <span>Ticket Quantity</span>
                     <form className="was-validated">
                       <div className="form-group">
+                        {props.ticketsAvailable.length === 0 ? 
+                        <button type="button" disabled='disabled' className="btn btn-danger mt-1">Sold Out!</button> :
                         <select
                           className="custom-select mt-2"
                           onChange={props.selectTicketQuantity}
                           disabled={props.ticketsAvailable.length === 0 ? 'disabled' : ''}
-                          defaultValue={props.ticketsAvailable.length === 0 ? 'Sold Out!' : ''}
                           required>
                           <option value="">Select Quantity</option>
-                          {}
-                          {/* <option value="1">1</option>
-                          <option value="2">2</option>
-                          <option value="3">3</option>
-                          <option value="4">4</option>
-                          <option value="5">5</option>
-                          <option value="6">6</option>
-                          <option value="7">7</option>
-                          <option value="8">8</option>
-                          <option value="9">9</option>
-                          <option value="10">10</option> */}
-                        </select>
+                          {props.ticketsAvailable.map(number => <option value={number}>{number}</option>)}
+                        </select>}
                       </div>
                     </form>
                   </React.Fragment> : ''}
