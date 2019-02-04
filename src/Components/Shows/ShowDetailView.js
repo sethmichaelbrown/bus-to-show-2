@@ -46,7 +46,7 @@ const ShowDetailView = (props) => {
                 <span>Departure Location</span>
                 <form className="was-validated">
                   <div className="form-group">
-                    <select className="custom-select mt-2" onChange={props.selectRideId} required>
+                    <select className="custom-select mt-2" onChange={props.selectpickupLocationId} required>
                       <option value="">Select a Departure Location...</option>
                       {props.pickupLocations ?
                         props.pickupLocations.map(location => {
