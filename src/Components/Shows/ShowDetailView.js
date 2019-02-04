@@ -16,6 +16,18 @@ const ShowDetailView = (props) => {
       {show ?
         <div className={`content-section-details ${props.displayBorder ? 'add-border' : 'remove-border'}`}>
           <h3>{show.headliner}</h3>
+          {props.displaySuccess ?
+            <div className="list-group-item alert-item">
+              <div className='row'>
+                <div className="alert alert-success" role="alert"> Added {show.headliner} - {show.date} to cart!</div>
+              </div>
+            </div> : ''}
+          {props.displayWarning ?
+            <div className="list-group-item alert-item">
+              <div className='row'>
+                <div className="alert alert-warning" role="alert">Please either complete purchase of item in cart, or remove it to procceed.</div>
+              </div>
+            </div> : ''}
           <div className="list-group">
             <div className="list-group-item">
               <div className="row">
@@ -67,16 +79,16 @@ const ShowDetailView = (props) => {
                     <span>Ticket Quantity</span>
                     <form className="was-validated">
                       <div className="form-group">
-                        {props.ticketsAvailable.length === 0 ? 
-                        <button type="button" disabled='disabled' className="btn btn-danger mt-1">Sold Out!</button> :
-                        <select
-                          className="custom-select mt-2"
-                          onChange={props.selectTicketQuantity}
-                          disabled={props.ticketsAvailable.length === 0 ? 'disabled' : ''}
-                          required>
-                          <option value="">Select Quantity</option>
-                          {props.ticketsAvailable.map(number => <option value={number}>{number}</option>)}
-                        </select>}
+                        {props.ticketsAvailable.length === 0 ?
+                          <button type="button" disabled='disabled' className="btn btn-lg btn-danger mt-1">Sold Out!</button> :
+                          <select
+                            className="custom-select mt-2"
+                            onChange={props.selectTicketQuantity}
+                            disabled={props.ticketsAvailable.length === 0 ? 'disabled' : ''}
+                            required>
+                            <option value="">Select Quantity</option>
+                            {props.ticketsAvailable.map(number => <option value={number}>{number}</option>)}
+                          </select>}
                       </div>
                     </form>
                   </React.Fragment> : ''}
@@ -89,19 +101,6 @@ const ShowDetailView = (props) => {
                   <button role="tabpanel" aria-labelledby="cart-tab" type="button" onClick={props.addToCart} className="btn btn-outline-primary return-btn ml-2 float-right">Add to Cart</button> : ''}
               </div>
             </div>
-
-            {props.displaySuccess ?
-              <div className="list-group-item alert-item">
-                <div className='row'>
-                  <div className="alert alert-success" role="alert"> Added {show.headliner} - {show.date} to cart!</div>
-                </div>
-              </div> : ''}
-            {props.displayWarning ?
-              <div className="list-group-item alert-item">
-                <div className='row'>
-                  <div className="alert alert-warning" role="alert">Please either complete purchase of item in cart, or remove it to procceed.</div>
-                </div>
-              </div> : ''}
           </div>
 
         </div> : ''}

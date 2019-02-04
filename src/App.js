@@ -101,7 +101,6 @@ class App extends Component {
     }
 
     this.setState({ticketsAvailable : newState.ticketsAvailable})
-    console.log(this.state)
   }
 
   selectTicketQuantity = (event) => {
