@@ -88,7 +88,7 @@ const Cart = (props) => {
                           showsInCart={props.showsInCart}>
                         </Checkout>
                       {/* <div className="total-cont col-md-6 float-right"> */}
-                        <h4>Cart Total: <span onChange={props.updateTotal} class="badge badge-secondary">{`$${totalCost}`}</span></h4>
+                        <h4>Cart Total: <span onChange={props.updateTotal} className="badge badge-secondary">{`$${totalCost}`}</span></h4>
                       </div>
                     </div>
                   </form>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Route } from "react-router-dom"
+import { BrowserRouter} from "react-router-dom"
 import Validator from 'validator'
 import './App.css';
 import Header from './Components/Header'
@@ -201,7 +201,7 @@ class App extends Component {
         'Content-Type': 'application/json'
       }
     })
-    setTimeout(fetch('http://localhost:3000/pickup_parties', {
+    setTimeout(await fetch('http://localhost:3000/pickup_parties', {
       method: 'PATCH',
       body: JSON.stringify({
         pickupLocationId: this.state.rideId,
