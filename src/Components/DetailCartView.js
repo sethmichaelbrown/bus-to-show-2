@@ -30,7 +30,7 @@ const DetailCartView = (props) => {
             displayWarning={props.displayWarning}
             pickupLocations={props.pickupLocations}
             returnToShows={props.returnToShows}
-            selectRideId={props.selectRideId}
+            selectpickupLocationId={props.selectpickupLocationId}
             selectTicketQuantity={props.selectTicketQuantity}
             showsExpandClick={props.showsExpandClick}
             ticketQuantity={props.ticketQuantity} />
@@ -46,7 +46,7 @@ const DetailCartView = (props) => {
               quantityChange={props.quantityChange}
               removeFromCart={props.removeFromCart}
               returnToShows={props.returnToShows}
-              rideId={props.rideId}
+              pickupLocationId={props.pickupLocationId}
               showsInCart={props.inCart}
               totalCost={props.totalCost}
               ticketQuantity={props.ticketQuantity}

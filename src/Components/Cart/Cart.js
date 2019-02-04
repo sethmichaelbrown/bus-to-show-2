@@ -26,7 +26,7 @@ const Cart = (props) => {
               pickupLocations={props.pickupLocations}
               quantityChange={props.quantityChange}
               removeFromCart={props.removeFromCart}
-              rideId={props.rideId}
+              pickupLocationId={props.pickupLocationId}
               showsInCart={props.showsInCart}
               ticketPrice={props.ticketPrice}
               ticketQuantity={props.ticketQuantity} />
@@ -135,7 +135,7 @@ const Cart = (props) => {
                       <h4>Cart Total:
                             <span className="badge badge-secondary">{`$${totalCost}`}</span>
                       </h4>
-                      
+
                     </div>
                   </form>
 
