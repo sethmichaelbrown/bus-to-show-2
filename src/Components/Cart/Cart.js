@@ -82,8 +82,13 @@ const Cart = (props) => {
                       <div className="buttons-cont col-md-6">
                       </div>
                       <div className='form-row'>
-                        <Checkout totalCost={totalCost} showsInCart={props.showsInCart}></Checkout>
-                        <h4>Cart Total: <span onChange={props.updateTotal} className="badge badge-secondary">{`$${totalCost}`}</span></h4>
+                        <Checkout 
+                          purchase={props.purchase} 
+                          totalCost={totalCost} 
+                          showsInCart={props.showsInCart}>
+                        </Checkout>
+                      {/* <div className="total-cont col-md-6 float-right"> */}
+                        <h4>Cart Total: <span onChange={props.updateTotal} class="badge badge-secondary">{`$${totalCost}`}</span></h4>
                       </div>
                     </div>
                   </form>
