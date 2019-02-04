@@ -3,18 +3,22 @@ import StripeCheckout from 'react-stripe-checkout'
 
 export default class Checkout extends React.Component {
     onToken = (token) => {
-      fetch('http://localhost:3000/orders/charge', {
+        fetch('http://localhost:3030/orders/charge', {
         method: 'POST',
-        body: JSON.stringify(token),
+        body: JSON.stringify({
+            stripeEmail: token.email,
+            stripeToken: token,
+            amount: this.props.totalCost*100,
+        }),
+        headers: {
+            "Content-Type": "application/json",
+        },
       }).then(response => {
-        response.json().then(data => {
-          console.log(`We are in business, ${data}`);
+          console.log(response)
+        // this.props.purchase(response)
         });
-      });
-    }
-   
-    // ...
-   
+      };
+
     render() {
       return (
         // ...
@@ -22,7 +26,6 @@ export default class Checkout extends React.Component {
           token={this.onToken}
           stripeKey="pk_test_J0CdRMCGmBlrlOiGKnGgUEwT"
           name='Bus To Show'
-          description={this.props.showsInCart}
           amount={this.props.totalCost*100}
           currency='USD'
         >

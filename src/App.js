@@ -2,12 +2,9 @@ import React, { Component } from 'react';
 import { BrowserRouter, Route } from "react-router-dom"
 import Validator from 'validator'
 import './App.css';
-import StripeCheckout from 'react-stripe-checkout';
-import axios from 'axios';
 import Header from './Components/Header'
 import ShowList from './Components/Shows/ShowList'
 import Loading from './Components/Loading'
-import StripeView from './Components/StripeView'
 import LoginView from './Components/LoginView/LoginView'
 // import Footer from './Components/Footer'
 import SponsorBox from './Components/SponsorBox'
@@ -329,7 +326,6 @@ class App extends Component {
                   searchShows={this.searchShows}
                   loginClick={this.loginClick} />
                 <div className='content-section'>
-                {/* {this.state.displayStripe ? <StripeView /> : ''} */}
                   <div className='col-md-6 float-left'>
                     <ShowList
                       addBorder={this.addBorder}
