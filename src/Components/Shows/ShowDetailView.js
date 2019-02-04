@@ -9,7 +9,7 @@ const ShowDetailView = (props) => {
   const headlinerBio = show.headlinerBio.split('<a')[0]
   const noBio = 'Well. Nothing to see here, so I guess...have a kitten on us.'
 
-  // placekitten.com/width/heigth of photo to be displayed
+  // placekitten.com/width/height of photo to be displayed
   const placeKitten = 'http://placekitten.com/174/174'
 
   return (
@@ -34,7 +34,7 @@ const ShowDetailView = (props) => {
               </div>
             </div>
             <div className="list-group-item">
-              <div className='row'>
+              <div className='row container'>
                 <div className="col-md-8 artist-info bio-font">
                   {show.headlinerBio ? headlinerBio : noBio}
                 </div>
@@ -46,7 +46,7 @@ const ShowDetailView = (props) => {
                 <span>Departure Location</span>
                 <form className="was-validated">
                   <div className="form-group">
-                    <select className="custom-select mt-2" onChange={props.selectpickupLocationId} required>
+                    <select className="custom-select mt-2" onChange={props.selectPickupLocationId} required>
                       <option value="">Select a Departure Location...</option>
                       {props.pickupLocations ?
                         props.pickupLocations.map(location => {
@@ -93,10 +93,17 @@ const ShowDetailView = (props) => {
                   <button role="tabpanel" aria-labelledby="cart-tab" type="button" onClick={props.addToCart} className="btn btn-outline-primary return-btn ml-2 float-right">Add to Cart</button> : ''}
               </div>
             </div>
+            
             {props.displaySuccess ?
               <div className="list-group-item alert-item">
                 <div className='row'>
                   <div className="alert alert-success" role="alert"> Added {show.headliner} - {show.date} to cart!</div>
+                </div>
+              </div> : ''}
+              {props.displayWarning ?
+              <div className="list-group-item alert-item">
+                <div className='row'>
+                  <div className="alert alert-warning" role="alert">Please either complete purchase of item in cart, or remove it to procceed.</div>
                 </div>
               </div> : ''}
           </div>

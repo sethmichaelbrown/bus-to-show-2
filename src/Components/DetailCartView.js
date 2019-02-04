@@ -30,7 +30,7 @@ const DetailCartView = (props) => {
             displayWarning={props.displayWarning}
             pickupLocations={props.pickupLocations}
             returnToShows={props.returnToShows}
-            selectpickupLocationId={props.selectpickupLocationId}
+            selectPickupLocationId={props.selectPickupLocationId}
             selectTicketQuantity={props.selectTicketQuantity}
             showsExpandClick={props.showsExpandClick}
             ticketQuantity={props.ticketQuantity} />

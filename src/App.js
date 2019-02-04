@@ -71,7 +71,7 @@ class App extends Component {
     // console.log('State', this.state)
   }
 
-  selectpickupLocationId = (event) => {
+  selectPickupLocationId = (event) => {
     const newState = { ...this.state }
     newState.pickupLocationId = event.target.value
     if (event.target.value) {
@@ -128,7 +128,7 @@ class App extends Component {
   }
 
   // Show Functions
-  showsExpandClick = (event) => {
+  showsExpandClick = async (event) => {
     const newState = { ...this.state }
     const clickedShow = newState.shows.find(show => (parseInt(show.id) === parseInt(event.target.id)))
     newState.displayDetailCartView = true
@@ -136,6 +136,10 @@ class App extends Component {
     newState.displayShow = clickedShow
 
     this.setState(newState)
+
+    const response = await fetch('http://localhost:3000/pickup_locations')
+    const locations = await response.json()
+    console.log(locations)
   }
 
   returnToShows = () => {
@@ -148,7 +152,7 @@ class App extends Component {
   addToCart = async () => {
     const newState = { ...this.state }
 
-    const pickupLocation = this.state.pickupLocations.filter(location => location.id == this.state.pickupLocationId)[0]
+    const pickupLocation = newState.pickupLocations.filter(location => parseInt(location.id) === parseInt(this.state.pickupLocationId))[0]
     const basePrice = Number(pickupLocation.basePrice)
     const ticketQuantity = parseInt(this.state.ticketQuantity)
     const processingFee = Number((basePrice * ticketQuantity) * (0.1))
@@ -318,6 +322,7 @@ class App extends Component {
     }, 1500)
   }
 
+
   render() {
     return (
       <BrowserRouter>
@@ -363,7 +368,7 @@ class App extends Component {
                       removeFromCart={this.removeFromCart}
                       returnToShows={this.returnToShows}
                       pickupLocationId={this.state.pickupLocationId}
-                      selectpickupLocationId={this.selectpickupLocationId}
+                      selectPickupLocationId={this.selectPickupLocationId}
                       selectTicketQuantity={this.selectTicketQuantity}
                       showsExpandClick={this.showsExpandClick}
                       showsInCart={this.state.inCart}

@@ -1,7 +1,6 @@
 import React from 'react'
 import '../../App.css';
 
-
 const Shows = (props) => {
   const filterString = props.filterString.toLowerCase()
   const filterShows = props.shows.filter(show => show.headliner.toLowerCase().includes(filterString))
