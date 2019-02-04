@@ -159,8 +159,8 @@ class App extends Component {
     this.setState(newState)
   }
 
-  addToCart = async(event) => {
-  
+  addToCart = async (event) => {
+
     const newState = { ...this.state }
     const pickupLocation = this.state.pickupLocations.filter(location => location.id == this.state.rideId)[0]
     const basePrice = Number(pickupLocation.basePrice)
@@ -188,16 +188,15 @@ class App extends Component {
     }
     const cartObj = {
       pickupLocationId: this.state.rideId,
-      eventId:this.state.inCart[0].id,
+      eventId: this.state.inCart[0].id,
       ticketQuantity: this.state.ticketQuantity,
     }
-    console.log('cartObj',cartObj)
     this.setState(newState)
     fetch('http://localhost:3000/pickup_parties', {
       method: 'PATCH',
       body: JSON.stringify({
         pickupLocationId: this.state.rideId,
-        eventId:this.state.inCart[0].id,
+        eventId: this.state.inCart[0].id,
         ticketQuantity: parseInt(this.state.ticketQuantity),
       }),
       headers: {
@@ -208,15 +207,15 @@ class App extends Component {
       method: 'PATCH',
       body: JSON.stringify({
         pickupLocationId: this.state.rideId,
-        eventId:this.state.inCart[0].id,
-        ticketQuantity: parseInt(this.state.ticketQuantity)*-1,
+        eventId: this.state.inCart[0].id,
+        ticketQuantity: parseInt(this.state.ticketQuantity) * -1,
       }),
       headers: {
         'Content-Type': 'application/json'
       }
     }), 4000)
-    console.log('state updated',this.state)
-    
+
+
   }
 
 
@@ -232,10 +231,14 @@ class App extends Component {
     const updateField = event.target.id
     const value = event.target.value
     const vE = newState.validatedElements
+
+    console.log('updateField', updateField)
+    console.log('value', value)
+    console.log('vE', vE)
+
     let discountCode = ''
 
     // Checks fields via npm package validator
-    if (!newState.validated) {
       if (updateField === 'email' && Validator.isEmail(value)) {
         vE.email = value
       }
@@ -251,13 +254,12 @@ class App extends Component {
       else if (updateField === 'willCallLastName' && Validator.isAlpha(value)) {
         vE.wCLName = value
       }
-      else if (updateField === 'discountCode'){
+      else if (updateField === 'discountCode') {
         discountCode = value
       }
       else {
         return 'Please input valid items'
       }
-    }
 
     this.setState({ validatedElement: newState.validatedElements })
 
@@ -272,17 +274,30 @@ class App extends Component {
       cTS.eventId = this.state.inCart[0].id
       cTS.ticketQuantity = parseInt(this.state.ticketQuantity)
       cTS.pickupLocationId = parseInt(this.state.rideId)
-      cTS.willCallFirstName = this.state.validatedElements.wCFName
-      cTS.willCallLastName = this.state.validatedElements.wCLName
       cTS.totalCost = Number(this.state.totalCost)
       cTS.discountCode = discountCode
+      
+      if (this.state.validatedElements.wCFName) {
+        cTS.willCallFirstName = this.state.validatedElements.wCFName
+      }
+      else {
+        cTS.willCallFirstName = this.state.validatedElements.fName
+      }
+      
+      if (this.state.validatedElements.wCLName) {
+        cTS.willCallLastName = this.state.validatedElements.wCLName
+      }
+      else {
+        cTS.willCallLastName = this.state.validatedElements.lName
+      }
 
       this.setState({ cartToSend: newState.cartToSend })
       this.setState({ validated: newState.validated })
     }
     else {
-      return 'ERROR!'
+      console.log('ERROR!') 
     }
+    console.log(this.state)
   }
 
   removeFromCart = (event) => {
@@ -316,12 +331,6 @@ class App extends Component {
     }, 1500)
   }
 
-  purchaseClick = (event) => {
-    const newState = { ...this.state }
-    newState.displayStripe = true
-    this.setState({displayStripe: newState.displayStripe})
-  }
-
   render() {
     return (
       <BrowserRouter>
@@ -335,7 +344,7 @@ class App extends Component {
                   searchShows={this.searchShows}
                   loginClick={this.loginClick} />
                 <div className='content-section'>
-                {this.state.displayStripe ? <StripeView /> : ''}
+                  {this.state.displayStripe ? <StripeView /> : ''}
                   <div className='col-md-6 float-left'>
                     <ShowList
                       addBorder={this.addBorder}
@@ -375,8 +384,8 @@ class App extends Component {
                       totalCost={this.state.totalCost}
                       updatePurchaseField={this.updatePurchaseField}
                       validated={this.state.validated}
-                      validatedElements={this.state.validatedElements} 
-                      purchase={this.purchase}/>
+                      validatedElements={this.state.validatedElements}
+                      purchase={this.purchase} />
                     :
                     <SponsorBox />}
                 </div>
