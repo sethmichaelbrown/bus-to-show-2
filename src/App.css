@@ -118,4 +118,6 @@
   background-color: rgba(255, 66, 15, 0.75)
 }
 
-
+.lgi-header{
+  border-top: none;
+}
