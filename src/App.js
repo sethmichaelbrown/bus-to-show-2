@@ -36,6 +36,7 @@ class App extends Component {
     displayAddBtn: false,
     displayQuantity: false,
     validated: false,
+    ticketsAvailable: [],
     validatedElements: {
       fName: null,
       lName: null,
@@ -71,7 +72,7 @@ class App extends Component {
     // console.log('State', this.state)
   }
 
-  selectPickupLocationId = (event) => {
+  selectPickupLocationId = async (event) => {
     const newState = { ...this.state }
     newState.pickupLocationId = event.target.value
     if (event.target.value) {
@@ -81,6 +82,26 @@ class App extends Component {
       newState.displayQuantity = false
     }
     this.setState(newState)
+
+    const response = await fetch('http://localhost:3000/pickup_locations')
+    const locations = await response.json()
+    const statePickupId = parseInt(this.state.pickupLocationId)
+    const stateEventId = parseInt(this.state.displayShow.id)
+
+    const matchedLocation = locations.find(location => (parseInt(location.pickupLocationId) === statePickupId) && (parseInt(location.eventId) === stateEventId))
+
+    let numArray = []
+    if(matchedLocation){
+      const capacityLessInCart = parseInt(matchedLocation.capacity) - parseInt(matchedLocation.inCart)
+      numArray = [...Array(capacityLessInCart).keys()].map(i => i+1)
+      // newState.ticketsAvailable = numArray
+    }
+    else{
+      console.log('Error!!')
+    }
+
+    this.setState({ticketsAvailable : newState.ticketsAvailable})
+    console.log(this.state)
   }
 
   selectTicketQuantity = (event) => {
@@ -136,10 +157,6 @@ class App extends Component {
     newState.displayShow = clickedShow
 
     this.setState(newState)
-
-    // const response = await fetch('http://localhost:3000/pickup_locations')
-    // const locations = await response.json()
-    // console.log(locations)
   }
 
   returnToShows = () => {
@@ -343,7 +360,8 @@ class App extends Component {
                       displayShow={this.state.displayShow}
                       filterString={this.state.filterString}
                       shows={this.state.shows}
-                      showsExpandClick={this.showsExpandClick} />
+                      showsExpandClick={this.showsExpandClick}
+                      ticketsAvailable={this.state.ticketsAvailable} />
                   </div>
                 </div>
 
@@ -373,6 +391,7 @@ class App extends Component {
                       showsExpandClick={this.showsExpandClick}
                       showsInCart={this.state.inCart}
                       tabClicked={this.tabClicked}
+                      ticketsAvailable={this.state.ticketsAvailable}
                       ticketQuantity={this.state.ticketQuantity}
                       totalCost={this.state.totalCost}
                       updatePurchaseField={this.updatePurchaseField}
