@@ -70,10 +70,6 @@ class App extends Component {
     const shows = await response.json()
     this.setState({ shows })
     
-    // const pickups = await fetch('https://something-innocuous.herokuapp.com/pickup_locations')
-    const pickups = await fetch('http://localhost:3000/pickup_locations')
-
-
     // const allEvents = await fetch('https://something-innocuous.herokuapp.com/events')
     const allEvents = await fetch('http://localhost:3000/events')
     const eventsList = await allEvents.json()
@@ -81,9 +77,9 @@ class App extends Component {
     for (let i = 0; i < eventsList.length; i++) {
       eventsListIds.push(eventsList[i].id)
     }
-
-
-    const pickups = await fetch('https://something-innocuous.herokuapp.com/pickup_locations')
+    
+    // const pickups = await fetch('https://something-innocuous.herokuapp.com/pickup_locations')
+    const pickups = await fetch('http://localhost:3000/pickup_locations')
     const pickupLocations = await pickups.json()
 
     const filteredPickupLocations = pickupLocations.filter(location => eventsListIds.includes(location.id))
@@ -91,7 +87,6 @@ class App extends Component {
     // console.log('State', this.state)
 
     this.setState({ pickupLocations })
-
   }
 
   selectPickupLocationId = async (event) => {
