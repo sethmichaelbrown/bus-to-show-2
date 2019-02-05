@@ -84,13 +84,13 @@ class App extends Component {
     }
     this.setState(newState)
 
-    const response = await fetch('https://something-innocuous.herokuapp.com/pickup_locations')
+    const response = await fetch('https://something-innocuous.herokuapp.com/pickup_parties')
     const locations = await response.json()
     const statePickupId = parseInt(this.state.pickupLocationId)
     const stateEventId = parseInt(this.state.displayShow.id)
-
+    
     const matchedLocation = locations.find(location => (parseInt(location.pickupLocationId) === statePickupId) && (parseInt(location.eventId) === stateEventId))
-
+    
     let numArray = []
     if (matchedLocation) {
       const capacityLessInCart = parseInt(matchedLocation.capacity) - parseInt(matchedLocation.inCart)
