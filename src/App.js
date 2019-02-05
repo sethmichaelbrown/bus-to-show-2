@@ -210,9 +210,7 @@ class App extends Component {
         newState.timeLeftInCart = (--timeStart) / 60000
       }, 1000)
     }
-
-    this.setState({ timeLeftInCart: newState.timeLeftInCart })
-    console.log(this.state)
+    this.setState({ timeLeftInCart: newState.timeLeftInCart }, () =>(console.log(this.state)))
 
     const cartObj = {
       pickupLocationId: this.state.pickupLocationId,

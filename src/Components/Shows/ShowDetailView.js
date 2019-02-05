@@ -84,7 +84,7 @@ const ShowDetailView = (props) => {
                               disabled={props.ticketsAvailable.length === 0 ? 'disabled' : ''}
                               required>
                               <option value="">Select Quantity</option>
-                              {props.ticketsAvailable.map(number => <option value={number}>{number}</option>)}
+                              {props.ticketsAvailable.map(number => <option key={number} value={number}>{number}</option>)}
                             </select>}
                         </div>
                       </form>
