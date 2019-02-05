@@ -61,7 +61,7 @@ const ShowDetailView = (props) => {
                             <option
                               key={location.id}
                               id={location.id}
-                              value={location.id}>{location.locationName}</option>
+                              value={location.id}>{location.locationName} - ${location.basePrice.toFixed(2)}</option>
                           )
                         })
                         : ''}
