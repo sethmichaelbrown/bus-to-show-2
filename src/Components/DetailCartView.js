@@ -7,17 +7,6 @@ import logo from '../Images/Logos/bts-logo-gray.png'
 const DetailCartView = (props) => {
   // console.log('DCV', props)
 
-  // const timer = () => {
-    // let timeStart = 600000
-    // let timeLeft = 0
-    // if (props.inCart.length > 0) {
-    //   setInterval(() => {
-    //     timeLeft = (--timeStart) / 60000
-    //   }, 1000)
-    //   return timeLeft
-    // }
-  // }
-
 
   return (
     <div className='DetailCartView container'>

@@ -69,10 +69,10 @@ class App extends Component {
     this.setState({ shows })
 
 
-    const allEvents=await fetch('https://something-innocuous.herokuapp.com/events')
-    const eventsList=await allEvents.json()
-    const eventsListIds=[]
-    for (let i=0; i<eventsList.length; i++){
+    const allEvents = await fetch('https://something-innocuous.herokuapp.com/events')
+    const eventsList = await allEvents.json()
+    const eventsListIds = []
+    for (let i = 0; i < eventsList.length; i++) {
       eventsListIds.push(eventsList[i].id)
     }
 
@@ -80,8 +80,8 @@ class App extends Component {
     const pickups = await fetch('https://something-innocuous.herokuapp.com/pickup_locations')
     const pickupLocations = await pickups.json()
 
-    const filteredPickupLocations=pickupLocations.filter(location=>eventsListIds.includes(location.id))
-    this.setState({ pickupLocations:filteredPickupLocations })
+    const filteredPickupLocations = pickupLocations.filter(location => eventsListIds.includes(location.id))
+    this.setState({ pickupLocations: filteredPickupLocations })
     // console.log('State', this.state)
 
     this.setState({ pickupLocations })
@@ -105,7 +105,7 @@ class App extends Component {
     const stateEventId = parseInt(this.state.displayShow.id)
 
     const matchedLocation = locations.find(location => (parseInt(location.pickupLocationId) === statePickupId) && (parseInt(location.eventId) === stateEventId))
-  
+
     let numArray = []
     if (matchedLocation) {
       const capacityLessInCart = parseInt(matchedLocation.capacity) - parseInt(matchedLocation.inCart)
@@ -129,7 +129,7 @@ class App extends Component {
     }
     newState.ticketQuantity = event.target.value
     const pickupLocation = newState.pickupLocations.filter(location => parseInt(location.id) === parseInt(this.state.pickupLocationId))[0]
-    const subTotal =  (Number(pickupLocation.basePrice) * Number(event.target.value))
+    const subTotal = (Number(pickupLocation.basePrice) * Number(event.target.value))
     const total = ((Number(subTotal) * .1) + Number(subTotal)).toFixed(2)
     newState.totalCost = total
     this.setState(newState)
@@ -204,6 +204,16 @@ class App extends Component {
       newState.displayWarning = true
     }
 
+    let timeStart = 600000
+    if (this.inCart.length > 0) {
+      setInterval(() => {
+        newState.timeLeftInCart = (--timeStart) / 60000
+      }, 1000)
+    }
+
+    this.setState({ timeLeftInCart: newState.timeLeftInCart })
+    console.log(this.state)
+
     const cartObj = {
       pickupLocationId: this.state.pickupLocationId,
       eventId: this.state.inCart[0].id,
@@ -254,7 +264,7 @@ class App extends Component {
         'Content-Type': 'application/json'
       }
     })
-    .then()
+      .then()
   }
 
   updatePurchaseField = (event) => {
@@ -362,37 +372,37 @@ class App extends Component {
 
 
 
-  sortByArtist=()=>{
+  sortByArtist = () => {
     console.log("sorted by artist")
     console.log(this.state.shows)
-    let newState=this.state.shows.sort((show1, show2)=> {
-    let a=show1.headliner.toLowerCase().split(" ").join("")
-    let b=show2.headliner.toLowerCase().split(" ").join("")
-      if (a < b){
-          return -1;
-      }else if (a > b){
-          return  1;
-      }else{
-          return 0;
+    let newState = this.state.shows.sort((show1, show2) => {
+      let a = show1.headliner.toLowerCase().split(" ").join("")
+      let b = show2.headliner.toLowerCase().split(" ").join("")
+      if (a < b) {
+        return -1;
+      } else if (a > b) {
+        return 1;
+      } else {
+        return 0;
       }
     })
     // let newState=this.state.shows.map(show=> show.headliner.split(" ").join(""))
     console.log("NEWSTATE", newState)
-    this.setState({shows: newState})
+    this.setState({ shows: newState })
     console.log(this.state.shows)
   }
 
 
-  sortByDate=()=>{
+  sortByDate = () => {
     console.log(this.state.shows)
-    let newState=this.state.shows.sort((show1, show2)=>{
-      let a=new Date(show1.date)
-      let b=new Date(show2.date)
-  return a-b
+    let newState = this.state.shows.sort((show1, show2) => {
+      let a = new Date(show1.date)
+      let b = new Date(show2.date)
+      return a - b
 
     })
     console.log(newState)
-    this.setState({shows:newState})
+    this.setState({ shows: newState })
   }
 
 
