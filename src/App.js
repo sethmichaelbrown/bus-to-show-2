@@ -68,7 +68,7 @@ class App extends Component {
     const shows = await response.json()
     this.setState({ shows })
 
-const pickups = await fetch('http://localhost:3000/pickup_locations')
+    const pickups = await fetch('https://something-innocuous.herokuapp.com/pickup_locations')
     //const pickups = await fetch('https://something-innocuous.herokuapp.com/pickup_locations')
     const pickupLocations = await pickups.json()
     this.setState({ pickupLocations })
@@ -86,7 +86,7 @@ const pickups = await fetch('http://localhost:3000/pickup_locations')
     }
     this.setState(newState)
 
-    const response = await fetch('http://localhost:3000/pickup_locations')
+    const response = await fetch('https://something-innocuous.herokuapp.com/pickup_parties')
     const locations = await response.json()
     const statePickupId = parseInt(this.state.pickupLocationId)
     const stateEventId = parseInt(this.state.displayShow.id)
@@ -195,7 +195,7 @@ const pickups = await fetch('http://localhost:3000/pickup_locations')
     }
     this.setState(newState)
 
-    fetch('http://localhost:3000/pickup_parties', {
+    fetch('https://something-innocuous.herokuapp.com/pickup_parties', {
       method: 'PATCH',
       body: JSON.stringify({
         pickupLocationId: this.state.pickupLocationId,
@@ -207,7 +207,7 @@ const pickups = await fetch('http://localhost:3000/pickup_locations')
       }
     })
 
-    setTimeout(fetch('http://localhost:3000/pickup_parties', {
+    setTimeout(fetch('https://something-innocuous.herokuapp.com/pickup_parties', {
       method: 'PATCH',
       body: JSON.stringify({
         pickupLocationId: this.state.pickupLocationId,
@@ -230,7 +230,7 @@ const pickups = await fetch('http://localhost:3000/pickup_locations')
 
   purchase = async () => {
     const cartObj = this.state.cartToSend
-    fetch('http://localhost:3000/orders', {
+    fetch('https://something-innocuous.herokuapp.com/orders', {
       method: 'POST',
       body: JSON.stringify(cartObj),
       headers: {
@@ -356,21 +356,8 @@ const pickups = await fetch('http://localhost:3000/pickup_locations')
                   loginClick={this.loginClick}
                   searchShows={this.searchShows}/>
                 <div className='content-section'>
-                  {this.state.displayStripe ? <StripeView /> : ''}
-                  <div className='col-md-6 float-left'>
-                  <MediaQuery query="(min-device-width: 1250px)">
-                    <ShowList
-                      addBorder={this.addBorder}
-                      displayShow={this.state.displayShow}
-                      filterString={this.state.filterString}
-                      shows={this.state.shows}
-                      showsExpandClick={this.showsExpandClick}
-                      ticketsAvailable={this.state.ticketsAvailable} />
-                  </MediaQuery>
-                  </div>
-                </div>
-
-                <div className='col-md-6 float-left'>
+                <div className='col-md-6 float-right'>
+                  <MediaQuery minWidth={768}>
                   {this.state.displayCart || this.state.displayShow ?
                     <DetailCartView
                       addToCart={this.addToCart}
@@ -404,6 +391,63 @@ const pickups = await fetch('http://localhost:3000/pickup_locations')
                       validatedElements={this.state.validatedElements} />
                     :
                     <SponsorBox />}
+                    </MediaQuery>
+                    <MediaQuery maxWidth={767}>
+                    {this.state.displayCart || this.state.displayShow ?
+                    <DetailCartView
+                      addToCart={this.addToCart}
+                        addBorder={this.addBorder}
+                      checked={this.state.checked}
+                      displayAddBtn={this.state.displayAddBtn}
+                      displayBorder={this.state.displayBorder}
+                      displayCart={this.state.displayCart}
+                      displayQuantity={this.state.displayQuantity}
+                      displayShow={this.state.displayShow}
+                      displaySuccess={this.state.displaySuccess}
+                      filterString={this.state.filterString}
+                      handleCheck={this.handleCheck}
+                      handleSubmit={this.handleSubmit}
+                      inCart={this.state.inCart}
+                      pickupLocations={this.state.pickupLocations}
+                      purchase={this.purchase}
+                      purchaseClick={this.purchaseClick}
+                      quantityChange={this.quantityChange}
+                      removeFromCart={this.removeFromCart}
+                      returnToShows={this.returnToShows}
+                      pickupLocationId={this.state.pickupLocationId}
+                      selectPickupLocationId={this.selectPickupLocationId}
+                      selectTicketQuantity={this.selectTicketQuantity}
+                      shows={this.state.shows}
+                      showsExpandClick={this.showsExpandClick}
+                      showsInCart={this.state.inCart}
+                      tabClicked={this.tabClicked}
+                      ticketsAvailable={this.state.ticketsAvailable}
+                      ticketQuantity={this.state.ticketQuantity}
+                      totalCost={this.state.totalCost}
+                      updatePurchaseField={this.updatePurchaseField}
+                      validated={this.state.validated}
+                      validatedElements={this.state.validatedElements} />
+                      :
+                      <ShowList
+                        addBorder={this.addBorder}
+                        displayShow={this.state.displayShow}
+                        filterString={this.state.filterString}
+                        shows={this.state.shows}
+                        showsExpandClick={this.showsExpandClick}
+                        ticketsAvailable={this.state.ticketsAvailable} />}
+                    </MediaQuery>
+                </div>
+                  <div className='col-md-6 float-left'>
+                    <MediaQuery minWidth={768}>
+                    <ShowList
+                      addBorder={this.addBorder}
+                      displayShow={this.state.displayShow}
+                      filterString={this.state.filterString}
+                      shows={this.state.shows}
+                      showsExpandClick={this.showsExpandClick}
+                      ticketsAvailable={this.state.ticketsAvailable} />
+                    </MediaQuery>
+                  </div>
                 </div>
               </React.Fragment> : <Loading />
           }

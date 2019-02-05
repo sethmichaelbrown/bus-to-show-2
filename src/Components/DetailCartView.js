@@ -2,6 +2,8 @@ import React from 'react'
 import '../App.css';
 import ShowDetailView from './Shows/ShowDetailView'
 import Cart from './Cart/Cart'
+import MediaQuery from 'react-responsive';
+import ShowList from '../Components/Shows/ShowList'
 import logo from '../Images/Logos/bts-logo-gray.png'
 
 const DetailCartView = (props) => {
@@ -16,6 +18,11 @@ const DetailCartView = (props) => {
         <li className="nav-item">
           <a onClick={props.tabClicked} className="nav-link" id="cart-tab" data-toggle="tab" href="#cart" role="tab" aria-controls="cart" aria-selected="false">My Cart</a>
         </li>
+        <MediaQuery maxWidth={768}>
+        <li className="nav-item">
+          <a onClick={props.tabClicked} className="nav-link" id="showList-tab" data-toggle="tab" href="#showlist" role="tab" aria-controls="showlist" aria-selected="false">Shows</a>
+        </li>
+        </MediaQuery>
       </ul>
 
       <div className="tab-content" id="myTabContent">
@@ -36,6 +43,17 @@ const DetailCartView = (props) => {
             ticketsAvailable={props.ticketsAvailable}
             ticketQuantity={props.ticketQuantity} />
         </div>
+        <MediaQuery maxWidth={768}>
+        <div className="tab-pane fade" id="showlist" data-toggle="tab" role="tabpanel" aria-labelledby="cart-tab">
+        <ShowList
+          addBorder={props.addBorder}
+          displayShow={props.displayShow}
+          filterString={props.filterString}
+          shows={props.shows}
+          showsExpandClick={props.showsExpandClick}
+          ticketsAvailable={props.ticketsAvailable} />
+        </div>
+        </MediaQuery>
         <div className="tab-pane fade" id="cart" data-toggle="tab" role="tabpanel" aria-labelledby="cart-tab">
           {props.inCart.length > 0 ?
             <Cart
@@ -59,12 +77,14 @@ const DetailCartView = (props) => {
             <div className="nothing-in-cart">
               <div className="list-group">
                 <div className="list-group-item lgi-header">
+                <MediaQuery minWidth={768}>
                   <div className="row">
                     <div className="col-md-2">Show</div>
                     <div className="col-md-4">Departure Location</div>
                     <div className="col-md-2">Date</div>
                     <div className="col-md-2">Quantity</div>
                   </div>
+                </MediaQuery>
                 </div>
                 <div className="row container nothing-in-cart-text">
                   <div className="col-md-12 mt-3">
