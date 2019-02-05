@@ -103,7 +103,7 @@ const ShowDetailView = (props) => {
                       <div className="form-group">
 
                       {props.ticketsAvailable.length === 0 ?
-                      <span className="badge badge-secondary"><h4 >Sold Out!</h4></span> :
+                      <button className="btn btn-danger px-2" disabled="disabled" type="button">Sold Out!</button> :
 
                       <select
                         className="custom-select mt-2"
