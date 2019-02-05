@@ -530,6 +530,8 @@ class App extends Component {
                       validatedElements={this.state.validatedElements} />
                       :
                       <ShowList
+                        sortByDate={this.sortByDate}
+                        sortByArtist={this.sortByArtist} 
                         addBorder={this.addBorder}
                         displayShow={this.state.displayShow}
                         filterString={this.state.filterString}
@@ -541,6 +543,8 @@ class App extends Component {
                   <div className='col-md-6 float-left'>
                     <MediaQuery minWidth={768}>
                     <ShowList
+                      sortByDate={this.sortByDate}
+                      sortByArtist={this.sortByArtist}
                       addBorder={this.addBorder}
                       displayShow={this.state.displayShow}
                       filterString={this.state.filterString}

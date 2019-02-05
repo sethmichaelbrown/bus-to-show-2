@@ -12,8 +12,8 @@ const Shows = (props) => {
           <div className="list-group-item show-header">
             <MediaQuery minWidth={500}>
             <div className="row">
-              <div className="col-md-3" onClick={()=>props.sortByDate()}>Date<br/>click to sort</div>
-              <div className="col-md-3" onClick={()=>props.sortByArtist()}>Event<br/>click to sort</div>
+              <div style={{textAlign:"center"}} className="col-md-3 btn " onClick={()=>props.sortByDate()}> <strong>Date</strong></div>
+              <div style={{textAlign:"center"}} className="col-md-3 btn" onClick={()=>props.sortByArtist()}> <strong>Event</strong></div>
               <div className="col-md-3"></div>
               <div className="col-md-3"></div>
             </div>
