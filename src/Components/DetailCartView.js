@@ -6,6 +6,17 @@ import logo from '../Images/Logos/bts-logo-gray.png'
 
 const DetailCartView = (props) => {
   // console.log('DCV', props)
+  const time = props.timeLeftInCart
+
+  // //For Tiny Timer
+  // const millisToMinutesAndSeconds = (mili) => {
+  //   var minutes = Math.floor(mili / 60000)
+  //   var seconds = ((mili % 60000) / 1000).toFixed(0)
+  //   return seconds == 60 ? (minutes+1) + ":00" : minutes + ":" + (seconds < 10 ? "0" : "") + seconds
+  // }
+  // const displayTime = millisToMinutesAndSeconds(time)
+
+  
 
 
   return (
@@ -18,8 +29,9 @@ const DetailCartView = (props) => {
           <a onClick={props.tabClicked} className="nav-link" id="cart-tab" data-toggle="tab" href="#cart" role="tab" aria-controls="cart" aria-selected="false">My Cart</a>
         </li>
         <li>
+          {/* For Tiny Timer */}
           {/* {props.inCart.length > 0 ?
-            <button type="button" disabled='disabled' className="btn btn-dark">{this.timeLeft}</button> : ''} */}
+            <button type="button" disabled='disabled' className="btn btn-dark">{displayTime}</button> : ''} */}
         </li>
       </ul>
 
