@@ -2,6 +2,7 @@ import React from 'react';
 import '../../App.css';
 import CartItem from './CartItem';
 import Checkout from './Stripe_Checkout';
+import MediaQuery from 'react-responsive';
 
 const Cart = (props) => {
   // console.log('Cart', props)
@@ -13,6 +14,7 @@ const Cart = (props) => {
     <div className='Cart'>
       <React.Fragment>
         <div className="list-group">
+          <MediaQuery minWidth={768}>
           <div className="list-group-item lgi-header">
             <div className="row">
               <div className="col-md-2">Show</div>
@@ -21,6 +23,7 @@ const Cart = (props) => {
               <div className="col-md-2">Quantity</div>
             </div>
           </div>
+          </MediaQuery>
           <ul className="list-group">
             <CartItem
               pickupLocations={props.pickupLocations}
@@ -31,7 +34,6 @@ const Cart = (props) => {
               ticketPrice={props.ticketPrice}
               ticketQuantity={props.ticketQuantity} />
           </ul>
-
           {props.showsInCart ?
             <div className="list-group-item" >
               <div className="row">
@@ -49,7 +51,6 @@ const Cart = (props) => {
                           placeholder="First Name"
                           required />
                       </div>
-
                       <div className="col-md-4 mb-3">
                         <label htmlFor="lastName">Last Name</label>
                         <input
@@ -61,7 +62,6 @@ const Cart = (props) => {
                           required />
                       </div>
                     </div>
-
                     <div className="form-row">
                       <div className="col-md-8 mb-3">
                         <label htmlFor="email">Email</label>
@@ -90,7 +90,6 @@ const Cart = (props) => {
                             id="willCallFirstName"
                             placeholder="First Name" />
                         </div>
-
                         <div className="col-md-4 mb-3">
                           <label htmlFor="willCallLastName">Will Call Last Name</label>
                           <input
@@ -110,7 +109,6 @@ const Cart = (props) => {
                             className="btn btn-outline-primary">Click if tickets are for someone else!</button>
                         </div>
                       </div>}
-
                     <div className="form-row">
                       <div className="col-md-4 mb-3">
                         <input
@@ -126,8 +124,8 @@ const Cart = (props) => {
                     </div>
 
 
-                    <div className='form-row'>
-
+                    <div className='form-row '>
+                    <MediaQuery minWidth={768}>
                       <Checkout
                         makePurchase={props.makePurchase}
                         purchasePending={props.purchasePending}
@@ -141,7 +139,26 @@ const Cart = (props) => {
                             <span className="badge badge-secondary">{`$${totalCost}`}</span>
                       </h4>
 
+                    </MediaQuery>
                     </div>
+
+                    <MediaQuery maxWidth={767}>
+                    <div className='row justify-content-center mb-1'>
+                    <h4>Cart Total:
+                          <span className="badge badge-secondary">{`$${totalCost}`}</span>
+                    </h4>
+                    </div>
+                    <div className='row justify-content-center '>
+                      <Checkout
+                        validated={props.validated}
+                        purchase={props.purchase}
+                        totalCost={totalCost}
+                        showsInCart={props.showsInCart}>
+                      </Checkout>
+                    </div>
+
+                    </MediaQuery>
+
                   </form>
 
 
