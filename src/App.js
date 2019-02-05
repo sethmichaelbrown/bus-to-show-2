@@ -5,7 +5,6 @@ import Validator from 'validator'
 import MediaQuery from 'react-responsive';
 // Styling
 import './App.css';
-import Axios from 'axios';
 
 // Components
 import Header from './Components/Header'
