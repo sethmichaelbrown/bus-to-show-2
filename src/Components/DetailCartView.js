@@ -16,8 +16,6 @@ const DetailCartView = (props) => {
   // }
   // const displayTime = millisToMinutesAndSeconds(time)
 
-  
-
 
   return (
     <div className='DetailCartView container'>
