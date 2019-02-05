@@ -60,16 +60,17 @@ class App extends Component {
     }
   }
 
-
+  
   async componentDidMount() {
     const response = await fetch('https://something-innocuous.herokuapp.com/events')
     // const response = await fetch('http://localhost:3000/events')
     const shows = await response.json()
     this.setState({ shows })
+    
     const pickups = await fetch('https://something-innocuous.herokuapp.com/pickup_locations')
     // const pickups = await fetch('http://localhost:3000/pickup_locations')
-    
-    // console.log('State', this.state)
+    const pickupLocations = await pickups.json()
+    this.setState({ pickupLocations })
   }
 
   selectPickupLocationId = async (event) => {
@@ -83,11 +84,11 @@ class App extends Component {
     }
     this.setState(newState)
 
-    const response = await fetch('http://localhost:3000/pickup_locations')
+    const response = await fetch('https://something-innocuous.herokuapp.com/pickup_parties')
     const locations = await response.json()
     const statePickupId = parseInt(this.state.pickupLocationId)
     const stateEventId = parseInt(this.state.displayShow.id)
-
+    
     const matchedLocation = locations.find(location => (parseInt(location.pickupLocationId) === statePickupId) && (parseInt(location.eventId) === stateEventId))
 
     let numArray = []
