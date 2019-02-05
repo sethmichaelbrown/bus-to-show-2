@@ -87,14 +87,9 @@ const ShowDetailView = (props) => {
                               {props.ticketsAvailable.map(number => <option value={number}>{number}</option>)}
                             </select>}
                         </div>
-
                       </form>
+                      <span>Current Total: ${props.totalCost}</span>
                     </div> : ''}
-                  {props.displayQuantity ? 
-                  <div className="col-md-3 float-left">
-                    <span>{props.totalCost}</span>
-
-                  </div> : ''}
                 </div>
               </div>
             </div>
