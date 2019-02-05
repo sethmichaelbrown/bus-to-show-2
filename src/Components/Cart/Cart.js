@@ -66,7 +66,7 @@ const Cart = (props) => {
                     </div>
 
                     <div className="form-row">
-                      <div className="col-md-6 mb-3">
+                      <div className="col-md-8 mb-3">
                         <label htmlFor="email">Email</label>
                         <input
                           onChange={props.updatePurchaseField}
@@ -123,12 +123,17 @@ const Cart = (props) => {
                           id="discountCode"
                           placeholder="Discount Code" />
                       </div>
+                      <div className="col-md-4 mb-3">
+                        <button type="button" className="btn btn-outline-secondary">Apply</button>
+                      </div>
                     </div>
 
 
                     <div className='form-row '>
                     <MediaQuery minWidth={768}>
                       <Checkout
+                        makePurchase={props.makePurchase}
+                        purchasePending={props.purchasePending}
                         validated={props.validated}
                         purchase={props.purchase}
                         totalCost={totalCost}
@@ -168,7 +173,12 @@ const Cart = (props) => {
             </div> : ''}
         </div>
       </React.Fragment>
-
+      <div className="container">
+      <div className="row justify-content-center">
+    {props.purchaseSuccessful?<div className="alert alert-success" role="alert"> Thank you for your purchase! </div> : <div ></div>}
+    {props.purchasePending?<div className="alert alert-primary" role="alert"> Purchase Pending... </div> : <div></div>}
+      </div>
+      </div>
     </div>
   )
 }

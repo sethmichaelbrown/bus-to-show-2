@@ -1,5 +1,6 @@
 import React from 'react'
 import '../../App.css';
+import logo from '../../Images/Logos/bts-logo-gray.png'
 import MediaQuery from 'react-responsive';
 
 const ShowDetailView = (props) => {
@@ -7,7 +8,8 @@ const ShowDetailView = (props) => {
 
   const show = props.displayShow
   const headlinerBio = show.headlinerBio.split('<a')[0]
-  const noBio = 'Well. Nothing to see here, so I guess...have a kitten on us.'
+  const noBio = 'No bio information available, so enjoy a kitten on us.'
+
 
   // placekitten.com/width/height of photo to be displayed
   const placeKitten = 'http://placekitten.com/174/174'
@@ -18,16 +20,23 @@ const ShowDetailView = (props) => {
         <div className={`content-section-details ${props.displayBorder ? 'add-border' : 'remove-border'}`}>
           <h3 style={{textAlign: "center"}}>{show.headliner}</h3>
           <div className="list-group">
-            <div className="list-group-item">
-            <MediaQuery minWidth={768}>
-              <div className="row ">
-                <div className="col-md-1"></div>
-                <div className="col-md-4">Location</div>
-                <div className="col-md-4">Date</div>
-                <div className="col-md-"></div>
-              </div>
-            </MediaQuery>
-            </div>
+            {props.displayWarning ?
+              <div className="list-group-item alert-item">
+                <div className="alert alert-warning" role="alert">Please either complete purchase of item in cart, or remove it to procceed.</div>
+              </div> :
+              props.displaySuccess ?
+                <div className="list-group-item alert-item">
+                  <div className="alert alert-success" role="alert"> Added {show.headliner} - {show.date} to cart!</div>
+                </div> :
+                <MediaQuery minWidth={768}>
+                <div className="list-group-item">
+                  <div className="row">
+                    <div className="col-md-4">Location</div>
+                    <div className="col-md-4">Date</div>
+                    <div className="col-md-4"></div>
+                  </div>
+                </MediaQuery>
+                </div>}
 
             <div className="list-group-item">
               <div className="row">
@@ -38,9 +47,21 @@ const ShowDetailView = (props) => {
             </div>
             <div className="list-group-item">
               <div className='row container justify-content-center'>
-                <MediaQuery minWidth={768}>
-                <div className="col-md-8 artist-info bio-font" >
-                  {show.headlinerBio ? headlinerBio : noBio}
+              <MediaQuery minWidth={768}>
+                <div className="col-md-8 artist-info bio-font">
+                  {show.headlinerBio ? headlinerBio :
+                    <div>
+                      <div className='row'>
+                        <div className="col-md-12">
+                          {noBio}
+                        </div>
+                      </div>
+                      <div className="row">
+                        <div className="col-md-6 offset-md-1 mt-3 no-info-logo">
+                          <img src={logo} width="233" height="100" className="d-inline-block align-top" alt="bts-logo" />
+                        </div>
+                      </div>
+                    </div>}
                 </div>
                 </MediaQuery>
                 <div className="col-md-4 artist-image">
@@ -61,7 +82,7 @@ const ShowDetailView = (props) => {
                             <option
                               key={location.id}
                               id={location.id}
-                              value={location.id}>{location.locationName}</option>
+                              value={location.id}>{location.locationName} - ${location.basePrice.toFixed(2)} each</option>
                           )
                         })
                         : ''}
@@ -105,19 +126,6 @@ const ShowDetailView = (props) => {
                   <button role="tabpanel" aria-labelledby="cart-tab" type="button" onClick={props.addToCart} className="btn btn-outline-primary return-btn ml-2 float-right">Add to Cart</button> : ''}
               </div>
             </div>
-
-            {props.displaySuccess ?
-              <div className="list-group-item alert-item">
-                <div className='row justify-content-center'>
-                  <div className="alert alert-success" role="alert"> Added {show.headliner} - {show.date} to cart!</div>
-                </div>
-              </div> : ''}
-            {props.displayWarning ?
-              <div className="list-group-item alert-item">
-                <div className='row justify-content-center'>
-                  <div className="alert alert-warning" role="alert">Please either complete purchase of item in cart, or remove it to procceed.</div>
-                </div>
-              </div> : ''}
           </div>
 
         </div> : ''}

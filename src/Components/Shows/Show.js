@@ -11,12 +11,12 @@ const Shows = (props) => {
       {filterShows.length > 0 ? filterShows.map(show =>
         <li className="list-group-item highlightOnHover show-list-item" key={show.id} id={show.id}>
           <div className="row" id={show.id}>
-            <div className="col-xs-3 col-sm-3 col-md-3 list-item-font" id={show.id}>{show.date} <br /> Saturday</div>
-            <div className="col-xs-7 col-sm-7 col-md-7 list-item-font" id={show.id}>{show.headliner} <br />{show.venue}</div>
+            <div className="col-md-3 list-item-font" id={show.id}>{show.date} <br /> Saturday</div>
+            <div className="col-md-7 list-item-font" id={show.id}>{show.headliner} <br />{show.venue}</div>
             <button
               id={show.id}
-              onClick={props.addBorder}
-              onMouseOver={props.showsExpandClick}
+              // onClick={props.addBorder}
+              onClick={props.showsExpandClick}
               type="button"
               className='btn show-list-item bg-white col-md-2'>Details</button>
 

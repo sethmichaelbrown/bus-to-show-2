@@ -9,6 +9,7 @@ import logo from '../Images/Logos/bts-logo-gray.png'
 const DetailCartView = (props) => {
   // console.log('DCV', props)
 
+
   return (
     <div className='DetailCartView container'>
       <ul className="nav nav-tabs" id="myTab" role="tablist">
@@ -24,6 +25,7 @@ const DetailCartView = (props) => {
         </li>
         </MediaQuery>
       </ul>
+
 
       <div className="tab-content" id="myTabContent">
         <div className="tab-pane fade show active" id="showDetails" role="tabpanel" aria-labelledby="showDetails-tab">
@@ -41,7 +43,8 @@ const DetailCartView = (props) => {
             selectTicketQuantity={props.selectTicketQuantity}
             showsExpandClick={props.showsExpandClick}
             ticketsAvailable={props.ticketsAvailable}
-            ticketQuantity={props.ticketQuantity} />
+            ticketQuantity={props.ticketQuantity}
+            totalCost={props.totalCost} />
         </div>
         <MediaQuery maxWidth={768}>
         <div className="tab-pane fade" id="showlist" data-toggle="tab" role="tabpanel" aria-labelledby="cart-tab">
@@ -57,6 +60,8 @@ const DetailCartView = (props) => {
         <div className="tab-pane fade" id="cart" data-toggle="tab" role="tabpanel" aria-labelledby="cart-tab">
           {props.inCart.length > 0 ?
             <Cart
+              makePurchase={props.makePurchase}
+              purchasePending={props.purchasePending}
               checked={props.checked}
               handleCheck={props.handleCheck}
               handleSubmit={props.handleSubmit}
@@ -73,6 +78,7 @@ const DetailCartView = (props) => {
               validatedElements={props.validatedElements}
               validated={props.validated}
               purchase={props.purchase}
+              purchaseSuccessful={props.purchaseSuccessful}
             /> :
             <div className="nothing-in-cart">
               <div className="list-group">
