@@ -5,7 +5,6 @@ import Validator from 'validator'
 
 // Styling
 import './App.css';
-import Axios from 'axios';
 
 // Components
 import Header from './Components/Header'
@@ -25,6 +24,7 @@ class App extends Component {
   state = {
     displayShow: null,
     displaySuccess: false,
+    displayWarning: false,
     loginView: false,
     displayCart: false,
     displayStripe: false,
@@ -34,10 +34,12 @@ class App extends Component {
     artistDescription: null,
     displayBorder: false,
     pickupLocationId: null,
+    timeLeftInCart: 0,
     ticketQuantity: null,
     displayAddBtn: false,
     displayQuantity: false,
     validated: false,
+    ticketsAvailable: [],
     validatedElements: {
       fName: null,
       lName: null,
@@ -67,14 +69,12 @@ class App extends Component {
     const shows = await response.json()
     this.setState({ shows })
 
-const pickups = await fetch('http://localhost:3000/pickup_locations')
-    //const pickups = await fetch('https://something-innocuous.herokuapp.com/pickup_locations')
+    const pickups = await fetch('https://something-innocuous.herokuapp.com/pickup_locations')
     const pickupLocations = await pickups.json()
     this.setState({ pickupLocations })
-    // console.log('State', this.state)
   }
 
-  selectPickupLocationId = (event) => {
+  selectPickupLocationId = async (event) => {
     const newState = { ...this.state }
     newState.pickupLocationId = event.target.value
     if (event.target.value) {
@@ -84,6 +84,25 @@ const pickups = await fetch('http://localhost:3000/pickup_locations')
       newState.displayQuantity = false
     }
     this.setState(newState)
+
+    const response = await fetch('https://something-innocuous.herokuapp.com/pickup_parties')
+    const locations = await response.json()
+    const statePickupId = parseInt(this.state.pickupLocationId)
+    const stateEventId = parseInt(this.state.displayShow.id)
+    
+    const matchedLocation = locations.find(location => (parseInt(location.pickupLocationId) === statePickupId) && (parseInt(location.eventId) === stateEventId))
+    
+    let numArray = []
+    if (matchedLocation) {
+      const capacityLessInCart = parseInt(matchedLocation.capacity) - parseInt(matchedLocation.inCart)
+      numArray = [...Array(capacityLessInCart).keys()].map(i => i + 1)
+      newState.ticketsAvailable = numArray
+    }
+    else {
+      console.log('Error!!')
+    }
+
+    this.setState({ ticketsAvailable: newState.ticketsAvailable })
   }
 
   selectTicketQuantity = (event) => {
@@ -139,10 +158,6 @@ const pickups = await fetch('http://localhost:3000/pickup_locations')
     newState.displayShow = clickedShow
 
     this.setState(newState)
-
-    // const response = await fetch('http://localhost:3000/pickup_locations')
-    // const locations = await response.json()
-    // console.log(locations)
   }
 
   returnToShows = () => {
@@ -168,7 +183,7 @@ const pickups = await fetch('http://localhost:3000/pickup_locations')
       newState.displaySuccess = true
     }
     else {
-      console.log('One event at a time.') // Display alert? One show at a time?
+      newState.displayWarning = true
     }
 
     const cartObj = {
@@ -178,7 +193,7 @@ const pickups = await fetch('http://localhost:3000/pickup_locations')
     }
     this.setState(newState)
 
-    fetch('http://localhost:3000/pickup_parties', {
+    fetch('https://something-innocuous.herokuapp.com/pickup_parties', {
       method: 'PATCH',
       body: JSON.stringify({
         pickupLocationId: this.state.pickupLocationId,
@@ -190,7 +205,8 @@ const pickups = await fetch('http://localhost:3000/pickup_locations')
       }
     })
 
-    setTimeout(fetch('http://localhost:3000/pickup_parties', {
+
+    setTimeout(fetch('https://something-innocuous.herokuapp.com/pickup_parties', {
       method: 'PATCH',
       body: JSON.stringify({
         pickupLocationId: this.state.pickupLocationId,
@@ -200,7 +216,7 @@ const pickups = await fetch('http://localhost:3000/pickup_locations')
       headers: {
         'Content-Type': 'application/json'
       }
-    }), 4000)
+    }), 600000)
 
   }
 
@@ -213,7 +229,7 @@ const pickups = await fetch('http://localhost:3000/pickup_locations')
 
   purchase = async () => {
     const cartObj = this.state.cartToSend
-    fetch('http://localhost:3000/orders', {
+    fetch('https://something-innocuous.herokuapp.com/orders', {
       method: 'POST',
       body: JSON.stringify(cartObj),
       headers: {
@@ -325,7 +341,6 @@ const pickups = await fetch('http://localhost:3000/pickup_locations')
     }, 500)
   }
 
-
   render() {
     return (
       <BrowserRouter>
@@ -337,7 +352,7 @@ const pickups = await fetch('http://localhost:3000/pickup_locations')
               <React.Fragment>
                 <Header
                   loginClick={this.loginClick}
-                  searchShows={this.searchShows}/>
+                  searchShows={this.searchShows} />
                 <div className='content-section'>
                   {this.state.displayStripe ? <StripeView /> : ''}
                   <div className='col-md-6 float-left'>
@@ -346,7 +361,8 @@ const pickups = await fetch('http://localhost:3000/pickup_locations')
                       displayShow={this.state.displayShow}
                       filterString={this.state.filterString}
                       shows={this.state.shows}
-                      showsExpandClick={this.showsExpandClick} />
+                      showsExpandClick={this.showsExpandClick}
+                      ticketsAvailable={this.state.ticketsAvailable} />
                   </div>
                 </div>
 
@@ -361,6 +377,7 @@ const pickups = await fetch('http://localhost:3000/pickup_locations')
                       displayQuantity={this.state.displayQuantity}
                       displayShow={this.state.displayShow}
                       displaySuccess={this.state.displaySuccess}
+                      displayWarning={this.state.displayWarning}
                       handleCheck={this.handleCheck}
                       handleSubmit={this.handleSubmit}
                       inCart={this.state.inCart}
@@ -376,6 +393,7 @@ const pickups = await fetch('http://localhost:3000/pickup_locations')
                       showsExpandClick={this.showsExpandClick}
                       showsInCart={this.state.inCart}
                       tabClicked={this.tabClicked}
+                      ticketsAvailable={this.state.ticketsAvailable}
                       ticketQuantity={this.state.ticketQuantity}
                       totalCost={this.state.totalCost}
                       updatePurchaseField={this.updatePurchaseField}
