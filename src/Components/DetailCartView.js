@@ -68,6 +68,8 @@ const DetailCartView = (props) => {
               showsInCart={props.inCart}
               totalCost={props.totalCost}
               ticketQuantity={props.ticketQuantity}
+              updateDiscountCode={props.updateDiscountCode}
+              findDiscountCode={props.findDiscountCode}
               updatePurchaseField={props.updatePurchaseField}
               validatedElements={props.validatedElements}
               validated={props.validated}

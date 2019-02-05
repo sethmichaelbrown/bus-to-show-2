@@ -15,7 +15,7 @@ import LoginView from './Components/LoginView/LoginView'
 // import Footer from './Components/Footer'
 import SponsorBox from './Components/SponsorBox'
 import DetailCartView from './Components/DetailCartView'
-import DiscountCode from './Components/'
+import DiscountCode from './Components/DiscountCode'
 
 
 
@@ -89,9 +89,9 @@ class App extends Component {
     const locations = await response.json()
     const statePickupId = parseInt(this.state.pickupLocationId)
     const stateEventId = parseInt(this.state.displayShow.id)
-    
+
     const matchedLocation = locations.find(location => (parseInt(location.pickupLocationId) === statePickupId) && (parseInt(location.eventId) === stateEventId))
-    
+
     let numArray = []
     if (matchedLocation) {
       const capacityLessInCart = parseInt(matchedLocation.capacity) - parseInt(matchedLocation.inCart)
@@ -236,6 +236,47 @@ class App extends Component {
         'Content-Type': 'application/json'
       }
     })
+  }
+  updateDiscountCode = (event) => {
+    const newState = { ...this.state }
+    newState.discountCode=event.target.value
+    this.setState({discountCode: newState.discountCode})
+    //console.log(this.state.discountCode)
+  }
+
+
+  // let discountCode = req.params.discountCode
+  // let totalPrice = req.body.totalPrice
+  // let ticketQuantity = req.body.ticketQuantity
+
+  findDiscountCode = async (event) => {
+    //console.log("hello")
+    const newState = { ...this.state }
+    const discountObj = {
+      discountCode : this.state.discountCode,
+      totalPrice: this.state.totalCost,
+      ticketQuantity: this.state.ticketQuantity,
+      eventId: 2,
+    }
+    await fetch(`http://localhost:3000/discount_codes/${this.state.discountCode}`,
+    {
+      method: 'PATCH',
+      body: JSON.stringify(discountObj),
+      headers :  {
+        'Content-Type': 'application/json'
+      }
+    }
+  ).then(res => res.json())
+.then(response => {
+  const item = JSON.stringify(response[0])
+  newState.totalCost = item
+  // newState.totalCost= 'hello'
+  // newState.discountCodeId = response
+  // this.setState({discountCode: newState.discountCodeId})
+})
+.catch(error => console.error('Error:', error));
+
+
   }
 
   updatePurchaseField = (event) => {
@@ -395,6 +436,9 @@ class App extends Component {
                       tabClicked={this.tabClicked}
                       ticketsAvailable={this.state.ticketsAvailable}
                       ticketQuantity={this.state.ticketQuantity}
+                      updateDiscountCode={this.updateDiscountCode}
+                      findDiscountCode={this.findDiscountCode}
+                      discountCode={this.state.discountCode}
                       totalCost={this.state.totalCost}
                       updatePurchaseField={this.updatePurchaseField}
                       validated={this.state.validated}

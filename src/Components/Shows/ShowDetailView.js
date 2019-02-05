@@ -1,5 +1,5 @@
 import React from 'react'
-import '../../App.css';
+  import DiscountCode from '../DiscountCode'
 
 const ShowDetailView = (props) => {
   // console.log("ShowDetailView",props)
@@ -49,6 +49,9 @@ const ShowDetailView = (props) => {
                   <img src={show.headlinerImgLink ? show.headlinerImgLink : placeKitten} alt="headliner" />
                 </div>
               </div>
+              <div>
+                <DiscountCode />
+              </div>
               <div className="row col-md-10">
                 <span>Departure Location</span>
                 <form className="was-validated">
@@ -89,9 +92,6 @@ const ShowDetailView = (props) => {
                     </form>
                   </React.Fragment> : ''}
               </div>
-            </div>
-            <div>
-              //<DiscountCode />
             </div>
             <div className="list-group-item">
               <div className='row'>
