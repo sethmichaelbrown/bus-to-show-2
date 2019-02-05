@@ -135,3 +135,13 @@
   padding: 0;
   margin-bottom: -5;
 }
+
+.loading-image{
+  color: white;
+  background: url('./Images/bts-future-selves-background-image.png');
+  background-position: top;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
+  width: 100vw;
+}

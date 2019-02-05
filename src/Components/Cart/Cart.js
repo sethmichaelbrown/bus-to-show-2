@@ -115,6 +115,9 @@ const Cart = (props) => {
                           id="discountCode"
                           placeholder="Discount Code" />
                       </div>
+                      <div className="col-md-4 mb-3">
+                        <button type="button" class="btn btn-outline-secondary">Apply</button>
+                      </div>
                     </div>
 
 
