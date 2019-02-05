@@ -1,6 +1,6 @@
 // Packages
 import React, { Component } from 'react';
-import { BrowserRouter} from "react-router-dom"
+import { BrowserRouter } from "react-router-dom"
 import Validator from 'validator'
 
 // Styling
@@ -23,10 +23,11 @@ import DetailCartView from './Components/DetailCartView'
 class App extends Component {
 
   state = {
-    purchasePending:false,
-    purchaseSuccessful:false,
+    purchasePending: false,
+    purchaseSuccessful: false,
     displayShow: null,
     displaySuccess: false,
+    displayWarning: false,
     loginView: false,
     displayCart: false,
     displayStripe: false,
@@ -64,13 +65,13 @@ class App extends Component {
     }
   }
 
-  
+
   async componentDidMount() {
     const response = await fetch('https://something-innocuous.herokuapp.com/events')
     // const response = await fetch('http://localhost:3000/events')
     const shows = await response.json()
     this.setState({ shows })
-    
+
     const allEvents = await fetch('https://something-innocuous.herokuapp.com/events')
     // const allEvents = await fetch('http://localhost:3000/events')
     const eventsList = await allEvents.json()
@@ -78,16 +79,13 @@ class App extends Component {
     for (let i = 0; i < eventsList.length; i++) {
       eventsListIds.push(eventsList[i].id)
     }
-    
+
     const pickups = await fetch('https://something-innocuous.herokuapp.com/pickup_locations')
     // const pickups = await fetch('http://localhost:3000/pickup_locations')
     const pickupLocations = await pickups.json()
 
     const filteredPickupLocations = pickupLocations.filter(location => eventsListIds.includes(location.id))
     this.setState({ pickupLocations: filteredPickupLocations })
-    // console.log('State', this.state)
-
-    this.setState({ pickupLocations })
   }
 
   selectPickupLocationId = async (event) => {
@@ -110,17 +108,16 @@ class App extends Component {
     const matchedLocation = locations.find(location => (parseInt(location.pickupLocationId) === statePickupId) && (parseInt(location.eventId) === stateEventId))
 
     let numArray = []
-    if(matchedLocation){
+    if (matchedLocation) {
       const capacityLessInCart = parseInt(matchedLocation.capacity) - parseInt(matchedLocation.inCart)
-      numArray = [...Array(capacityLessInCart).keys()].map(i => i+1)
+      numArray = [...Array(capacityLessInCart).keys()].map(i => i + 1)
       newState.ticketsAvailable = numArray
     }
-    else{
+    else {
       console.log('Error!!')
     }
 
-    this.setState({ticketsAvailable : newState.ticketsAvailable})
-    console.log(this.state)
+    this.setState({ ticketsAvailable: newState.ticketsAvailable })
   }
 
   selectTicketQuantity = (event) => {
@@ -239,7 +236,7 @@ class App extends Component {
       newState.displaySuccess = true
     }
     else {
-      console.log('One event at a time.') // Display alert? One show at a time?
+      newState.displayWarning = true
     }
 
     const cartObj = {
@@ -250,7 +247,7 @@ class App extends Component {
     this.setState(newState)
 
     fetch('https://something-innocuous.herokuapp.com/pickup_parties', {
-    // fetch('http://localhost:3000/pickup_parties', {
+      // fetch('http://localhost:3000/pickup_parties', {
       method: 'PATCH',
       body: JSON.stringify({
         pickupLocationId: this.state.pickupLocationId,
@@ -263,7 +260,7 @@ class App extends Component {
     })
 
     // setTimeout(fetch('https://something-innocuous.herokuapp.com/pickup_parties', {
-      setTimeout(fetch('http://localhost:3000/pickup_parties', {
+    setTimeout(fetch('http://localhost:3000/pickup_parties', {
       method: 'PATCH',
       body: JSON.stringify({
         pickupLocationId: this.state.pickupLocationId,
@@ -286,14 +283,14 @@ class App extends Component {
   purchase = async () => {
     const cartObj = this.state.cartToSend
     fetch('https://something-innocuous.herokuapp.com/orders', {
-    // fetch('http://localhost:3000/orders', {
+      // fetch('http://localhost:3000/orders', {
       method: 'POST',
       body: JSON.stringify(cartObj),
       headers: {
         'Content-Type': 'application/json'
       }
     })
-    this.setState({purchaseSuccessful:true})
+    this.setState({ purchaseSuccessful: true })
   }
 
   updatePurchaseField = (event) => {
@@ -399,11 +396,7 @@ class App extends Component {
     }, 500)
   }
 
-
-
   sortByArtist = () => {
-    console.log("sorted by artist")
-    console.log(this.state.shows)
     let newState = this.state.shows.sort((show1, show2) => {
       let a = show1.headliner.toLowerCase().split(" ").join("")
       let b = show2.headliner.toLowerCase().split(" ").join("")
@@ -415,27 +408,22 @@ class App extends Component {
         return 0;
       }
     })
-    // let newState=this.state.shows.map(show=> show.headliner.split(" ").join(""))
-    console.log("NEWSTATE", newState)
     this.setState({ shows: newState })
   }
 
 
   sortByDate = () => {
-    console.log(this.state.shows)
     let newState = this.state.shows.sort((show1, show2) => {
       let a = new Date(show1.date)
       let b = new Date(show2.date)
       return a - b
 
     })
-    console.log(newState)
     this.setState({ shows: newState })
   }
 
-  makePurchase=()=>{
-    this.setState({purchasePending:true})
-
+  makePurchase = () => {
+    this.setState({ purchasePending: true })
   }
 
 
@@ -451,7 +439,7 @@ class App extends Component {
               <React.Fragment>
                 <Header
                   loginClick={this.loginClick}
-                  searchShows={this.searchShows}/>
+                  searchShows={this.searchShows} />
                 <div className='content-section'>
                   <div className='col-md-6 float-left'>
                     <ShowList
@@ -480,6 +468,7 @@ class App extends Component {
                       displayQuantity={this.state.displayQuantity}
                       displayShow={this.state.displayShow}
                       displaySuccess={this.state.displaySuccess}
+                      displayWarning={this.state.displayWarning}
                       handleCheck={this.handleCheck}
                       handleSubmit={this.handleSubmit}
                       inCart={this.state.inCart}
