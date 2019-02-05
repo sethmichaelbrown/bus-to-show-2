@@ -13,7 +13,7 @@ const Cart = (props) => {
     <div className='Cart'>
       <React.Fragment>
         <div className="list-group">
-          <div className="list-group-item">
+          <div className="list-group-item lgi-header">
             <div className="row">
               <div className="col-md-2">Show</div>
               <div className="col-md-4">Departure Location</div>
@@ -26,7 +26,7 @@ const Cart = (props) => {
               pickupLocations={props.pickupLocations}
               quantityChange={props.quantityChange}
               removeFromCart={props.removeFromCart}
-              rideId={props.rideId}
+              pickupLocationId={props.pickupLocationId}
               showsInCart={props.showsInCart}
               ticketPrice={props.ticketPrice}
               ticketQuantity={props.ticketQuantity} />
@@ -130,7 +130,7 @@ const Cart = (props) => {
                       <h4>Cart Total:
                             <span className="badge badge-secondary">{`$${totalCost}`}</span>
                       </h4>
-                      
+
                     </div>
                   </form>
 

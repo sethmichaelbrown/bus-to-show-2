@@ -9,7 +9,7 @@
 }
 
 .list-group-item {
-  border-radius: 5px;
+  border-radius: 1px;
 }
 
 .return-btn {
@@ -21,7 +21,7 @@
 }
 
 .bio-font {
-  font-size: 10px;
+  font-size: 12px;
   overflow: scroll;
   height: 25vh;
 }
@@ -41,7 +41,7 @@
   border: solid;
   border-color: gray;
   border-width: 1px;
-  
+
 }
 
 .remove-border {
@@ -109,13 +109,23 @@
  opacity: 0.5;
 }
 
+.show-header{
+  background-color: #ff420f;
+  color: white;
+}
+
 .show-list-item{
   color: #ff420f;
+  border-color: #ff420f;
 }
 
 .show-list-item:nth-child(odd){
-  color: white;
-  background-color: rgba(255, 66, 15, 0.75)
+  color: #ff420f;
+  background-color: #fac5b5;
+  /* background-color: rgba(255, 66, 15, 0.75) */
+
 }
 
-
+.lgi-header{
+  border-top: none;
+}
