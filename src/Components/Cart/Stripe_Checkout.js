@@ -5,8 +5,8 @@ export default class Checkout extends React.Component {
   onToken = (token) => {
 
 
-//     fetch('https://something-innocuous.herokuapp.com/orders/charge', {
-    fetch('http://localhost:3000/orders/charge', {
+    fetch('https://something-innocuous.herokuapp.com/orders/charge', {
+    // fetch('http://localhost:3000/orders/charge', {
       method: 'POST',
       body: JSON.stringify({
         stripeEmail: token.email,
