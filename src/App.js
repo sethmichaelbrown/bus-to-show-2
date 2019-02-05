@@ -16,6 +16,7 @@ import LoginView from './Components/LoginView/LoginView'
 // import Footer from './Components/Footer'
 import SponsorBox from './Components/SponsorBox'
 import DetailCartView from './Components/DetailCartView'
+import DiscountCode from './Components/'
 
 
 

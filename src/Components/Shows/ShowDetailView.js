@@ -86,6 +86,9 @@ const ShowDetailView = (props) => {
                   </React.Fragment> : ''}
               </div>
             </div>
+            <div>
+              //<DiscountCode />
+            </div>
             <div className="list-group-item">
               <div className='row'>
                 <button type="button" onClick={props.returnToShows} className="btn btn-outline-danger return-btn ml-2 float-right">Cancel</button>
@@ -93,7 +96,7 @@ const ShowDetailView = (props) => {
                   <button role="tabpanel" aria-labelledby="cart-tab" type="button" onClick={props.addToCart} className="btn btn-outline-primary return-btn ml-2 float-right">Add to Cart</button> : ''}
               </div>
             </div>
-            
+
             {props.displaySuccess ?
               <div className="list-group-item alert-item">
                 <div className='row'>
