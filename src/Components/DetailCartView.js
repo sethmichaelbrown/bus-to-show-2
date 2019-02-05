@@ -30,7 +30,7 @@ const DetailCartView = (props) => {
         </li>
         <li>
           {/* {props.inCart.length > 0 ?
-            <button type="button" disabled='disabled' class="btn btn-dark">{this.timeLeft}</button> : ''} */}
+            <button type="button" disabled='disabled' className="btn btn-dark">{this.timeLeft}</button> : ''} */}
         </li>
       </ul>
 
@@ -51,7 +51,8 @@ const DetailCartView = (props) => {
             selectTicketQuantity={props.selectTicketQuantity}
             showsExpandClick={props.showsExpandClick}
             ticketsAvailable={props.ticketsAvailable}
-            ticketQuantity={props.ticketQuantity} />
+            ticketQuantity={props.ticketQuantity}
+            totalCost={props.totalCost} />
         </div>
         <div className="tab-pane fade" id="cart" data-toggle="tab" role="tabpanel" aria-labelledby="cart-tab">
           {props.inCart.length > 0 ?

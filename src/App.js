@@ -90,7 +90,7 @@ class App extends Component {
     const stateEventId = parseInt(this.state.displayShow.id)
     
     const matchedLocation = locations.find(location => (parseInt(location.pickupLocationId) === statePickupId) && (parseInt(location.eventId) === stateEventId))
-    
+  
     let numArray = []
     if (matchedLocation) {
       const capacityLessInCart = parseInt(matchedLocation.capacity) - parseInt(matchedLocation.inCart)
@@ -113,6 +113,10 @@ class App extends Component {
       newState.displayAddBtn = false
     }
     newState.ticketQuantity = event.target.value
+    const pickupLocation = newState.pickupLocations.filter(location => parseInt(location.id) === parseInt(this.state.pickupLocationId))[0]
+    const subTotal =  (Number(pickupLocation.basePrice) * Number(event.target.value))
+    const total = ((Number(subTotal) * .1) + Number(subTotal)).toFixed(2)
+    newState.totalCost = total
     this.setState(newState)
   }
 
