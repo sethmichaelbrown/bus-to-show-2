@@ -66,7 +66,8 @@ class App extends Component {
     const shows = await response.json()
     this.setState({ shows })
 
-    const pickups = await fetch('https://something-innocuous.herokuapp.com/pickup_locations')
+const pickups = await fetch('http://localhost:3000/pickup_locations')
+    //const pickups = await fetch('https://something-innocuous.herokuapp.com/pickup_locations')
     const pickupLocations = await pickups.json()
     this.setState({ pickupLocations })
     // console.log('State', this.state)
@@ -320,7 +321,7 @@ class App extends Component {
       const newState = { ...this.state }
       newState.displayBorder = false
       this.setState(newState)
-    }, 1500)
+    }, 500)
   }
 
 

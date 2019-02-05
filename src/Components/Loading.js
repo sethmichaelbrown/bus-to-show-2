@@ -6,7 +6,7 @@ const Loading = (props) => {
 
 
   return (
-    <div className='Loading container'>
+    <div className='login-image-section Loading container'>
       <h1>Loading...</h1>
     </div>
 
