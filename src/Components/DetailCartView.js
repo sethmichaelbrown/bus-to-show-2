@@ -14,7 +14,7 @@ const DetailCartView = (props) => {
     return seconds == 60 ? (minutes+1) + ":00" : minutes + ":" + (seconds < 10 ? "0" : "") + seconds
   }
 
-  console.log(millisToMinutesAndSeconds(time))
+  const displayTime = millisToMinutesAndSeconds(time)
 
 
   return (
@@ -27,8 +27,8 @@ const DetailCartView = (props) => {
           <a onClick={props.tabClicked} className="nav-link" id="cart-tab" data-toggle="tab" href="#cart" role="tab" aria-controls="cart" aria-selected="false">My Cart</a>
         </li>
         <li>
-          {/* {props.inCart.length > 0 ?
-            <button type="button" disabled='disabled' className="btn btn-dark">{this.timeLeft}</button> : ''} */}
+          {props.inCart.length > 0 ?
+            <button type="button" disabled='disabled' className="btn btn-dark">{displayTime}</button> : ''}
         </li>
       </ul>
 
