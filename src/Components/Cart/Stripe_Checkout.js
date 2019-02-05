@@ -3,7 +3,10 @@ import StripeCheckout from 'react-stripe-checkout'
 
 export default class Checkout extends React.Component {
   onToken = (token) => {
-    fetch('https://something-innocuous.herokuapp.com/charge', {
+
+
+    fetch('https://something-innocuous.herokuapp.com/orders/charge', {
+    // fetch('http://localhost:3000/orders/charge', {
       method: 'POST',
       body: JSON.stringify({
         stripeEmail: token.email,
@@ -31,7 +34,7 @@ export default class Checkout extends React.Component {
         currency='USD'
       >
         <button
-          purchasePending={this.props.purchasePending}
+          
           onClick={()=>this.props.makePurchase()}
           className={`btn ${this.props.validated ? 'btn-outline-success' : 'btn-secondary'}`}
           disabled={this.props.validated ? '' : 'disabled'}>

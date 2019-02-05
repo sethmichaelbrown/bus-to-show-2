@@ -25,12 +25,12 @@ const Shows = (props) => {
         </li>) :
         <li className="list-group-item highlightOnHover">
           <div className="row add-a-show">
-            <div className="col-md-12 ">
+            <div className="col-md-12 col-xs-12">
               <h5>I find our lack of that show disturbing.</h5>
             </div>
           </div>
           <div className="row">
-            <div className="col-md-12">
+            <div className="col-md-12 col-xs-12">
               <button type="button" className="btn btn-outline-primary mt-2">Add that show</button>
             </div>
           </div>

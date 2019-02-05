@@ -1,7 +1,11 @@
 import React from 'react'
 import '../../App.css';
 import logo from '../../Images/Logos/bts-logo-gray.png'
+<<<<<<< HEAD
 import DiscountCode from '../DiscountCode'
+=======
+import MediaQuery from 'react-responsive';
+>>>>>>> 9e526b937cc06cbe37d8bbd4cd6f3e38d07256a9
 
 const ShowDetailView = (props) => {
   // console.log("ShowDetailView",props)
@@ -18,7 +22,7 @@ const ShowDetailView = (props) => {
     <div className='ShowDetailView'>
       {show ?
         <div className={`content-section-details ${props.displayBorder ? 'add-border' : 'remove-border'}`}>
-          <h4>{show.headliner}</h4>
+          <h3 style={{textAlign: "center"}}>{show.headliner}</h3>
           <div className="list-group">
             {props.displayWarning ?
               <div className="list-group-item alert-item">
@@ -28,23 +32,27 @@ const ShowDetailView = (props) => {
                 <div className="list-group-item alert-item">
                   <div className="alert alert-success" role="alert"> Added {show.headliner} - {show.date} to cart!</div>
                 </div> :
+                <MediaQuery minWidth={768}>
                 <div className="list-group-item">
                   <div className="row">
                     <div className="col-md-4">Location</div>
                     <div className="col-md-4">Date</div>
                     <div className="col-md-4"></div>
                   </div>
-                </div>}
+                </div>
+                </MediaQuery>}
+
 
             <div className="list-group-item">
               <div className="row">
-                <div className="col-md-4">{show.venue}</div>
-                <div className="col-md-4">{show.date}</div>
-                <div className="col-md-4">Saturday</div>
+                <div className="col-md-4" style={{textAlign: "center"}}>{show.venue}</div>
+                <div className="col-md-4" style={{textAlign: "center"}}>{show.date}</div>
+                <div className="col-md-4" style={{textAlign: "center"}}>Saturday</div>
               </div>
             </div>
             <div className="list-group-item">
-              <div className='row container'>
+              <div className='row container justify-content-center'>
+              <MediaQuery minWidth={768}>
                 <div className="col-md-8 artist-info bio-font">
                   {show.headlinerBio ? headlinerBio :
                     <div>
@@ -60,18 +68,26 @@ const ShowDetailView = (props) => {
                       </div>
                     </div>}
                 </div>
+                </MediaQuery>
                 <div className="col-md-4 artist-image">
+                  <div className="row justify-content-center">
                   <img src={show.headlinerImgLink ? show.headlinerImgLink : placeKitten} alt="headliner" />
+                  </div>
                 </div>
               </div>
+<<<<<<< HEAD
               <div>
 //                <DiscountCode />
               </div>
               <div className="row col-md-10">
                 <span>Departure Location</span>
+=======
+              <div className="row col-md-7 offset-md-2 justify-content-center">
+                <div style={{textAlign: "center"}}>Departure Location</div>
+>>>>>>> 9e526b937cc06cbe37d8bbd4cd6f3e38d07256a9
                 <form className="was-validated">
                   <div className="form-group">
-                    <select className="custom-select" onChange={props.selectPickupLocationId} required>
+                    <select className="custom-select mt-2" onChange={props.selectPickupLocationId} required>
                       <option value="">Select a Departure Location...</option>
                       {props.pickupLocations ?
                         props.pickupLocations.map(location => {
@@ -87,32 +103,37 @@ const ShowDetailView = (props) => {
                   </div>
                 </form>
               </div>
-              <div className="row">
-                <div className="col-md-5 float-left">
-                  {props.displayQuantity ?
-                    <div>
-                      <span>Ticket Quantity</span>
-                      <form className="was-validated">
-                        <div className="form-group">
-                          {props.ticketsAvailable.length === 0 ?
-                            <button type="button" disabled='disabled' className="btn btn-lg btn-danger mt-1">Sold Out!</button> :
-                            <select
-                              className="custom-select"
-                              onChange={props.selectTicketQuantity}
-                              disabled={props.ticketsAvailable.length === 0 ? 'disabled' : ''}
-                              required>
-                              <option value="">Select Quantity</option>
-                              {props.ticketsAvailable.map(number => <option key={number} value={number}>{number}</option>)}
-                            </select>}
-                        </div>
+              <div className="row col-md-7 offset-md-2 justify-content-center">
+                {props.displayQuantity ?
+                  <React.Fragment>
+
+                    <div style={{textAlign: "center"}} className="col-md-12">
+                      Ticket Quantity
+
+                  </div>
+                    <form className="was-validated">
+                      <div className="form-group">
+
+                      {props.ticketsAvailable.length === 0 ?
+                      <button className="btn btn-danger px-2" disabled="disabled" type="button">Sold Out!</button> :
+
+                      <select
+                        className="custom-select mt-2"
+                        onChange={props.selectTicketQuantity}
+                        disabled={props.ticketsAvailable.length === 0 ? 'disabled' : ''}
+                        required>
+                        <option value="">Select Quantity</option>
+                        {props.ticketsAvailable.map(number => <option value={number}>{number}</option>)}
+                      </select>}
+
+                      </div>
                       </form>
-                      <span>Current Total: ${props.totalCost}</span>
-                    </div> : ''}
-                </div>
+
+                  </React.Fragment> : ''}
               </div>
             </div>
             <div className="list-group-item">
-              <div className='row'>
+              <div className='row col-md-12 justify-content-center'>
                 <button type="button" onClick={props.returnToShows} className="btn btn-outline-danger return-btn ml-2 float-right">Cancel</button>
                 {props.displayAddBtn ?
                   <button role="tabpanel" aria-labelledby="cart-tab" type="button" onClick={props.addToCart} className="btn btn-outline-primary return-btn ml-2 float-right">Add to Cart</button> : ''}
