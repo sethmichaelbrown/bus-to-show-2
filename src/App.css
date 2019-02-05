@@ -149,3 +149,7 @@
 .sort-btn{
   border: none;
 }
+
+.no-info-logo{
+  opacity: 0.5;
+}
