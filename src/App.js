@@ -205,7 +205,7 @@ class App extends Component {
     }
 
     let timeStart = 600000
-    if (this.inCart.length > 0) {
+    if (this.state.inCart.length > 0) {
       setInterval(() => {
         newState.timeLeftInCart = (--timeStart) / 60000
       }, 1000)
