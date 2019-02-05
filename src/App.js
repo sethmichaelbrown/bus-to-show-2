@@ -6,7 +6,6 @@ import MediaQuery from 'react-responsive';
 
 // Styling
 import './App.css';
-import Axios from 'axios';
 
 // Components
 import Header from './Components/Header'
@@ -68,21 +67,21 @@ class App extends Component {
 
 
   async componentDidMount() {
-    const response = await fetch('https://something-innocuous.herokuapp.com/events')
-    // const response = await fetch('http://localhost:3000/events')
+    // const response = await fetch('https://something-innocuous.herokuapp.com/events')
+    const response = await fetch('http://localhost:3000/events')
     const shows = await response.json()
     this.setState({ shows })
-
-    const allEvents = await fetch('https://something-innocuous.herokuapp.com/events')
-    // const allEvents = await fetch('http://localhost:3000/events')
+    
+    // const allEvents = await fetch('https://something-innocuous.herokuapp.com/events')
+    const allEvents = await fetch('http://localhost:3000/events')
     const eventsList = await allEvents.json()
     const eventsListIds = []
     for (let i = 0; i < eventsList.length; i++) {
       eventsListIds.push(eventsList[i].id)
     }
-
-    const pickups = await fetch('https://something-innocuous.herokuapp.com/pickup_locations')
-    // const pickups = await fetch('http://localhost:3000/pickup_locations')
+    
+    // const pickups = await fetch('https://something-innocuous.herokuapp.com/pickup_locations')
+    const pickups = await fetch('http://localhost:3000/pickup_locations')
     const pickupLocations = await pickups.json()
 
     const filteredPickupLocations = pickupLocations.filter(location => eventsListIds.includes(location.id))
@@ -100,8 +99,8 @@ class App extends Component {
     }
     this.setState(newState)
 
-    const response = await fetch('https://something-innocuous.herokuapp.com/pickup_parties')
-    // const response = await fetch('http://localhost:3000/pickup_parties')
+    // const response = await fetch('https://something-innocuous.herokuapp.com/pickup_parties')
+    const response = await fetch('http://localhost:3000/pickup_parties')
     const locations = await response.json()
     const statePickupId = parseInt(this.state.pickupLocationId)
     const stateEventId = parseInt(this.state.displayShow.id)
@@ -240,15 +239,16 @@ class App extends Component {
       newState.displayWarning = true
     }
 
-    const cartObj = {
-      pickupLocationId: this.state.pickupLocationId,
-      eventId: this.state.inCart[0].id,
-      ticketQuantity: this.state.ticketQuantity,
-    }
+
+    // const cartObj = {
+    //   pickupLocationId: this.state.pickupLocationId,
+    //   eventId: this.state.inCart[0].id,
+    //   ticketQuantity: this.state.ticketQuantity,
+    // }
     this.setState(newState)
 
-    fetch('https://something-innocuous.herokuapp.com/pickup_parties', {
-      // fetch('http://localhost:3000/pickup_parties', {
+    // fetch('https://something-innocuous.herokuapp.com/pickup_parties', {
+    fetch('http://localhost:3000/pickup_parties', {
       method: 'PATCH',
       body: JSON.stringify({
         pickupLocationId: this.state.pickupLocationId,
@@ -283,8 +283,8 @@ class App extends Component {
 
   purchase = async () => {
     const cartObj = this.state.cartToSend
-    fetch('https://something-innocuous.herokuapp.com/orders', {
-      // fetch('http://localhost:3000/orders', {
+    // fetch('https://something-innocuous.herokuapp.com/orders', {
+    fetch('http://localhost:3000/orders', {
       method: 'POST',
       body: JSON.stringify(cartObj),
       headers: {
