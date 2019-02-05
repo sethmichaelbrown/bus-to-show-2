@@ -31,7 +31,6 @@ const Cart = (props) => {
               ticketPrice={props.ticketPrice}
               ticketQuantity={props.ticketQuantity} />
           </ul>
-
           {props.showsInCart ?
             <div className="list-group-item" >
               <div className="row">
@@ -49,7 +48,6 @@ const Cart = (props) => {
                           placeholder="First Name"
                           required />
                       </div>
-
                       <div className="col-md-4 mb-3">
                         <label htmlFor="lastName">Last Name</label>
                         <input
@@ -61,7 +59,6 @@ const Cart = (props) => {
                           required />
                       </div>
                     </div>
-
                     <div className="form-row">
                       <div className="col-md-8 mb-3">
                         <label htmlFor="email">Email</label>
@@ -90,7 +87,6 @@ const Cart = (props) => {
                             id="willCallFirstName"
                             placeholder="First Name" />
                         </div>
-
                         <div className="col-md-4 mb-3">
                           <label htmlFor="willCallLastName">Will Call Last Name</label>
                           <input
@@ -110,7 +106,6 @@ const Cart = (props) => {
                             className="btn btn-outline-primary">Click if tickets are for someone else!</button>
                         </div>
                       </div>}
-
                     <div className="form-row">
                       <div className="col-md-4 mb-3">
                         <input
