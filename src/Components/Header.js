@@ -7,11 +7,11 @@ const Header = (props) => {
 
   return (
     <div className='Header'>
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+      <nav className="navbar navbar-right navbar-light bg-light mr-8">
         <a className="navbar-brand">
           <img src={logo} width="70" height="30" className="d-inline-block align-top" alt="bts-logo" />
         </a>
-          <div className="form-inline my-2 my-lg-0">
+          <div className="form-inline justify-content-between my-2 my-lg-0">
             <input onKeyUp={props.searchShows} className="form-control mr-sm-2 align-right" placeholder="Search Events..." aria-label="Search" />
           </div>
           {/* <button onClick={props.loginClick} className="btn btn-outline-primary my-2 my-sm-0">Login</button>
