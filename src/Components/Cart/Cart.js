@@ -13,7 +13,7 @@ const Cart = (props) => {
     <div className='Cart'>
       <React.Fragment>
         <div className="list-group">
-          <div className="list-group-item">
+          <div className="list-group-item lgi-header">
             <div className="row">
               <div className="col-md-2">Show</div>
               <div className="col-md-4">Departure Location</div>
