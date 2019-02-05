@@ -6,6 +6,15 @@ import logo from '../Images/Logos/bts-logo-gray.png'
 
 const DetailCartView = (props) => {
   // console.log('DCV', props)
+  const time = props.timeLeftInCart
+
+  const millisToMinutesAndSeconds = (mili) => {
+    var minutes = Math.floor(mili / 60000)
+    var seconds = ((mili % 60000) / 1000).toFixed(0)
+    return seconds == 60 ? (minutes+1) + ":00" : minutes + ":" + (seconds < 10 ? "0" : "") + seconds
+  }
+
+  console.log(millisToMinutesAndSeconds(time))
 
 
   return (

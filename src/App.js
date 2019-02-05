@@ -211,10 +211,9 @@ class App extends Component {
     const newState = { ...this.state }
 
     let timer = new Timer()
-    timer.on('tick', (ms) => {
-      // this.setState({ timeLeftInCart: this.state.timeLeftInCart - ms })
-      console.log('tick', ms)
-    })
+
+    timer.on('tick', (ms) => this.setState({ timeLeftInCart: ms }))
+    timer.start(600000, 1000)
 
     const pickupLocation = newState.pickupLocations.filter(location => parseInt(location.id) === parseInt(this.state.pickupLocationId))[0]
     const basePrice = Number(pickupLocation.basePrice)
@@ -231,7 +230,6 @@ class App extends Component {
     else {
       newState.displayWarning = true
     }
-
 
     const cartObj = {
       pickupLocationId: this.state.pickupLocationId,
@@ -444,6 +442,7 @@ class App extends Component {
                       tabClicked={this.tabClicked}
                       ticketsAvailable={this.state.ticketsAvailable}
                       ticketQuantity={this.state.ticketQuantity}
+                      timeLeftInCart={this.state.timeLeftInCart}
                       totalCost={this.state.totalCost}
                       updatePurchaseField={this.updatePurchaseField}
                       validated={this.state.validated}
