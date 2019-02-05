@@ -20,10 +20,11 @@ const ShowDetailView = (props) => {
           <div className="list-group">
             <div className="list-group-item">
             <MediaQuery minWidth={768}>
-              <div className="row">
+              <div className="row ">
+                <div className="col-md-1"></div>
                 <div className="col-md-4">Location</div>
                 <div className="col-md-4">Date</div>
-                <div className="col-md-4"></div>
+                <div className="col-md-"></div>
               </div>
             </MediaQuery>
             </div>
@@ -48,7 +49,7 @@ const ShowDetailView = (props) => {
                   </div>
                 </div>
               </div>
-              <div className="row col-md-7 justify-content-center">
+              <div className="row col-md-7 offset-md-2 justify-content-center">
                 <div style={{textAlign: "center"}}>Departure Location</div>
                 <form className="was-validated">
                   <div className="form-group">
@@ -68,13 +69,13 @@ const ShowDetailView = (props) => {
                   </div>
                 </form>
               </div>
-              <div className="row col-md-5 justify-content-center">
+              <div className="row col-md-7 offset-md-2 justify-content-center">
                 {props.displayQuantity ?
                   <React.Fragment>
-                  <div className="row justify-content-center">
-                    <div style={{textAlign: "center"}}>
+
+                    <div style={{textAlign: "center"}} className="col-md-12">
                       Ticket Quantity
-                    </div>
+
                   </div>
                     <form className="was-validated">
                       <div className="form-group">
@@ -90,7 +91,7 @@ const ShowDetailView = (props) => {
                         <option value="">Select Quantity</option>
                         {props.ticketsAvailable.map(number => <option value={number}>{number}</option>)}
                       </select>}
-                      
+
                       </div>
                       </form>
 
@@ -98,7 +99,7 @@ const ShowDetailView = (props) => {
               </div>
             </div>
             <div className="list-group-item">
-              <div className='row justify-content-center'>
+              <div className='row col-md-12 justify-content-center'>
                 <button type="button" onClick={props.returnToShows} className="btn btn-outline-danger return-btn ml-2 float-right">Cancel</button>
                 {props.displayAddBtn ?
                   <button role="tabpanel" aria-labelledby="cart-tab" type="button" onClick={props.addToCart} className="btn btn-outline-primary return-btn ml-2 float-right">Add to Cart</button> : ''}

@@ -79,10 +79,10 @@ const DetailCartView = (props) => {
                 <div className="list-group-item lgi-header">
                 <MediaQuery minWidth={768}>
                   <div className="row">
-                    <div className="col-md-2">Show</div>
+                    <div className="col-md-1">Show</div>
                     <div className="col-md-4">Departure Location</div>
                     <div className="col-md-2">Date</div>
-                    <div className="col-md-2">Quantity</div>
+                    <div className="col-md-3">Quantity</div>
                   </div>
                 </MediaQuery>
                 </div>
