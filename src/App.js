@@ -1,7 +1,15 @@
+// Packages
 import React, { Component } from 'react';
 import { BrowserRouter} from "react-router-dom"
 import Validator from 'validator'
+
+// Styling
 import './App.css';
+<<<<<<< HEAD
+=======
+
+// Components
+>>>>>>> ddcfdfc81f5b959c3adcca49d663f127bbef2020
 import Header from './Components/Header'
 import ShowList from './Components/Shows/ShowList'
 import Loading from './Components/Loading'
@@ -39,7 +47,6 @@ class App extends Component {
     },
     checked: false,
     totalCost: 0,
-
     cartToSend: {
       eventId: null,
       pickupLocationId: null,
@@ -60,10 +67,6 @@ class App extends Component {
     // const response = await fetch('http://localhost:3000/events')
     const shows = await response.json()
     this.setState({ shows })
-    const newState = { ...this.state }
-    // newState.shows.map(show => show.date = show.date.split('T')[0].split('-').splice(1, 3).concat(show.date.split('T')[0].split('-')[0]).join('/'))
-    this.setState(newState)
-    console.log(this.state.shows)
     const pickups = await fetch('https://something-innocuous.herokuapp.com/pickup_locations')
     const pickupLocations = await pickups.json()
     this.setState({ pickupLocations })
@@ -95,13 +98,13 @@ class App extends Component {
   }
 
   // Header Functions
-  loginClick = (event) => {
+  loginClick = () => {
     const newState = { ...this.state }
     newState.loginView = true
     this.setState(newState)
   }
 
-  returnHome = (event) => {
+  returnHome = () => {
     const newState = { ...this.state }
     newState.loginView = false
     this.setState(newState)
@@ -110,20 +113,7 @@ class App extends Component {
   searchShows = (event) => {
     const newState = { ...this.state }
     newState.filterString = event.target.value
-    this.setState(newState)
-  }
-
-  purchase = async () => {
-    const cartObj = this.state.cartToSend
-    console.log('cartToSend:   ', this.state.cartToSend)
-    console.log('cartObj:   ', cartObj)
-    fetch('http://localhost:3000/orders', {
-      method: 'POST',
-      body: JSON.stringify(cartObj),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
+    this.setState({ filterString: newState.filterString })
   }
 
   // Tab Functions
@@ -150,79 +140,85 @@ class App extends Component {
     this.setState(newState)
   }
 
-  returnToShows = (event) => {
+  returnToShows = () => {
     const newState = { ...this.state }
     newState.displayShow = null
     newState.displaySuccess = false
     this.setState(newState)
   }
 
-  addToCart = async(event) => {
-  
+  addToCart = async () => {
     const newState = { ...this.state }
+
     const pickupLocation = this.state.pickupLocations.filter(location => location.id == this.state.rideId)[0]
     const basePrice = Number(pickupLocation.basePrice)
     const ticketQuantity = parseInt(this.state.ticketQuantity)
     const processingFee = Number((basePrice * ticketQuantity) * (0.1))
     const cost = ((basePrice * ticketQuantity) + processingFee)
+
     newState.totalCost = cost.toFixed(2)
+
     if (newState.inCart.length === 0) {
       newState.inCart.push(newState.displayShow)
       newState.displaySuccess = true
     }
     else {
-      // // Turn on if multiple shows in cart desired
-
-      // const cartIds = newState.inCart.map(show => show.id)
-      // const compareIds = cartIds.find(id => id == newState.displayShow.id)
-      // if (!compareIds) {
-      //   newState.inCart.push(newState.displayShow)
-      // }
-      // else {
-      //   console.log(event.target)
-      // }
-
-      console.log('One event at a time.')
+      console.log('One event at a time.') // Display alert? One show at a time?
     }
+
     const cartObj = {
       pickupLocationId: this.state.rideId,
-      eventId:this.state.inCart[0].id,
+      eventId: this.state.inCart[0].id,
       ticketQuantity: this.state.ticketQuantity,
     }
-    console.log('cartObj',cartObj)
     this.setState(newState)
+<<<<<<< HEAD
     await fetch('http://localhost:3000/pickup_parties', {
+=======
+
+    fetch('http://localhost:3000/pickup_parties', {
+>>>>>>> ddcfdfc81f5b959c3adcca49d663f127bbef2020
       method: 'PATCH',
       body: JSON.stringify({
         pickupLocationId: this.state.rideId,
-        eventId:this.state.inCart[0].id,
+        eventId: this.state.inCart[0].id,
         ticketQuantity: parseInt(this.state.ticketQuantity),
       }),
       headers: {
         'Content-Type': 'application/json'
       }
     })
+
     setTimeout(fetch('http://localhost:3000/pickup_parties', {
       method: 'PATCH',
       body: JSON.stringify({
         pickupLocationId: this.state.rideId,
-        eventId:this.state.inCart[0].id,
-        ticketQuantity: parseInt(this.state.ticketQuantity)*-1,
+        eventId: this.state.inCart[0].id,
+        ticketQuantity: parseInt(this.state.ticketQuantity) * -1,
       }),
       headers: {
         'Content-Type': 'application/json'
       }
     }), 4000)
-    console.log('state updated',this.state)
-    
+
   }
 
-
   // Cart Functions
-  handleCheck = (event) => {
+  handleCheck = () => {
     const newState = { ...this.state }
     newState.checked = true
     this.setState(newState)
+  }
+
+  purchase = async () => {
+    const cartObj = this.state.cartToSend
+    fetch('http://localhost:3000/orders', {
+      method: 'POST',
+      body: JSON.stringify(cartObj),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
   }
 
   updatePurchaseField = (event) => {
@@ -233,34 +229,35 @@ class App extends Component {
     let discountCode = ''
 
     // Checks fields via npm package validator
-    if (!newState.validated) {
-      if (updateField === 'email' && Validator.isEmail(value)) {
-        vE.email = value
-      }
-      else if (updateField === 'firstName' && Validator.isAlpha(value)) {
-        vE.fName = value
-      }
-      else if (updateField === 'lastName' && Validator.isAlpha(value)) {
-        vE.lName = value
-      }
-      else if (updateField === 'willCallFirstName' && Validator.isAlpha(value)) {
-        vE.wCFName = value
-      }
-      else if (updateField === 'willCallLastName' && Validator.isAlpha(value)) {
-        vE.wCLName = value
-      }
-      else if (updateField === 'discountCode'){
-        discountCode = value
-      }
-      else {
-        return 'Please input valid items'
-      }
+    if (updateField === 'email' && Validator.isEmail(value)) {
+      vE.email = value
+    }
+    else if (updateField === 'firstName' && Validator.isAlpha(value)) {
+      vE.fName = value
+    }
+    else if (updateField === 'lastName' && Validator.isAlpha(value)) {
+      vE.lName = value
+    }
+    else if (updateField === 'willCallFirstName' && Validator.isAlpha(value)) {
+      vE.wCFName = value
+    }
+    else if (updateField === 'willCallLastName' && Validator.isAlpha(value)) {
+      vE.wCLName = value
+    }
+    else if (updateField === 'discountCode') {
+      discountCode = value
+    }
+    else {
+      return 'Please input valid items'
     }
 
     this.setState({ validatedElement: newState.validatedElements })
 
     // Populates cartToSend
-    if (this.state.validatedElements.fName && this.state.validatedElements.lName && this.state.validatedElements.email) {
+    if (this.state.validatedElements.fName
+      && this.state.validatedElements.lName
+      && this.state.validatedElements.email) {
+
       const cTS = newState.cartToSend
       newState.validated = true
 
@@ -270,20 +267,32 @@ class App extends Component {
       cTS.eventId = this.state.inCart[0].id
       cTS.ticketQuantity = parseInt(this.state.ticketQuantity)
       cTS.pickupLocationId = parseInt(this.state.rideId)
-      cTS.willCallFirstName = this.state.validatedElements.wCFName
-      cTS.willCallLastName = this.state.validatedElements.wCLName
       cTS.totalCost = Number(this.state.totalCost)
       cTS.discountCode = discountCode
+
+      if (this.state.validatedElements.wCFName) {
+        cTS.willCallFirstName = this.state.validatedElements.wCFName
+      }
+      else {
+        cTS.willCallFirstName = this.state.validatedElements.fName
+      }
+
+      if (this.state.validatedElements.wCLName) {
+        cTS.willCallLastName = this.state.validatedElements.wCLName
+      }
+      else {
+        cTS.willCallLastName = this.state.validatedElements.lName
+      }
 
       this.setState({ cartToSend: newState.cartToSend })
       this.setState({ validated: newState.validated })
     }
     else {
-      return 'ERROR!'
+      console.log('ERROR!')
     }
   }
 
-  removeFromCart = (event) => {
+  removeFromCart = () => {
     const newState = { ...this.state }
     newState.inCart = []
     newState.displaySuccess = false
@@ -293,6 +302,7 @@ class App extends Component {
   quantityChange = (event) => {
     const newState = { ...this.state }
     newState.ticketQuantity = event.target.value
+
     const pickupLocation = this.state.pickupLocations.filter(location => location.id == this.state.rideId)[0]
     const basePrice = Number(pickupLocation.basePrice)
     const ticketQuantity = parseInt(newState.ticketQuantity)
@@ -314,12 +324,6 @@ class App extends Component {
     }, 1500)
   }
 
-  purchaseClick = (event) => {
-    const newState = { ...this.state }
-    newState.displayStripe = true
-    this.setState({displayStripe: newState.displayStripe})
-  }
-
   render() {
     return (
       <BrowserRouter>
@@ -330,15 +334,19 @@ class App extends Component {
             this.state.shows ?
               <React.Fragment>
                 <Header
-                  searchShows={this.searchShows}
-                  loginClick={this.loginClick} />
+                  loginClick={this.loginClick}
+                  searchShows={this.searchShows}/>
                 <div className='content-section'>
+<<<<<<< HEAD
+=======
+                  {this.state.displayStripe ? <StripeView /> : ''}
+>>>>>>> ddcfdfc81f5b959c3adcca49d663f127bbef2020
                   <div className='col-md-6 float-left'>
                     <ShowList
                       addBorder={this.addBorder}
+                      displayShow={this.state.displayShow}
                       filterString={this.state.filterString}
                       shows={this.state.shows}
-                      displayShow={this.state.displayShow}
                       showsExpandClick={this.showsExpandClick} />
                   </div>
                 </div>
@@ -351,13 +359,14 @@ class App extends Component {
                       displayAddBtn={this.state.displayAddBtn}
                       displayBorder={this.state.displayBorder}
                       displayCart={this.state.displayCart}
+                      displayQuantity={this.state.displayQuantity}
                       displayShow={this.state.displayShow}
                       displaySuccess={this.state.displaySuccess}
-                      displayQuantity={this.state.displayQuantity}
-                      handleSubmit={this.handleSubmit}
                       handleCheck={this.handleCheck}
+                      handleSubmit={this.handleSubmit}
                       inCart={this.state.inCart}
                       pickupLocations={this.state.pickupLocations}
+                      purchase={this.purchase}
                       purchaseClick={this.purchaseClick}
                       quantityChange={this.quantityChange}
                       removeFromCart={this.removeFromCart}
@@ -372,8 +381,7 @@ class App extends Component {
                       totalCost={this.state.totalCost}
                       updatePurchaseField={this.updatePurchaseField}
                       validated={this.state.validated}
-                      validatedElements={this.state.validatedElements} 
-                      purchase={this.purchase}/>
+                      validatedElements={this.state.validatedElements} />
                     :
                     <SponsorBox />}
                 </div>
