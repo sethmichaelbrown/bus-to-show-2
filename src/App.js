@@ -23,12 +23,10 @@ import DetailCartView from './Components/DetailCartView'
 class App extends Component {
 
   state = {
-<<<<<<< HEAD
     sortedByDate:true,
     sortedByAuthor:false,
     purchasePending:false,
     purchaseSuccessful:false,
-=======
     artistDescription: null,
     cartToSend: {
       eventId: null,
@@ -47,7 +45,6 @@ class App extends Component {
     displayBorder: false,
     displayCart: false,
     displayDetailCartView: false,
->>>>>>> 1fefb667c8ca1227423e41fb18a8de59b5edac3e
     displayShow: null,
     displayStripe: false,
     displaySuccess: false,
@@ -78,7 +75,7 @@ class App extends Component {
     const response = await fetch('http://localhost:3000/events')
     const shows = await response.json()
     this.setState({ shows })
-    
+
     // const allEvents = await fetch('https://something-innocuous.herokuapp.com/events')
     const allEvents = await fetch('http://localhost:3000/events')
     const eventsList = await allEvents.json()
@@ -86,7 +83,7 @@ class App extends Component {
     for (let i = 0; i < eventsList.length; i++) {
       eventsListIds.push(eventsList[i].id)
     }
-    
+
     // const pickups = await fetch('https://something-innocuous.herokuapp.com/pickup_locations')
     const pickups = await fetch('http://localhost:3000/pickup_locations')
     const pickupLocations = await pickups.json()
@@ -418,14 +415,7 @@ class App extends Component {
         return 0;
       }
     })
-<<<<<<< HEAD
-    // let newState=this.state.shows.map(show=> show.headliner.split(" ").join(""))
-    console.log("NEWSTATE", newState)
-    this.setState({ shows: newState, sortedByAuthor:true, sortedByDate:false })
-
-=======
-    this.setState({ shows: newState })
->>>>>>> 1fefb667c8ca1227423e41fb18a8de59b5edac3e
+    this.setState({ shows: newState, sortedByAuthor:true, sortedByDate:false  })
   }
 
 
@@ -436,13 +426,7 @@ class App extends Component {
       return a - b
 
     })
-<<<<<<< HEAD
-    console.log(newState)
-    this.setState({ shows: newState, sortedByAuthor:false, sortedByDate:true })
-
-=======
-    this.setState({ shows: newState })
->>>>>>> 1fefb667c8ca1227423e41fb18a8de59b5edac3e
+    this.setState({ shows: newState, , sortedByAuthor:false, sortedByDate:true })
   }
 
   makePurchase = () => {
@@ -553,19 +537,6 @@ class App extends Component {
                     </MediaQuery>
                   </div>
                   <div className='col-md-6 float-left'>
-<<<<<<< HEAD
-                    <ShowList
-                      sortedByDate={this.state.sortedByDate}
-                      sortedByArtist={this.state.sortedByAuthor}
-                      sortByDate={this.sortByDate}
-                      sortByArtist={this.sortByArtist}
-                      addBorder={this.addBorder}
-                      displayShow={this.state.displayShow}
-                      filterString={this.state.filterString}
-                      shows={this.state.shows}
-                      showsExpandClick={this.showsExpandClick}
-                      ticketsAvailable={this.state.ticketsAvailable} />
-=======
                     <MediaQuery minWidth={768}>
                       <ShowList
                         sortByDate={this.sortByDate}
@@ -577,7 +548,6 @@ class App extends Component {
                         showsExpandClick={this.showsExpandClick}
                         ticketsAvailable={this.state.ticketsAvailable} />
                     </MediaQuery>
->>>>>>> 1fefb667c8ca1227423e41fb18a8de59b5edac3e
                   </div>
                 </div>
               </React.Fragment> : <Loading />
