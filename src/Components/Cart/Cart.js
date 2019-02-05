@@ -156,7 +156,7 @@ const Cart = (props) => {
 
     {props.purchasePending? <div className="alert alert-primary" role="alert"> Purchase Pending... </div> : ''}
 
-    {props.purchaseSuccessful? <div className="alert alert-success" role="alert"> Purchase Successful... </div> : ''}
+    {props.purchaseSuccessful? <div className="alert alert-success" role="alert"> Purchase Successful!!! </div> : ''}
       </div>
       </div>
     </div>

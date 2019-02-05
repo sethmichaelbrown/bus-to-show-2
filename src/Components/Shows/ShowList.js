@@ -12,6 +12,8 @@ const Shows = (props) => {
             <div className="row">
               <div className="col-md-3" onClick={()=>props.sortByDate()}>Date<br/>click to sort</div>
               <div className="col-md-3" onClick={()=>props.sortByArtist()}>Event<br/>click to sort</div>
+              {props.sortedByDate?<div>Sorted by Show Date</div>:''}
+              {props.sortedByArtist?<div>Sorted by Artist Name (weird al first)</div>: ''}
               <div className="col-md-3"></div>
               <div className="col-md-3"></div>
             </div>

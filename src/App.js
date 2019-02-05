@@ -20,6 +20,8 @@ import DetailCartView from './Components/DetailCartView'
 class App extends Component {
 
   state = {
+    sortedByDate:true,
+    sortedByAuthor:false,
     purchasePending:false,
     purchaseSuccessful:false,
     displayShow: null,
@@ -409,7 +411,8 @@ class App extends Component {
     })
     // let newState=this.state.shows.map(show=> show.headliner.split(" ").join(""))
     console.log("NEWSTATE", newState)
-    this.setState({ shows: newState })
+    this.setState({ shows: newState, sortedByAuthor:true, sortedByDate:false })
+
   }
 
 
@@ -422,7 +425,8 @@ class App extends Component {
 
     })
     console.log(newState)
-    this.setState({ shows: newState })
+    this.setState({ shows: newState, sortedByAuthor:false, sortedByDate:true })
+
   }
 
   makePurchase=()=>{
@@ -447,6 +451,8 @@ class App extends Component {
                 <div className='content-section'>
                   <div className='col-md-6 float-left'>
                     <ShowList
+                      sortedByDate={this.state.sortedByDate}
+                      sortedByArtist={this.state.sortedByAuthor}
                       sortByDate={this.sortByDate}
                       sortByArtist={this.sortByArtist}
                       addBorder={this.addBorder}
