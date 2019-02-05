@@ -33,6 +33,7 @@ const DetailCartView = (props) => {
             selectPickupLocationId={props.selectPickupLocationId}
             selectTicketQuantity={props.selectTicketQuantity}
             showsExpandClick={props.showsExpandClick}
+            ticketsAvailable={props.ticketsAvailable}
             ticketQuantity={props.ticketQuantity} />
         </div>
         <div className="tab-pane fade" id="cart" data-toggle="tab" role="tabpanel" aria-labelledby="cart-tab">
@@ -54,7 +55,7 @@ const DetailCartView = (props) => {
               validatedElements={props.validatedElements}
               validated={props.validated}
               purchase={props.purchase}
-              /> :
+            /> :
             <div className="nothing-in-cart">
               <div className="list-group">
                 <div className="list-group-item lgi-header">
