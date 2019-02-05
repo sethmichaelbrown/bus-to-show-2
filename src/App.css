@@ -145,3 +145,11 @@
   height: 100vh;
   width: 100vw;
 }
+
+.sort-btn{
+  border: none;
+}
+
+.no-info-logo{
+  opacity: 0.5;
+}
