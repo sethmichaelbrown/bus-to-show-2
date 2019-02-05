@@ -6,7 +6,6 @@ import Timer from 'tiny-timer'
 
 // Styling
 import './App.css';
-import axios from 'axios';
 
 // Components
 import Header from './Components/Header'
