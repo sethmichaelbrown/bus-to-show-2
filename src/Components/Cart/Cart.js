@@ -15,14 +15,20 @@ const Cart = (props) => {
       <React.Fragment>
         <div className="list-group">
           <MediaQuery minWidth={768}>
-          <div className="list-group-item lgi-header">
             <div className="row">
-              <div className="col-md-2">Show</div>
-              <div className="col-md-4">Departure Location</div>
-              <div className="col-md-2">Date</div>
-              <div className="col-md-2">Quantity</div>
+              <div className="col-md-12">
+                {props.purchasePending ? <div className="alert alert-primary" role="alert"> Purchase Pending... </div> : ''}
+                {props.purchaseSuccessful ? <div className="alert alert-success" role="alert"> Purchase Successful... </div> : ''}
+              </div>
             </div>
-          </div>
+            <div className="list-group-item lgi-header">
+              <div className="row">
+                <div className="col-md-2">Show</div>
+                <div className="col-md-4">Departure Location</div>
+                <div className="col-md-2">Date</div>
+                <div className="col-md-2">Quantity</div>
+              </div>
+            </div>
           </MediaQuery>
           <ul className="list-group">
             <CartItem
@@ -125,37 +131,37 @@ const Cart = (props) => {
 
 
                     <div className='form-row '>
-                    <MediaQuery minWidth={768}>
-                      <Checkout
-                        makePurchase={props.makePurchase}
-                        purchasePending={props.purchasePending}
-                        validated={props.validated}
-                        purchase={props.purchase}
-                        totalCost={totalCost}
-                        showsInCart={props.showsInCart}>
-                      </Checkout>
+                      <MediaQuery minWidth={768}>
+                        <Checkout
+                          makePurchase={props.makePurchase}
+                          purchasePending={props.purchasePending}
+                          validated={props.validated}
+                          purchase={props.purchase}
+                          totalCost={totalCost}
+                          showsInCart={props.showsInCart}>
+                        </Checkout>
 
-                      <h4>Cart Total:
+                        <h4>Cart Total:
                             <span className="badge badge-secondary">{`$${totalCost}`}</span>
-                      </h4>
+                        </h4>
 
-                    </MediaQuery>
+                      </MediaQuery>
                     </div>
 
                     <MediaQuery maxWidth={767}>
-                    <div className='row justify-content-center mb-1'>
-                    <h4>Cart Total:
+                      <div className='row justify-content-center mb-1'>
+                        <h4>Cart Total:
                           <span className="badge badge-secondary">{`$${totalCost}`}</span>
-                    </h4>
-                    </div>
-                    <div className='row justify-content-center '>
-                      <Checkout
-                        validated={props.validated}
-                        purchase={props.purchase}
-                        totalCost={totalCost}
-                        showsInCart={props.showsInCart}>
-                      </Checkout>
-                    </div>
+                        </h4>
+                      </div>
+                      <div className='row justify-content-center '>
+                        <Checkout
+                          validated={props.validated}
+                          purchase={props.purchase}
+                          totalCost={totalCost}
+                          showsInCart={props.showsInCart}>
+                        </Checkout>
+                      </div>
 
                     </MediaQuery>
 
@@ -168,15 +174,8 @@ const Cart = (props) => {
             </div> : ''}
         </div>
       </React.Fragment>
-      <div className="container">
-      <div className="row justify-content-center">
-
-    {props.purchasePending? <div className="alert alert-primary" role="alert"> Purchase Pending... </div> : ''}
-
-    {props.purchaseSuccessful? <div className="alert alert-success" role="alert"> Purchase Successful... </div> : ''}
-      </div>
-      </div>
     </div>
+
   )
 }
 
