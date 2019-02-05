@@ -20,6 +20,8 @@ import DetailCartView from './Components/DetailCartView'
 class App extends Component {
 
   state = {
+    purchasePending:false,
+    purchaseSuccessful:false,
     displayShow: null,
     displaySuccess: false,
     displayWarning: false,
@@ -282,7 +284,7 @@ class App extends Component {
         'Content-Type': 'application/json'
       }
     })
-      .then()
+    this.setState({purchaseSuccessful:true})
   }
 
   updatePurchaseField = (event) => {
@@ -389,6 +391,46 @@ class App extends Component {
   }
 
 
+
+  sortByArtist = () => {
+    console.log("sorted by artist")
+    console.log(this.state.shows)
+    let newState = this.state.shows.sort((show1, show2) => {
+      let a = show1.headliner.toLowerCase().split(" ").join("")
+      let b = show2.headliner.toLowerCase().split(" ").join("")
+      if (a < b) {
+        return -1;
+      } else if (a > b) {
+        return 1;
+      } else {
+        return 0;
+      }
+    })
+    // let newState=this.state.shows.map(show=> show.headliner.split(" ").join(""))
+    console.log("NEWSTATE", newState)
+    this.setState({ shows: newState })
+  }
+
+
+  sortByDate = () => {
+    console.log(this.state.shows)
+    let newState = this.state.shows.sort((show1, show2) => {
+      let a = new Date(show1.date)
+      let b = new Date(show2.date)
+      return a - b
+
+    })
+    console.log(newState)
+    this.setState({ shows: newState })
+  }
+
+  makePurchase=()=>{
+    this.setState({purchasePending:true})
+
+  }
+
+
+
   render() {
     return (
       <BrowserRouter>
@@ -418,6 +460,9 @@ class App extends Component {
                 <div className='col-md-6 float-left'>
                   {this.state.displayCart || this.state.displayShow ?
                     <DetailCartView
+                      makePurchase={this.makePurchase}
+                      purchasePending={this.state.purchasePending}
+                      purchaseSuccessful={this.state.purchaseSuccessful}
                       addToCart={this.addToCart}
                       checked={this.state.checked}
                       displayAddBtn={this.state.displayAddBtn}
