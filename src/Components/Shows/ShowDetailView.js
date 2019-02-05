@@ -32,9 +32,9 @@ const ShowDetailView = (props) => {
                 <MediaQuery minWidth={768}>
                 <div className="list-group-item">
                   <div className="row">
-                    <div className="col-md-4">Location</div>
-                    <div className="col-md-4">Date</div>
-                    <div className="col-md-4"></div>
+                    <div className="col-md-4" style={{textAlign: "center"}}>Location</div>
+                    <div className="col-md-4" style={{textAlign: "center"}}>Date</div>
+                    <div className="col-md-4" style={{textAlign: "center"}}>Day of Week</div>
                   </div>
                 </div>
                 </MediaQuery>}
