@@ -1,8 +1,9 @@
 import React from 'react'
 import '../../App.css';
 import logo from '../../Images/Logos/bts-logo-gray.png'
-import DiscountCode from '../DiscountCode'
 import MediaQuery from 'react-responsive';
+import moment from 'moment'
+
 const ShowDetailView = (props) => {
   // console.log("ShowDetailView",props)
 
@@ -43,7 +44,7 @@ const ShowDetailView = (props) => {
               <div className="row">
                 <div className="col-md-4" style={{textAlign: "center"}}>{show.venue}</div>
                 <div className="col-md-4" style={{textAlign: "center"}}>{show.date}</div>
-                <div className="col-md-4" style={{textAlign: "center"}}>Saturday</div>
+                <div className="col-md-4" style={{textAlign: "center"}}>{moment(show.date, "MM-DD-YYYY").format("dddd")}</div>
               </div>
             </div>
             <div className="list-group-item">
@@ -71,11 +72,6 @@ const ShowDetailView = (props) => {
                   </div>
                 </div>
               </div>
-              <div>
-//                <DiscountCode />
-              </div>
-              <div className="row col-md-10">
-                <span>Departure Location</span>
               <div className="row col-md-7 offset-md-2 justify-content-center">
                 <div style={{textAlign: "center"}}>Departure Location</div>
                 <form className="was-validated">
@@ -137,7 +133,7 @@ const ShowDetailView = (props) => {
         </div> : ''}
 
     </div>
-  
+  )
 }
 
 

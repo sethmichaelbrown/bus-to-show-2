@@ -3,58 +3,27 @@ import React, { Component } from 'react';
 import { BrowserRouter } from "react-router-dom"
 import Validator from 'validator'
 import MediaQuery from 'react-responsive';
+
 // Styling
 import './App.css';
-import Axios from 'axios';
 
 // Components
 import Header from './Components/Header'
 import ShowList from './Components/Shows/ShowList'
 import Loading from './Components/Loading'
-import StripeView from './Components/StripeView'
 import LoginView from './Components/LoginView/LoginView'
 // import Footer from './Components/Footer'
 import SponsorBox from './Components/SponsorBox'
 import DetailCartView from './Components/DetailCartView'
-import DiscountCode from './Components/DiscountCode'
-
 
 //////***** COMMENTED OUT URLS ON THE FOLLOWING LINES, USE TO SWITCH BETWEEN LOCALHOST or HEROKU:
 //////***** App.js: LINES 71/72, 76/77, 84/85, 107/108, 252/253, 288/289
 //////***** Stripe_Checkout.js: LINES 6/7
 
-
 class App extends Component {
 
   state = {
-    purchasePending: false,
-    purchaseSuccessful: false,
-    displayShow: null,
-    displaySuccess: false,
-    displayWarning: false,
-    loginView: false,
-    displayCart: false,
-    displayStripe: false,
-    filterString: '',
-    inCart: [],
-    displayDetailCartView: false,
     artistDescription: null,
-    displayBorder: false,
-    pickupLocationId: null,
-    ticketQuantity: null,
-    displayAddBtn: false,
-    displayQuantity: false,
-    validated: false,
-    ticketsAvailable: [],
-    validatedElements: {
-      fName: null,
-      lName: null,
-      email: null,
-      wCFName: null,
-      wCLName: null
-    },
-    checked: false,
-    totalCost: 0,
     cartToSend: {
       eventId: null,
       pickupLocationId: null,
@@ -66,26 +35,53 @@ class App extends Component {
       ticketQuantity: 0,
       totalCost: 0,
       discountCode: ''
+    },
+    checked: false,
+    displayAddBtn: false,
+    displayBorder: false,
+    displayCart: false,
+    displayDetailCartView: false,
+    displayShow: null,
+    displayStripe: false,
+    displaySuccess: false,
+    displayWarning: false,
+    displayQuantity: false,
+    filterString: '',
+    inCart: [],
+    pickupLocationId: null,
+    purchasePending: false,
+    purchaseSuccessful: false,
+    loginView: false,
+    ticketsAvailable: [],
+    ticketQuantity: null,
+    totalCost: 0,
+    validated: false,
+    validatedElements: {
+      fName: null,
+      lName: null,
+      email: null,
+      wCFName: null,
+      wCLName: null
     }
   }
 
 
   async componentDidMount() {
-    const response = await fetch('https://something-innocuous.herokuapp.com/events')
-    // const response = await fetch('http://localhost:3000/events')
+    // const response = await fetch('https://something-innocuous.herokuapp.com/events')
+    const response = await fetch('http://localhost:3000/events')
     const shows = await response.json()
     this.setState({ shows })
-
-    const allEvents = await fetch('https://something-innocuous.herokuapp.com/events')
-    // const allEvents = await fetch('http://localhost:3000/events')
+    
+    // const allEvents = await fetch('https://something-innocuous.herokuapp.com/events')
+    const allEvents = await fetch('http://localhost:3000/events')
     const eventsList = await allEvents.json()
     const eventsListIds = []
     for (let i = 0; i < eventsList.length; i++) {
       eventsListIds.push(eventsList[i].id)
     }
-
-    const pickups = await fetch('https://something-innocuous.herokuapp.com/pickup_locations')
-    // const pickups = await fetch('http://localhost:3000/pickup_locations')
+    
+    // const pickups = await fetch('https://something-innocuous.herokuapp.com/pickup_locations')
+    const pickups = await fetch('http://localhost:3000/pickup_locations')
     const pickupLocations = await pickups.json()
 
     const filteredPickupLocations = pickupLocations.filter(location => eventsListIds.includes(location.id))
@@ -103,8 +99,8 @@ class App extends Component {
     }
     this.setState(newState)
 
-    const response = await fetch('https://something-innocuous.herokuapp.com/pickup_parties')
-    // const response = await fetch('http://localhost:3000/pickup_parties')
+    // const response = await fetch('https://something-innocuous.herokuapp.com/pickup_parties')
+    const response = await fetch('http://localhost:3000/pickup_parties')
     const locations = await response.json()
     const statePickupId = parseInt(this.state.pickupLocationId)
     const stateEventId = parseInt(this.state.displayShow.id)
@@ -133,6 +129,10 @@ class App extends Component {
       newState.displayAddBtn = false
     }
     newState.ticketQuantity = event.target.value
+    const pickupLocation = newState.pickupLocations.filter(location => parseInt(location.id) === parseInt(this.state.pickupLocationId))[0]
+    const subTotal = (Number(pickupLocation.basePrice) * Number(event.target.value))
+    const total = ((Number(subTotal) * .1) + Number(subTotal)).toFixed(2)
+    newState.totalCost = total
     this.setState(newState)
   }
 
@@ -153,6 +153,30 @@ class App extends Component {
     const newState = { ...this.state }
     newState.filterString = event.target.value
     this.setState({ filterString: newState.filterString })
+  }
+
+  sortByArtist = () => {
+    let newState = this.state.shows.sort((show1, show2) => {
+      let a = show1.headliner.toLowerCase().split(" ").join("")
+      let b = show2.headliner.toLowerCase().split(" ").join("")
+      if (a < b) {
+        return -1;
+      } else if (a > b) {
+        return 1;
+      } else {
+        return 0;
+      }
+    })
+    this.setState({ shows: newState })
+  }
+
+  sortByDate = () => {
+    let newState = this.state.shows.sort((show1, show2) => {
+      let a = new Date(show1.date)
+      let b = new Date(show2.date)
+      return a - b
+    })
+    this.setState({ shows: newState })
   }
 
   // Tab Functions
@@ -215,15 +239,16 @@ class App extends Component {
       newState.displayWarning = true
     }
 
-    const cartObj = {
-      pickupLocationId: this.state.pickupLocationId,
-      eventId: this.state.inCart[0].id,
-      ticketQuantity: this.state.ticketQuantity,
-    }
+
+    // const cartObj = {
+    //   pickupLocationId: this.state.pickupLocationId,
+    //   eventId: this.state.inCart[0].id,
+    //   ticketQuantity: this.state.ticketQuantity,
+    // }
     this.setState(newState)
 
-    fetch('https://something-innocuous.herokuapp.com/pickup_parties', {
-      // fetch('http://localhost:3000/pickup_parties', {
+    // fetch('https://something-innocuous.herokuapp.com/pickup_parties', {
+    fetch('http://localhost:3000/pickup_parties', {
       method: 'PATCH',
       body: JSON.stringify({
         pickupLocationId: this.state.pickupLocationId,
@@ -236,7 +261,7 @@ class App extends Component {
     })
 
     setTimeout(fetch('https://something-innocuous.herokuapp.com/pickup_parties', {
-    // setTimeout(fetch('http://localhost:3000/pickup_parties', {
+      // setTimeout(fetch('http://localhost:3000/pickup_parties', {
       method: 'PATCH',
       body: JSON.stringify({
         pickupLocationId: this.state.pickupLocationId,
@@ -247,7 +272,6 @@ class App extends Component {
         'Content-Type': 'application/json'
       }
     }), 600000)
-
   }
 
   // Cart Functions
@@ -259,8 +283,8 @@ class App extends Component {
 
   purchase = async () => {
     const cartObj = this.state.cartToSend
-    fetch('https://something-innocuous.herokuapp.com/orders', {
-      // fetch('http://localhost:3000/orders', {
+    // fetch('https://something-innocuous.herokuapp.com/orders', {
+    fetch('http://localhost:3000/orders', {
       method: 'POST',
       body: JSON.stringify(cartObj),
       headers: {
@@ -269,7 +293,7 @@ class App extends Component {
     })
 
 
-    this.setState({purchaseSuccessful:true, purchasePending:false})
+    this.setState({ purchaseSuccessful: true, purchasePending: false })
   }
 
   updatePurchaseField = (event) => {
@@ -420,80 +444,96 @@ class App extends Component {
                   loginClick={this.loginClick}
                   searchShows={this.searchShows} />
                 <div className='content-section'>
-                <div className='col-md-6 float-right'>
-                  <MediaQuery minWidth={768}>
-                  {this.state.displayCart || this.state.displayShow ?
-                    <DetailCartView
-                      addToCart={this.addToCart}
-                      checked={this.state.checked}
-                      displayAddBtn={this.state.displayAddBtn}
-                      displayBorder={this.state.displayBorder}
-                      displayCart={this.state.displayCart}
-                      displayQuantity={this.state.displayQuantity}
-                      displayShow={this.state.displayShow}
-                      displaySuccess={this.state.displaySuccess}
-                      displayWarning={this.state.displayWarning}
-                      handleCheck={this.handleCheck}
-                      handleSubmit={this.handleSubmit}
-                      inCart={this.state.inCart}
-                      pickupLocations={this.state.pickupLocations}
-                      purchase={this.purchase}
-                      purchaseClick={this.purchaseClick}
-                      quantityChange={this.quantityChange}
-                      removeFromCart={this.removeFromCart}
-                      returnToShows={this.returnToShows}
-                      pickupLocationId={this.state.pickupLocationId}
-                      selectPickupLocationId={this.selectPickupLocationId}
-                      selectTicketQuantity={this.selectTicketQuantity}
-                      showsExpandClick={this.showsExpandClick}
-                      showsInCart={this.state.inCart}
-                      tabClicked={this.tabClicked}
-                      ticketsAvailable={this.state.ticketsAvailable}
-                      ticketQuantity={this.state.ticketQuantity}
-                      timeLeftInCart={this.state.timeLeftInCart}
-                      totalCost={this.state.totalCost}
-                      updatePurchaseField={this.updatePurchaseField}
-                      validated={this.state.validated}
-                      validatedElements={this.state.validatedElements} />
-                    :
-                    <SponsorBox />}
+                  <div className='col-md-6 float-right'>
+                    <MediaQuery minWidth={768}>
+                      {this.state.displayCart || this.state.displayShow ?
+                        <DetailCartView
+                          makePurchase={this.makePurchase}
+                          purchasePending={this.state.purchasePending}
+                          purchaseSuccessful={this.state.purchaseSuccessful}
+                          addToCart={this.addToCart}
+                          checked={this.state.checked}
+                          displayAddBtn={this.state.displayAddBtn}
+                          displayBorder={this.state.displayBorder}
+                          displayCart={this.state.displayCart}
+                          displayQuantity={this.state.displayQuantity}
+                          displayShow={this.state.displayShow}
+                          displaySuccess={this.state.displaySuccess}
+                          displayWarning={this.state.displayWarning}
+                          handleCheck={this.handleCheck}
+                          handleSubmit={this.handleSubmit}
+                          inCart={this.state.inCart}
+                          pickupLocations={this.state.pickupLocations}
+                          purchase={this.purchase}
+                          purchaseClick={this.purchaseClick}
+                          quantityChange={this.quantityChange}
+                          removeFromCart={this.removeFromCart}
+                          returnToShows={this.returnToShows}
+                          pickupLocationId={this.state.pickupLocationId}
+                          selectPickupLocationId={this.selectPickupLocationId}
+                          selectTicketQuantity={this.selectTicketQuantity}
+                          showsExpandClick={this.showsExpandClick}
+                          showsInCart={this.state.inCart}
+                          tabClicked={this.tabClicked}
+                          ticketsAvailable={this.state.ticketsAvailable}
+                          ticketQuantity={this.state.ticketQuantity}
+                          timeLeftInCart={this.state.timeLeftInCart}
+                          totalCost={this.state.totalCost}
+                          updatePurchaseField={this.updatePurchaseField}
+                          validated={this.state.validated}
+                          validatedElements={this.state.validatedElements} />
+                        :
+                        <SponsorBox />}
                     </MediaQuery>
                     <MediaQuery maxWidth={767}>
-                    {this.state.displayCart || this.state.displayShow ?
-                    <DetailCartView
-                      addToCart={this.addToCart}
-                        addBorder={this.addBorder}
-                      checked={this.state.checked}
-                      displayAddBtn={this.state.displayAddBtn}
-                      displayBorder={this.state.displayBorder}
-                      displayCart={this.state.displayCart}
-                      displayQuantity={this.state.displayQuantity}
-                      displayShow={this.state.displayShow}
-                      displaySuccess={this.state.displaySuccess}
-                      filterString={this.state.filterString}
-                      handleCheck={this.handleCheck}
-                      handleSubmit={this.handleSubmit}
-                      inCart={this.state.inCart}
-                      pickupLocations={this.state.pickupLocations}
-                      purchase={this.purchase}
-                      purchaseClick={this.purchaseClick}
-                      quantityChange={this.quantityChange}
-                      removeFromCart={this.removeFromCart}
-                      returnToShows={this.returnToShows}
-                      pickupLocationId={this.state.pickupLocationId}
-                      selectPickupLocationId={this.selectPickupLocationId}
-                      selectTicketQuantity={this.selectTicketQuantity}
-                      shows={this.state.shows}
-                      showsExpandClick={this.showsExpandClick}
-                      showsInCart={this.state.inCart}
-                      tabClicked={this.tabClicked}
-                      ticketsAvailable={this.state.ticketsAvailable}
-                      ticketQuantity={this.state.ticketQuantity}
-                      totalCost={this.state.totalCost}
-                      updatePurchaseField={this.updatePurchaseField}
-                      validated={this.state.validated}
-                      validatedElements={this.state.validatedElements} />
-                      :
+                      {this.state.displayCart || this.state.displayShow ?
+                        <DetailCartView
+                          addToCart={this.addToCart}
+                          addBorder={this.addBorder}
+                          checked={this.state.checked}
+                          displayAddBtn={this.state.displayAddBtn}
+                          displayBorder={this.state.displayBorder}
+                          displayCart={this.state.displayCart}
+                          displayQuantity={this.state.displayQuantity}
+                          displayShow={this.state.displayShow}
+                          displaySuccess={this.state.displaySuccess}
+                          filterString={this.state.filterString}
+                          handleCheck={this.handleCheck}
+                          handleSubmit={this.handleSubmit}
+                          inCart={this.state.inCart}
+                          pickupLocations={this.state.pickupLocations}
+                          purchase={this.purchase}
+                          purchaseClick={this.purchaseClick}
+                          quantityChange={this.quantityChange}
+                          removeFromCart={this.removeFromCart}
+                          returnToShows={this.returnToShows}
+                          pickupLocationId={this.state.pickupLocationId}
+                          selectPickupLocationId={this.selectPickupLocationId}
+                          selectTicketQuantity={this.selectTicketQuantity}
+                          shows={this.state.shows}
+                          showsExpandClick={this.showsExpandClick}
+                          showsInCart={this.state.inCart}
+                          tabClicked={this.tabClicked}
+                          ticketsAvailable={this.state.ticketsAvailable}
+                          ticketQuantity={this.state.ticketQuantity}
+                          totalCost={this.state.totalCost}
+                          updatePurchaseField={this.updatePurchaseField}
+                          validated={this.state.validated}
+                          validatedElements={this.state.validatedElements} />
+                        :
+                        <ShowList
+                          sortByDate={this.sortByDate}
+                          sortByArtist={this.sortByArtist}
+                          addBorder={this.addBorder}
+                          displayShow={this.state.displayShow}
+                          filterString={this.state.filterString}
+                          shows={this.state.shows}
+                          showsExpandClick={this.showsExpandClick}
+                          ticketsAvailable={this.state.ticketsAvailable} />}
+                    </MediaQuery>
+                  </div>
+                  <div className='col-md-6 float-left'>
+                    <MediaQuery minWidth={768}>
                       <ShowList
                         sortByDate={this.sortByDate}
                         sortByArtist={this.sortByArtist}
@@ -502,20 +542,7 @@ class App extends Component {
                         filterString={this.state.filterString}
                         shows={this.state.shows}
                         showsExpandClick={this.showsExpandClick}
-                        ticketsAvailable={this.state.ticketsAvailable} />}
-                    </MediaQuery>
-                </div>
-                  <div className='col-md-6 float-left'>
-                    <MediaQuery minWidth={768}>
-                    <ShowList
-                      sortByDate={this.sortByDate}
-                      sortByArtist={this.sortByArtist}
-                      addBorder={this.addBorder}
-                      displayShow={this.state.displayShow}
-                      filterString={this.state.filterString}
-                      shows={this.state.shows}
-                      showsExpandClick={this.showsExpandClick}
-                      ticketsAvailable={this.state.ticketsAvailable} />
+                        ticketsAvailable={this.state.ticketsAvailable} />
                     </MediaQuery>
                   </div>
                 </div>
