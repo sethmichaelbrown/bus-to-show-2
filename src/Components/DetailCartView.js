@@ -58,6 +58,8 @@ const DetailCartView = (props) => {
         <div className="tab-pane fade" id="cart" data-toggle="tab" role="tabpanel" aria-labelledby="cart-tab">
           {props.inCart.length > 0 ?
             <Cart
+              makePurchase={props.makePurchase}
+              purchasePending={props.purchasePending}
               checked={props.checked}
               handleCheck={props.handleCheck}
               handleSubmit={props.handleSubmit}
@@ -74,6 +76,7 @@ const DetailCartView = (props) => {
               validatedElements={props.validatedElements}
               validated={props.validated}
               purchase={props.purchase}
+              purchaseSuccessful={props.purchaseSuccessful}
             /> :
             <div className="nothing-in-cart">
               <div className="list-group">
