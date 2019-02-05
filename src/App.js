@@ -292,7 +292,8 @@ class App extends Component {
       }
     })
     this.setState({ purchaseSuccessful: true })
-  }
+  } 
+  // mmmmmmm
 
   updatePurchaseField = (event) => {
     const newState = { ...this.state }
