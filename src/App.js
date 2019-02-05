@@ -391,7 +391,6 @@ class App extends Component {
   }
 
 
-<<<<<<< HEAD
 
   sortByArtist = () => {
     console.log("sorted by artist")
@@ -432,8 +431,6 @@ class App extends Component {
 
 
 
-=======
->>>>>>> 7da9313b52ec08191def8857f1e6885bcde3c658
   render() {
     return (
       <BrowserRouter>
