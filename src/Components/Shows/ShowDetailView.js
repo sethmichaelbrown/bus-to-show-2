@@ -35,7 +35,7 @@ const ShowDetailView = (props) => {
                     <div className="col-md-4">Date</div>
                     <div className="col-md-4"></div>
                   </div>
-                </div>}
+                </div>
                 </MediaQuery>}
 
 
