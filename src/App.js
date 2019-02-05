@@ -2,11 +2,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter } from "react-router-dom"
 import Validator from 'validator'
-<<<<<<< HEAD
-
-=======
 import MediaQuery from 'react-responsive';
->>>>>>> 9e526b937cc06cbe37d8bbd4cd6f3e38d07256a9
 // Styling
 import './App.css';
 import Axios from 'axios';
@@ -31,11 +27,8 @@ import DiscountCode from './Components/DiscountCode'
 class App extends Component {
 
   state = {
-<<<<<<< HEAD
-=======
     purchasePending: false,
     purchaseSuccessful: false,
->>>>>>> 9e526b937cc06cbe37d8bbd4cd6f3e38d07256a9
     displayShow: null,
     displaySuccess: false,
     displayWarning: false,
@@ -48,10 +41,6 @@ class App extends Component {
     artistDescription: null,
     displayBorder: false,
     pickupLocationId: null,
-<<<<<<< HEAD
-    timeLeftInCart: 0,
-=======
->>>>>>> 9e526b937cc06cbe37d8bbd4cd6f3e38d07256a9
     ticketQuantity: null,
     displayAddBtn: false,
     displayQuantity: false,
@@ -87,8 +76,6 @@ class App extends Component {
     const shows = await response.json()
     this.setState({ shows })
 
-<<<<<<< HEAD
-=======
     const allEvents = await fetch('https://something-innocuous.herokuapp.com/events')
     // const allEvents = await fetch('http://localhost:3000/events')
     const eventsList = await allEvents.json()
@@ -97,17 +84,12 @@ class App extends Component {
       eventsListIds.push(eventsList[i].id)
     }
 
->>>>>>> 9e526b937cc06cbe37d8bbd4cd6f3e38d07256a9
     const pickups = await fetch('https://something-innocuous.herokuapp.com/pickup_locations')
     // const pickups = await fetch('http://localhost:3000/pickup_locations')
     const pickupLocations = await pickups.json()
-<<<<<<< HEAD
-    this.setState({ pickupLocations })
-=======
 
     const filteredPickupLocations = pickupLocations.filter(location => eventsListIds.includes(location.id))
     this.setState({ pickupLocations: filteredPickupLocations })
->>>>>>> 9e526b937cc06cbe37d8bbd4cd6f3e38d07256a9
   }
 
   selectPickupLocationId = async (event) => {
@@ -207,8 +189,6 @@ class App extends Component {
   addToCart = async () => {
     const newState = { ...this.state }
 
-<<<<<<< HEAD
-=======
     // // For Tiny-Timer
     // if (newState.inCart) {
     //   let timer = new Timer([{ interval: 1000, stopwatch: false }])
@@ -219,7 +199,6 @@ class App extends Component {
 
 
 
->>>>>>> 9e526b937cc06cbe37d8bbd4cd6f3e38d07256a9
     const pickupLocation = newState.pickupLocations.filter(location => parseInt(location.id) === parseInt(this.state.pickupLocationId))[0]
     const basePrice = Number(pickupLocation.basePrice)
     const ticketQuantity = parseInt(this.state.ticketQuantity)
@@ -288,25 +267,9 @@ class App extends Component {
         'Content-Type': 'application/json'
       }
     })
-<<<<<<< HEAD
-  }
-  updateDiscountCode = (event) => {
-    const newState = { ...this.state }
-    newState.discountCode=event.target.value
-    this.setState({discountCode: newState.discountCode})
-    //console.log(this.state.discountCode)
-  }
-
-  findDiscountCode = async (event) => {
-    //console.log("hello")
-    const response = await fetch('https://something-innocuous.herokuapp.com/discount_codes')
-    const discountCodes = await response.json()
-    console.log(discountCodes)
-=======
 
 
     this.setState({purchaseSuccessful:true, purchasePending:false})
->>>>>>> 9e526b937cc06cbe37d8bbd4cd6f3e38d07256a9
   }
 
   updatePurchaseField = (event) => {
@@ -412,8 +375,6 @@ class App extends Component {
     }, 500)
   }
 
-<<<<<<< HEAD
-=======
   sortByArtist = () => {
     let newState = this.state.shows.sort((show1, show2) => {
       let a = show1.headliner.toLowerCase().split(" ").join("")
@@ -446,7 +407,6 @@ class App extends Component {
 
 
 
->>>>>>> 9e526b937cc06cbe37d8bbd4cd6f3e38d07256a9
   render() {
     return (
       <BrowserRouter>
@@ -460,24 +420,8 @@ class App extends Component {
                   loginClick={this.loginClick}
                   searchShows={this.searchShows} />
                 <div className='content-section'>
-<<<<<<< HEAD
-                  {this.state.displayStripe ? <StripeView /> : ''}
-                  <div className='col-md-6 float-left'>
-                    <ShowList
-                      addBorder={this.addBorder}
-                      displayShow={this.state.displayShow}
-                      filterString={this.state.filterString}
-                      shows={this.state.shows}
-                      showsExpandClick={this.showsExpandClick}
-                      ticketsAvailable={this.state.ticketsAvailable} />
-                  </div>
-                </div>
-
-                <div className='col-md-6 float-left'>
-=======
                 <div className='col-md-6 float-right'>
                   <MediaQuery minWidth={768}>
->>>>>>> 9e526b937cc06cbe37d8bbd4cd6f3e38d07256a9
                   {this.state.displayCart || this.state.displayShow ?
                     <DetailCartView
                       addToCart={this.addToCart}
@@ -506,13 +450,7 @@ class App extends Component {
                       tabClicked={this.tabClicked}
                       ticketsAvailable={this.state.ticketsAvailable}
                       ticketQuantity={this.state.ticketQuantity}
-<<<<<<< HEAD
-                      updateDiscountCode={this.updateDiscountCode}
-                      findDiscountCode={this.findDiscountCode}
-                      discountCode={this.state.discountCode}
-=======
                       timeLeftInCart={this.state.timeLeftInCart}
->>>>>>> 9e526b937cc06cbe37d8bbd4cd6f3e38d07256a9
                       totalCost={this.state.totalCost}
                       updatePurchaseField={this.updatePurchaseField}
                       validated={this.state.validated}

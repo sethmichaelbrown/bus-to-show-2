@@ -1,12 +1,8 @@
 import React from 'react'
 import '../../App.css';
 import logo from '../../Images/Logos/bts-logo-gray.png'
-<<<<<<< HEAD
 import DiscountCode from '../DiscountCode'
-=======
 import MediaQuery from 'react-responsive';
->>>>>>> 9e526b937cc06cbe37d8bbd4cd6f3e38d07256a9
-
 const ShowDetailView = (props) => {
   // console.log("ShowDetailView",props)
 
@@ -75,16 +71,13 @@ const ShowDetailView = (props) => {
                   </div>
                 </div>
               </div>
-<<<<<<< HEAD
               <div>
 //                <DiscountCode />
               </div>
               <div className="row col-md-10">
                 <span>Departure Location</span>
-=======
               <div className="row col-md-7 offset-md-2 justify-content-center">
                 <div style={{textAlign: "center"}}>Departure Location</div>
->>>>>>> 9e526b937cc06cbe37d8bbd4cd6f3e38d07256a9
                 <form className="was-validated">
                   <div className="form-group">
                     <select className="custom-select mt-2" onChange={props.selectPickupLocationId} required>
@@ -144,7 +137,7 @@ const ShowDetailView = (props) => {
         </div> : ''}
 
     </div>
-  )
+  
 }
 
 
