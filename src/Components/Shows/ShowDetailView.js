@@ -1,12 +1,14 @@
 import React from 'react'
 import '../../App.css';
+import logo from '../../Images/Logos/bts-logo-gray.png'
 
 const ShowDetailView = (props) => {
   // console.log("ShowDetailView",props)
 
   const show = props.displayShow
   const headlinerBio = show.headlinerBio.split('<a')[0]
-  const noBio = 'Well. Nothing to see here, so I guess...have a kitten on us.'
+  const noBio = 'No bio information available, so enjoy a kitten on us.'
+
 
   // placekitten.com/width/height of photo to be displayed
   const placeKitten = 'http://placekitten.com/174/174'
@@ -43,7 +45,19 @@ const ShowDetailView = (props) => {
             <div className="list-group-item">
               <div className='row container'>
                 <div className="col-md-8 artist-info bio-font">
-                  {show.headlinerBio ? headlinerBio : noBio}
+                  {show.headlinerBio ? headlinerBio :
+                    <div>
+                      <div className='row'>
+                        <div className="col-md-12">
+                          {noBio}
+                        </div>
+                      </div>
+                      <div className="row">
+                        <div className="col-md-6 offset-md-1 mt-3 no-info-logo">
+                          <img src={logo} width="233" height="100" className="d-inline-block align-top" alt="bts-logo" />
+                        </div>
+                      </div>
+                    </div>}
                 </div>
                 <div className="col-md-4 artist-image">
                   <img src={show.headlinerImgLink ? show.headlinerImgLink : placeKitten} alt="headliner" />
