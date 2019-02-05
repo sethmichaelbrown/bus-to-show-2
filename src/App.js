@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { BrowserRouter } from "react-router-dom"
 import Validator from 'validator'
 import MediaQuery from 'react-responsive';
+
 // Styling
 import './App.css';
 import Axios from 'axios';
@@ -20,38 +21,10 @@ import DetailCartView from './Components/DetailCartView'
 //////***** App.js: LINES 71/72, 76/77, 84/85, 107/108, 252/253, 288/289
 //////***** Stripe_Checkout.js: LINES 6/7
 
-
 class App extends Component {
 
   state = {
-    purchasePending: false,
-    purchaseSuccessful: false,
-    displayShow: null,
-    displaySuccess: false,
-    displayWarning: false,
-    loginView: false,
-    displayCart: false,
-    displayStripe: false,
-    filterString: '',
-    inCart: [],
-    displayDetailCartView: false,
     artistDescription: null,
-    displayBorder: false,
-    pickupLocationId: null,
-    ticketQuantity: null,
-    displayAddBtn: false,
-    displayQuantity: false,
-    validated: false,
-    ticketsAvailable: [],
-    validatedElements: {
-      fName: null,
-      lName: null,
-      email: null,
-      wCFName: null,
-      wCLName: null
-    },
-    checked: false,
-    totalCost: 0,
     cartToSend: {
       eventId: null,
       pickupLocationId: null,
@@ -63,6 +36,33 @@ class App extends Component {
       ticketQuantity: 0,
       totalCost: 0,
       discountCode: ''
+    },
+    checked: false,
+    displayAddBtn: false,
+    displayBorder: false,
+    displayCart: false,
+    displayDetailCartView: false,
+    displayShow: null,
+    displayStripe: false,
+    displaySuccess: false,
+    displayWarning: false,
+    displayQuantity: false,
+    filterString: '',
+    inCart: [],
+    pickupLocationId: null,
+    purchasePending: false,
+    purchaseSuccessful: false,
+    loginView: false,
+    ticketsAvailable: [],
+    ticketQuantity: null,
+    totalCost: 0,
+    validated: false,
+    validatedElements: {
+      fName: null,
+      lName: null,
+      email: null,
+      wCFName: null,
+      wCLName: null
     }
   }
 
@@ -261,7 +261,7 @@ class App extends Component {
     })
 
     setTimeout(fetch('https://something-innocuous.herokuapp.com/pickup_parties', {
-    // setTimeout(fetch('http://localhost:3000/pickup_parties', {
+      // setTimeout(fetch('http://localhost:3000/pickup_parties', {
       method: 'PATCH',
       body: JSON.stringify({
         pickupLocationId: this.state.pickupLocationId,
@@ -293,7 +293,7 @@ class App extends Component {
     })
 
 
-    this.setState({purchaseSuccessful:true, purchasePending:false})
+    this.setState({ purchaseSuccessful: true, purchasePending: false })
   }
 
   updatePurchaseField = (event) => {
@@ -444,83 +444,96 @@ class App extends Component {
                   loginClick={this.loginClick}
                   searchShows={this.searchShows} />
                 <div className='content-section'>
-                <div className='col-md-6 float-right'>
-                  <MediaQuery minWidth={768}>
-                  {this.state.displayCart || this.state.displayShow ?
-                    <DetailCartView
-                      makePurchase={this.makePurchase}
-                      purchasePending={this.state.purchasePending}
-                      purchaseSuccessful={this.state.purchaseSuccessful}
-                      addToCart={this.addToCart}
-                      checked={this.state.checked}
-                      displayAddBtn={this.state.displayAddBtn}
-                      displayBorder={this.state.displayBorder}
-                      displayCart={this.state.displayCart}
-                      displayQuantity={this.state.displayQuantity}
-                      displayShow={this.state.displayShow}
-                      displaySuccess={this.state.displaySuccess}
-                      displayWarning={this.state.displayWarning}
-                      handleCheck={this.handleCheck}
-                      handleSubmit={this.handleSubmit}
-                      inCart={this.state.inCart}
-                      pickupLocations={this.state.pickupLocations}
-                      purchase={this.purchase}
-                      purchaseClick={this.purchaseClick}
-                      quantityChange={this.quantityChange}
-                      removeFromCart={this.removeFromCart}
-                      returnToShows={this.returnToShows}
-                      pickupLocationId={this.state.pickupLocationId}
-                      selectPickupLocationId={this.selectPickupLocationId}
-                      selectTicketQuantity={this.selectTicketQuantity}
-                      showsExpandClick={this.showsExpandClick}
-                      showsInCart={this.state.inCart}
-                      tabClicked={this.tabClicked}
-                      ticketsAvailable={this.state.ticketsAvailable}
-                      ticketQuantity={this.state.ticketQuantity}
-                      timeLeftInCart={this.state.timeLeftInCart}
-                      totalCost={this.state.totalCost}
-                      updatePurchaseField={this.updatePurchaseField}
-                      validated={this.state.validated}
-                      validatedElements={this.state.validatedElements} />
-                    :
-                    <SponsorBox />}
+                  <div className='col-md-6 float-right'>
+                    <MediaQuery minWidth={768}>
+                      {this.state.displayCart || this.state.displayShow ?
+                        <DetailCartView
+                          makePurchase={this.makePurchase}
+                          purchasePending={this.state.purchasePending}
+                          purchaseSuccessful={this.state.purchaseSuccessful}
+                          addToCart={this.addToCart}
+                          checked={this.state.checked}
+                          displayAddBtn={this.state.displayAddBtn}
+                          displayBorder={this.state.displayBorder}
+                          displayCart={this.state.displayCart}
+                          displayQuantity={this.state.displayQuantity}
+                          displayShow={this.state.displayShow}
+                          displaySuccess={this.state.displaySuccess}
+                          displayWarning={this.state.displayWarning}
+                          handleCheck={this.handleCheck}
+                          handleSubmit={this.handleSubmit}
+                          inCart={this.state.inCart}
+                          pickupLocations={this.state.pickupLocations}
+                          purchase={this.purchase}
+                          purchaseClick={this.purchaseClick}
+                          quantityChange={this.quantityChange}
+                          removeFromCart={this.removeFromCart}
+                          returnToShows={this.returnToShows}
+                          pickupLocationId={this.state.pickupLocationId}
+                          selectPickupLocationId={this.selectPickupLocationId}
+                          selectTicketQuantity={this.selectTicketQuantity}
+                          showsExpandClick={this.showsExpandClick}
+                          showsInCart={this.state.inCart}
+                          tabClicked={this.tabClicked}
+                          ticketsAvailable={this.state.ticketsAvailable}
+                          ticketQuantity={this.state.ticketQuantity}
+                          timeLeftInCart={this.state.timeLeftInCart}
+                          totalCost={this.state.totalCost}
+                          updatePurchaseField={this.updatePurchaseField}
+                          validated={this.state.validated}
+                          validatedElements={this.state.validatedElements} />
+                        :
+                        <SponsorBox />}
                     </MediaQuery>
                     <MediaQuery maxWidth={767}>
-                    {this.state.displayCart || this.state.displayShow ?
-                    <DetailCartView
-                      addToCart={this.addToCart}
-                        addBorder={this.addBorder}
-                      checked={this.state.checked}
-                      displayAddBtn={this.state.displayAddBtn}
-                      displayBorder={this.state.displayBorder}
-                      displayCart={this.state.displayCart}
-                      displayQuantity={this.state.displayQuantity}
-                      displayShow={this.state.displayShow}
-                      displaySuccess={this.state.displaySuccess}
-                      filterString={this.state.filterString}
-                      handleCheck={this.handleCheck}
-                      handleSubmit={this.handleSubmit}
-                      inCart={this.state.inCart}
-                      pickupLocations={this.state.pickupLocations}
-                      purchase={this.purchase}
-                      purchaseClick={this.purchaseClick}
-                      quantityChange={this.quantityChange}
-                      removeFromCart={this.removeFromCart}
-                      returnToShows={this.returnToShows}
-                      pickupLocationId={this.state.pickupLocationId}
-                      selectPickupLocationId={this.selectPickupLocationId}
-                      selectTicketQuantity={this.selectTicketQuantity}
-                      shows={this.state.shows}
-                      showsExpandClick={this.showsExpandClick}
-                      showsInCart={this.state.inCart}
-                      tabClicked={this.tabClicked}
-                      ticketsAvailable={this.state.ticketsAvailable}
-                      ticketQuantity={this.state.ticketQuantity}
-                      totalCost={this.state.totalCost}
-                      updatePurchaseField={this.updatePurchaseField}
-                      validated={this.state.validated}
-                      validatedElements={this.state.validatedElements} />
-                      :
+                      {this.state.displayCart || this.state.displayShow ?
+                        <DetailCartView
+                          addToCart={this.addToCart}
+                          addBorder={this.addBorder}
+                          checked={this.state.checked}
+                          displayAddBtn={this.state.displayAddBtn}
+                          displayBorder={this.state.displayBorder}
+                          displayCart={this.state.displayCart}
+                          displayQuantity={this.state.displayQuantity}
+                          displayShow={this.state.displayShow}
+                          displaySuccess={this.state.displaySuccess}
+                          filterString={this.state.filterString}
+                          handleCheck={this.handleCheck}
+                          handleSubmit={this.handleSubmit}
+                          inCart={this.state.inCart}
+                          pickupLocations={this.state.pickupLocations}
+                          purchase={this.purchase}
+                          purchaseClick={this.purchaseClick}
+                          quantityChange={this.quantityChange}
+                          removeFromCart={this.removeFromCart}
+                          returnToShows={this.returnToShows}
+                          pickupLocationId={this.state.pickupLocationId}
+                          selectPickupLocationId={this.selectPickupLocationId}
+                          selectTicketQuantity={this.selectTicketQuantity}
+                          shows={this.state.shows}
+                          showsExpandClick={this.showsExpandClick}
+                          showsInCart={this.state.inCart}
+                          tabClicked={this.tabClicked}
+                          ticketsAvailable={this.state.ticketsAvailable}
+                          ticketQuantity={this.state.ticketQuantity}
+                          totalCost={this.state.totalCost}
+                          updatePurchaseField={this.updatePurchaseField}
+                          validated={this.state.validated}
+                          validatedElements={this.state.validatedElements} />
+                        :
+                        <ShowList
+                          sortByDate={this.sortByDate}
+                          sortByArtist={this.sortByArtist}
+                          addBorder={this.addBorder}
+                          displayShow={this.state.displayShow}
+                          filterString={this.state.filterString}
+                          shows={this.state.shows}
+                          showsExpandClick={this.showsExpandClick}
+                          ticketsAvailable={this.state.ticketsAvailable} />}
+                    </MediaQuery>
+                  </div>
+                  <div className='col-md-6 float-left'>
+                    <MediaQuery minWidth={768}>
                       <ShowList
                         sortByDate={this.sortByDate}
                         sortByArtist={this.sortByArtist}
@@ -529,20 +542,7 @@ class App extends Component {
                         filterString={this.state.filterString}
                         shows={this.state.shows}
                         showsExpandClick={this.showsExpandClick}
-                        ticketsAvailable={this.state.ticketsAvailable} />}
-                    </MediaQuery>
-                </div>
-                  <div className='col-md-6 float-left'>
-                    <MediaQuery minWidth={768}>
-                    <ShowList
-                      sortByDate={this.sortByDate}
-                      sortByArtist={this.sortByArtist}
-                      addBorder={this.addBorder}
-                      displayShow={this.state.displayShow}
-                      filterString={this.state.filterString}
-                      shows={this.state.shows}
-                      showsExpandClick={this.showsExpandClick}
-                      ticketsAvailable={this.state.ticketsAvailable} />
+                        ticketsAvailable={this.state.ticketsAvailable} />
                     </MediaQuery>
                   </div>
                 </div>
