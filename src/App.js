@@ -2,9 +2,10 @@
 import React, { Component } from 'react';
 import { BrowserRouter } from "react-router-dom"
 import Validator from 'validator'
-
+import MediaQuery from 'react-responsive';
 // Styling
 import './App.css';
+import Axios from 'axios';
 
 // Components
 import Header from './Components/Header'
@@ -17,7 +18,7 @@ import DetailCartView from './Components/DetailCartView'
 
 //////***** COMMENTED OUT URLS ON THE FOLLOWING LINES, USE TO SWITCH BETWEEN LOCALHOST or HEROKU:
 //////***** App.js: LINES 71/72, 76/77, 84/85, 107/108, 252/253, 288/289
-//////***** Stripe_Checkout.js: LINES 6/7 
+//////***** Stripe_Checkout.js: LINES 6/7
 
 
 class App extends Component {
@@ -443,20 +444,8 @@ class App extends Component {
                   loginClick={this.loginClick}
                   searchShows={this.searchShows} />
                 <div className='content-section'>
-                  <div className='col-md-6 float-left'>
-                    <ShowList
-                      sortByDate={this.sortByDate}
-                      sortByArtist={this.sortByArtist}
-                      addBorder={this.addBorder}
-                      displayShow={this.state.displayShow}
-                      filterString={this.state.filterString}
-                      shows={this.state.shows}
-                      showsExpandClick={this.showsExpandClick}
-                      ticketsAvailable={this.state.ticketsAvailable} />
-                  </div>
-                </div>
-
-                <div className='col-md-6 float-left'>
+                <div className='col-md-6 float-right'>
+                  <MediaQuery minWidth={768}>
                   {this.state.displayCart || this.state.displayShow ?
                     <DetailCartView
                       makePurchase={this.makePurchase}
@@ -495,6 +484,67 @@ class App extends Component {
                       validatedElements={this.state.validatedElements} />
                     :
                     <SponsorBox />}
+                    </MediaQuery>
+                    <MediaQuery maxWidth={767}>
+                    {this.state.displayCart || this.state.displayShow ?
+                    <DetailCartView
+                      addToCart={this.addToCart}
+                        addBorder={this.addBorder}
+                      checked={this.state.checked}
+                      displayAddBtn={this.state.displayAddBtn}
+                      displayBorder={this.state.displayBorder}
+                      displayCart={this.state.displayCart}
+                      displayQuantity={this.state.displayQuantity}
+                      displayShow={this.state.displayShow}
+                      displaySuccess={this.state.displaySuccess}
+                      filterString={this.state.filterString}
+                      handleCheck={this.handleCheck}
+                      handleSubmit={this.handleSubmit}
+                      inCart={this.state.inCart}
+                      pickupLocations={this.state.pickupLocations}
+                      purchase={this.purchase}
+                      purchaseClick={this.purchaseClick}
+                      quantityChange={this.quantityChange}
+                      removeFromCart={this.removeFromCart}
+                      returnToShows={this.returnToShows}
+                      pickupLocationId={this.state.pickupLocationId}
+                      selectPickupLocationId={this.selectPickupLocationId}
+                      selectTicketQuantity={this.selectTicketQuantity}
+                      shows={this.state.shows}
+                      showsExpandClick={this.showsExpandClick}
+                      showsInCart={this.state.inCart}
+                      tabClicked={this.tabClicked}
+                      ticketsAvailable={this.state.ticketsAvailable}
+                      ticketQuantity={this.state.ticketQuantity}
+                      totalCost={this.state.totalCost}
+                      updatePurchaseField={this.updatePurchaseField}
+                      validated={this.state.validated}
+                      validatedElements={this.state.validatedElements} />
+                      :
+                      <ShowList
+                        sortByDate={this.sortByDate}
+                        sortByArtist={this.sortByArtist}
+                        addBorder={this.addBorder}
+                        displayShow={this.state.displayShow}
+                        filterString={this.state.filterString}
+                        shows={this.state.shows}
+                        showsExpandClick={this.showsExpandClick}
+                        ticketsAvailable={this.state.ticketsAvailable} />}
+                    </MediaQuery>
+                </div>
+                  <div className='col-md-6 float-left'>
+                    <MediaQuery minWidth={768}>
+                    <ShowList
+                      sortByDate={this.sortByDate}
+                      sortByArtist={this.sortByArtist}
+                      addBorder={this.addBorder}
+                      displayShow={this.state.displayShow}
+                      filterString={this.state.filterString}
+                      shows={this.state.shows}
+                      showsExpandClick={this.showsExpandClick}
+                      ticketsAvailable={this.state.ticketsAvailable} />
+                    </MediaQuery>
+                  </div>
                 </div>
               </React.Fragment> : <Loading />
           }
