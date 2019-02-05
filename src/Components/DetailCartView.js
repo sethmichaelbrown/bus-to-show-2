@@ -7,17 +7,6 @@ import logo from '../Images/Logos/bts-logo-gray.png'
 const DetailCartView = (props) => {
   // console.log('DCV', props)
 
-  // const timer = () => {
-    // let timeStart = 600000
-    // let timeLeft = 0
-    // if (props.inCart.length > 0) {
-    //   setInterval(() => {
-    //     timeLeft = (--timeStart) / 60000
-    //   }, 1000)
-    //   return timeLeft
-    // }
-  // }
-
 
   return (
     <div className='DetailCartView container'>
@@ -30,7 +19,7 @@ const DetailCartView = (props) => {
         </li>
         <li>
           {/* {props.inCart.length > 0 ?
-            <button type="button" disabled='disabled' class="btn btn-dark">{this.timeLeft}</button> : ''} */}
+            <button type="button" disabled='disabled' className="btn btn-dark">{this.timeLeft}</button> : ''} */}
         </li>
       </ul>
 
@@ -51,7 +40,8 @@ const DetailCartView = (props) => {
             selectTicketQuantity={props.selectTicketQuantity}
             showsExpandClick={props.showsExpandClick}
             ticketsAvailable={props.ticketsAvailable}
-            ticketQuantity={props.ticketQuantity} />
+            ticketQuantity={props.ticketQuantity}
+            totalCost={props.totalCost} />
         </div>
         <div className="tab-pane fade" id="cart" data-toggle="tab" role="tabpanel" aria-labelledby="cart-tab">
           {props.inCart.length > 0 ?
