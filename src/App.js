@@ -32,7 +32,6 @@ class App extends Component {
     artistDescription: null,
     displayBorder: false,
     pickupLocationId: null,
-    timeLeftInCart: 600000,
     ticketQuantity: null,
     displayAddBtn: false,
     displayQuantity: false,
@@ -210,10 +209,12 @@ class App extends Component {
   addToCart = async () => {
     const newState = { ...this.state }
 
-    let timer = new Timer()
+    if (newState.inCart) {
+      let timer = new Timer([{ interval: 1000, stopwatch: false }])
+      timer.on('tick', (ms) => this.setState({ timeLeftInCart: ms }))
+      timer.start(600000, 1000)
+    }
 
-    timer.on('tick', (ms) => this.setState({ timeLeftInCart: ms }))
-    timer.start(600000, 1000)
 
     const pickupLocation = newState.pickupLocations.filter(location => parseInt(location.id) === parseInt(this.state.pickupLocationId))[0]
     const basePrice = Number(pickupLocation.basePrice)
