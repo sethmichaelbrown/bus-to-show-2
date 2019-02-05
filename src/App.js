@@ -2,7 +2,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route } from "react-router-dom"
 import Validator from 'validator'
-import Timer from 'tiny-timer'
 
 // Styling
 import './App.css';
@@ -209,11 +208,14 @@ class App extends Component {
   addToCart = async () => {
     const newState = { ...this.state }
 
-    if (newState.inCart) {
-      let timer = new Timer([{ interval: 1000, stopwatch: false }])
-      timer.on('tick', (ms) => this.setState({ timeLeftInCart: ms }))
-      timer.start(600000, 1000)
-    }
+    // // For Tiny-Timer
+    // if (newState.inCart) {
+    //   let timer = new Timer([{ interval: 1000, stopwatch: false }])
+    //   timer.on('tick', (ms) => this.setState({ timeLeftInCart: ms }))
+    //   timer.start(600000, 1000)
+    // }
+
+
 
 
     const pickupLocation = newState.pickupLocations.filter(location => parseInt(location.id) === parseInt(this.state.pickupLocationId))[0]
