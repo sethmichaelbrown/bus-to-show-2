@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route } from "react-router-dom"
 import Validator from 'validator'
+import Timer from 'tiny-timer'
 
 // Styling
 import './App.css';
@@ -10,7 +11,6 @@ import './App.css';
 import Header from './Components/Header'
 import ShowList from './Components/Shows/ShowList'
 import Loading from './Components/Loading'
-import StripeView from './Components/StripeView'
 import LoginView from './Components/LoginView/LoginView'
 // import Footer from './Components/Footer'
 import SponsorBox from './Components/SponsorBox'
@@ -33,7 +33,7 @@ class App extends Component {
     artistDescription: null,
     displayBorder: false,
     pickupLocationId: null,
-    timeLeftInCart: 0,
+    timeLeftInCart: 600000,
     ticketQuantity: null,
     displayAddBtn: false,
     displayQuantity: false,
@@ -187,6 +187,12 @@ class App extends Component {
 
   addToCart = async () => {
     const newState = { ...this.state }
+    
+    let timer = new Timer()
+    timer.on('tick', (ms) => {
+      // this.setState({ timeLeftInCart: this.state.timeLeftInCart - ms })
+      console.log('tick', ms)
+    })
 
     const pickupLocation = newState.pickupLocations.filter(location => parseInt(location.id) === parseInt(this.state.pickupLocationId))[0]
     const basePrice = Number(pickupLocation.basePrice)
@@ -204,13 +210,6 @@ class App extends Component {
       newState.displayWarning = true
     }
 
-    let timeStart = 600000
-    if (this.state.inCart.length > 0) {
-      setInterval(() => {
-        newState.timeLeftInCart = (--timeStart) / 60000
-      }, 1000)
-    }
-    this.setState({ timeLeftInCart: newState.timeLeftInCart }, () =>(console.log(this.state)))
 
     const cartObj = {
       pickupLocationId: this.state.pickupLocationId,
@@ -369,7 +368,6 @@ class App extends Component {
   }
 
 
-
   sortByArtist = () => {
     console.log("sorted by artist")
     console.log(this.state.shows)
@@ -384,12 +382,8 @@ class App extends Component {
         return 0;
       }
     })
-    // let newState=this.state.shows.map(show=> show.headliner.split(" ").join(""))
-    console.log("NEWSTATE", newState)
     this.setState({ shows: newState })
-    console.log(this.state.shows)
   }
-
 
   sortByDate = () => {
     console.log(this.state.shows)
@@ -399,11 +393,8 @@ class App extends Component {
       return a - b
 
     })
-    console.log(newState)
     this.setState({ shows: newState })
   }
-
-
 
 
   render() {
@@ -419,7 +410,6 @@ class App extends Component {
                   loginClick={this.loginClick}
                   searchShows={this.searchShows} />
                 <div className='content-section'>
-                  {this.state.displayStripe ? <StripeView /> : ''}
                   <div className='col-md-6 float-left'>
                     <ShowList
                       sortByDate={this.sortByDate}
