@@ -122,8 +122,10 @@ const Cart = (props) => {
 
 
                     <div className='form-row'>
-                      
+
                       <Checkout
+                        makePurchase={props.makePurchase}
+                        purchasePending={props.purchasePending}
                         validated={props.validated}
                         purchase={props.purchase}
                         totalCost={totalCost}
@@ -144,7 +146,12 @@ const Cart = (props) => {
             </div> : ''}
         </div>
       </React.Fragment>
-
+      <div className="container">
+      <div className="row justify-content-center">
+    {props.purchaseSuccessful?<div className="alert alert-success" role="alert"> Thank you for your purchase! </div> : <div ></div>}
+    {props.purchasePending?<div className="alert alert-primary" role="alert"> Purchase Pending... </div> : <div></div>}
+      </div>
+      </div>
     </div>
   )
 }

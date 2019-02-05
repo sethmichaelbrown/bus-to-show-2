@@ -1,12 +1,14 @@
 import React from 'react'
 import '../../App.css';
+import logo from '../../Images/Logos/bts-logo-gray.png'
 
 const ShowDetailView = (props) => {
   // console.log("ShowDetailView",props)
 
   const show = props.displayShow
   const headlinerBio = show.headlinerBio.split('<a')[0]
-  const noBio = 'Well. Nothing to see here, so I guess...have a kitten on us.'
+  const noBio = 'No bio information available, so enjoy a kitten on us.'
+
 
   // placekitten.com/width/height of photo to be displayed
   const placeKitten = 'http://placekitten.com/174/174'
@@ -18,20 +20,20 @@ const ShowDetailView = (props) => {
           <h4>{show.headliner}</h4>
           <div className="list-group">
             {props.displayWarning ?
-            <div className="list-group-item alert-item">
-                <div className="alert alert-warning" role="alert">Please either complete purchase of item in cart, or remove it to procceed.</div>
-            </div> :          
-              props.displaySuccess ?
               <div className="list-group-item alert-item">
-                  <div className="alert alert-success" role="alert"> Added {show.headliner} - {show.date} to cart!</div>
+                <div className="alert alert-warning" role="alert">Please either complete purchase of item in cart, or remove it to procceed.</div>
               </div> :
-              <div className="list-group-item">
-                <div className="row">
-                  <div className="col-md-4">Location</div>
-                  <div className="col-md-4">Date</div>
-                  <div className="col-md-4"></div>
-                </div>
-              </div>}
+              props.displaySuccess ?
+                <div className="list-group-item alert-item">
+                  <div className="alert alert-success" role="alert"> Added {show.headliner} - {show.date} to cart!</div>
+                </div> :
+                <div className="list-group-item">
+                  <div className="row">
+                    <div className="col-md-4">Location</div>
+                    <div className="col-md-4">Date</div>
+                    <div className="col-md-4"></div>
+                  </div>
+                </div>}
 
             <div className="list-group-item">
               <div className="row">
@@ -43,7 +45,19 @@ const ShowDetailView = (props) => {
             <div className="list-group-item">
               <div className='row container'>
                 <div className="col-md-8 artist-info bio-font">
-                  {show.headlinerBio ? headlinerBio : noBio}
+                  {show.headlinerBio ? headlinerBio :
+                    <div>
+                      <div className='row'>
+                        <div className="col-md-12">
+                          {noBio}
+                        </div>
+                      </div>
+                      <div className="row">
+                        <div className="col-md-6 offset-md-1 mt-3 no-info-logo">
+                          <img src={logo} width="233" height="100" className="d-inline-block align-top" alt="bts-logo" />
+                        </div>
+                      </div>
+                    </div>}
                 </div>
                 <div className="col-md-4 artist-image">
                   <img src={show.headlinerImgLink ? show.headlinerImgLink : placeKitten} alt="headliner" />
@@ -61,7 +75,7 @@ const ShowDetailView = (props) => {
                             <option
                               key={location.id}
                               id={location.id}
-                              value={location.id}>{location.locationName}</option>
+                              value={location.id}>{location.locationName} - ${location.basePrice.toFixed(2)} each</option>
                           )
                         })
                         : ''}
@@ -69,25 +83,28 @@ const ShowDetailView = (props) => {
                   </div>
                 </form>
               </div>
-              <div className="row col-md-5">
-                {props.displayQuantity ?
-                  <React.Fragment>
-                    <span>Ticket Quantity</span>
-                    <form className="was-validated">
-                      <div className="form-group">
-                        {props.ticketsAvailable.length === 0 ?
-                          <button type="button" disabled='disabled' className="btn btn-lg btn-danger mt-1">Sold Out!</button> :
-                          <select
-                            className="custom-select"
-                            onChange={props.selectTicketQuantity}
-                            disabled={props.ticketsAvailable.length === 0 ? 'disabled' : ''}
-                            required>
-                            <option value="">Select Quantity</option>
-                            {props.ticketsAvailable.map(number => <option value={number}>{number}</option>)}
-                          </select>}
-                      </div>
-                    </form>
-                  </React.Fragment> : ''}
+              <div className="row">
+                <div className="col-md-5 float-left">
+                  {props.displayQuantity ?
+                    <div>
+                      <span>Ticket Quantity</span>
+                      <form className="was-validated">
+                        <div className="form-group">
+                          {props.ticketsAvailable.length === 0 ?
+                            <button type="button" disabled='disabled' className="btn btn-lg btn-danger mt-1">Sold Out!</button> :
+                            <select
+                              className="custom-select"
+                              onChange={props.selectTicketQuantity}
+                              disabled={props.ticketsAvailable.length === 0 ? 'disabled' : ''}
+                              required>
+                              <option value="">Select Quantity</option>
+                              {props.ticketsAvailable.map(number => <option key={number} value={number}>{number}</option>)}
+                            </select>}
+                        </div>
+                      </form>
+                      <span>Current Total: ${props.totalCost}</span>
+                    </div> : ''}
+                </div>
               </div>
             </div>
             <div className="list-group-item">

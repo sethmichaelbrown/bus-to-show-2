@@ -15,8 +15,8 @@ const Shows = (props) => {
             <div className="col-md-7 list-item-font" id={show.id}>{show.headliner} <br />{show.venue}</div>
             <button
               id={show.id}
-              onClick={props.addBorder}
-              onMouseOver={props.showsExpandClick}
+              // onClick={props.addBorder}
+              onClick={props.showsExpandClick}
               type="button"
               className='btn show-list-item bg-white col-md-2'>Details</button>
 
