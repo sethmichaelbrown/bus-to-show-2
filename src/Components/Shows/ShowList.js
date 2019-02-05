@@ -11,8 +11,10 @@ const Shows = (props) => {
           <div className="list-group-item">
             <div className="row">
               <div className="col-md-3">Date</div>
-              <div className="col-md-7">Event</div>
-              <div className="col-md-2"></div>
+              <div className="col-md-3">Event</div>
+              <div className="col-md-3"><button onClick={()=>props.sortByDate()}>sort by date</button></div>
+              <div className="col-md-3"><button onClick={()=>props.sortByArtist()}>sort by artist</button></div>
+              // <div className="col-md-2"></div>
             </div>
           </div>
           <ul className="list-group">

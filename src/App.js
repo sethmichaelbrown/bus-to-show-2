@@ -350,6 +350,43 @@ class App extends Component {
   }
 
 
+
+  sortByArtist=()=>{
+    console.log("sorted by artist")
+    console.log(this.state.shows)
+    let newState=this.state.shows.sort((show1, show2)=> {
+    let a=show1.headliner.toLowerCase().split(" ").join("")
+    let b=show2.headliner.toLowerCase().split(" ").join("")
+      if (a < b){
+          return -1;
+      }else if (a > b){
+          return  1;
+      }else{
+          return 0;
+      }
+    })
+    // let newState=this.state.shows.map(show=> show.headliner.split(" ").join(""))
+    console.log("NEWSTATE", newState)
+    this.setState({shows: newState})
+    console.log(this.state.shows)
+  }
+
+
+  sortByDate=()=>{
+    console.log(this.state.shows)
+    let newState=this.state.shows.sort((show1, show2)=>{
+      let a=new Date(show1.date)
+      let b=new Date(show2.date)
+  return a-b
+
+    })
+    console.log(newState)
+    this.setState({shows:newState})
+  }
+
+
+
+
   render() {
     return (
       <BrowserRouter>
@@ -366,6 +403,8 @@ class App extends Component {
                   {this.state.displayStripe ? <StripeView /> : ''}
                   <div className='col-md-6 float-left'>
                     <ShowList
+                      sortByDate={this.sortByDate}
+                      sortByArtist={this.sortByArtist}
                       addBorder={this.addBorder}
                       displayShow={this.state.displayShow}
                       filterString={this.state.filterString}
