@@ -23,6 +23,7 @@ class App extends Component {
   state = {
     displayShow: null,
     displaySuccess: false,
+    displayWarning: false,
     loginView: false,
     displayCart: false,
     displayStripe: false,
@@ -32,6 +33,7 @@ class App extends Component {
     artistDescription: null,
     displayBorder: false,
     pickupLocationId: null,
+    timeLeftInCart: 0,
     ticketQuantity: null,
     displayAddBtn: false,
     displayQuantity: false,
@@ -77,10 +79,12 @@ class App extends Component {
 
     const pickups = await fetch('https://something-innocuous.herokuapp.com/pickup_locations')
     const pickupLocations = await pickups.json()
-    const filteredPickupLocations=pickupLocations.filter(location=>eventsListIds.includes(location.id))
+
+    // const filteredPickupLocations=pickupLocations.filter(location=>eventsListIds.includes(location.id))
     this.setState({ pickupLocations:filteredPickupLocations })
     // console.log('State', this.state)
-  }
+
+    this.setState({ pickupLocations })
 
   selectPickupLocationId = async (event) => {
     const newState = { ...this.state }
@@ -93,7 +97,7 @@ class App extends Component {
     }
     this.setState(newState)
 
-    const response = await fetch('http://localhost:3000/pickup_locations')
+    const response = await fetch('https://something-innocuous.herokuapp.com/pickup_parties')
     const locations = await response.json()
     const statePickupId = parseInt(this.state.pickupLocationId)
     const stateEventId = parseInt(this.state.displayShow.id)
@@ -101,17 +105,16 @@ class App extends Component {
     const matchedLocation = locations.find(location => (parseInt(location.pickupLocationId) === statePickupId) && (parseInt(location.eventId) === stateEventId))
 
     let numArray = []
-    if(matchedLocation){
+    if (matchedLocation) {
       const capacityLessInCart = parseInt(matchedLocation.capacity) - parseInt(matchedLocation.inCart)
-      numArray = [...Array(capacityLessInCart).keys()].map(i => i+1)
+      numArray = [...Array(capacityLessInCart).keys()].map(i => i + 1)
       newState.ticketsAvailable = numArray
     }
-    else{
+    else {
       console.log('Error!!')
     }
 
-    this.setState({ticketsAvailable : newState.ticketsAvailable})
-    console.log(this.state)
+    this.setState({ ticketsAvailable: newState.ticketsAvailable })
   }
 
   selectTicketQuantity = (event) => {
@@ -192,7 +195,7 @@ class App extends Component {
       newState.displaySuccess = true
     }
     else {
-      console.log('One event at a time.') // Display alert? One show at a time?
+      newState.displayWarning = true
     }
 
     const cartObj = {
@@ -202,7 +205,7 @@ class App extends Component {
     }
     this.setState(newState)
 
-    fetch('http://localhost:3000/pickup_parties', {
+    fetch('https://something-innocuous.herokuapp.com/pickup_parties', {
       method: 'PATCH',
       body: JSON.stringify({
         pickupLocationId: this.state.pickupLocationId,
@@ -214,7 +217,8 @@ class App extends Component {
       }
     })
 
-    setTimeout(fetch('http://localhost:3000/pickup_parties', {
+
+    setTimeout(fetch('https://something-innocuous.herokuapp.com/pickup_parties', {
       method: 'PATCH',
       body: JSON.stringify({
         pickupLocationId: this.state.pickupLocationId,
@@ -224,7 +228,7 @@ class App extends Component {
       headers: {
         'Content-Type': 'application/json'
       }
-    }), 4000)
+    }), 600000)
 
   }
 
@@ -237,7 +241,7 @@ class App extends Component {
 
   purchase = async () => {
     const cartObj = this.state.cartToSend
-    fetch('http://localhost:3000/orders', {
+    fetch('https://something-innocuous.herokuapp.com/orders', {
       method: 'POST',
       body: JSON.stringify(cartObj),
       headers: {
@@ -346,7 +350,7 @@ class App extends Component {
       const newState = { ...this.state }
       newState.displayBorder = false
       this.setState(newState)
-    }, 1500)
+    }, 500)
   }
 
 
@@ -398,7 +402,7 @@ class App extends Component {
               <React.Fragment>
                 <Header
                   loginClick={this.loginClick}
-                  searchShows={this.searchShows}/>
+                  searchShows={this.searchShows} />
                 <div className='content-section'>
                   {this.state.displayStripe ? <StripeView /> : ''}
                   <div className='col-md-6 float-left'>
@@ -425,6 +429,7 @@ class App extends Component {
                       displayQuantity={this.state.displayQuantity}
                       displayShow={this.state.displayShow}
                       displaySuccess={this.state.displaySuccess}
+                      displayWarning={this.state.displayWarning}
                       handleCheck={this.handleCheck}
                       handleSubmit={this.handleSubmit}
                       inCart={this.state.inCart}

@@ -63,7 +63,7 @@ const Cart = (props) => {
                     </div>
 
                     <div className="form-row">
-                      <div className="col-md-6 mb-3">
+                      <div className="col-md-8 mb-3">
                         <label htmlFor="email">Email</label>
                         <input
                           onChange={props.updatePurchaseField}
@@ -119,6 +119,9 @@ const Cart = (props) => {
                           className='form-control'
                           id="discountCode"
                           placeholder="Discount Code" />
+                      </div>
+                      <div className="col-md-4 mb-3">
+                        <button type="button" class="btn btn-outline-secondary">Apply</button>
                       </div>
                     </div>
 

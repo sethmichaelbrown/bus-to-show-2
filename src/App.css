@@ -9,7 +9,7 @@
 }
 
 .list-group-item {
-  border-radius: 5px;
+  border-radius: 1px;
 }
 
 .return-btn {
@@ -41,7 +41,7 @@
   border: solid;
   border-color: gray;
   border-width: 1px;
-  
+
 }
 
 .remove-border {
@@ -109,15 +109,39 @@
  opacity: 0.5;
 }
 
+.show-header{
+  background-color: #ff420f;
+  color: white;
+}
+
 .show-list-item{
   color: #ff420f;
+  border-color: #ff420f;
 }
 
 .show-list-item:nth-child(odd){
-  color: white;
-  background-color: rgba(255, 66, 15, 0.75)
+  color: #ff420f;
+  background-color: #fac5b5;
+  /* background-color: rgba(255, 66, 15, 0.75) */
+
 }
 
 .lgi-header{
   border-top: none;
+}
+
+.alert-item{
+  margin: 0;
+  padding: 0;
+  margin-bottom: -5;
+}
+
+.loading-image{
+  color: white;
+  background: url('./Images/bts-future-selves-background-image.png');
+  background-position: top;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
+  width: 100vw;
 }

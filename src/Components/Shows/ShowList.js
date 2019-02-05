@@ -8,7 +8,7 @@ const Shows = (props) => {
     <div className='Shows'>
       <div className='container'>
         <div className="list-group">
-          <div className="list-group-item">
+          <div className="list-group-item show-header">
             <div className="row">
               <div className="col-md-3">Date</div>
               <div className="col-md-3">Event</div>
