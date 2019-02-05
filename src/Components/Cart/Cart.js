@@ -60,7 +60,7 @@ const Cart = (props) => {
                       </div>
                     </div>
                     <div className="form-row">
-                      <div className="col-md-6 mb-3">
+                      <div className="col-md-8 mb-3">
                         <label htmlFor="email">Email</label>
                         <input
                           onChange={props.updatePurchaseField}
