@@ -64,9 +64,9 @@ class App extends Component {
 
 
   async componentDidMount() {
-    const response = await fetch('https://something-innocuous.herokuapp.com/events')
-    const shows = await response.json()
-    this.setState({ shows })
+    // const response = await fetch('https://something-innocuous.herokuapp.com/events')
+    // const shows = await response.json()
+    // this.setState({ shows })
 
     const pickups = await fetch('https://something-innocuous.herokuapp.com/pickup_locations')
     const pickupLocations = await pickups.json()
