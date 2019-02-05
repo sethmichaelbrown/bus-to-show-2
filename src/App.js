@@ -284,7 +284,8 @@ class App extends Component {
         'Content-Type': 'application/json'
       }
     })
-    this.setState({purchaseSuccessful:true})
+
+    this.setState({purchaseSuccessful:true, purchasePending:false})
   }
 
   updatePurchaseField = (event) => {
