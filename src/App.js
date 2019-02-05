@@ -21,6 +21,7 @@ import DetailCartView from './Components/DetailCartView'
 class App extends Component {
 
   state = {
+    purchaseSuccessful:false,
     displayShow: null,
     displaySuccess: false,
     displayWarning: false,
@@ -250,7 +251,7 @@ class App extends Component {
         'Content-Type': 'application/json'
       }
     })
-    .then()
+    this.setState({purchaseSuccessful:true})
   }
 
   updatePurchaseField = (event) => {
@@ -424,6 +425,7 @@ class App extends Component {
                 <div className='col-md-6 float-left'>
                   {this.state.displayCart || this.state.displayShow ?
                     <DetailCartView
+                      purchaseSuccessful={this.state.purchaseSuccessful}
                       addToCart={this.addToCart}
                       checked={this.state.checked}
                       displayAddBtn={this.state.displayAddBtn}

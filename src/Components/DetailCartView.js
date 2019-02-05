@@ -72,6 +72,7 @@ const DetailCartView = (props) => {
               validatedElements={props.validatedElements}
               validated={props.validated}
               purchase={props.purchase}
+              purchaseSuccessful={props.purchaseSuccessful}
             /> :
             <div className="nothing-in-cart">
               <div className="list-group">

@@ -127,7 +127,7 @@ const Cart = (props) => {
 
 
                     <div className='form-row'>
-                      
+
                       <Checkout
                         validated={props.validated}
                         purchase={props.purchase}
@@ -149,6 +149,7 @@ const Cart = (props) => {
             </div> : ''}
         </div>
       </React.Fragment>
+    {props.purchaseSuccessful?<div className="alert alert-success" role="alert"> Thank you for your purchase! </div> : <div> </div>}
 
     </div>
   )
