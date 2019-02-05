@@ -21,6 +21,7 @@ import DetailCartView from './Components/DetailCartView'
 class App extends Component {
 
   state = {
+    purchasePending:false,
     purchaseSuccessful:false,
     displayShow: null,
     displaySuccess: false,
@@ -390,7 +391,6 @@ class App extends Component {
     // let newState=this.state.shows.map(show=> show.headliner.split(" ").join(""))
     console.log("NEWSTATE", newState)
     this.setState({ shows: newState })
-    console.log(this.state.shows)
   }
 
 
@@ -406,6 +406,10 @@ class App extends Component {
     this.setState({ shows: newState })
   }
 
+  makePurchase=()=>{
+    this.setState({purchasePending:true})
+
+  }
 
 
 
@@ -439,6 +443,8 @@ class App extends Component {
                 <div className='col-md-6 float-left'>
                   {this.state.displayCart || this.state.displayShow ?
                     <DetailCartView
+                      makePurchase={this.makePurchase}
+                      purchasePending={this.state.purchasePending}
                       purchaseSuccessful={this.state.purchaseSuccessful}
                       addToCart={this.addToCart}
                       checked={this.state.checked}
