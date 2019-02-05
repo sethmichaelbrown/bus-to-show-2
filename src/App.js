@@ -80,11 +80,13 @@ class App extends Component {
     const pickups = await fetch('https://something-innocuous.herokuapp.com/pickup_locations')
     const pickupLocations = await pickups.json()
 
-    // const filteredPickupLocations=pickupLocations.filter(location=>eventsListIds.includes(location.id))
+    const filteredPickupLocations=pickupLocations.filter(location=>eventsListIds.includes(location.id))
     this.setState({ pickupLocations:filteredPickupLocations })
     // console.log('State', this.state)
 
     this.setState({ pickupLocations })
+
+  }
 
   selectPickupLocationId = async (event) => {
     const newState = { ...this.state }
@@ -248,6 +250,7 @@ class App extends Component {
         'Content-Type': 'application/json'
       }
     })
+    .then()
   }
 
   updatePurchaseField = (event) => {
