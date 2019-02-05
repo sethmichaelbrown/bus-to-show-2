@@ -153,3 +153,11 @@
 .no-info-logo{
   opacity: 0.5;
 }
+
+.sort-btn{
+  border: none;
+}
+
+.sort-btn:hover{
+  color: #ff420f;
+}
