@@ -68,8 +68,7 @@ class App extends Component {
     this.setState({ shows })
     const pickups = await fetch('https://something-innocuous.herokuapp.com/pickup_locations')
     // const pickups = await fetch('http://localhost:3000/pickup_locations')
-    const pickupLocations = await pickups.json()
-    this.setState({ pickupLocations })
+    
     // console.log('State', this.state)
   }
 
@@ -354,7 +353,6 @@ class App extends Component {
                   loginClick={this.loginClick}
                   searchShows={this.searchShows}/>
                 <div className='content-section'>
-                  {this.state.displayStripe ? <StripeView /> : ''}
                   <div className='col-md-6 float-left'>
                     <ShowList
                       addBorder={this.addBorder}
