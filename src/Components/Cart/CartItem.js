@@ -20,7 +20,7 @@ const CartItem = (props) => {
             <div className="col-md-2 list-item-font" id={show.id}>{show.date}</div>
             <div className="form-group col-md-2">
               <form>
-                <input onChange={props.quantityChange}type="number" className="form-control" defaultValue={props.ticketQuantity}/>
+                <input disabled='disabled' onChange={props.quantityChange} type="number" className="form-control" defaultValue={props.ticketQuantity}/>
               </form>
                {/* <span>{`$${ticketCost}`}</span> */}
             </div>
