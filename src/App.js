@@ -17,7 +17,6 @@ import SponsorBox from './Components/SponsorBox'
 import DetailCartView from './Components/DetailCartView'
 
 
-
 class App extends Component {
 
   state = {
@@ -61,7 +60,6 @@ class App extends Component {
       discountCode: ''
     }
   }
-
 
   async componentDidMount() {
     const response = await fetch('https://something-innocuous.herokuapp.com/events')
@@ -154,6 +152,30 @@ class App extends Component {
     this.setState({ filterString: newState.filterString })
   }
 
+  sortByArtist = () => {
+    let newState = this.state.shows.sort((show1, show2) => {
+      let a = show1.headliner.toLowerCase().split(" ").join("")
+      let b = show2.headliner.toLowerCase().split(" ").join("")
+      if (a < b) {
+        return -1;
+      } else if (a > b) {
+        return 1;
+      } else {
+        return 0;
+      }
+    })
+    this.setState({ shows: newState })
+  }
+
+  sortByDate = () => {
+    let newState = this.state.shows.sort((show1, show2) => {
+      let a = new Date(show1.date)
+      let b = new Date(show2.date)
+      return a - b
+    })
+    this.setState({ shows: newState })
+  }
+
   // Tab Functions
   tabClicked = (event) => {
     const newState = { ...this.state }
@@ -187,7 +209,7 @@ class App extends Component {
 
   addToCart = async () => {
     const newState = { ...this.state }
-    
+
     let timer = new Timer()
     timer.on('tick', (ms) => {
       // this.setState({ timeLeftInCart: this.state.timeLeftInCart - ms })
@@ -242,7 +264,6 @@ class App extends Component {
         'Content-Type': 'application/json'
       }
     }), 600000)
-
   }
 
   // Cart Functions
@@ -365,35 +386,6 @@ class App extends Component {
       newState.displayBorder = false
       this.setState(newState)
     }, 500)
-  }
-
-
-  sortByArtist = () => {
-    console.log("sorted by artist")
-    console.log(this.state.shows)
-    let newState = this.state.shows.sort((show1, show2) => {
-      let a = show1.headliner.toLowerCase().split(" ").join("")
-      let b = show2.headliner.toLowerCase().split(" ").join("")
-      if (a < b) {
-        return -1;
-      } else if (a > b) {
-        return 1;
-      } else {
-        return 0;
-      }
-    })
-    this.setState({ shows: newState })
-  }
-
-  sortByDate = () => {
-    console.log(this.state.shows)
-    let newState = this.state.shows.sort((show1, show2) => {
-      let a = new Date(show1.date)
-      let b = new Date(show2.date)
-      return a - b
-
-    })
-    this.setState({ shows: newState })
   }
 
 
