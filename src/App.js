@@ -33,6 +33,7 @@ class App extends Component {
     artistDescription: null,
     displayBorder: false,
     pickupLocationId: null,
+    timeLeftInCart: 0,
     ticketQuantity: null,
     displayAddBtn: false,
     displayQuantity: false,
@@ -203,6 +204,7 @@ class App extends Component {
         'Content-Type': 'application/json'
       }
     })
+   
 
     setTimeout(fetch('http://localhost:3000/pickup_parties', {
       method: 'PATCH',
@@ -214,7 +216,7 @@ class App extends Component {
       headers: {
         'Content-Type': 'application/json'
       }
-    }), 4000)
+    }), 600000)
 
   }
 
@@ -338,7 +340,6 @@ class App extends Component {
       this.setState(newState)
     }, 1500)
   }
-
 
   render() {
     return (
