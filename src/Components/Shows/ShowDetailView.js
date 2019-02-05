@@ -1,6 +1,7 @@
 import React from 'react'
 import '../../App.css';
 import logo from '../../Images/Logos/bts-logo-gray.png'
+import DiscountCode from '../DiscountCode'
 
 const ShowDetailView = (props) => {
   // console.log("ShowDetailView",props)
@@ -64,7 +65,7 @@ const ShowDetailView = (props) => {
                 </div>
               </div>
               <div>
-              //  <DiscountCode />
+//                <DiscountCode />
               </div>
               <div className="row col-md-10">
                 <span>Departure Location</span>
