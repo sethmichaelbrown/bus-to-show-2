@@ -1,7 +1,8 @@
 // Packages
 import React, { Component } from 'react';
-import { BrowserRouter, Route } from "react-router-dom"
-import Validator from 'validator'
+import { BrowserRouter, Route } from "react-router-dom";
+import Validator from 'validator';
+import MediaQuery from 'react-responsive';
 
 // Styling
 import './App.css';
@@ -333,12 +334,14 @@ class App extends Component {
                 <div className='content-section'>
                   {this.state.displayStripe ? <StripeView /> : ''}
                   <div className='col-md-6 float-left'>
+                  <MediaQuery query="(min-device-width: 1250px)">
                     <ShowList
                       addBorder={this.addBorder}
                       displayShow={this.state.displayShow}
                       filterString={this.state.filterString}
                       shows={this.state.shows}
                       showsExpandClick={this.showsExpandClick} />
+                  </MediaQuery>
                   </div>
                 </div>
 
