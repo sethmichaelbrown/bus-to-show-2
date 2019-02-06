@@ -4,7 +4,11 @@ import moment from 'moment'
 
 const Shows = (props) => {
   const filterString = props.filterString.toLowerCase()
-  const filterShows = props.shows.filter(show => show.headliner.toLowerCase().includes(filterString))
+  let filterShows = props.shows.filter(show => show.headliner.toLowerCase().includes(filterString))
+  
+  if(filterShows.length === 0){
+    filterShows = props.shows.filter(show => show.venue.toLowerCase().includes(filterString))
+  }
 
   return (
     <div className='Shows'>
@@ -31,7 +35,7 @@ const Shows = (props) => {
           </div>
           <div className="row">
             <div className="col-md-12 col-xs-12">
-              <button type="button" className="btn btn-outline-primary mt-2">Add that show</button>
+              <button type="button" disabled='disabled' className="btn btn-outline-primary mt-2">Add that show feature coming soon!</button>
             </div>
           </div>
 
