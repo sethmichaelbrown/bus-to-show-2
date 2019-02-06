@@ -73,7 +73,6 @@ class App extends Component {
     const response = await fetch('https://something-innocuous.herokuapp.com/events')
     // const response = await fetch('http://localhost:3000/events')
     const shows = await response.json()
-    const eventsListIds = shows.map(show => show.id)
     this.setState({ shows })
 
     const pickups = await fetch('https://something-innocuous.herokuapp.com/pickup_locations')
