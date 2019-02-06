@@ -12,14 +12,18 @@ const Shows = (props) => {
         <div className="list-group">
           <div className="list-group-item show-header">
 
-            <div className="row">
-              <div style={{ textAlign: "center" }} className="col-md-3 mb-3" onClick={props.sortByDate}>
-                <button type="button" className="btn btn-outline-light sort-btn"><strong>Date</strong></button>
-                <i className={props.sortedByDate ? "fa fa-spinner fa-spin" : ''}></i>
+              <div className="row">
+              <div style={{textAlign:"center"}} className="col-md-3" onClick={props.sortByDate}>
+              <button type="button" className="btn btn-outline-light sort-btn"><strong>Date  </strong>
+              <i className={ props.sortedByDate? "fa fa-sort-down": ""}></i>
+              </button>
+
               </div>
-              <div style={{ textAlign: "center" }} className="col-md-3 mb-3" onClick={props.sortByArtist}>
-                <button type="button" className="btn btn-outline-light sort-btn"><strong>Event</strong></button>
-                <i className={props.sortedByArtist ? "fa fa-spinner fa-spin" : ''}></i>
+              <div style={{textAlign:"center"}} className="col-md-3" onClick={props.sortByArtist}>
+              <button type="button" className="btn btn-outline-light sort-btn"><strong>Event  </strong>
+              <i className={props.sortedByArtist? "fa fa-sort-down": ""}></i>
+              </button>
+
               </div>
               <div className="col-md-5 mb-3 ml-1">
                 <form className="form-inline ml-3 my-4 my-lg-0">
