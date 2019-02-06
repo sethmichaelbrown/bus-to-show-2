@@ -33,7 +33,7 @@ const DetailCartView = (props) => {
           <a onClick={props.tabClicked} className="nav-link" id="showList-tab" data-toggle="tab" href="#showlist" role="tab" aria-controls="showlist" aria-selected="false">Shows</a>
         </li>
         {/* <li>
-          For Tiny Timer 
+          For Tiny Timer
           {props.inCart.length > 0 ?
           <button type="button" disabled='disabled' className="btn btn-dark">{displayTime}</button> : ''}
         </li> */}
@@ -74,6 +74,7 @@ const DetailCartView = (props) => {
         <div className="tab-pane fade" id="cart" data-toggle="tab" role="tabpanel" aria-labelledby="cart-tab">
           {props.inCart.length > 0 ?
             <Cart
+              shows={props.shows}
               makePurchase={props.makePurchase}
               purchasePending={props.purchasePending}
               checked={props.checked}

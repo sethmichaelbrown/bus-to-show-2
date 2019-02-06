@@ -423,6 +423,7 @@ class App extends Component {
                     <BannerRotator />
                       {this.state.displayCart || this.state.displayShow ?
                         (<DetailCartView
+                          shows={this.state.shows}
                           makePurchase={this.makePurchase}
                           purchasePending={this.state.purchasePending}
                           purchaseSuccessful={this.state.purchaseSuccessful}
@@ -464,6 +465,7 @@ class App extends Component {
                     <MediaQuery maxWidth={767}>
                       {this.state.displayCart || this.state.displayShow ?
                         <DetailCartView
+                          shows={this.state.shows}
                           addToCart={this.addToCart}
                           addBorder={this.addBorder}
                           checked={this.state.checked}
