@@ -23,8 +23,8 @@ import DetailCartView from './Components/DetailCartView'
 class App extends Component {
 
   state = {
-    sortedByDate:true,
-    sortedByAuthor:false,
+    dateIcon:true,
+    artistIcon:false,
     purchasePending:false,
     purchaseSuccessful:false,
     artistDescription: null,
@@ -159,29 +159,29 @@ class App extends Component {
     this.setState({ filterString: newState.filterString })
   }
 
-  sortByArtist = () => {
-    let newState = this.state.shows.sort((show1, show2) => {
-      let a = show1.headliner.toLowerCase().split(" ").join("")
-      let b = show2.headliner.toLowerCase().split(" ").join("")
-      if (a < b) {
-        return -1;
-      } else if (a > b) {
-        return 1;
-      } else {
-        return 0;
-      }
-    })
-    this.setState({ shows: newState })
-  }
-
-  sortByDate = () => {
-    let newState = this.state.shows.sort((show1, show2) => {
-      let a = new Date(show1.date)
-      let b = new Date(show2.date)
-      return a - b
-    })
-    this.setState({ shows: newState })
-  }
+  // sortByArtist = () => {
+  //   let newState = this.state.shows.sort((show1, show2) => {
+  //     let a = show1.headliner.toLowerCase().split(" ").join("")
+  //     let b = show2.headliner.toLowerCase().split(" ").join("")
+  //     if (a < b) {
+  //       return -1;
+  //     } else if (a > b) {
+  //       return 1;
+  //     } else {
+  //       return 0;
+  //     }
+  //   })
+  //   this.setState({ shows: newState })
+  // }
+  //
+  // sortByDate = () => {
+  //   let newState = this.state.shows.sort((show1, show2) => {
+  //     let a = new Date(show1.date)
+  //     let b = new Date(show2.date)
+  //     return a - b
+  //   })
+  //   this.setState({ shows: newState })
+  // }
 
   // Tab Functions
   tabClicked = (event) => {
@@ -415,7 +415,7 @@ class App extends Component {
         return 0;
       }
     })
-    this.setState({ shows: newState, sortedByAuthor:true, sortedByDate:false  })
+    this.setState({ shows: newState, artistIcon:true, dateIcon:false  })
   }
 
 
@@ -426,7 +426,7 @@ class App extends Component {
       return a - b
 
     })
-    this.setState({ shows: newState, , sortedByAuthor:false, sortedByDate:true })
+    this.setState({ shows: newState, artistIcon:false, dateIcon:true })
   }
 
   makePurchase = () => {
@@ -526,6 +526,8 @@ class App extends Component {
                           validatedElements={this.state.validatedElements} />
                         :
                         <ShowList
+                          sortedByDate={this.state.dateIcon}
+                          sortedByArtist={this.state.artistIcon}
                           sortByDate={this.sortByDate}
                           sortByArtist={this.sortByArtist}
                           addBorder={this.addBorder}
@@ -539,6 +541,8 @@ class App extends Component {
                   <div className='col-md-6 float-left'>
                     <MediaQuery minWidth={768}>
                       <ShowList
+                        sortedByDate={this.state.dateIcon}
+                        sortedByArtist={this.state.artistIcon}
                         sortByDate={this.sortByDate}
                         sortByArtist={this.sortByArtist}
                         addBorder={this.addBorder}
