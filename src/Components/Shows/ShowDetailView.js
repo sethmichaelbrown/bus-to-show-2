@@ -117,6 +117,13 @@ const ShowDetailView = (props) => {
 
                       </div>
                       </form>
+                  <div className="row justify-content-right">
+                  <div className="col-md-3"></div>
+                  <div className="col-md-9">
+                  ${props.pickupLocations.map(location=>location.basePrice.toFixed())[0]}.00 per ticket
+                  + ${((props.pickupLocations.map(location=>location.basePrice.toFixed())[0])*0.1).toFixed(2)}  10% processing fee
+                  </div>
+                  </div>
 
                   </React.Fragment> : ''}
               </div>

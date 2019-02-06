@@ -222,13 +222,7 @@ class App extends Component {
     else {
       newState.displayWarning = true
     }
-<<<<<<< HEAD
 
-
-
-=======
-    
->>>>>>> 3fd73c589337f053d911e02b488cf6e4d2f601ec
     this.setState(newState)
 
     fetch('https://something-innocuous.herokuapp.com/pickup_parties', {

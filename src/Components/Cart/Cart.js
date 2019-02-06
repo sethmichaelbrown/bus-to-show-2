@@ -32,6 +32,7 @@ const Cart = (props) => {
           </MediaQuery>
           <ul className="list-group">
             <CartItem
+              totalCost={Number(props.totalCost).toFixed(2)}
               pickupLocations={props.pickupLocations}
               quantityChange={props.quantityChange}
               removeFromCart={props.removeFromCart}
