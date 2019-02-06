@@ -6,8 +6,6 @@ const Shows = (props) => {
   const filterString = props.filterString.toLowerCase()
   const filterShows = props.shows.filter(show => show.headliner.toLowerCase().includes(filterString))
 
-  
-
   return (
     <div className='Shows'>
       {filterShows.length > 0 ? filterShows.map(show =>
