@@ -158,30 +158,6 @@ class App extends Component {
     this.setState({ filterString: newState.filterString })
   }
 
-  // sortByArtist = () => {
-  //   let newState = this.state.shows.sort((show1, show2) => {
-  //     let a = show1.headliner.toLowerCase().split(" ").join("")
-  //     let b = show2.headliner.toLowerCase().split(" ").join("")
-  //     if (a < b) {
-  //       return -1;
-  //     } else if (a > b) {
-  //       return 1;
-  //     } else {
-  //       return 0;
-  //     }
-  //   })
-  //   this.setState({ shows: newState })
-  // }
-  //
-  // sortByDate = () => {
-  //   let newState = this.state.shows.sort((show1, show2) => {
-  //     let a = new Date(show1.date)
-  //     let b = new Date(show2.date)
-  //     return a - b
-  //   })
-  //   this.setState({ shows: newState })
-  // }
-
   // Tab Functions
   tabClicked = (event) => {
     const newState = { ...this.state }
@@ -487,6 +463,7 @@ class App extends Component {
                         <SponsorBox />}
                     </MediaQuery>
                     <MediaQuery maxWidth={767}>
+                      <BannerRotator />
                       {this.state.displayCart || this.state.displayShow ?
                         <DetailCartView
                           addToCart={this.addToCart}
@@ -522,6 +499,7 @@ class App extends Component {
                           validated={this.state.validated}
                           validatedElements={this.state.validatedElements} />
                         :
+
                         <ShowList
                           sortedByDate={this.state.dateIcon}
                           sortedByArtist={this.state.artistIcon}
