@@ -1,8 +1,4 @@
 /* Shows Styling */
-.highlightOnHover:hover {
-  background: rgba(248, 249, 250, .75);
-}
-
 .list-group {
   max-height: 90vh;
   overflow: scroll;
@@ -30,7 +26,7 @@
   padding: 1.5%;
   border-radius: 5px;
   border: solid;
-  border-color: white;
+  border-color: #ffffff;
   border-width: 1px;
 }
 
@@ -49,7 +45,7 @@
   opacity: 1;
   border-radius: 5px;
   border: solid;
-  border-color: white;
+  border-color: #ffffff;
   border-width: 1px;
 }
 
@@ -111,7 +107,7 @@
 
 .show-header {
   background-color: #ff420f;
-  color: white;
+  color: #ffffff;
 }
 
 .show-list-item {
@@ -137,7 +133,7 @@
 }
 
 .loading-image {
-  color: white;
+  color: #ffffff;
   background: url('./Images/bts-future-selves-background-image.png');
   background-position: top;
   background-size: cover;
@@ -174,11 +170,11 @@
 
 .bts-orange-bg {
   background-color: #ff420f;
-  color: white;
+  color: #ffffff;
 }
 
-.bts-white-bg {
-  background-color: white;
+.bts-#ffffff-bg {
+  background-color: #ffffff;
   color: #ff420f;
 }
 
@@ -188,4 +184,15 @@
 
 .form-control-sm {
   width: 200px;
+}
+
+.details-btn{
+  background: #ffffff;
+  border-color: #ff420f;
+  color:#ff420f
+}
+
+.details-btn:hover{
+  background-color: #ff420f;
+  color: #ffffff;
 }
