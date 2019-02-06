@@ -73,11 +73,11 @@ const ShowDetailView = (props) => {
                 </div>
               </div>
               <div className="row col-md-7 offset-md-2 justify-content-center">
-                <div style={{textAlign: "center"}}>Departure Location</div>
-                <form className="was-validated">
+                <div  style={{textAlign: "center"}}>Departure Location</div>
+                <form  className="was-validated">
                   <div className="form-group">
-                    <select className="custom-select mt-2" onChange={props.selectPickupLocationId} required>
-                      <option value="">Select a Departure Location...</option>
+                    <select  id="departureLocation" className="custom-select mt-2" onChange={props.selectPickupLocationId} required>
+                      <option value="Select a Departure Location..." >Select a Departure Location...</option>
                       {props.pickupLocations ?
                         props.pickupLocations.map(location => {
                           return (

@@ -22,13 +22,10 @@ import BannerRotator from './Components/BannerRotator'
 //////***** Stripe_Checkout.js: LINES 6/7
 
 class App extends Component {
-
+  // Please keep sorted alphabetically so we don't duplicate keys :) Thanks!
   state = {
-    dateIcon:true,
-    artistIcon:false,
-    purchasePending:false,
-    purchaseSuccessful:false,
     artistDescription: null,
+    artistIcon: false,
     cartToSend: {
       eventId: null,
       pickupLocationId: null,
@@ -42,6 +39,7 @@ class App extends Component {
       discountCode: ''
     },
     checked: false,
+    dateIcon: true,
     displayAddBtn: false,
     displayBorder: false,
     displayCart: false,
@@ -182,12 +180,15 @@ class App extends Component {
   // Show Functions
   showsExpandClick = async (event) => {
     const newState = { ...this.state }
+    newState.displayQuantity = false
     const clickedShow = newState.shows.find(show => (parseInt(show.id) === parseInt(event.target.id)))
     newState.displayDetailCartView = true
     newState.displaySuccess = false
     newState.displayShow = clickedShow
-
     this.setState(newState)
+    if(document.querySelector('#departureLocation')){
+      document.querySelector('#departureLocation').value = "Select a Departure Location..."
+    }
   }
 
   returnToShows = () => {
@@ -199,13 +200,6 @@ class App extends Component {
 
   addToCart = async () => {
     const newState = { ...this.state }
-
-    // // For Tiny-Timer
-    // if (newState.inCart) {
-    //   let timer = new Timer([{ interval: 1000, stopwatch: false }])
-    //   timer.on('tick', (ms) => this.setState({ timeLeftInCart: ms }))
-    //   timer.start(600000, 1000)
-    // }
 
     const pickupLocation = newState.pickupLocations.filter(location => parseInt(location.id) === parseInt(this.state.pickupLocationId))[0]
     const basePrice = Number(pickupLocation.basePrice)
@@ -226,7 +220,7 @@ class App extends Component {
     this.setState(newState)
 
     fetch('https://something-innocuous.herokuapp.com/pickup_parties', {
-    // fetch('http://localhost:3000/pickup_parties', {
+      // fetch('http://localhost:3000/pickup_parties', {
       method: 'PATCH',
       body: JSON.stringify({
         pickupLocationId: this.state.pickupLocationId,
@@ -262,7 +256,7 @@ class App extends Component {
   purchase = async () => {
     const cartObj = this.state.cartToSend
     fetch('https://something-innocuous.herokuapp.com/orders', {
-    // fetch('http://localhost:3000/orders', {
+      // fetch('http://localhost:3000/orders', {
       method: 'POST',
       body: JSON.stringify(cartObj),
       headers: {
@@ -281,13 +275,13 @@ class App extends Component {
     let discountCode = ''
 
     // Checks fields via npm package validator
-    if (updateField === 'email' && Validator.isEmail(value)) {
+    if (updateField === 'email' && Validator.isEmail(value) && !Validator.isEmpty(value)) {
       vE.email = value
     }
-    else if (updateField === 'firstName' && Validator.isAlpha(value)) {
+    else if (updateField === 'firstName' && Validator.isAlpha(value) && !Validator.isEmpty(value)) {
       vE.fName = value
     }
-    else if (updateField === 'lastName' && Validator.isAlpha(value)) {
+    else if (updateField === 'lastName' && Validator.isAlpha(value) && !Validator.isEmpty(value)) {
       vE.lName = value
     }
     else if (updateField === 'willCallFirstName' && Validator.isAlpha(value)) {
@@ -311,7 +305,7 @@ class App extends Component {
       && this.state.validatedElements.email) {
 
       const cTS = newState.cartToSend
-      newState.validated = true
+      // newState.validated = true
 
       cTS.firstName = this.state.validatedElements.fName
       cTS.lastName = this.state.validatedElements.lName
@@ -388,7 +382,7 @@ class App extends Component {
         return 0;
       }
     })
-    this.setState({ shows: newState, artistIcon:true, dateIcon:false  })
+    this.setState({ shows: newState, artistIcon: true, dateIcon: false })
   }
 
   sortByDate = () => {
@@ -398,7 +392,7 @@ class App extends Component {
       return a - b
 
     })
-    this.setState({ shows: newState, artistIcon:false, dateIcon:true })
+    this.setState({ shows: newState, artistIcon: false, dateIcon: true })
   }
 
   makePurchase = () => {
@@ -415,12 +409,11 @@ class App extends Component {
             this.state.shows ?
               <React.Fragment>
                 <Header
-                  loginClick={this.loginClick}
-                  searchShows={this.searchShows} />
+                  loginClick={this.loginClick} />
                 <div className='content-section pt-4'>
                   <div className='col-md-6 float-right' >
                     <MediaQuery minWidth={768}>
-                    <BannerRotator />
+                      <BannerRotator />
                       {this.state.displayCart || this.state.displayShow ?
                         (<DetailCartView
                           shows={this.state.shows}
@@ -440,6 +433,7 @@ class App extends Component {
                           handleSubmit={this.handleSubmit}
                           inCart={this.state.inCart}
                           pickupLocations={this.state.pickupLocations}
+                          pickupLocationId={this.state.pickupLocationId}
                           purchase={this.purchase}
                           purchaseClick={this.purchaseClick}
                           quantityChange={this.quantityChange}
@@ -463,6 +457,7 @@ class App extends Component {
                         <SponsorBox />}
                     </MediaQuery>
                     <MediaQuery maxWidth={767}>
+                      <BannerRotator />
                       {this.state.displayCart || this.state.displayShow ?
                         <DetailCartView
                           shows={this.state.shows}
@@ -480,6 +475,7 @@ class App extends Component {
                           handleSubmit={this.handleSubmit}
                           inCart={this.state.inCart}
                           pickupLocations={this.state.pickupLocations}
+                          pickupLocationId={this.state.pickupLocationId}
                           purchase={this.purchase}
                           purchaseClick={this.purchaseClick}
                           quantityChange={this.quantityChange}
@@ -499,31 +495,34 @@ class App extends Component {
                           validated={this.state.validated}
                           validatedElements={this.state.validatedElements} />
                         :
+
                         <ShowList
-                          sortedByDate={this.state.dateIcon}
-                          sortedByArtist={this.state.artistIcon}
-                          sortByDate={this.sortByDate}
-                          sortByArtist={this.sortByArtist}
                           addBorder={this.addBorder}
                           displayShow={this.state.displayShow}
                           filterString={this.state.filterString}
+                          searchShows={this.searchShows}
                           shows={this.state.shows}
                           showsExpandClick={this.showsExpandClick}
+                          sortByArtist={this.sortByArtist}
+                          sortByDate={this.sortByDate}
+                          sortedByArtist={this.state.artistIcon}
+                          sortedByDate={this.state.dateIcon}
                           ticketsAvailable={this.state.ticketsAvailable} />}
                     </MediaQuery>
                   </div>
                   <div className='col-md-6 float-left'>
                     <MediaQuery minWidth={768}>
                       <ShowList
-                        sortedByDate={this.state.dateIcon}
-                        sortedByArtist={this.state.artistIcon}
-                        sortByDate={this.sortByDate}
-                        sortByArtist={this.sortByArtist}
                         addBorder={this.addBorder}
                         displayShow={this.state.displayShow}
                         filterString={this.state.filterString}
+                        searchShows={this.searchShows}
                         shows={this.state.shows}
                         showsExpandClick={this.showsExpandClick}
+                        sortByArtist={this.sortByArtist}
+                        sortByDate={this.sortByDate}
+                        sortedByArtist={this.state.artistIcon}
+                        sortedByDate={this.state.dateIcon}
                         ticketsAvailable={this.state.ticketsAvailable} />
                     </MediaQuery>
                   </div>

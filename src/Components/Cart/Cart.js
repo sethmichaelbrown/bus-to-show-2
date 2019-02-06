@@ -47,14 +47,14 @@ const Cart = (props) => {
               <div className="row">
                 <div className="col-md-12">
 
-                  <form className="needs-validation" onSubmit={props.handleSubmit} noValidate>
+                  <form className="needs-validation" onSubmit={props.handleSubmit}>
                     <div className="form-row">
                       <div className="col-md-4 mb-3">
                         <label htmlFor="firstName">First Name</label>
                         <input
                           onChange={props.updatePurchaseField}
                           type="text"
-                          className={`form-control ${props.validatedElements.fName ? 'is-valid' : 'is-invalid'}`}
+                          className={`form-control ${props.validatedElements.fName ? 'is-valid' : ''}`}
                           id="firstName"
                           placeholder="First Name"
                           required />
@@ -64,7 +64,7 @@ const Cart = (props) => {
                         <input
                           onChange={props.updatePurchaseField}
                           type="text"
-                          className={`form-control ${props.validatedElements.lName ? 'is-valid' : 'is-invalid'}`}
+                          className={`form-control ${props.validatedElements.lName ? 'is-valid' : ''}`}
                           id="lastName"
                           placeholder="Last Name"
                           required />
@@ -76,7 +76,7 @@ const Cart = (props) => {
                         <input
                           onChange={props.updatePurchaseField}
                           type="email"
-                          className={`form-control ${props.validatedElements.email ? 'is-valid' : 'is-invalid'}`}
+                          className={`form-control ${props.validatedElements.email ? 'is-valid' : ''}`}
                           id="email"
                           placeholder="Email address"
                           required />
@@ -127,7 +127,7 @@ const Cart = (props) => {
                           placeholder="Discount Code" />
                       </div>
                       <div className="col-md-4 mb-3">
-                        <button type="button" onClick={props.findDiscountCode} class="btn btn-outline-secondary">Apply</button>
+                        <button type="button" onClick={props.findDiscountCode} className="btn btn-outline-secondary">Apply</button>
                       </div>
                     </div>
 

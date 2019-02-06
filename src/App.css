@@ -168,10 +168,14 @@
 }
 
 .bts-white-bg{
-  background-color: #white;
+  background-color: white;
   color: #ff420f;
 }
 
 .search-height{
   height: 25px;
+}
+
+.form-control-sm{
+  width: 200px;
 }

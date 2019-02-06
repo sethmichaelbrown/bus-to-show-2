@@ -4,13 +4,13 @@ import Show from './Show'
 import MediaQuery from 'react-responsive';
 
 const Shows = (props) => {
+  // console.log(props)
 
   return (
     <div className='Shows'>
       <div className='container'>
         <div className="list-group">
           <div className="list-group-item show-header">
-            <MediaQuery minWidth={500}>
 
               <div className="row">
               <div style={{textAlign:"center"}} className="col-md-3" onClick={props.sortByDate}>
@@ -25,53 +25,43 @@ const Shows = (props) => {
               </button>
 
               </div>
-              <div className="col-md-3"></div>
-              <div className="col-md-3"></div>
+              <div className="col-md-5 mb-3 ml-1">
+                <form className="form-inline ml-3 my-4 my-lg-0">
+                  <input onKeyUp={props.searchShows} className="form-control mr-sm-2" type="search" placeholder="Search Events or Venues..." aria-label="Search"></input>
+                </form>
               </div>
 
+            </div>
 
+            <ul className="list-group">
 
-
-
-            </MediaQuery>
-            <MediaQuery maxWidth={500}>
-            <div className="row text-center">
-              <div className="col-md-4 ">Date </div>
-
-              <div className="col-md-8">Event</div>
-
-              </div>
-            </MediaQuery>
-          </div>
-
-          <ul className="list-group">
-
-            {props.shows ?
-              <div>
-              <MediaQuery minWidth={768}>
-              <Show
-                addBorder={props.addBorder}
-                displayShow={props.displayShow}
-                filterString={props.filterString}
-                shows={props.shows}
-                showsExpandClick={props.showsExpandClick} />
-              </MediaQuery>
-              <MediaQuery maxWidth={768}>
-              <div className="row text-center">
-                <div className="col-md-12">
-                <Show
-                  addBorder={props.addBorder}
-                  displayShow={props.displayShow}
-                  filterString={props.filterString}
-                  shows={props.shows}
-                  showsExpandClick={props.showsExpandClick} />
+              {props.shows ?
+                <div>
+                  <MediaQuery minWidth={768}>
+                    <Show
+                      addBorder={props.addBorder}
+                      displayShow={props.displayShow}
+                      filterString={props.filterString}
+                      shows={props.shows}
+                      showsExpandClick={props.showsExpandClick} />
+                  </MediaQuery>
+                  <MediaQuery maxWidth={768}>
+                    <div className="row text-center">
+                      <div className="col-md-12">
+                        <Show
+                          addBorder={props.addBorder}
+                          displayShow={props.displayShow}
+                          filterString={props.filterString}
+                          shows={props.shows}
+                          showsExpandClick={props.showsExpandClick} />
+                      </div>
+                    </div>
+                  </MediaQuery>
                 </div>
-              </div>
-              </MediaQuery>
-              </div>
                 : ''}
-          </ul>
+            </ul>
 
+          </div>
         </div>
       </div>
     </div>

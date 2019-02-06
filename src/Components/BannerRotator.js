@@ -7,7 +7,7 @@ const BannerRotator = (props) => {
 
   return (
     <div className='banner px-2 mr-2 mb-4'>
-      <img src={banner} class="img-fluid" alt="bus to show red rocks planning is time travel" />
+      <img src={banner} className="img-fluid" alt="bus to show red rocks planning is time travel" />
     </div>
 
 
