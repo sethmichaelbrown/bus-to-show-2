@@ -8,6 +8,7 @@
     "moment": "^2.24.0",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
+    "react-facebook-login": "^4.1.1",
     "react-native-elements": "^1.0.0",
     "react-responsive": "^6.1.1",
     "react-router-dom": "^4.3.1",
