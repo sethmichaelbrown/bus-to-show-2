@@ -73,15 +73,8 @@ class App extends Component {
     const response = await fetch('https://something-innocuous.herokuapp.com/events')
     // const response = await fetch('http://localhost:3000/events')
     const shows = await response.json()
+    const eventsListIds = shows.map(show => show.id)
     this.setState({ shows })
-
-    const allEvents = await fetch('https://something-innocuous.herokuapp.com/events')
-    // const allEvents = await fetch('http://localhost:3000/events')
-    const eventsList = await allEvents.json()
-    const eventsListIds = []
-    for (let i = 0; i < eventsList.length; i++) {
-      eventsListIds.push(eventsList[i].id)
-    }
 
     const pickups = await fetch('https://something-innocuous.herokuapp.com/pickup_locations')
     // const pickups = await fetch('http://localhost:3000/pickup_locations')
