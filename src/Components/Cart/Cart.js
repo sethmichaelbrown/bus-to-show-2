@@ -45,7 +45,7 @@ const Cart = (props) => {
               <div className="row">
                 <div className="col-md-12">
 
-                  <form className="needs-validation" onSubmit={props.handleSubmit} noValidate>
+                  <form className="needs-validation" onSubmit={props.handleSubmit}>
                     <div className="form-row">
                       <div className="col-md-4 mb-3">
                         <label htmlFor="firstName">First Name</label>
