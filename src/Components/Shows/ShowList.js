@@ -15,13 +15,19 @@ const Shows = (props) => {
             <div className="row show-list-flex">
 
               <div className="col-3 mb-3" onClick={props.sortByDate}>
-                <button type="button" className="btn btn-outline-light sort-btn"><strong>Date</strong></button>
-                <i className={props.sortedByDate ? "fa fa-spinner fa-spin" : ''}></i>
+                <button type="button" className="btn btn-outline-light sort-btn">
+                <strong>Date  </strong>  
+                <i className={props.sortedByDate ? "fa fa-sort-down" : ''}></i>
+                </button>
+                
               </div>
 
               <div className="col-3 mb-3" onClick={props.sortByArtist}>
-                <button type="button" className="btn btn-outline-light sort-btn"><strong>Event</strong></button>
-                <i className={props.sortedByArtist ? "fa fa-spinner fa-spin" : ''}></i>
+                <button type="button" className="btn btn-outline-light sort-btn">
+                <strong>Event  </strong>  
+                <i className={props.sortedByArtist ? "fa fa-sort-down" : ''}></i>
+                </button>
+                
               </div>
 
               <div className="col-6 mb-3" >
