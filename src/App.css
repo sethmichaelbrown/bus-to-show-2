@@ -189,3 +189,30 @@
 .form-control-sm {
   width: 200px;
 }
+
+.inline-block {
+  display: -webkit-inline-box;
+}
+
+.round-img {
+  border-radius: 30px;
+}
+
+.nav-flex {
+  display: flex;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.show-list-flex {
+  display: flex;
+  justify-content: space-evenly;
+  height: 100%;
+}
+
+@media only screen and (min-width: 900px) {
+  .make-bigger{
+    align-self: flex-end;
+    margin-left: 9em;
+  }
+}
