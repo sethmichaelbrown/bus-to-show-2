@@ -11,10 +11,6 @@ const Shows = (props) => {
     filterShows = props.shows.filter(show => show.venue.toLowerCase().includes(filterString))
   }
 
-  const support2 = filterShows.filter(item => item.support2)
-
-  console.log('Support2', support2)
-
   return (
     <div className='Shows'>
       {filterShows.length > 0 ? filterShows.map(show =>
