@@ -26,8 +26,6 @@ class App extends Component {
   state = {
     dateIcon:true,
     artistIcon:false,
-    purchasePending:false,
-    purchaseSuccessful:false,
     artistDescription: null,
     cartToSend: {
       eventId: null,
