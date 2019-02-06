@@ -70,10 +70,19 @@ class App extends Component {
 
 
   async componentDidMount() {
-    // const response = await fetch('https://something-innocuous.herokuapp.com/events')
-    // // const response = await fetch('http://localhost:3000/events')
-    // const shows = await response.json()
-    // this.setState({ shows })
+    const response = await fetch('https://something-innocuous.herokuapp.com/events')
+    // const response = await fetch('http://localhost:3000/events')
+    const shows = await response.json()
+    this.setState({ shows: shows })
+
+    let newState = this.state.shows.sort((show1, show2) => {
+      let a = new Date(show1.date)
+      let b = new Date(show2.date)
+      return a - b
+    })
+
+    this.setState({ shows: newState })
+
 
     const pickups = await fetch('https://something-innocuous.herokuapp.com/pickup_locations')
     // const pickups = await fetch('http://localhost:3000/pickup_locations')
@@ -128,6 +137,27 @@ class App extends Component {
     newState.totalCost = total
     this.setState(newState)
   }
+
+  updateDiscountCode = (event) => {
+    console.log(event.target.value)
+    const newState = { ...this.State }
+    newState.discountCode = event.target.value
+    this.setState(newState)
+    console.log('discountCode set::: ', newState.discountCode)
+
+  }
+
+
+  findDiscountCode = async () => {
+    console.log("hey, how bout that?")
+    //console.log ('currentCode inside findDiscountCode:::', this.state.discountCode)
+    const response = await fetch(`http://localhost:3000/discount_codes/${this.state.discountCode}`)
+    const json = await response.json()
+    //const newState = { ...this.state }
+    //this.setState(newState)
+    console.log('findDiscountCode json:::: ', json)
+  }
+
 
   // Header Functions
   loginClick = () => {
@@ -424,11 +454,14 @@ class App extends Component {
                           returnToShows={this.returnToShows}
                           selectPickupLocationId={this.selectPickupLocationId}
                           selectTicketQuantity={this.selectTicketQuantity}
+                          shows={this.state.shows}
                           showsExpandClick={this.showsExpandClick}
                           showsInCart={this.state.inCart}
                           tabClicked={this.tabClicked}
                           ticketsAvailable={this.state.ticketsAvailable}
                           ticketQuantity={this.state.ticketQuantity}
+                          updateDiscountCode={this.updateDiscountCode}
+                          findDiscountCode={this.findDiscountCode}
                           timeLeftInCart={this.state.timeLeftInCart}
                           totalCost={this.state.totalCost}
                           updatePurchaseField={this.updatePurchaseField}
@@ -442,6 +475,7 @@ class App extends Component {
                       <BannerRotator />
                       {this.state.displayCart || this.state.displayShow ?
                         <DetailCartView
+                          shows={this.state.shows}
                           addToCart={this.addToCart}
                           addBorder={this.addBorder}
                           checked={this.state.checked}
@@ -470,6 +504,7 @@ class App extends Component {
                           tabClicked={this.tabClicked}
                           ticketsAvailable={this.state.ticketsAvailable}
                           ticketQuantity={this.state.ticketQuantity}
+                          findDiscountCode={this.findDiscountCode}
                           totalCost={this.state.totalCost}
                           updatePurchaseField={this.updatePurchaseField}
                           validated={this.state.validated}
