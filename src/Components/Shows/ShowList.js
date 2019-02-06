@@ -11,21 +11,31 @@ const Shows = (props) => {
         <div className="list-group">
           <div className="list-group-item show-header">
             <MediaQuery minWidth={500}>
-            <div className="row">
+
+              <div className="row">
               <div style={{textAlign:"center"}} className="col-md-3" onClick={props.sortByDate}>
-                <button type="button" className="btn btn-outline-light sort-btn"><strong>Date</strong></button>
+              <button type="button" className="btn btn-outline-light sort-btn"><strong>Date</strong></button>
+              <i className={props.sortedByDate? "fa fa-spinner fa-spin": ''}></i>
               </div>
               <div style={{textAlign:"center"}} className="col-md-3" onClick={props.sortByArtist}>
-                <button type="button" className="btn btn-outline-light sort-btn"><strong>Event</strong></button>
+              <button type="button" className="btn btn-outline-light sort-btn"><strong>Event</strong></button>
+              <i className={props.sortedByArtist? "fa fa-spinner fa-spin": ''}></i>
               </div>
               <div className="col-md-3"></div>
               <div className="col-md-3"></div>
-            </div>
+              </div>
+
+
+
+
+
             </MediaQuery>
             <MediaQuery maxWidth={500}>
             <div className="row text-center">
-              <div className="col-md-4 ">Date /</div>
+              <div className="col-md-4 ">Date </div>
+
               <div className="col-md-8">Event</div>
+
               </div>
             </MediaQuery>
           </div>
