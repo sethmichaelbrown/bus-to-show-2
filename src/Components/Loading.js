@@ -7,8 +7,9 @@ const Loading = (props) => {
 
   return (
     <div className='Loading loading-image'>
-      <div className="row container">
-        <div className="col-md-6">
+      <div className="row">
+        <div className="col-md-12 loading-header">
+          <img src="../Images/Logos/bts-logo-white.png" alt="bts-logo"/>
         </div>
       </div>
     </div>

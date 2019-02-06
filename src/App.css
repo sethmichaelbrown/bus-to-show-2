@@ -146,6 +146,16 @@
   width: 100vw;
 }
 
+.loading-header{
+  margin-top: 35vh;
+  text-align: center;
+  /* background: rgba(0, 0, 0, .75) */
+}
+
+.loading-text-main{
+  font-size: 75px;
+}
+
 .sort-btn{
   border: none;
 }
