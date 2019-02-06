@@ -14,11 +14,11 @@ const Shows = (props) => {
           <div className="row" id={show.id}>
           <MediaQuery minWidth={768}>
             <div className="col-md-3 list-item-font" id={show.id}>{show.date} <br /> {moment(show.date, "MM-DD-YYYY").format("dddd")}</div>
-            <div className="col-md-7 list-item-font" id={show.id}>{show.headliner} <br />{show.venue}</div>
+            <div className="col-md-7 list-item-font" id={show.id}><strong>{show.headliner}</strong> <br />{show.venue}</div>
           </MediaQuery>
           <MediaQuery maxWidth={768}>
-            <div className="col-md-3 list-item-font border-bottom border-light" id={show.id}>{show.date} <br /> Saturday</div>
-            <div className="col-md-7 list-item-font" id={show.id}>{show.headliner} <br />{show.venue}</div>
+            <div className="col-md-3 list-item-font" id={show.id}>{show.date} <br /> {moment(show.date, "MM-DD-YYYY").format("dddd")}</div>
+            <div className="col-md-7 list-item-font" id={show.id}><strong>{show.headliner}</strong> <br />{show.venue}</div>
           </MediaQuery>
             <button
               id={show.id}
