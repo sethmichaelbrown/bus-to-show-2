@@ -199,9 +199,6 @@ class App extends Component {
     //   timer.start(600000, 1000)
     // }
 
-
-
-
     const pickupLocation = newState.pickupLocations.filter(location => parseInt(location.id) === parseInt(this.state.pickupLocationId))[0]
     const basePrice = Number(pickupLocation.basePrice)
     const ticketQuantity = parseInt(this.state.ticketQuantity)
@@ -217,8 +214,6 @@ class App extends Component {
     else {
       newState.displayWarning = true
     }
-
-
 
     this.setState(newState)
 
@@ -266,7 +261,6 @@ class App extends Component {
         'Content-Type': 'application/json'
       }
     })
-
 
     this.setState({ purchaseSuccessful: true, purchasePending: false })
   }
@@ -389,7 +383,6 @@ class App extends Component {
     this.setState({ shows: newState, artistIcon:true, dateIcon:false  })
   }
 
-
   sortByDate = () => {
     let newState = this.state.shows.sort((show1, show2) => {
       let a = new Date(show1.date)
@@ -403,8 +396,6 @@ class App extends Component {
   makePurchase = () => {
     this.setState({ purchasePending: true })
   }
-
-
 
   render() {
     return (
