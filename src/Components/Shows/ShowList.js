@@ -10,18 +10,19 @@ const Shows = (props) => {
       <div className='container'>
         <div className="list-group">
           <div className="list-group-item show-header">
-            
-            <div className="row">
+
+              <div className="row">
               <div style={{textAlign:"center"}} className="col-md-3" onClick={props.sortByDate}>
-                <button type="button" className="btn btn-outline-light sort-btn"><strong> Date </strong>(Sort By)</button>
+              <button type="button" className="btn btn-outline-light sort-btn"><strong>Date</strong></button>
+              <i className={props.sortedByDate? "fa fa-spinner fa-spin": ''}></i>
               </div>
               <div style={{textAlign:"center"}} className="col-md-3" onClick={props.sortByArtist}>
-                <button type="button" className="btn btn-outline-light sort-btn"><strong> Event </strong>(sort)</button>
+              <button type="button" className="btn btn-outline-light sort-btn"><strong>Event</strong></button>
+              <i className={props.sortedByArtist? "fa fa-spinner fa-spin": ''}></i>
               </div>
               <div className="col-md-3"></div>
               <div className="col-md-3"></div>
-            </div>
-            
+              </div>
           </div>
 
           <ul className="list-group">

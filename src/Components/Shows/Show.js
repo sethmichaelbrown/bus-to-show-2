@@ -1,13 +1,11 @@
 import React from 'react'
 import '../../App.css';
+import moment from 'moment'
 import MediaQuery from 'react-responsive';
-
-
 
 const Shows = (props) => {
   const filterString = props.filterString.toLowerCase()
   const filterShows = props.shows.filter(show => show.headliner.toLowerCase().includes(filterString))
-
 
   return (
     <div className='Shows'>
@@ -15,7 +13,7 @@ const Shows = (props) => {
         <li className="list-group-item highlightOnHover show-list-item" key={show.id} id={show.id}>
           <div className="row" id={show.id}>
           <MediaQuery minWidth={768}>
-            <div className="col-md-3 list-item-font" id={show.id}>{show.date} <br /> Saturday</div>
+            <div className="col-md-3 list-item-font" id={show.id}>{show.date} <br /> {moment(show.date, "MM-DD-YYYY").format("dddd")}</div>
             <div className="col-md-7 list-item-font" id={show.id}>{show.headliner} <br />{show.venue}</div>
           </MediaQuery>
           <MediaQuery maxWidth={768}>
@@ -27,7 +25,7 @@ const Shows = (props) => {
               // onClick={props.addBorder}
               onClick={props.showsExpandClick}
               type="button"
-              className='btn show-list-item bg-white col-md-2'>Details</button>
+              className='btn show-list-item bg-white my-4 col-md-2'>Details</button>
 
           </div>
 

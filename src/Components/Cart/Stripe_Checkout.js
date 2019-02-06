@@ -32,9 +32,9 @@ export default class Checkout extends React.Component {
         currency='USD'
       >
         <button
-          purchasePending={this.props.purchasePending}
+          
           onClick={()=>this.props.makePurchase()}
-          className={`btn ${this.props.validated ? 'btn-outline-success' : 'btn-secondary'}`}
+          className={`btn mr-5 ${this.props.validated ? 'btn-outline-success' : 'btn-secondary'}`}
           disabled={this.props.validated ? '' : 'disabled'}>
           Purchase</button>
       </StripeCheckout>

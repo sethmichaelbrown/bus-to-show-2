@@ -2,6 +2,7 @@ import React from 'react'
 import '../../App.css';
 import logo from '../../Images/Logos/bts-logo-gray.png'
 import MediaQuery from 'react-responsive';
+import moment from 'moment'
 
 const ShowDetailView = (props) => {
   // console.log("ShowDetailView",props)
@@ -31,9 +32,9 @@ const ShowDetailView = (props) => {
                 <MediaQuery minWidth={768}>
                 <div className="list-group-item">
                   <div className="row">
-                    <div className="col-md-4">Location</div>
-                    <div className="col-md-4">Date</div>
-                    <div className="col-md-4"></div>
+                    <div className="col-md-4" style={{textAlign: "center"}}>Location</div>
+                    <div className="col-md-4" style={{textAlign: "center"}}>Date</div>
+                    <div className="col-md-4" style={{textAlign: "center"}}>Day of Week</div>
                   </div>
                 </div>
                 </MediaQuery>}
@@ -41,9 +42,9 @@ const ShowDetailView = (props) => {
 
             <div className="list-group-item">
               <div className="row">
-                <div className="col-md-4" style={{textAlign: "center"}}>{show.venue}</div>
+                <div className="col-md-4" style={{textAlign: "center"}}>{show.venue.split('Amphitheatre')[0]}</div>
                 <div className="col-md-4" style={{textAlign: "center"}}>{show.date}</div>
-                <div className="col-md-4" style={{textAlign: "center"}}>Saturday</div>
+                <div className="col-md-4" style={{textAlign: "center"}}>{moment(show.date, "MM-DD-YYYY").format("dddd")}</div>
               </div>
             </div>
             <div className="list-group-item">
