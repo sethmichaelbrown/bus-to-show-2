@@ -52,7 +52,7 @@ const Cart = (props) => {
                         <input
                           onChange={props.updatePurchaseField}
                           type="text"
-                          className={`form-control ${props.validatedElements.fName ? 'is-valid' : 'is-invalid'}`}
+                          className={`form-control ${props.validatedElements.fName ? 'is-valid' : ''}`}
                           id="firstName"
                           placeholder="First Name"
                           required />
@@ -62,7 +62,7 @@ const Cart = (props) => {
                         <input
                           onChange={props.updatePurchaseField}
                           type="text"
-                          className={`form-control ${props.validatedElements.lName ? 'is-valid' : 'is-invalid'}`}
+                          className={`form-control ${props.validatedElements.lName ? 'is-valid' : ''}`}
                           id="lastName"
                           placeholder="Last Name"
                           required />
@@ -74,7 +74,7 @@ const Cart = (props) => {
                         <input
                           onChange={props.updatePurchaseField}
                           type="email"
-                          className={`form-control ${props.validatedElements.email ? 'is-valid' : 'is-invalid'}`}
+                          className={`form-control ${props.validatedElements.email ? 'is-valid' : ''}`}
                           id="email"
                           placeholder="Email address"
                           required />
