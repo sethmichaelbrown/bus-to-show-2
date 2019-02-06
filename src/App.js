@@ -22,7 +22,7 @@ import BannerRotator from './Components/BannerRotator'
 //////***** Stripe_Checkout.js: LINES 6/7
 
 class App extends Component {
-
+  // Please keep sorted alphabetically so we don't duplicate keys :) Thanks!
   state = {
     artistDescription: null,
     artistIcon: false,
@@ -193,12 +193,15 @@ class App extends Component {
   // Show Functions
   showsExpandClick = async (event) => {
     const newState = { ...this.state }
+    newState.displayQuantity = false
     const clickedShow = newState.shows.find(show => (parseInt(show.id) === parseInt(event.target.id)))
     newState.displayDetailCartView = true
     newState.displaySuccess = false
     newState.displayShow = clickedShow
-
     this.setState(newState)
+    if(document.querySelector('#departureLocation')){
+      document.querySelector('#departureLocation').value = "Select a Departure Location..."
+    }
   }
 
   returnToShows = () => {
@@ -210,13 +213,6 @@ class App extends Component {
 
   addToCart = async () => {
     const newState = { ...this.state }
-
-    // // For Tiny-Timer
-    // if (newState.inCart) {
-    //   let timer = new Timer([{ interval: 1000, stopwatch: false }])
-    //   timer.on('tick', (ms) => this.setState({ timeLeftInCart: ms }))
-    //   timer.start(600000, 1000)
-    // }
 
     const pickupLocation = newState.pickupLocations.filter(location => parseInt(location.id) === parseInt(this.state.pickupLocationId))[0]
     const basePrice = Number(pickupLocation.basePrice)
@@ -426,8 +422,7 @@ class App extends Component {
             this.state.shows ?
               <React.Fragment>
                 <Header
-                  loginClick={this.loginClick}
-                  searchShows={this.searchShows} />
+                  loginClick={this.loginClick} />
                 <div className='content-section pt-4'>
                   <div className='col-md-6 float-right' >
                     <MediaQuery minWidth={768}>
@@ -450,6 +445,7 @@ class App extends Component {
                           handleSubmit={this.handleSubmit}
                           inCart={this.state.inCart}
                           pickupLocations={this.state.pickupLocations}
+                          pickupLocationId={this.state.pickupLocationId}
                           purchase={this.purchase}
                           purchaseClick={this.purchaseClick}
                           quantityChange={this.quantityChange}
@@ -475,6 +471,7 @@ class App extends Component {
                         <SponsorBox />}
                     </MediaQuery>
                     <MediaQuery maxWidth={767}>
+                      <BannerRotator />
                       {this.state.displayCart || this.state.displayShow ?
                         <DetailCartView
                           addToCart={this.addToCart}
@@ -491,6 +488,7 @@ class App extends Component {
                           handleSubmit={this.handleSubmit}
                           inCart={this.state.inCart}
                           pickupLocations={this.state.pickupLocations}
+                          pickupLocationId={this.state.pickupLocationId}
                           purchase={this.purchase}
                           purchaseClick={this.purchaseClick}
                           quantityChange={this.quantityChange}
@@ -511,31 +509,34 @@ class App extends Component {
                           validated={this.state.validated}
                           validatedElements={this.state.validatedElements} />
                         :
+
                         <ShowList
-                          sortedByDate={this.state.dateIcon}
-                          sortedByArtist={this.state.artistIcon}
-                          sortByDate={this.sortByDate}
-                          sortByArtist={this.sortByArtist}
                           addBorder={this.addBorder}
                           displayShow={this.state.displayShow}
                           filterString={this.state.filterString}
+                          searchShows={this.searchShows}
                           shows={this.state.shows}
                           showsExpandClick={this.showsExpandClick}
+                          sortByArtist={this.sortByArtist}
+                          sortByDate={this.sortByDate}
+                          sortedByArtist={this.state.artistIcon}
+                          sortedByDate={this.state.dateIcon}
                           ticketsAvailable={this.state.ticketsAvailable} />}
                     </MediaQuery>
                   </div>
                   <div className='col-md-6 float-left'>
                     <MediaQuery minWidth={768}>
                       <ShowList
-                        sortedByDate={this.state.dateIcon}
-                        sortedByArtist={this.state.artistIcon}
-                        sortByDate={this.sortByDate}
-                        sortByArtist={this.sortByArtist}
                         addBorder={this.addBorder}
                         displayShow={this.state.displayShow}
                         filterString={this.state.filterString}
+                        searchShows={this.searchShows}
                         shows={this.state.shows}
                         showsExpandClick={this.showsExpandClick}
+                        sortByArtist={this.sortByArtist}
+                        sortByDate={this.sortByDate}
+                        sortedByArtist={this.state.artistIcon}
+                        sortedByDate={this.state.dateIcon}
                         ticketsAvailable={this.state.ticketsAvailable} />
                     </MediaQuery>
                   </div>
