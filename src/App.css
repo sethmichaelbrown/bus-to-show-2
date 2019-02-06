@@ -161,3 +161,17 @@
 .sort-btn:hover{
   color: #ff420f;
 }
+
+.bts-orange-bg{
+  background-color: #ff420f;
+  color: white;
+}
+
+.bts-white-bg{
+  background-color: #white;
+  color: #ff420f;
+}
+
+.search-height{
+  height: 25px;
+}
