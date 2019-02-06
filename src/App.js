@@ -23,6 +23,10 @@ import DetailCartView from './Components/DetailCartView'
 class App extends Component {
 
   state = {
+    dateIcon:true,
+    artistIcon:false,
+    purchasePending:false,
+    purchaseSuccessful:false,
     artistDescription: null,
     cartToSend: {
       eventId: null,
@@ -71,7 +75,7 @@ class App extends Component {
     const response = await fetch('http://localhost:3000/events')
     const shows = await response.json()
     this.setState({ shows })
-    
+
     // const allEvents = await fetch('https://something-innocuous.herokuapp.com/events')
     const allEvents = await fetch('http://localhost:3000/events')
     const eventsList = await allEvents.json()
@@ -79,13 +83,14 @@ class App extends Component {
     for (let i = 0; i < eventsList.length; i++) {
       eventsListIds.push(eventsList[i].id)
     }
-    
+
     // const pickups = await fetch('https://something-innocuous.herokuapp.com/pickup_locations')
     const pickups = await fetch('http://localhost:3000/pickup_locations')
     const pickupLocations = await pickups.json()
 
-    const filteredPickupLocations = pickupLocations.filter(location => eventsListIds.includes(location.id))
-    this.setState({ pickupLocations: filteredPickupLocations })
+    // const filteredPickupLocations = pickupLocations.filter(location => eventsListIds.includes(location.id))
+    // this.setState({ pickupLocations: filteredPickupLocations })
+    this.setState({ pickupLocations })
   }
 
   selectPickupLocationId = async (event) => {
@@ -155,29 +160,29 @@ class App extends Component {
     this.setState({ filterString: newState.filterString })
   }
 
-  sortByArtist = () => {
-    let newState = this.state.shows.sort((show1, show2) => {
-      let a = show1.headliner.toLowerCase().split(" ").join("")
-      let b = show2.headliner.toLowerCase().split(" ").join("")
-      if (a < b) {
-        return -1;
-      } else if (a > b) {
-        return 1;
-      } else {
-        return 0;
-      }
-    })
-    this.setState({ shows: newState })
-  }
-
-  sortByDate = () => {
-    let newState = this.state.shows.sort((show1, show2) => {
-      let a = new Date(show1.date)
-      let b = new Date(show2.date)
-      return a - b
-    })
-    this.setState({ shows: newState })
-  }
+  // sortByArtist = () => {
+  //   let newState = this.state.shows.sort((show1, show2) => {
+  //     let a = show1.headliner.toLowerCase().split(" ").join("")
+  //     let b = show2.headliner.toLowerCase().split(" ").join("")
+  //     if (a < b) {
+  //       return -1;
+  //     } else if (a > b) {
+  //       return 1;
+  //     } else {
+  //       return 0;
+  //     }
+  //   })
+  //   this.setState({ shows: newState })
+  // }
+  //
+  // sortByDate = () => {
+  //   let newState = this.state.shows.sort((show1, show2) => {
+  //     let a = new Date(show1.date)
+  //     let b = new Date(show2.date)
+  //     return a - b
+  //   })
+  //   this.setState({ shows: newState })
+  // }
 
   // Tab Functions
   tabClicked = (event) => {
@@ -260,8 +265,8 @@ class App extends Component {
       }
     })
 
-    setTimeout(fetch('https://something-innocuous.herokuapp.com/pickup_parties', {
-      // setTimeout(fetch('http://localhost:3000/pickup_parties', {
+    // setTimeout(fetch('https://something-innocuous.herokuapp.com/pickup_parties', {
+      setTimeout(fetch('http://localhost:3000/pickup_parties', {
       method: 'PATCH',
       body: JSON.stringify({
         pickupLocationId: this.state.pickupLocationId,
@@ -411,7 +416,7 @@ class App extends Component {
         return 0;
       }
     })
-    this.setState({ shows: newState })
+    this.setState({ shows: newState, artistIcon:true, dateIcon:false  })
   }
 
 
@@ -422,7 +427,7 @@ class App extends Component {
       return a - b
 
     })
-    this.setState({ shows: newState })
+    this.setState({ shows: newState, artistIcon:false, dateIcon:true })
   }
 
   makePurchase = () => {
@@ -522,6 +527,8 @@ class App extends Component {
                           validatedElements={this.state.validatedElements} />
                         :
                         <ShowList
+                          sortedByDate={this.state.dateIcon}
+                          sortedByArtist={this.state.artistIcon}
                           sortByDate={this.sortByDate}
                           sortByArtist={this.sortByArtist}
                           addBorder={this.addBorder}
@@ -535,6 +542,8 @@ class App extends Component {
                   <div className='col-md-6 float-left'>
                     <MediaQuery minWidth={768}>
                       <ShowList
+                        sortedByDate={this.state.dateIcon}
+                        sortedByArtist={this.state.artistIcon}
                         sortByDate={this.sortByDate}
                         sortByArtist={this.sortByArtist}
                         addBorder={this.addBorder}
