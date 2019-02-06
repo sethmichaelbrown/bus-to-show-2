@@ -23,7 +23,7 @@ import BannerRotator from './Components/BannerRotator'
 //////***** Stripe_Checkout.js: LINES 6/7
 
 class App extends Component {
-
+  // Please keep sorted alphabetically so we don't duplicate keys :) Thanks!
   state = {
     artistDescription: null,
     artistIcon: false,
@@ -137,6 +137,27 @@ class App extends Component {
     newState.totalCost = total
     this.setState(newState)
   }
+
+  updateDiscountCode = (event) => {
+    console.log(event.target.value)
+    const newState = { ...this.State }
+    newState.discountCode = event.target.value
+    this.setState(newState)
+    console.log('discountCode set::: ', newState.discountCode)
+
+  }
+
+
+  findDiscountCode = async () =>{
+    console.log ("hey, how bout that?")
+    //console.log ('currentCode inside findDiscountCode:::', this.state.discountCode)
+    const response = await fetch(`http://localhost:3000/discount_codes/${this.state.discountCode}`)
+    const json = await response.json()
+    //const newState = { ...this.state }
+    //this.setState(newState)
+    console.log('findDiscountCode json:::: ', json)
+  }
+
 
   // Header Functions
   loginClick = () => {
@@ -402,8 +423,7 @@ class App extends Component {
             this.state.shows ?
               <React.Fragment>
                 <Header
-                  loginClick={this.loginClick}
-                  searchShows={this.searchShows} />
+                  loginClick={this.loginClick} />
                 <div className='content-section pt-4'>
                   <div className='col-md-6 float-right' >
                     <MediaQuery minWidth={768}>
@@ -440,6 +460,8 @@ class App extends Component {
                           tabClicked={this.tabClicked}
                           ticketsAvailable={this.state.ticketsAvailable}
                           ticketQuantity={this.state.ticketQuantity}
+                          updateDiscountCode={this.updateDiscountCode}
+                          findDiscountCode={this.findDiscountCode}
                           timeLeftInCart={this.state.timeLeftInCart}
                           totalCost={this.state.totalCost}
                           updatePurchaseField={this.updatePurchaseField}
@@ -482,6 +504,7 @@ class App extends Component {
                           tabClicked={this.tabClicked}
                           ticketsAvailable={this.state.ticketsAvailable}
                           ticketQuantity={this.state.ticketQuantity}
+                          findDiscountCode={this.findDiscountCode}
                           totalCost={this.state.totalCost}
                           updatePurchaseField={this.updatePurchaseField}
                           validated={this.state.validated}
@@ -489,30 +512,32 @@ class App extends Component {
                         :
 
                         <ShowList
-                          sortedByDate={this.state.dateIcon}
-                          sortedByArtist={this.state.artistIcon}
-                          sortByDate={this.sortByDate}
-                          sortByArtist={this.sortByArtist}
                           addBorder={this.addBorder}
                           displayShow={this.state.displayShow}
                           filterString={this.state.filterString}
+                          searchShows={this.searchShows}
                           shows={this.state.shows}
                           showsExpandClick={this.showsExpandClick}
+                          sortByArtist={this.sortByArtist}
+                          sortByDate={this.sortByDate}
+                          sortedByArtist={this.state.artistIcon}
+                          sortedByDate={this.state.dateIcon}
                           ticketsAvailable={this.state.ticketsAvailable} />}
                     </MediaQuery>
                   </div>
                   <div className='col-md-6 float-left'>
                     <MediaQuery minWidth={768}>
                       <ShowList
-                        sortedByDate={this.state.dateIcon}
-                        sortedByArtist={this.state.artistIcon}
-                        sortByDate={this.sortByDate}
-                        sortByArtist={this.sortByArtist}
                         addBorder={this.addBorder}
                         displayShow={this.state.displayShow}
                         filterString={this.state.filterString}
+                        searchShows={this.searchShows}
                         shows={this.state.shows}
                         showsExpandClick={this.showsExpandClick}
+                        sortByArtist={this.sortByArtist}
+                        sortByDate={this.sortByDate}
+                        sortedByArtist={this.state.artistIcon}
+                        sortedByDate={this.state.dateIcon}
                         ticketsAvailable={this.state.ticketsAvailable} />
                     </MediaQuery>
                   </div>

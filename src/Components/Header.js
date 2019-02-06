@@ -3,35 +3,33 @@ import '../App.css';
 import logo from '../Images/Logos/bustoshow-text-logo--white-outline-no-fill-328x46.png'
 import facebook from './facebook'
 import FacebookButton from './facebook';
+import MediaQuery from 'react-responsive';
 
 const Header = (props) => {
 
 
   return (
-    <div className='Header row bts-orange-bg py-1'>
-      <div className="col-2">
-        <a className="navbar-brand pl-2">
-          <img src={logo} width="180" height="24" className="d-inline-block align-middle pl-4" alt="bts-logo" />
+    <nav className='Header row bts-orange-bg nav-flex'>
+      <div className="col-2 ml-3 mt-1">
+        <a className="navbar-brand ">
+          <img src={logo} width="180" height="24" className="" alt="bts-logo" />
         </a>
       </div>
-      <div className="col-3">
-        
-      </div>
-      <div className="col-5">
-        <div className="form-inline  pt-2 px-4">
-          <input onKeyUp={props.searchShows} className="form-control-sm badge-pill search-height px-2" placeholder="Search by Event or Venue..." aria-label="Search" />
+    
+      {/* <MediaQuery minWidth="500px">
+        <div className="col-lg-7 col-md-6 col-sm-4">
         </div>
+      </MediaQuery> */}
+      
+      <div className="mr-5" style={{textAlign: 'center'}}>
+        <FacebookButton/>
       </div>
-      <div className="col-1">
-        <div className='row'> <FacebookButton/></div>
-      </div>
-      <div className="col-1">
-        
-      </div>
+      
+
       
           {/* <button onClick={props.loginClick} className="btn btn-outline-primary my-2 my-sm-0">Login</button>
             <button onClick={props.signUpClick} className="btn btn-outline-secondary my-2 my-sm-0 ml-1">Sign Up</button> */}
-    </div>
+    </nav>
 
   )
 }
