@@ -158,30 +158,6 @@ class App extends Component {
     this.setState({ filterString: newState.filterString })
   }
 
-  // sortByArtist = () => {
-  //   let newState = this.state.shows.sort((show1, show2) => {
-  //     let a = show1.headliner.toLowerCase().split(" ").join("")
-  //     let b = show2.headliner.toLowerCase().split(" ").join("")
-  //     if (a < b) {
-  //       return -1;
-  //     } else if (a > b) {
-  //       return 1;
-  //     } else {
-  //       return 0;
-  //     }
-  //   })
-  //   this.setState({ shows: newState })
-  // }
-  //
-  // sortByDate = () => {
-  //   let newState = this.state.shows.sort((show1, show2) => {
-  //     let a = new Date(show1.date)
-  //     let b = new Date(show2.date)
-  //     return a - b
-  //   })
-  //   this.setState({ shows: newState })
-  // }
-
   // Tab Functions
   tabClicked = (event) => {
     const newState = { ...this.state }
@@ -223,9 +199,6 @@ class App extends Component {
     //   timer.start(600000, 1000)
     // }
 
-
-
-
     const pickupLocation = newState.pickupLocations.filter(location => parseInt(location.id) === parseInt(this.state.pickupLocationId))[0]
     const basePrice = Number(pickupLocation.basePrice)
     const ticketQuantity = parseInt(this.state.ticketQuantity)
@@ -241,8 +214,6 @@ class App extends Component {
     else {
       newState.displayWarning = true
     }
-
-
     
     this.setState(newState)
 
@@ -290,7 +261,6 @@ class App extends Component {
         'Content-Type': 'application/json'
       }
     })
-
 
     this.setState({ purchaseSuccessful: true, purchasePending: false })
   }
@@ -413,7 +383,6 @@ class App extends Component {
     this.setState({ shows: newState, artistIcon:true, dateIcon:false  })
   }
 
-
   sortByDate = () => {
     let newState = this.state.shows.sort((show1, show2) => {
       let a = new Date(show1.date)
@@ -427,8 +396,6 @@ class App extends Component {
   makePurchase = () => {
     this.setState({ purchasePending: true })
   }
-
-
 
   render() {
     return (
