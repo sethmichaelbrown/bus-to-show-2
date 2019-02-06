@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { BrowserRouter } from "react-router-dom"
 import Validator from 'validator'
 import MediaQuery from 'react-responsive';
+import oAuth from './Components/facebook';
 
 // Styling
 import './App.css';
