@@ -175,3 +175,7 @@
 .search-height{
   height: 25px;
 }
+
+.form-control-sm{
+  width: 200px;
+}
