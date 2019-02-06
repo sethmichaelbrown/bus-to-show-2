@@ -1,5 +1,8 @@
 import React from 'react'
 import '../../App.css';
+import MediaQuery from 'react-responsive';
+
+
 
 const Shows = (props) => {
   const filterString = props.filterString.toLowerCase()
@@ -11,8 +14,14 @@ const Shows = (props) => {
       {filterShows.length > 0 ? filterShows.map(show =>
         <li className="list-group-item highlightOnHover show-list-item" key={show.id} id={show.id}>
           <div className="row" id={show.id}>
+          <MediaQuery minWidth={768}>
             <div className="col-md-3 list-item-font" id={show.id}>{show.date} <br /> Saturday</div>
             <div className="col-md-7 list-item-font" id={show.id}>{show.headliner} <br />{show.venue}</div>
+          </MediaQuery>
+          <MediaQuery maxWidth={768}>
+            <div className="col-md-3 list-item-font border-bottom border-light" id={show.id}>{show.date} <br /> Saturday</div>
+            <div className="col-md-7 list-item-font" id={show.id}>{show.headliner} <br />{show.venue}</div>
+          </MediaQuery>
             <button
               id={show.id}
               // onClick={props.addBorder}
