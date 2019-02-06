@@ -30,8 +30,8 @@ export default class Checkout extends React.Component {
         name='Bus To Show'
         amount={this.props.totalCost * 100}
         currency='USD'>
-        
-        <button  
+
+        <button
           onClick={()=>this.props.makePurchase()}
           className={`btn ${this.props.validated ? 'btn-outline-success' : 'btn-secondary'}`}
           disabled={this.props.validated ? '' : 'disabled'}>

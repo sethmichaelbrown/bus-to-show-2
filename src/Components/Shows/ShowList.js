@@ -16,10 +16,10 @@ const Shows = (props) => {
 
               <div className="col-3 mb-3" onClick={props.sortByDate}>
                 <button type="button" className="btn btn-outline-light sort-btn">
-                <strong>Date  </strong>  
+                <strong>Date  </strong>
                 <i className={props.sortedByDate ? "fa fa-sort-down" : ''}></i>
                 </button>
-                
+
               </div>
 
               <div className="col-3 mb-3" onClick={props.sortByArtist}>
@@ -27,7 +27,7 @@ const Shows = (props) => {
                 <strong>Event  </strong>  
                 <i className={props.sortedByArtist ? "fa fa-sort-down" : ''}></i>
                 </button>
-                
+
               </div>
 
               <div className="col-6 mb-3" >
