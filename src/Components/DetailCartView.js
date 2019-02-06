@@ -8,7 +8,7 @@ import logo from '../Images/Logos/bts-logo-gray.png'
 
 const DetailCartView = (props) => {
   // console.log('DCV', props)
-  const time = props.timeLeftInCart
+  // const time = props.timeLeftInCart
 
   // //For Tiny Timer
   // const millisToMinutesAndSeconds = (mili) => {
