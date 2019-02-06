@@ -14,12 +14,16 @@ const Shows = (props) => {
 
               <div className="row">
               <div style={{textAlign:"center"}} className="col-md-3" onClick={props.sortByDate}>
-              <button type="button" className="btn btn-outline-light sort-btn"><strong>Date</strong></button>
-              <i className={props.sortedByDate? "fa fa-spinner fa-spin": ''}></i>
+              <button type="button" className="btn btn-outline-light sort-btn"><strong>Date</strong>
+              <i className={ props.sortedByDate? "fa fa-angle-double-down": ''}></i>
+              </button>
+
               </div>
               <div style={{textAlign:"center"}} className="col-md-3" onClick={props.sortByArtist}>
-              <button type="button" className="btn btn-outline-light sort-btn"><strong>Event</strong></button>
-              <i className={props.sortedByArtist? "fa fa-spinner fa-spin": ''}></i>
+              <button type="button" className="btn btn-outline-light sort-btn"><strong>Event</strong>
+              <i className={props.sortedByArtist? "fa fa-angle-double-down": ''}></i>
+              </button>
+
               </div>
               <div className="col-md-3"></div>
               <div className="col-md-3"></div>

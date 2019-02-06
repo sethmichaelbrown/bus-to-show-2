@@ -24,7 +24,7 @@ import BannerRotator from './Components/BannerRotator'
 class App extends Component {
 
   state = {
-    dateIcon:false,
+    dateIcon:true,
     artistIcon:false,
     purchasePending:false,
     purchaseSuccessful:false,
@@ -75,7 +75,15 @@ class App extends Component {
     const response = await fetch('https://something-innocuous.herokuapp.com/events')
     // const response = await fetch('http://localhost:3000/events')
     const shows = await response.json()
-    this.setState({ shows })
+    this.setState({shows:shows})
+
+    let newState = this.state.shows.sort((show1, show2) => {
+        let a = new Date(show1.date)
+        let b = new Date(show2.date)
+        return a - b
+      })
+
+    this.setState({ shows:newState })
 
     const allEvents = await fetch('https://something-innocuous.herokuapp.com/events')
     // const allEvents = await fetch('http://localhost:3000/events')
@@ -243,7 +251,7 @@ class App extends Component {
     }
 
 
-    
+
     this.setState(newState)
 
     fetch('https://something-innocuous.herokuapp.com/pickup_parties', {
