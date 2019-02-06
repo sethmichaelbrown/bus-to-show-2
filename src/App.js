@@ -271,13 +271,13 @@ class App extends Component {
     let discountCode = ''
 
     // Checks fields via npm package validator
-    if (updateField === 'email' && Validator.isEmail(value)) {
+    if (updateField === 'email' && Validator.isEmail(value) && !Validator.isEmpty(value)) {
       vE.email = value
     }
-    else if (updateField === 'firstName' && Validator.isAlpha(value)) {
+    else if (updateField === 'firstName' && Validator.isAlpha(value) && !Validator.isEmpty(value)) {
       vE.fName = value
     }
-    else if (updateField === 'lastName' && Validator.isAlpha(value)) {
+    else if (updateField === 'lastName' && Validator.isAlpha(value) && !Validator.isEmpty(value)) {
       vE.lName = value
     }
     else if (updateField === 'willCallFirstName' && Validator.isAlpha(value)) {
@@ -301,7 +301,7 @@ class App extends Component {
       && this.state.validatedElements.email) {
 
       const cTS = newState.cartToSend
-      newState.validated = true
+      // newState.validated = true
 
       cTS.firstName = this.state.validatedElements.fName
       cTS.lastName = this.state.validatedElements.lName
