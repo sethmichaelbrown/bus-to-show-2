@@ -145,7 +145,7 @@ const Cart = (props) => {
                     <MediaQuery maxWidth={767}>
                     <div className='row justify-content-center mb-1'>
                     <h4>Cart Total:
-                          <span className="badge badge-secondary">{`$${totalCost}`}</span>
+                      <span className="badge badge-secondary">{`$${totalCost}`}</span>
                     </h4>
                     </div>
                     <div className='row justify-content-center '>

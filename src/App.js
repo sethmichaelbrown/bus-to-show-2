@@ -84,8 +84,9 @@ class App extends Component {
     const pickups = await fetch('http://localhost:3000/pickup_locations')
     const pickupLocations = await pickups.json()
 
-    const filteredPickupLocations = pickupLocations.filter(location => eventsListIds.includes(location.id))
-    this.setState({ pickupLocations: filteredPickupLocations })
+    // const filteredPickupLocations = pickupLocations.filter(location => eventsListIds.includes(location.id))
+    // this.setState({ pickupLocations: filteredPickupLocations })
+    this.setState({ pickupLocations })
   }
 
   selectPickupLocationId = async (event) => {
@@ -260,8 +261,8 @@ class App extends Component {
       }
     })
 
-    setTimeout(fetch('https://something-innocuous.herokuapp.com/pickup_parties', {
-      // setTimeout(fetch('http://localhost:3000/pickup_parties', {
+    // setTimeout(fetch('https://something-innocuous.herokuapp.com/pickup_parties', {
+      setTimeout(fetch('http://localhost:3000/pickup_parties', {
       method: 'PATCH',
       body: JSON.stringify({
         pickupLocationId: this.state.pickupLocationId,
