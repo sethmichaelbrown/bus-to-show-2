@@ -22,7 +22,7 @@ import BannerRotator from './Components/BannerRotator'
 //////***** Stripe_Checkout.js: LINES 6/7
 
 class App extends Component {
-
+// Please keep sorted alphabetically so we don't duplicate keys :) Thanks!
   state = {
     artistDescription: null,
     artistIcon: false,
