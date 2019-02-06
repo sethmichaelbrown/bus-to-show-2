@@ -22,8 +22,8 @@ const Shows = (props) => {
                 <i className={props.sortedByArtist ? "fa fa-spinner fa-spin" : ''}></i>
               </div>
               <div className="col-md-5 mb-3 ml-1">
-                <form class="form-inline ml-3 my-4 my-lg-0">
-                  <input onKeyUp={props.searchShows} class="form-control mr-sm-2" type="search" placeholder="Search Events or Venues..." aria-label="Search"></input>
+                <form className="form-inline ml-3 my-4 my-lg-0">
+                  <input onKeyUp={props.searchShows} className="form-control mr-sm-2" type="search" placeholder="Search Events or Venues..." aria-label="Search"></input>
                 </form>
               </div>
 

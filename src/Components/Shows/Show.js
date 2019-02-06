@@ -11,6 +11,8 @@ const Shows = (props) => {
     filterShows = props.shows.filter(show => show.venue.toLowerCase().includes(filterString))
   }
 
+  console.log(filterShows)
+
   return (
     <div className='Shows'>
       {filterShows.length > 0 ? filterShows.map(show =>
