@@ -17,7 +17,7 @@ import SponsorBox from './Components/SponsorBox'
 import DetailCartView from './Components/DetailCartView'
 
 //////***** COMMENTED OUT URLS ON THE FOLLOWING LINES, USE TO SWITCH BETWEEN LOCALHOST or HEROKU:
-//////***** App.js: LINES 71/72, 76/77, 84/85, 107/108, 252/253, 288/289
+//////***** App.js: LINES 74/75, 79/80, 86/87, 109/110, 254/255, 290/291
 //////***** Stripe_Checkout.js: LINES 6/7
 
 class App extends Component {
@@ -71,25 +71,22 @@ class App extends Component {
 
 
   async componentDidMount() {
-    // const response = await fetch('https://something-innocuous.herokuapp.com/events')
-    const response = await fetch('http://localhost:3000/events')
+    const response = await fetch('https://something-innocuous.herokuapp.com/events')
+    // const response = await fetch('http://localhost:3000/events')
     const shows = await response.json()
     this.setState({ shows })
 
-    // const allEvents = await fetch('https://something-innocuous.herokuapp.com/events')
-    const allEvents = await fetch('http://localhost:3000/events')
+    const allEvents = await fetch('https://something-innocuous.herokuapp.com/events')
+    // const allEvents = await fetch('http://localhost:3000/events')
     const eventsList = await allEvents.json()
     const eventsListIds = []
     for (let i = 0; i < eventsList.length; i++) {
       eventsListIds.push(eventsList[i].id)
     }
 
-    // const pickups = await fetch('https://something-innocuous.herokuapp.com/pickup_locations')
-    const pickups = await fetch('http://localhost:3000/pickup_locations')
+    const pickups = await fetch('https://something-innocuous.herokuapp.com/pickup_locations')
+    // const pickups = await fetch('http://localhost:3000/pickup_locations')
     const pickupLocations = await pickups.json()
-
-    // const filteredPickupLocations = pickupLocations.filter(location => eventsListIds.includes(location.id))
-    // this.setState({ pickupLocations: filteredPickupLocations })
     this.setState({ pickupLocations })
   }
 
@@ -104,8 +101,8 @@ class App extends Component {
     }
     this.setState(newState)
 
-    // const response = await fetch('https://something-innocuous.herokuapp.com/pickup_parties')
-    const response = await fetch('http://localhost:3000/pickup_parties')
+    const response = await fetch('https://something-innocuous.herokuapp.com/pickup_parties')
+    // const response = await fetch('http://localhost:3000/pickup_parties')
     const locations = await response.json()
     const statePickupId = parseInt(this.state.pickupLocationId)
     const stateEventId = parseInt(this.state.displayShow.id)
@@ -245,15 +242,11 @@ class App extends Component {
     }
 
 
-    // const cartObj = {
-    //   pickupLocationId: this.state.pickupLocationId,
-    //   eventId: this.state.inCart[0].id,
-    //   ticketQuantity: this.state.ticketQuantity,
-    // }
+    
     this.setState(newState)
 
-    // fetch('https://something-innocuous.herokuapp.com/pickup_parties', {
-    fetch('http://localhost:3000/pickup_parties', {
+    fetch('https://something-innocuous.herokuapp.com/pickup_parties', {
+    // fetch('http://localhost:3000/pickup_parties', {
       method: 'PATCH',
       body: JSON.stringify({
         pickupLocationId: this.state.pickupLocationId,
@@ -265,8 +258,8 @@ class App extends Component {
       }
     })
 
-    // setTimeout(fetch('https://something-innocuous.herokuapp.com/pickup_parties', {
-      setTimeout(fetch('http://localhost:3000/pickup_parties', {
+    setTimeout(fetch('https://something-innocuous.herokuapp.com/pickup_parties', {
+      // setTimeout(fetch('http://localhost:3000/pickup_parties', {
       method: 'PATCH',
       body: JSON.stringify({
         pickupLocationId: this.state.pickupLocationId,
@@ -288,8 +281,8 @@ class App extends Component {
 
   purchase = async () => {
     const cartObj = this.state.cartToSend
-    // fetch('https://something-innocuous.herokuapp.com/orders', {
-    fetch('http://localhost:3000/orders', {
+    fetch('https://something-innocuous.herokuapp.com/orders', {
+    // fetch('http://localhost:3000/orders', {
       method: 'POST',
       body: JSON.stringify(cartObj),
       headers: {
