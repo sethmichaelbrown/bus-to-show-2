@@ -172,12 +172,15 @@ class App extends Component {
   // Show Functions
   showsExpandClick = async (event) => {
     const newState = { ...this.state }
+    newState.displayQuantity = false
     const clickedShow = newState.shows.find(show => (parseInt(show.id) === parseInt(event.target.id)))
     newState.displayDetailCartView = true
     newState.displaySuccess = false
     newState.displayShow = clickedShow
-
     this.setState(newState)
+    if(document.querySelector('#departureLocation')){
+      document.querySelector('#departureLocation').value = "Select a Departure Location..."
+    }
   }
 
   returnToShows = () => {
@@ -189,13 +192,6 @@ class App extends Component {
 
   addToCart = async () => {
     const newState = { ...this.state }
-
-    // // For Tiny-Timer
-    // if (newState.inCart) {
-    //   let timer = new Timer([{ interval: 1000, stopwatch: false }])
-    //   timer.on('tick', (ms) => this.setState({ timeLeftInCart: ms }))
-    //   timer.start(600000, 1000)
-    // }
 
     const pickupLocation = newState.pickupLocations.filter(location => parseInt(location.id) === parseInt(this.state.pickupLocationId))[0]
     const basePrice = Number(pickupLocation.basePrice)
@@ -428,6 +424,7 @@ class App extends Component {
                           handleSubmit={this.handleSubmit}
                           inCart={this.state.inCart}
                           pickupLocations={this.state.pickupLocations}
+                          pickupLocationId={this.state.pickupLocationId}
                           purchase={this.purchase}
                           purchaseClick={this.purchaseClick}
                           quantityChange={this.quantityChange}
@@ -451,6 +448,7 @@ class App extends Component {
                         <SponsorBox />}
                     </MediaQuery>
                     <MediaQuery maxWidth={767}>
+                      <BannerRotator />
                       {this.state.displayCart || this.state.displayShow ?
                         <DetailCartView
                           addToCart={this.addToCart}
@@ -467,6 +465,7 @@ class App extends Component {
                           handleSubmit={this.handleSubmit}
                           inCart={this.state.inCart}
                           pickupLocations={this.state.pickupLocations}
+                          pickupLocationId={this.state.pickupLocationId}
                           purchase={this.purchase}
                           purchaseClick={this.purchaseClick}
                           quantityChange={this.quantityChange}
@@ -486,6 +485,7 @@ class App extends Component {
                           validated={this.state.validated}
                           validatedElements={this.state.validatedElements} />
                         :
+
                         <ShowList
                           addBorder={this.addBorder}
                           displayShow={this.state.displayShow}

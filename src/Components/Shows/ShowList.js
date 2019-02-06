@@ -4,14 +4,13 @@ import Show from './Show'
 import MediaQuery from 'react-responsive';
 
 const Shows = (props) => {
-  console.log(props)
+  // console.log(props)
 
   return (
     <div className='Shows'>
       <div className='container'>
         <div className="list-group">
           <div className="list-group-item show-header">
-            <MediaQuery minWidth={500}>
 
               <div className="row">
                 <div style={{ textAlign: "center" }} className="col-md-3" onClick={props.sortByDate}>
@@ -29,21 +28,6 @@ const Shows = (props) => {
                 </div>
 
               </div>
-
-
-
-
-
-            </MediaQuery>
-            <MediaQuery maxWidth={500}>
-              <div className="row text-center">
-                <div className="col-md-4 ">Date </div>
-
-                <div className="col-md-8">Event</div>
-
-              </div>
-            </MediaQuery>
-          </div>
 
           <ul className="list-group">
 
