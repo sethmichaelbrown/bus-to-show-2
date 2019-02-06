@@ -174,9 +174,6 @@ class App extends Component {
   // Show Functions
   showsExpandClick = async (event) => {
     const newState = { ...this.state }
-    newState.ticketsAvailable = []
-    newState.ticketQuantity = null
-    newState.pickupLocationId = null
     newState.displayQuantity = false
     const clickedShow = newState.shows.find(show => (parseInt(show.id) === parseInt(event.target.id)))
     newState.displayDetailCartView = true
