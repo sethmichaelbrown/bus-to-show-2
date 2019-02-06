@@ -118,14 +118,14 @@ const Cart = (props) => {
                     <div className="form-row">
                       <div className="col-md-4 mb-3">
                         <input
-                          onChange={props.updatePurchaseField}
+                          onChange={props.updateDiscountCode}
                           type="text"
                           className='form-control'
                           id="discountCode"
                           placeholder="Discount Code" />
                       </div>
                       <div className="col-md-4 mb-3">
-                        <button type="button" className="btn btn-outline-secondary">Apply</button>
+                        <button type="button" onClick={props.findDiscountCode} class="btn btn-outline-secondary">Apply</button>
                       </div>
                     </div>
 

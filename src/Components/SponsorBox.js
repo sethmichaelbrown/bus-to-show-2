@@ -8,8 +8,8 @@ const SponsorBox = (props) => {
   return (
     <div className='SponsorBox container mt-2'>
       <div className="row">
-        <div className="col-md-6 col-centered offset-md-3">
-          <img className='' src={logo} alt="bts-logo" width="303" height="130" />
+        <div className="col-md-6 col-centered offset-md-4">
+          <img className='' src={logo} alt="bts-logo" width="101" />
         </div>
         <div className="row mt-3">
           <div className="col-md-12">
