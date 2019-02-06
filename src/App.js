@@ -15,6 +15,7 @@ import LoginView from './Components/LoginView/LoginView'
 // import Footer from './Components/Footer'
 import SponsorBox from './Components/SponsorBox'
 import DetailCartView from './Components/DetailCartView'
+import BannerRotator from './Components/BannerRotator'
 
 //////***** COMMENTED OUT URLS ON THE FOLLOWING LINES, USE TO SWITCH BETWEEN LOCALHOST or HEROKU:
 //////***** App.js: LINES 74/75, 79/80, 86/87, 109/110, 254/255, 290/291
@@ -441,11 +442,12 @@ class App extends Component {
                 <Header
                   loginClick={this.loginClick}
                   searchShows={this.searchShows} />
-                <div className='content-section'>
-                  <div className='col-md-6 float-right'>
+                <div className='content-section pt-4'>
+                  <div className='col-md-6 float-right' >
                     <MediaQuery minWidth={768}>
+                    <BannerRotator />
                       {this.state.displayCart || this.state.displayShow ?
-                        <DetailCartView
+                        (<DetailCartView
                           makePurchase={this.makePurchase}
                           purchasePending={this.state.purchasePending}
                           purchaseSuccessful={this.state.purchaseSuccessful}
@@ -480,6 +482,7 @@ class App extends Component {
                           updatePurchaseField={this.updatePurchaseField}
                           validated={this.state.validated}
                           validatedElements={this.state.validatedElements} />
+                        )
                         :
                         <SponsorBox />}
                     </MediaQuery>
