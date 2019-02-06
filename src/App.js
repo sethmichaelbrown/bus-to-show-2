@@ -221,7 +221,6 @@ class App extends Component {
 
   addToCart = async () => {
     const newState = { ...this.state }
-
     const pickupLocation = newState.pickupLocations.filter(location => parseInt(location.id) === parseInt(this.state.pickupLocationId))[0]
     const basePrice = Number(pickupLocation.basePrice)
     const ticketQuantity = parseInt(this.state.ticketQuantity)
@@ -416,6 +415,8 @@ class App extends Component {
     this.setState({ shows: newState, artistIcon: false, dateIcon: true })
   }
 
+  
+
   makePurchase = () => {
     this.setState({ purchasePending: true })
   }
@@ -460,7 +461,6 @@ class App extends Component {
                           quantityChange={this.quantityChange}
                           removeFromCart={this.removeFromCart}
                           returnToShows={this.returnToShows}
-                          pickupLocationId={this.state.pickupLocationId}
                           selectPickupLocationId={this.selectPickupLocationId}
                           selectTicketQuantity={this.selectTicketQuantity}
                           showsExpandClick={this.showsExpandClick}
