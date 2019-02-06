@@ -13,7 +13,7 @@ const Header = (props) => {
         </a>
       </div>
       <div className="col-8">
-        <div className="form-inline pt-2 px-4">
+        <div className="form-inline  pt-2 px-4">
           <input onKeyUp={props.searchShows} className="form-control-sm badge-pill search-height px-2" placeholder="Search by Event or Venue..." aria-label="Search" />
         </div>
       </div>
