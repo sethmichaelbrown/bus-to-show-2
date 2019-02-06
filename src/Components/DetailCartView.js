@@ -33,7 +33,7 @@ const DetailCartView = (props) => {
           <a onClick={props.tabClicked} className="nav-link" id="showList-tab" data-toggle="tab" href="#showlist" role="tab" aria-controls="showlist" aria-selected="false">Shows</a>
         </li>
         {/* <li>
-          For Tiny Timer 
+          For Tiny Timer
           {props.inCart.length > 0 ?
           <button type="button" disabled='disabled' className="btn btn-dark">{displayTime}</button> : ''}
         </li> */}
@@ -52,6 +52,7 @@ const DetailCartView = (props) => {
             displaySuccess={props.displaySuccess}
             displayWarning={props.displayWarning}
             pickupLocations={props.pickupLocations}
+            pickupLocationId={props.pickupLocationId}
             returnToShows={props.returnToShows}
             selectPickupLocationId={props.selectPickupLocationId}
             selectTicketQuantity={props.selectTicketQuantity}
