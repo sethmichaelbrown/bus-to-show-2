@@ -33,7 +33,7 @@ const DetailCartView = (props) => {
           <a onClick={props.tabClicked} className="nav-link" id="showList-tab" data-toggle="tab" href="#showlist" role="tab" aria-controls="showlist" aria-selected="false">Shows</a>
         </li>
         {/* <li>
-          For Tiny Timer 
+          For Tiny Timer
           {props.inCart.length > 0 ?
           <button type="button" disabled='disabled' className="btn btn-dark">{displayTime}</button> : ''}
         </li> */}
@@ -58,6 +58,8 @@ const DetailCartView = (props) => {
             showsExpandClick={props.showsExpandClick}
             ticketsAvailable={props.ticketsAvailable}
             ticketQuantity={props.ticketQuantity}
+            updateDiscountCode={props.updateDiscountCode}
+            findDiscountCode={props.findDiscountCode}
             totalCost={props.totalCost} />
         </div>
         <MediaQuery maxWidth={768}>
@@ -86,10 +88,11 @@ const DetailCartView = (props) => {
               returnToShows={props.returnToShows}
               pickupLocationId={props.pickupLocationId}
               showsInCart={props.inCart}
+              updateDiscountCode={props.updateDiscountCode}
+              findDiscountCode={props.findDiscountCode}
               totalCost={props.totalCost}
               ticketQuantity={props.ticketQuantity}
               updateDiscountCode={props.updateDiscountCode}
-              findDiscountCode={props.findDiscountCode}
               updatePurchaseField={props.updatePurchaseField}
               validatedElements={props.validatedElements}
               validated={props.validated}

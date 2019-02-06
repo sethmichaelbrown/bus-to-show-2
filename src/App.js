@@ -137,6 +137,27 @@ class App extends Component {
     this.setState(newState)
   }
 
+  updateDiscountCode = (event) => {
+    console.log(event.target.value)
+    const newState = { ...this.State }
+    newState.discountCode = event.target.value
+    this.setState(newState)
+    console.log('discountCode set::: ', newState.discountCode)
+
+  }
+
+
+  findDiscountCode = async () =>{
+    console.log ("hey, how bout that?")
+    //console.log ('currentCode inside findDiscountCode:::', this.state.discountCode)
+    const response = await fetch(`http://localhost:3000/discount_codes/${this.state.discountCode}`)
+    const json = await response.json()
+    //const newState = { ...this.state }
+    //this.setState(newState)
+    console.log('findDiscountCode json:::: ', json)
+  }
+
+
   // Header Functions
   loginClick = () => {
     const newState = { ...this.state }
@@ -442,6 +463,8 @@ class App extends Component {
                           tabClicked={this.tabClicked}
                           ticketsAvailable={this.state.ticketsAvailable}
                           ticketQuantity={this.state.ticketQuantity}
+                          updateDiscountCode={this.updateDiscountCode}
+                          findDiscountCode={this.findDiscountCode}
                           timeLeftInCart={this.state.timeLeftInCart}
                           totalCost={this.state.totalCost}
                           updatePurchaseField={this.updatePurchaseField}
@@ -482,6 +505,7 @@ class App extends Component {
                           tabClicked={this.tabClicked}
                           ticketsAvailable={this.state.ticketsAvailable}
                           ticketQuantity={this.state.ticketQuantity}
+                          findDiscountCode={this.findDiscountCode}
                           totalCost={this.state.totalCost}
                           updatePurchaseField={this.updatePurchaseField}
                           validated={this.state.validated}
