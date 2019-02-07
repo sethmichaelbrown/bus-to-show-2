@@ -174,22 +174,15 @@ class App extends Component {
     console.log('what is the event ID from state right now?', eventId)
     console.log('findDiscountCode json:::: ', json)
     const result = json.filter((discountObj) => discountObj.eventsId === eventId)[0]
-    console.log('result.remainingUses 176', result.remainingUses)
-
+    const newState = { ...this.State }
     if(!result){
       console.log('no match!')
       return "no match"
     }
-    console.log('result.remainingUses 182', result.remainingUses)
-
     if(result.remainingUses <= 0){
       console.log ('this code is all used up!')
       return 'this code is all used up!'
-      console.log('result.remainingUses 187', result.remainingUses)
-
     }
-    console.log('result.remainingUses 190', result.remainingUses)
-
     const expiration = Date.parse(result.expiresOn.toLocaleString('en-US'))
     const today = Date.parse(new Date().toLocaleString('en-US', {timeZone: 'America/Denver'}))
 
@@ -197,7 +190,6 @@ class App extends Component {
     console.log('this code is expired')
     return 'this code is expired'
     } else {
-      console.log('result.remainingUses 200', result.remainingUses)
       console.log('this is a valid code that is not expired')
       let priceWithoutFeesPerTicket = this.state.totalCost * 10 / 11 / ticketQuantity
       let effectiveRate = (100 - result.percentage) / 100
@@ -210,25 +202,23 @@ class App extends Component {
         afterDiscountObj.totalSavings = this.state.totalCost - priceWithoutFeesPerTicket * ticketQuantity * effectiveRate * 1.10
         afterDiscountObj.newRemainingUses = result.remainingUses - ticketQuantity
         console.log('afterDiscountObj::: ', afterDiscountObj)
-        const newState = { ...this.State }
         newState.afterDiscountObj = afterDiscountObj
         newState.totalSavings = afterDiscountObj.totalSavings
         this.setState(newState)
-        console.log('this.state.afterDiscountObj', this.state.afterDiscountObj)
+        console.log('newState more uses than tickets', this.state.afterDiscountObj)
       }
-      //if (match.remainingUses < ticketQuantity) {
-//   afterDiscountObj.timesUsed = match.remainingUses
-//   afterDiscountObj.totalPriceAfterDiscount = (priceWithoutFeesPerTicket * (ticketQuantity - match.remainingUses) + priceWithoutFeesPerTicket * effectiveRate * match.remainingUses) * 1.10
-//   afterDiscountObj.newRemainingUses = 0
-//   return afterDiscountObj
-//}
+      if (result.remainingUses < ticketQuantity) {
+        afterDiscountObj.timesUsed = result.remainingUses
+        afterDiscountObj.totalSavings = this.state.totalCost - (priceWithoutFeesPerTicket * (ticketQuantity - result.remainingUses) + priceWithoutFeesPerTicket * effectiveRate * result.remainingUses) * 1.10
+        afterDiscountObj.totalPriceAfterDiscount = (priceWithoutFeesPerTicket * (ticketQuantity - result.remainingUses) + priceWithoutFeesPerTicket * effectiveRate * result.remainingUses) * 1.10
+        afterDiscountObj.newRemainingUses = 0
+        newState.afterDiscountObj = afterDiscountObj
+
+        this.setState(newState)
+        console.log('newState :: less uses than tickets ', this.state.afterDiscountObj)
       }
-      // X result.discountCode: "MetallicaConcert"
-      // X result.eventsId: 36500124
-      // Xresult.expiresOn: "2019-06-06T06:00:00.000Z"
-      // result.percentage: 40
-      // result.remainingUses: 190
     }
+  }
 
 
 
