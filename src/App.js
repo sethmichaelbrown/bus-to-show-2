@@ -158,12 +158,40 @@ class App extends Component {
   findDiscountCode = async () =>{
     console.log ("hey, how bout that?")
     //console.log ('currentCode inside findDiscountCode:::', this.state.discountCode)
+    const eventId = this.state.inCart[0].id
     const response = await fetch(`http://localhost:3000/discount_codes/${this.state.discountCode}`)
     const json = await response.json()
     //const newState = { ...this.state }
     //this.setState(newState)
+    console.log('what is the event ID from state right now?', eventId)
     console.log('findDiscountCode json:::: ', json)
+    const result = json.filter((discountObj) => discountObj.eventsId === eventId)[0]
+    console.log('filter result', result)
+    if(!result){
+      console.log('no match!')
+      return "no match"
+    }
+    if(result.remainingUses <= 0){
+      console.log ('this code is all used up.')
+    }
+
+    const expiration = Date.parse(result.expiresOn.toLocaleString('en-US'))
+    console.log('expiration::::', result.expiresOn)
+
+    const today = Date.parse(new Date().toLocaleString('en-US', {timeZone: 'America/Denver'}))
+    console.log('today:::', today)
+    if (expiration < today){
+    console.log('this code is expired')
+  } else {
+    console.log('this is a valid code that is not expired')
   }
+      // X result.discountCode: "MetallicaConcert"
+      // X result.eventsId: 36500124
+      // result.expiresOn: "2019-06-06T06:00:00.000Z"
+      // result.percentage: 40
+      // result.remainingUses: 190
+    }
+
 
 
   // Header Functions
@@ -450,6 +478,7 @@ class App extends Component {
                           displayShow={this.state.displayShow}
                           displaySuccess={this.state.displaySuccess}
                           displayWarning={this.state.displayWarning}
+                          findDiscountCode={this.findDiscountCode}
                           handleCheck={this.handleCheck}
                           handleSubmit={this.handleSubmit}
                           inCart={this.state.inCart}
@@ -469,7 +498,6 @@ class App extends Component {
                           ticketsAvailable={this.state.ticketsAvailable}
                           ticketQuantity={this.state.ticketQuantity}
                           updateDiscountCode={this.updateDiscountCode}
-                          findDiscountCode={this.findDiscountCode}
                           timeLeftInCart={this.state.timeLeftInCart}
                           totalCost={this.state.totalCost}
                           updatePurchaseField={this.updatePurchaseField}
@@ -494,6 +522,7 @@ class App extends Component {
                           displayShow={this.state.displayShow}
                           displaySuccess={this.state.displaySuccess}
                           filterString={this.state.filterString}
+                          findDiscountCode={this.findDiscountCode}
                           handleCheck={this.handleCheck}
                           handleSubmit={this.handleSubmit}
                           inCart={this.state.inCart}
@@ -513,7 +542,6 @@ class App extends Component {
                           tabClicked={this.tabClicked}
                           ticketsAvailable={this.state.ticketsAvailable}
                           ticketQuantity={this.state.ticketQuantity}
-                          findDiscountCode={this.findDiscountCode}
                           totalCost={this.state.totalCost}
                           updatePurchaseField={this.updatePurchaseField}
                           validated={this.state.validated}
