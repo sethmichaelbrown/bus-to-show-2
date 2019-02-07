@@ -61,13 +61,9 @@ class App extends Component {
     pickupLocationId: null,
     purchasePending: false,
     purchaseSuccessful: false,
-<<<<<<< HEAD
-    loginView: false,
-    showBios:false,
-=======
     myReservationsView: false,
     loggedIn: false,
->>>>>>> 1f9bbc0ae5fcb96ccb9cfb0fc763f92ce1f16291
+    showBios:false,
     ticketsAvailable: [],
     ticketQuantity: null,
     totalCost: 0,
@@ -237,7 +233,7 @@ class App extends Component {
   // Header Functions
   userDashboard = () => {
     const newState = { ...this.state }
-    newState.myReservationsView = !this.state.myReservationsView 
+    newState.myReservationsView = !this.state.myReservationsView
     this.setState(newState)
   }
 
@@ -551,42 +547,34 @@ class App extends Component {
       <BrowserRouter>
       <React.Fragment>
         <div className="App">
-<<<<<<< HEAD
-        <div>
-
-          {this.state.loginView ?
-            <LoginView
-              returnHome={this.returnHome} /> :
-                this.state.displayAboutUs ?
-                  <Aboutus
-                    dismissBios={this.dismissBios}
-                    readBios={this.readBios}
-                    displayBios={this.state.displayBios}
-                    hideAboutUs={this.hideAboutUs}/> :
-=======
           {this.state.myReservationsView ?
           <React.Fragment>
            <Header
-                  loggedIn={this.state.loggedIn}
-                  userDashboard={this.userDashboard}
-                  toggleLoggedIn={this.toggleLoggedIn}
-                  myReservationsView={this.state.myReservationsView} />
+              loggedIn={this.state.loggedIn}
+              userDashboard={this.userDashboard}
+              toggleLoggedIn={this.toggleLoggedIn}
+              myReservationsView={this.state.myReservationsView} />
             <LoginView
-              returnHome={this.returnHome} 
+              returnHome={this.returnHome}
               shows={this.state.shows}
               addBorder={this.addBorder}
               displayShow={this.state.displayShow}
               filterString={this.state.filterString}
-              showsExpandClick={this.showsExpandClick}
-              />
+              showsExpandClick={this.showsExpandClick} />
               </React.Fragment> :
->>>>>>> 1f9bbc0ae5fcb96ccb9cfb0fc763f92ce1f16291
+
+              this.state.displayAboutUs ?
+                <Aboutus
+                  dismissBios={this.dismissBios}
+                  readBios={this.readBios}
+                  displayBios={this.state.displayBios}
+                  hideAboutUs={this.hideAboutUs}/> :
             this.state.shows ?
               <React.Fragment>
                 <Header
                   loggedIn={this.state.loggedIn}
-                  userDashboard={this.userDashboard} 
-                  toggleLoggedIn={this.toggleLoggedIn} 
+                  userDashboard={this.userDashboard}
+                  toggleLoggedIn={this.toggleLoggedIn}
                   myReservationsView={this.state.myReservationsView} />
                 <div className='content-section pt-4'>
                   <div className='col-md-6 float-right' >
@@ -594,16 +582,12 @@ class App extends Component {
                       {this.state.displayShow ? '' :
                         <BannerRotator displayShow={this.state.displayShow} />}
                       {this.state.displayCart || this.state.displayShow ?
-<<<<<<< HEAD
                         <DetailCartView
-=======
-                        (<DetailCartView
                           afterDiscountObj={this.state.afterDiscountObj}
                           shows={this.state.shows}
                           makePurchase={this.makePurchase}
                           purchasePending={this.state.purchasePending}
                           purchaseSuccessful={this.state.purchaseSuccessful}
->>>>>>> 1f9bbc0ae5fcb96ccb9cfb0fc763f92ce1f16291
                           closeAlert={this.closeAlert}
                           addToCart={this.addToCart}
                           checked={this.state.checked}
@@ -647,8 +631,7 @@ class App extends Component {
                           validated={this.state.validated}
                           validatedElements={this.state.validatedElements} />
                         :
-
-                        <SponsorBox />}
+                        <SponsorBox/>}
 
                     </MediaQuery>
                     <MediaQuery maxWidth={767}>
@@ -747,13 +730,12 @@ class App extends Component {
 
         </div>
 
-    </div>
+
 {this.state.displayAboutUs? '': <button onClick={this.showAboutUs}>Read About the Team</button>}
 
 
 
     </React.Fragment>
-
       </BrowserRouter>
 
     );
