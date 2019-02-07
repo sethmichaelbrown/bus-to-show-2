@@ -36,7 +36,7 @@ const Shows = (props) => {
               // onClick={props.addBorder}
               onClick={props.showsExpandClick}
               type="button"
-              className='btn show-list-item bg-white my-4 col-md-2'>Details</button>
+              className='btn detail-btn my-4 col-md-2'>Details</button>
 
           </div>
 
