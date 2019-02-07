@@ -37,15 +37,15 @@ export default class FacebookButton extends React.Component {
         </div>
       )
     } else {
-      fbContent = (
-        <FacebookLogin
-          style={{ height: '50px' }}
-          appId="244004823142378"
-          autoLoad={true}
-          fields="name,email,picture"
-          onClick={this.componentClicked}
-          callback={this.responseFacebook} />
-      )
+      // fbContent = (
+      //   <FacebookLogin
+      //     style={{ height: '50px' }}
+      //     appId="244004823142378"
+      //     autoLoad={true}
+      //     fields="name,email,picture"
+      //     onClick={this.componentClicked}
+      //     callback={this.responseFacebook} />
+      // )
     }
     return (
       <React.Fragment>{fbContent}</React.Fragment>

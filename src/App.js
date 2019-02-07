@@ -509,7 +509,6 @@ class App extends Component {
     this.setState({ shows: newState, artistIcon: false, dateIcon: true })
   }
 
-
   makePurchase = () => {
     this.setState({ purchasePending: true })
   }
@@ -552,6 +551,7 @@ class App extends Component {
                           makePurchase={this.makePurchase}
                           pickupLocations={this.state.pickupLocations}
                           pickupLocationId={this.state.pickupLocationId}
+                          pickupParties={this.state.pickupParties}
                           purchase={this.purchase}
                           purchaseClick={this.purchaseClick}
                           purchasePending={this.state.purchasePending}
@@ -602,6 +602,7 @@ class App extends Component {
                           inCart={this.state.inCart}
                           pickupLocations={this.state.pickupLocations}
                           pickupLocationId={this.state.pickupLocationId}
+                          pickupParties={this.state.pickupParties}
                           purchase={this.purchase}
                           purchaseClick={this.purchaseClick}
                           quantityChange={this.quantityChange}

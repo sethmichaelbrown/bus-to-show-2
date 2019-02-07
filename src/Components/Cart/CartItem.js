@@ -1,13 +1,18 @@
 import React from 'react'
+import moment from 'moment'
 import '../../App.css';
 
 const CartItem = (props) => {
-
   const pickupTime = props.getPickupParty(props.showsInCart[0].id, props.pickupLocationId)
   const pickupLocation = props.pickupLocations.find(location => parseInt(location.id) === parseInt(props.pickupLocationId))
-  const firstBus = props.getPickupParty(props.showsInCart[0].id, props.pickupLocationId)
 
-  console.log(firstBus)
+  const pickupParty = props.pickupParties.find(party => party)
+  const time1 = pickupTime.split(':')
+  const time2 = time1[1].split(' PM')[0] - 15
+  const time3 = time1[0].concat(time2)
+  const defaultFirstBus = moment(time3, 'hmm').format('h:mm')
+
+  console.log(defaultFirstBus)
 
   return (
     <div className='CartItem'>
@@ -33,8 +38,14 @@ const CartItem = (props) => {
 
             <br />
             <br />
-            <div className="col-md-12 list-item-font red-text">
-              Please arrive at the bus no later than {pickupTime}
+            <div className="row mt-3">
+              <div className="col-md-12 list-item-font">
+                Bus arrives around {pickupParty.firstBusLoadTime ?
+                  pickupParty.firstBusLoadTime : defaultFirstBus} PM
+              </div>
+              <div className="col-md-12 list-item-font red-text mt-2">
+                Please arrive at the bus no later than {pickupTime}
+              </div>
             </div>
           </div>
 
