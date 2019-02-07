@@ -2,46 +2,11 @@ import React from 'react'
 import '../../App.css';
 
 const CartItem = (props) => {
-  // console.log('CI', props)
-
-  // const ticketCost = (parseInt(props.ticketPrice) * parseInt(props.ticketQuantity)).toFixed(2)
+  
+  const pickupTime = props.getPickupParty(props.showsInCart[0].id, props.pickupLocationId)
+  
+  const ticketCost = (parseInt(props.ticketPrice) * parseInt(props.ticketQuantity)).toFixed(2)
   const pickupLocation = props.pickupLocations.find(location => parseInt(location.id) === parseInt(props.pickupLocationId))
-  const stringStartTime=props.showsInCart[0].startTime.split(":").join("").slice(0,4)
-  const showStartTime=Number.parseInt(props.showsInCart[0].startTime.split(":").join("").slice(0,4))-1200
-  const pickupTime=showStartTime+''
-  const pickupHour=pickupTime.length===4? pickupTime.slice(0,2) : pickupTime.slice(0,1)
-  const pickupMinute=pickupTime.length===3? pickupTime.slice(1): pickupTime.slice(2)
-  const pickupAddress=pickupLocation.locationName
-  let busstop
-  switch (pickupAddress) {
-    case "UNIV. HILL CHEBA HUT":
-      showStartTime%100===0? busstop=showStartTime-170: busstop=showStartTime-130;
-      break;
-    case "DU ILLEGAL PETE’S":
-      showStartTime%100===0? busstop=showStartTime-200: busstop=showStartTime-200;
-      break;
-    case "COLFAX CAP HILL CHEBA HUT":
-      showStartTime%100===0? busstop=showStartTime-170: busstop=showStartTime-130;
-      break;
-    case "CHAMPA DOWNTOWN CHEBA HUT":
-      showStartTime%100===0? busstop=showStartTime-170: busstop=showStartTime-130
-      break;
-    case "RiNo EPIC BREWING":
-      showStartTime%100===0? busstop=showStartTime-155: busstop=showStartTime-115
-      break;
-    case "MAIN ST. CHEBA HUT":
-      showStartTime%100===0? busstop=showStartTime-170: busstop=showStartTime-130
-      break;
-    case "OLD TOWN ILLEGAL PETE’S":
-      showStartTime%100===0? busstop=showStartTime-370: busstop=showStartTime-330
-      break;
-    default:
-      busstop="2 hours before showtime"
-
-  }
-
-  let busstopString=busstop+''
-  let busStopTime=busstopString.length===4? busstopString.slice(0,2)+ ":"+ busstopString.slice(2) : busstopString.slice(0,1) + ":" + busstopString.slice(1)
 
   return (
     <div className='CartItem'>
@@ -68,8 +33,8 @@ const CartItem = (props) => {
 
 
               <div className="col-md-6 list-item-font">
-              {console.log(busstop)}
-              please arrive at the bus no later than {busStopTime}
+              {console.log('!',pickupTime)}
+              please arrive at the bus no later than {pickupTime}
               </div>
           </div>
 

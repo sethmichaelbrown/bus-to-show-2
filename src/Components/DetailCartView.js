@@ -8,13 +8,13 @@ import logo from '../Images/Logos/bts-logo-gray.png'
 
 const DetailCartView = (props) => {
   // console.log('DCV', props)
-  // const time = props.timeLeftInCart
+  const time = props.timeLeftInCart
 
   // //For Tiny Timer
   // const millisToMinutesAndSeconds = (mili) => {
   //   var minutes = Math.floor(mili / 60000)
   //   var seconds = ((mili % 60000) / 1000).toFixed(0)
-  //   return seconds === 60 ? (minutes+1) + ":00" : minutes + ":" + (seconds < 10 ? "0" : "") + seconds
+  //   return seconds == 60 ? (minutes+1) + ":00" : minutes + ":" + (seconds < 10 ? "0" : "") + seconds
   // }
   // const displayTime = millisToMinutesAndSeconds(time)
 
@@ -81,6 +81,7 @@ const DetailCartView = (props) => {
               makePurchase={props.makePurchase}
               purchasePending={props.purchasePending}
               checked={props.checked}
+              getPickupParty={props.getPickupParty}
               handleCheck={props.handleCheck}
               handleSubmit={props.handleSubmit}
               pickupLocations={props.pickupLocations}
@@ -94,7 +95,6 @@ const DetailCartView = (props) => {
               findDiscountCode={props.findDiscountCode}
               totalCost={props.totalCost}
               ticketQuantity={props.ticketQuantity}
-              updateDiscountCode={props.updateDiscountCode}
               updatePurchaseField={props.updatePurchaseField}
               validatedElements={props.validatedElements}
               validated={props.validated}
