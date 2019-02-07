@@ -15,7 +15,7 @@ const CartItem = (props) => {
             <div className="col-md-4 cart-item-font" id={show.id}>{show.headliner}</div>
             <div className="col-md-4 cart-item-font" id={show.id}>{pickupLocation.locationName} <br /> {pickupLocation.streetAddress}</div>
             <div className="col-md-2 cart-item-font" id={show.id}>{show.date}</div>
-            <div className="form-group col-md-1">{props.ticketQuantity}</div>
+            <div className="form-group col-md-1 cart-item-font">{props.ticketQuantity}</div>
             <div className="col-md-1 cart-item-font"
               id={show.id}><button onClick={props.removeFromCart} type="button" className="btn btn-sm btn-danger"><strong> - </strong></button>
             </div>

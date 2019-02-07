@@ -243,6 +243,10 @@ p {
   font-weight: bold;
 }
 
+.black-text{
+  color: black;
+}
+
 @media only screen and (min-width: 900px) {
   .make-bigger{
     align-self: flex-end;
