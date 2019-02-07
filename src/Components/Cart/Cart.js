@@ -199,8 +199,11 @@ const Cart = (props) => {
                       </div>
                       <div className='row justify-content-center '>
                         <Checkout
+                          makePurchase={props.makePurchase}
+                          purchasePending={props.purchasePending}
                           validated={props.validated}
                           purchase={props.purchase}
+                          afterDiscountObj={props.afterDiscountObj}
                           totalCost={totalCost}
                           showsInCart={props.showsInCart}>
                         </Checkout>
