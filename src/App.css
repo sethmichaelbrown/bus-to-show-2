@@ -1,8 +1,28 @@
+/* html {
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+} */
 /* Shows Styling */
 
 .list-group {
   max-height: 90vh;
   overflow: scroll;
+  overflow-x: hidden;
+  overflow: -moz-scrollbars-none;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.list-group::-webkit-scrollbar {
+  width: 0;
 }
 
 .list-group-item {
@@ -108,8 +128,11 @@
 }
 
 .show-header {
+  display: flex;
+  flex-direction: column;
   background-color: #ff420f;
   color: white;
+  min-height: 0;
 }
 
 .show-list-item {
@@ -189,7 +212,8 @@
 }
 
 .inline-block {
-  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: flex;
 }
 
 .round-img {
@@ -238,13 +262,32 @@ p {
 }
 
 .red-text{
-  margin-top: 10px;
   color: red;
   font-weight: bold;
 }
 
 .black-text{
   color: black;
+}
+
+.remove-border{
+  border: none;
+  margin-top: -3;
+  padding: 0;
+}
+
+.remove-border:hover{
+  background: #ffffff;
+  color: #616060;
+}
+
+.my-facebook-button-class{
+  height: 45px;
+  padding: 1rem;
+  border: none;
+  font-weight: bold;
+  color: white;
+  background-color: #ff420f;
 }
 
 @media only screen and (min-width: 900px) {

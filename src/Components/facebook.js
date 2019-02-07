@@ -57,12 +57,14 @@ export default class FacebookButton extends React.Component {
     } else {
       fbContent = (
         <FacebookLogin
-          style={{ height: '50px' }}
           appId="244004823142378"
-          autoLoad={true}
+          autoLoad={false}
           fields="name,email,picture"
           onClick={this.componentClicked}
-          callback={this.responseFacebook} />
+          callback={this.responseFacebook}
+          cssClass="my-facebook-button-class"
+          icon="fab fa-facebook-square"
+           />
       )
     }
     return (

@@ -22,20 +22,20 @@ const Header = (props) => {
         </a>
       </MediaQuery>
       </div>
-      
-    
-      
-      
-      <div className="mr-5" style={{textAlign: 'center'}}>
-        {props.loggedIn? 
-          <button type="button" className="btn mr-2 btn-outline-light sort-btn" onClick={props.userDashboard}>
+
+
+
+
+      <div className="mr-5 row inline-block" style={{textAlign: 'center'}}>
+        {props.loggedIn?
+          <button type="button" className="btn btn-outline-light sort-btn" onClick={props.userDashboard}>
             <strong>{props.myReservationsView ? "Upcoming Shows" : "My Reservations"}</strong>
           </button>:""}
         <FacebookButton userDashboard={props.userDashboard} toggleLoggedIn={props.toggleLoggedIn} loggedIn={props.loggedIn}/>
       </div>
-      
 
-      
+
+
           {/* <button onClick={props.userDashboard} className="btn btn-outline-primary my-2 my-sm-0">Login</button>
             <button onClick={props.signUpClick} className="btn btn-outline-secondary my-2 my-sm-0 ml-1">Sign Up</button> */}
     </nav>
