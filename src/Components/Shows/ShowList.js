@@ -32,7 +32,7 @@ const Shows = (props) => {
 
               <div className="col-6 mb-3" >
                 <form className="form-inline float-right">
-                  <input onKeyUp={props.searchShows} className="form-control" type="search" placeholder="Search Events or Venues..." aria-label="Search"></input>
+                  <input onKeyUp={props.searchShows} className="form-control search-bar" type="search" placeholder="Search Events or Venues..." aria-label="Search"></input>
                 </form>
               </div>
 
