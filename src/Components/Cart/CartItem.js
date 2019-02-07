@@ -12,12 +12,12 @@ const CartItem = (props) => {
       {props.showsInCart.map(show =>
         <li className="list-group-item highlightOnHover" onClick={props.eventExpandClick} key={show.id} id={show.id}>
           <div className="row" id={show.id}>
-            <div className="col-md-4 cart-item-font" id={show.id}>{show.headliner}</div>
+            <div className="col-md-4 cart-item-font" id={show.id}>{show.headliner} <br /> at {show.venue.split(' Amphitheatre')[0]} </div>
             <div className="col-md-4 cart-item-font" id={show.id}>{pickupLocation.locationName} <br /> {pickupLocation.streetAddress}</div>
             <div className="col-md-2 cart-item-font" id={show.id}>{show.date}</div>
             <div className="form-group col-md-1 cart-item-font">{props.ticketQuantity}</div>
             <div className="col-md-1 cart-item-font"
-              id={show.id}><button onClick={props.removeFromCart} type="button" className="btn btn-sm btn-danger"><strong> - </strong></button>
+              id={show.id}><button onClick={props.removeFromCart} type="button" className="btn btn-sm btn-danger"><strong> X </strong></button>
             </div>
 
             {/* <div className="col-md-6 cart-item-font">
