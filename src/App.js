@@ -462,7 +462,7 @@ class App extends Component {
                 <div className='content-section pt-4'>
                   <div className='col-md-6 float-right' >
                     <MediaQuery minWidth={768}>
-                      <BannerRotator />
+                      <BannerRotator displayShow={this.state.displayShow}/>
                       {this.state.displayCart || this.state.displayShow ?
                         (<DetailCartView
                           shows={this.state.shows}
