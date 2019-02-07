@@ -36,9 +36,7 @@ const Shows = (props) => {
               </div>
 
             </div>
-
             <ul className="list-group">
-
               {props.shows ?
                 <div>
                   <MediaQuery minWidth={768}>

@@ -21,8 +21,8 @@ body {
   -ms-overflow-style: none;
 }
 
-.list-group::-webkit-scrollbar { 
-  width: 0; 
+.list-group::-webkit-scrollbar {
+  width: 0;
 }
 
 .list-group-item {
@@ -279,6 +279,15 @@ p {
 .remove-border:hover{
   background: #ffffff;
   color: #616060;
+}
+
+.my-facebook-button-class{
+  height: 45px;
+  padding: 1rem;
+  border: none;
+  font-weight: bold;
+  color: white;
+  background-color: #ff420f;
 }
 
 @media only screen and (min-width: 900px) {
