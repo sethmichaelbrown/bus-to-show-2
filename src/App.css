@@ -195,7 +195,7 @@
   border-radius: 30px;
 }
 
-.nav-flex {
+.nav-flex , .cart-flex{
   display: flex;
   justify-content: space-between;
   height: 100%;
@@ -224,6 +224,11 @@ p {
 
 .search-bar{
   border: none;
+}
+
+.align-left{
+  margin-top: 8px;
+  text-align: left;
 }
 
 @media only screen and (min-width: 900px) {

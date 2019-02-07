@@ -151,22 +151,22 @@ class App extends Component {
   }
 
   updateDiscountCode = (event) => {
-    console.log(event.target.value)
+    // console.log(event.target.value)
     const newState = { ...this.State }
     newState.discountCode = event.target.value
     this.setState(newState)
-    console.log('discountCode set::: ', newState.discountCode)
+    // console.log('discountCode set::: ', newState.discountCode)
 
   }
 
   findDiscountCode = async () =>{
-    console.log ("hey, how bout that?")
+    // console.log ("hey, how bout that?")
     //console.log ('currentCode inside findDiscountCode:::', this.state.discountCode)
     const response = await fetch(`http://localhost:3000/discount_codes/${this.state.discountCode}`)
     const json = await response.json()
     //const newState = { ...this.state }
     //this.setState(newState)
-    console.log('findDiscountCode json:::: ', json)
+    // console.log('findDiscountCode json:::: ', json)
   }
 
   // Header Functions
@@ -279,10 +279,10 @@ class App extends Component {
   getPickupParty = (thisEventId, pickupLocId) => {
     pickupLocId = parseInt(pickupLocId)
     let allPickupParties = this.state.pickupParties
-    let thisPickupParty = allPickupParties.filter(pickupParty => pickupParty.eventId === thisEventId && pickupParty.pickupLocationId === pickupLocId)[0]
-    console.log(allPickupParties)
-    console.log(thisEventId, pickupLocId)
-    console.log(thisPickupParty)
+    let thisPickupParty = allPickupParties.find(pickupParty => pickupParty.eventId === thisEventId && pickupParty.pickupLocationId === pickupLocId)
+    // console.log(allPickupParties)
+    // console.log(thisEventId, pickupLocId)
+    // console.log(thisPickupParty)
     let hours = Number(thisPickupParty.lastBusDepartureTime.split(':')[0])
     let minutes = thisPickupParty.lastBusDepartureTime.split(':')[1]
     let amPm = ''

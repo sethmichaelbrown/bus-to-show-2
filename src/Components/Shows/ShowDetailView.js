@@ -11,18 +11,14 @@ const ShowDetailView = (props) => {
   const headlinerBio = show.headlinerBio.split('<a')[0]
   const noBio = 'No bio information available, so enjoy a kitten on us.'
 
-  let basePrice = 0
-  let processingFee = 0
+  let basePrice;
 
-  if(props.pickupLocation){
+  if (props.pickupLocationId) {
     basePrice = props.pickupLocations.find(location => parseInt(location.id) === parseInt(props.pickupLocationId)).basePrice.toFixed(2)
-    processingFee = Number(basePrice) * .1
   }
 
-  console.log(basePrice)
-  console.log(processingFee)
 
-  
+
 
   // placekitten.com/width/height of photo to be displayed
   const placeKitten = 'http://placekitten.com/174/174'
@@ -110,9 +106,17 @@ const ShowDetailView = (props) => {
                 </div>
 
                 <div className="col-md-5 float-right mt-4">
-                  {/* {props.displayQuantity ? YAS
-                    
-                    : ''} */}
+                  {props.displayQuantity ?
+                    <React.Fragment>
+                      <h5>
+                        <span className='badge badge-secondary align-left'>
+                          <div>${basePrice} per ticket</div>
+                          <div>+ ${(basePrice * .1).toFixed(2)} processing fee</div>
+                        </span>
+                      </h5>
+
+                    </React.Fragment>
+                    : ''}
                 </div>
               </div>
 
@@ -127,7 +131,7 @@ const ShowDetailView = (props) => {
                       <form className="was-validated">
                         <div className="form-group">
                           {props.ticketsAvailable.length === 0 ?
-                            <button className="btn btn-danger px-2" disabled="disabled" type="button">Sold Out!</button>
+                            <button className="btn btn-danger" disabled="disabled" type="button">Sold Out!</button>
                             :
                             <select
                               className="custom-select mt-2"

@@ -133,7 +133,7 @@ const Cart = (props) => {
                     </div>
 
 
-                    <div className='form-row '>
+                    <div className='form-row cart-flex'>
                       <MediaQuery minWidth={768}>
                         <Checkout
                           makePurchase={props.makePurchase}
@@ -144,9 +144,9 @@ const Cart = (props) => {
                           showsInCart={props.showsInCart}>
                         </Checkout>
 
-                        <h4>Cart Total:
-                            <span className="badge badge-secondary">{`$${totalCost}`}</span>
-                        </h4>
+                        <h3>Cart Total:
+                            <span className="badge badge-success mb-1">  {`$${totalCost}`}</span>
+                        </h3>
 
                       </MediaQuery>
                     </div>
