@@ -74,15 +74,15 @@ class App extends Component {
     const response = await fetch('https://something-innocuous.herokuapp.com/events')
     // const response = await fetch('http://localhost:3000/events')
     const shows = await response.json()
-    this.setState({shows:shows})
+    this.setState({ shows: shows })
 
     let newState = this.state.shows.sort((show1, show2) => {
-        let a = new Date(show1.date)
-        let b = new Date(show2.date)
-        return a - b
-      })
+      let a = new Date(show1.date)
+      let b = new Date(show2.date)
+      return a - b
+    })
 
-    this.setState({ shows:newState })
+    this.setState({ shows: newState })
 
     const allEvents = await fetch('https://something-innocuous.herokuapp.com/events')
     // const allEvents = await fetch('http://localhost:3000/events')
@@ -159,7 +159,7 @@ class App extends Component {
 
   }
 
-  findDiscountCode = async () =>{
+  findDiscountCode = async () => {
     // console.log ("hey, how bout that?")
     //console.log ('currentCode inside findDiscountCode:::', this.state.discountCode)
     const response = await fetch(`http://localhost:3000/discount_codes/${this.state.discountCode}`)
@@ -210,7 +210,7 @@ class App extends Component {
     newState.displaySuccess = false
     newState.displayShow = clickedShow
     this.setState(newState)
-    if(document.querySelector('#departureLocation')){
+    if (document.querySelector('#departureLocation')) {
       document.querySelector('#departureLocation').value = "Select a Departure Location..."
     }
   }
@@ -461,7 +461,8 @@ class App extends Component {
                 <div className='content-section pt-4'>
                   <div className='col-md-6 float-right' >
                     <MediaQuery minWidth={768}>
-                      <BannerRotator displayShow={this.state.displayShow}/>
+                      {this.state.displayShow ? '' :
+                        <BannerRotator displayShow={this.state.displayShow} />}
                       {this.state.displayCart || this.state.displayShow ?
                         (<DetailCartView
                           shows={this.state.shows}
@@ -507,7 +508,8 @@ class App extends Component {
                         <SponsorBox />}
                     </MediaQuery>
                     <MediaQuery maxWidth={767}>
-                      <BannerRotator />
+                      {this.state.displayShow ? '' :
+                        <BannerRotator displayShow={this.state.displayShow} />}
                       {this.state.displayCart || this.state.displayShow ?
                         <DetailCartView
                           addToCart={this.addToCart}

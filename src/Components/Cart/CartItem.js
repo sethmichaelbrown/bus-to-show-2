@@ -20,9 +20,9 @@ const CartItem = (props) => {
               id={show.id}><button onClick={props.removeFromCart} type="button" className="btn btn-sm btn-outline-danger">Remove</button>
             </div>
 
-            <div className="col-md-6 list-item-font">
+            {/* <div className="col-md-6 list-item-font">
               ${((Number(props.totalCost) * 10 / 11) / Number(props.ticketQuantity)).toFixed()}.00 per ticket + ${(((Number(props.totalCost) * 10 / 11) / Number(props.ticketQuantity)) / 10).toFixed(2)} 10% processing fee
-              </div>
+              </div> */}
 
 
             <div className="col-md-6 list-item-font">
