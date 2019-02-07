@@ -337,9 +337,6 @@ class App extends Component {
     pickupLocId = parseInt(pickupLocId)
     let allPickupParties = this.state.pickupParties
     let thisPickupParty = allPickupParties.find(pickupParty => pickupParty.eventId === thisEventId && pickupParty.pickupLocationId === pickupLocId)
-    // console.log(allPickupParties)
-    // console.log(thisEventId, pickupLocId)
-    // console.log(thisPickupParty)
     let hours = Number(thisPickupParty.lastBusDepartureTime.split(':')[0])
     let minutes = thisPickupParty.lastBusDepartureTime.split(':')[1]
     let amPm = ''

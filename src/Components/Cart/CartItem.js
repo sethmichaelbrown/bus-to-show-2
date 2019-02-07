@@ -5,6 +5,9 @@ const CartItem = (props) => {
 
   const pickupTime = props.getPickupParty(props.showsInCart[0].id, props.pickupLocationId)
   const pickupLocation = props.pickupLocations.find(location => parseInt(location.id) === parseInt(props.pickupLocationId))
+  const firstBus = props.getPickupParty(props.showsInCart[0].id, props.pickupLocationId)
+
+  console.log(firstBus)
 
   return (
     <div className='CartItem'>
