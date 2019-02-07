@@ -32,6 +32,10 @@ const Cart = (props) => {
           </MediaQuery>
           <ul className="list-group">
             <CartItem
+              confirmRemove={props.confirmRemove}
+              displayConfirmRemove={props.displayConfirmRemove}
+              confirmedRemove={props.confirmedRemove}
+              closeAlert={props.closeAlert}
               getPickupParty={props.getPickupParty}
               shows={props.shows}
               totalCost={Number(props.totalCost).toFixed(2)}

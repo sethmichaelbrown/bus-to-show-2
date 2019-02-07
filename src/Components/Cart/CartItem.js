@@ -5,19 +5,26 @@ const CartItem = (props) => {
 
   const pickupTime = props.getPickupParty(props.showsInCart[0].id, props.pickupLocationId)
   const pickupLocation = props.pickupLocations.find(location => parseInt(location.id) === parseInt(props.pickupLocationId))
+  const firstBus = props.getPickupParty(props.showsInCart[0].id, props.pickupLocationId)
+
+  console.log(firstBus)
 
   return (
     <div className='CartItem'>
-
+      {props.displayConfirmRemove ? <div className="alert alert-danger" role="alert">
+        Are you sure you want to remove item from cart?
+        <button onClick={props.confirmedRemove} type="button" className="btn btn-danger ml-1">Remove</button>
+        <button onClick={props.closeAlert} type="button" className="btn btn-outline-secondary ml-1">Cancel</button>
+      </div> : ''}
       {props.showsInCart.map(show =>
         <li className="list-group-item highlightOnHover" onClick={props.eventExpandClick} key={show.id} id={show.id}>
           <div className="row" id={show.id}>
-            <div className="col-md-4 cart-item-font" id={show.id}>{show.headliner}</div>
+            <div className="col-md-4 cart-item-font" id={show.id}>{show.headliner} <br /> at {show.venue.split(' Amphitheatre')[0]} </div>
             <div className="col-md-4 cart-item-font" id={show.id}>{pickupLocation.locationName} <br /> {pickupLocation.streetAddress}</div>
             <div className="col-md-2 cart-item-font" id={show.id}>{show.date}</div>
             <div className="form-group col-md-1 cart-item-font">{props.ticketQuantity}</div>
             <div className="col-md-1 cart-item-font"
-              id={show.id}><button onClick={props.removeFromCart} type="button" className="btn btn-sm btn-danger"><strong> - </strong></button>
+              id={show.id}><button onClick={props.removeFromCart} type="button" className="btn-sm btn-outline-danger remove-border"><strong> X </strong></button>
             </div>
 
             {/* <div className="col-md-6 cart-item-font">

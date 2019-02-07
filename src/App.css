@@ -247,6 +247,17 @@ p {
   color: black;
 }
 
+.remove-border{
+  border: none;
+  margin-top: -3;
+  padding: 0;
+}
+
+.remove-border:hover{
+  background: #ffffff;
+  color: #616060;
+}
+
 @media only screen and (min-width: 900px) {
   .make-bigger{
     align-self: flex-end;
