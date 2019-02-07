@@ -8,10 +8,11 @@ const CartItem = (props) => {
 
   const pickupParty = props.pickupParties.find(party => party)
   const time1 = pickupTime.split(':')
-  const time2 = Number(time1[1].split(' PM')[0]) - 15
-  const time3 = time1[0].concat(time2).toString()
+  const time2 = time1[1].split(' PM')[0] - 15
+  const time3 = time1[0].concat(time2)
   const defaultFirstBus = moment(time3, 'hmm').format('h:mm')
 
+  console.log(defaultFirstBus)
 
   return (
     <div className='CartItem'>
@@ -30,8 +31,14 @@ const CartItem = (props) => {
             <div className="col-md-1 cart-item-font"
               id={show.id}><button onClick={props.removeFromCart} type="button" className="btn-sm btn-outline-danger remove-border"><strong> X </strong></button>
             </div>
+
+            {/* <div className="col-md-6 cart-item-font">
+              ${((Number(props.totalCost) * 10 / 11) / Number(props.ticketQuantity)).toFixed()}.00 per ticket + ${(((Number(props.totalCost) * 10 / 11) / Number(props.ticketQuantity)) / 10).toFixed(2)} 10% processing fee
+              </div> */}
+
             <br />
             <br />
+
             <div className="row mt-3">
               <div className="col-md-12 list-item-font">
                 Bus arrives around {pickupParty.firstBusLoadTime ?

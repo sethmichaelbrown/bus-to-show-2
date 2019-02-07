@@ -7,8 +7,12 @@ import MediaQuery from 'react-responsive';
 const Cart = (props) => {
   // console.log('Cart', props)
 
-  let cost = Number(props.totalCost)
+  let savings = Number(props.afterDiscountObj.totalSavings)
+  let totalSavings = savings.toFixed(2)
+  let cost = Number(props.totalCost - savings)
   let totalCost = cost.toFixed(2)
+  console.log('savings:::: ', savings)
+  console.log('totalCost', totalCost)
 
   return (
     <div className='Cart'>
@@ -46,6 +50,7 @@ const Cart = (props) => {
               pickupParties={props.pickupParties}
               showsInCart={props.showsInCart}
               ticketPrice={props.ticketPrice}
+              afterDiscountObj={props.afterDiscountObj}
               ticketQuantity={props.ticketQuantity} />
           </ul>
           {props.showsInCart ?
@@ -145,19 +150,52 @@ const Cart = (props) => {
                           purchasePending={props.purchasePending}
                           validated={props.validated}
                           purchase={props.purchase}
+                          afterDiscountObj={props.afterDiscountObj}
                           totalCost={totalCost}
                           showsInCart={props.showsInCart}>
                         </Checkout>
+                        <div className="row">
+                        {savings ?
+                          <div>
+                          <div className="row">
+                            <div className="col-6">
+                            </div>
+                            <div className="col-6">
+                              <p>Total savings: <span className="badge badge-secondary">{`$${savings.toFixed(2)}`}</span>
+                              </p>
+                            </div>
+                          </div>
+                          <div className="row">
+                          <div className="col-6">
+                          </div>
+                            <div className="col-6">
+                              <h3>Cart Total:
+                                  <span className="badge badge-success ml-1">{`$${totalCost}`}</span>
+                              </h3>
+                            </div>
+                          </div>
+                          </div>
+                        :
 
-                        <h3>Cart Total:
-                            <span className="badge badge-success ml-1">{`$${totalCost}`}</span>
-                        </h3>
-
+                        <div className="row">
+                        <div className="col-6">
+                        </div>
+                          <div className="col-6">
+                            <h3>Cart Total:
+                                <span className="badge badge-success ml-1">{`$${totalCost}`}</span>
+                            </h3>
+                          </div>
+                        </div>
+                      }
+                      </div>
                       </MediaQuery>
                     </div>
 
                     <MediaQuery maxWidth={767}>
                       <div className='row justify-content-center mb-1'>
+                        <h4>Total savings:
+                        <span className="badge badge-secondary">{savings}</span>
+                        </h4>
                         <h4>Cart Total:
                           <span className="badge badge-secondary">{`$${totalCost}`}</span>
                         </h4>
