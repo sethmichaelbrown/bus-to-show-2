@@ -55,7 +55,8 @@ class App extends Component {
     pickupLocationId: null,
     purchasePending: false,
     purchaseSuccessful: false,
-    loginView: false,
+    myReservationsView: false,
+    loggedIn: false,
     ticketsAvailable: [],
     ticketQuantity: null,
     totalCost: 0,
@@ -170,15 +171,15 @@ class App extends Component {
   }
 
   // Header Functions
-  loginClick = () => {
+  userDashboard = () => {
     const newState = { ...this.state }
-    newState.loginView = true
+    newState.myReservationsView = !this.state.myReservationsView 
     this.setState(newState)
   }
 
   returnHome = () => {
     const newState = { ...this.state }
-    newState.loginView = false
+    newState.myReservationsView = false
     this.setState(newState)
   }
 
@@ -385,6 +386,12 @@ class App extends Component {
     }
   }
 
+  toggleLoggedIn=(boolean)=>{
+   const newState = { ...this.state }
+   newState.loggedIn = boolean
+   this.setState(newState)
+  }
+
   removeFromCart = () => {
     const newState = { ...this.state }
     newState.inCart = []
@@ -451,13 +458,29 @@ class App extends Component {
     return (
       <BrowserRouter>
         <div className="App">
-          {this.state.loginView ?
+          {this.state.myReservationsView ?
+          <React.Fragment>
+           <Header
+                  loggedIn={this.state.loggedIn}
+                  userDashboard={this.userDashboard}
+                  toggleLoggedIn={this.toggleLoggedIn}
+                  myReservationsView={this.state.myReservationsView} />
             <LoginView
-              returnHome={this.returnHome} /> :
+              returnHome={this.returnHome} 
+              shows={this.state.shows}
+              addBorder={this.addBorder}
+              displayShow={this.state.displayShow}
+              filterString={this.state.filterString}
+              showsExpandClick={this.showsExpandClick}
+              />
+              </React.Fragment> :
             this.state.shows ?
               <React.Fragment>
                 <Header
-                  loginClick={this.loginClick} />
+                  loggedIn={this.state.loggedIn}
+                  userDashboard={this.userDashboard} 
+                  toggleLoggedIn={this.toggleLoggedIn} 
+                  myReservationsView={this.state.myReservationsView} />
                 <div className='content-section pt-4'>
                   <div className='col-md-6 float-right' >
                     <MediaQuery minWidth={768}>
