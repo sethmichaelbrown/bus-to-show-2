@@ -584,6 +584,7 @@ class App extends Component {
                         <BannerRotator displayShow={this.state.displayShow} />}
                       {this.state.displayCart || this.state.displayShow ?
                         <DetailCartView
+                          displayConfirmRemove={this.state.displayConfirmRemove}
                           addToCart={this.addToCart}
                           addBorder={this.addBorder}
                           checked={this.state.checked}
@@ -597,6 +598,7 @@ class App extends Component {
                           displaySuccess={this.state.displaySuccess}
                           filterString={this.state.filterString}
                           findDiscountCode={this.findDiscountCode}
+                          getPickupParty={this.getPickupParty}
                           handleCheck={this.handleCheck}
                           handleSubmit={this.handleSubmit}
                           inCart={this.state.inCart}
