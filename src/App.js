@@ -352,7 +352,7 @@ class App extends Component {
       && this.state.validatedElements.email) {
 
       const cTS = newState.cartToSend
-      // newState.validated = true
+      newState.validated = true
 
       cTS.firstName = this.state.validatedElements.fName
       cTS.lastName = this.state.validatedElements.lName
