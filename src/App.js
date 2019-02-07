@@ -24,6 +24,7 @@ import BannerRotator from './Components/BannerRotator'
 class App extends Component {
   // Please keep sorted alphabetically so we don't duplicate keys :) Thanks!
   state = {
+    afterDiscountObj: {totalSavings: 0},
     artistDescription: null,
     artistIcon: false,
     basePrice: null,
@@ -162,12 +163,65 @@ class App extends Component {
   findDiscountCode = async () => {
     // console.log ("hey, how bout that?")
     //console.log ('currentCode inside findDiscountCode:::', this.state.discountCode)
+//this.state.ticketQuantity
+    const ticketQuantity = this.state.ticketQuantity
+    console.log('ticketQuantity', ticketQuantity)
+    const eventId = this.state.inCart[0].id
     const response = await fetch(`http://localhost:3000/discount_codes/${this.state.discountCode}`)
+    //const response = await fetch(`http://localhost:3000/discount_codes/${this.state.discountCode}`)
     const json = await response.json()
     //const newState = { ...this.state }
     //this.setState(newState)
-    // console.log('findDiscountCode json:::: ', json)
+    console.log('what is the event ID from state right now?', eventId)
+    console.log('findDiscountCode json:::: ', json)
+    const result = json.filter((discountObj) => discountObj.eventsId === eventId)[0]
+    const newState = { ...this.State }
+    if(!result){
+      console.log('no match!')
+      return "no match"
+    }
+    if(result.remainingUses <= 0){
+      console.log ('this code is all used up!')
+      return 'this code is all used up!'
+    }
+    const expiration = Date.parse(result.expiresOn.toLocaleString('en-US'))
+    const today = Date.parse(new Date().toLocaleString('en-US', {timeZone: 'America/Denver'}))
+
+    if (expiration < today){
+    console.log('this code is expired')
+    return 'this code is expired'
+    } else {
+      console.log('this is a valid code that is not expired')
+      let priceWithoutFeesPerTicket = this.state.totalCost * 10 / 11 / ticketQuantity
+      let effectiveRate = (100 - result.percentage) / 100
+      const afterDiscountObj = {}
+      console.log('remains::', result.remainingUses)
+      if (result.remainingUses >= ticketQuantity) {
+        console.log("ticketQuantity", ticketQuantity)
+        afterDiscountObj.timesUsed = ticketQuantity * 1
+        afterDiscountObj.totalPriceAfterDiscount = priceWithoutFeesPerTicket * ticketQuantity * effectiveRate * 1.10
+        afterDiscountObj.totalSavings = this.state.totalCost - priceWithoutFeesPerTicket * ticketQuantity * effectiveRate * 1.10
+        afterDiscountObj.newRemainingUses = result.remainingUses - ticketQuantity
+        console.log('afterDiscountObj::: ', afterDiscountObj)
+        newState.afterDiscountObj = afterDiscountObj
+        newState.totalSavings = afterDiscountObj.totalSavings
+        this.setState(newState)
+        console.log('newState more uses than tickets', this.state.afterDiscountObj)
+      }
+      if (result.remainingUses < ticketQuantity) {
+        afterDiscountObj.timesUsed = result.remainingUses
+        afterDiscountObj.totalSavings = this.state.totalCost - (priceWithoutFeesPerTicket * (ticketQuantity - result.remainingUses) + priceWithoutFeesPerTicket * effectiveRate * result.remainingUses) * 1.10
+        afterDiscountObj.totalPriceAfterDiscount = (priceWithoutFeesPerTicket * (ticketQuantity - result.remainingUses) + priceWithoutFeesPerTicket * effectiveRate * result.remainingUses) * 1.10
+        afterDiscountObj.newRemainingUses = 0
+        newState.afterDiscountObj = afterDiscountObj
+
+        this.setState(newState)
+        console.log('newState :: less uses than tickets ', this.state.afterDiscountObj)
+      }
+    }
   }
+
+
 
   // Header Functions
   loginClick = () => {
@@ -227,8 +281,9 @@ class App extends Component {
     const pickupLocation = newState.pickupLocations.filter(location => parseInt(location.id) === parseInt(this.state.pickupLocationId))[0]
     const basePrice = Number(pickupLocation.basePrice)
     const ticketQuantity = parseInt(this.state.ticketQuantity)
+    const totalSavings = parseInt(this.state.afterDiscountObj.totalSavings)
     const processingFee = Number((basePrice * ticketQuantity) * (0.1))
-    const cost = ((basePrice * ticketQuantity) + processingFee)
+    const cost = ((basePrice * ticketQuantity) - totalSavings + processingFee)
 
     newState.totalCost = cost.toFixed(2)
 
@@ -478,6 +533,7 @@ class App extends Component {
                           displayShow={this.state.displayShow}
                           displaySuccess={this.state.displaySuccess}
                           displayWarning={this.state.displayWarning}
+                          findDiscountCode={this.findDiscountCode}
                           getPickupParty={this.getPickupParty}
                           handleCheck={this.handleCheck}
                           handleSubmit={this.handleSubmit}
@@ -497,7 +553,6 @@ class App extends Component {
                           ticketsAvailable={this.state.ticketsAvailable}
                           ticketQuantity={this.state.ticketQuantity}
                           updateDiscountCode={this.updateDiscountCode}
-                          findDiscountCode={this.findDiscountCode}
                           timeLeftInCart={this.state.timeLeftInCart}
                           totalCost={this.state.totalCost}
                           updatePurchaseField={this.updatePurchaseField}
@@ -522,6 +577,7 @@ class App extends Component {
                           displayShow={this.state.displayShow}
                           displaySuccess={this.state.displaySuccess}
                           filterString={this.state.filterString}
+                          findDiscountCode={this.findDiscountCode}
                           handleCheck={this.handleCheck}
                           handleSubmit={this.handleSubmit}
                           inCart={this.state.inCart}
@@ -540,7 +596,6 @@ class App extends Component {
                           tabClicked={this.tabClicked}
                           ticketsAvailable={this.state.ticketsAvailable}
                           ticketQuantity={this.state.ticketQuantity}
-                          findDiscountCode={this.findDiscountCode}
                           totalCost={this.state.totalCost}
                           updatePurchaseField={this.updatePurchaseField}
                           validated={this.state.validated}
