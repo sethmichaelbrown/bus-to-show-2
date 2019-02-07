@@ -589,7 +589,7 @@ class App extends Component {
                           addToCart={this.addToCart}
                           addBorder={this.addBorder}
                           checked={this.state.checked}
-                          confirmedRemove={this.state.confirmedRemove}
+                          confirmedRemove={this.confirmedRemove}
                           closeAlert={this.closeAlert}
                           displayAddBtn={this.state.displayAddBtn}
                           displayBorder={this.state.displayBorder}
