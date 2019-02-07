@@ -26,7 +26,7 @@
   height: 25vh;
 }
 
-.content-section-details{
+.content-section-details {
   padding: 1.5%;
   border-radius: 5px;
   border: solid;
@@ -99,44 +99,44 @@
 }
 
 /* Cart Styling */
-.nothing-in-cart-text{
+.nothing-in-cart-text {
   text-align: center;
   color: #616060;
   opacity: 0.5;
 }
 
-.nothing-in-cart-image{
- opacity: 0.5;
+.nothing-in-cart-image {
+  opacity: 0.5;
 }
 
-.show-header{
+.show-header {
   background-color: #ff420f;
   color: white;
 }
 
-.show-list-item{
+.show-list-item {
   color: #ff420f;
   border-color: #ff420f;
 }
 
-.show-list-item:nth-child(odd){
+.show-list-item:nth-child(odd) {
   color: #ff420f;
   background-color: #fac5b5;
   /* background-color: rgba(255, 66, 15, 0.75) */
 
 }
 
-.lgi-header{
+.lgi-header {
   border-top: none;
 }
 
-.alert-item{
+.alert-item {
   margin: 0;
   padding: 0;
   margin-bottom: -5;
 }
 
-.loading-image{
+.loading-image {
   color: white;
   background: url('./Images/bts-future-selves-background-image.png');
   background-position: top;
@@ -146,36 +146,73 @@
   width: 100vw;
 }
 
-.sort-btn{
+.loading-header {
+  margin-top: 35vh;
+  text-align: center;
+  /* background: rgba(0, 0, 0, .75) */
+}
+
+.loading-text-main {
+  font-size: 75px;
+}
+
+.sort-btn {
   border: none;
 }
 
-.no-info-logo{
+.no-info-logo {
   opacity: 0.5;
 }
 
-.sort-btn{
+.sort-btn {
   border: none;
 }
 
-.sort-btn:hover{
+.sort-btn:hover {
   color: #ff420f;
 }
 
-.bts-orange-bg{
+.bts-orange-bg {
   background-color: #ff420f;
   color: white;
 }
 
-.bts-white-bg{
+.bts-white-bg {
   background-color: white;
   color: #ff420f;
 }
 
-.search-height{
+.search-height {
   height: 25px;
 }
 
-.form-control-sm{
+.form-control-sm {
   width: 200px;
+}
+
+.inline-block {
+  display: -webkit-inline-box;
+}
+
+.round-img {
+  border-radius: 30px;
+}
+
+.nav-flex {
+  display: flex;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.show-list-flex {
+  display: flex;
+  justify-content: space-evenly;
+  height: 100%;
+}
+
+@media only screen and (min-width: 900px) {
+  .make-bigger{
+    align-self: flex-end;
+    margin-left: 9em;
+  }
 }

@@ -95,6 +95,10 @@ class App extends Component {
     // const pickups = await fetch('http://localhost:3000/pickup_locations')
     const pickupLocations = await pickups.json()
     this.setState({ pickupLocations })
+
+    const getPickupParties = await fetch('https://something-innocuous.herokuapp.com/pickup_parties')
+    const pickupParties = await getPickupParties.json()
+    this.setState({ pickupParties })
   }
 
   selectPickupLocationId = async (event) => {
@@ -249,7 +253,6 @@ class App extends Component {
 
   addToCart = async () => {
     const newState = { ...this.state }
-
     const pickupLocation = newState.pickupLocations.filter(location => parseInt(location.id) === parseInt(this.state.pickupLocationId))[0]
     const basePrice = Number(pickupLocation.basePrice)
     const ticketQuantity = parseInt(this.state.ticketQuantity)
@@ -300,6 +303,30 @@ class App extends Component {
     const newState = { ...this.state }
     newState.checked = true
     this.setState(newState)
+  }
+
+  getPickupParty = (thisEventId, pickupLocId) => {
+    pickupLocId = parseInt(pickupLocId)
+    let allPickupParties = this.state.pickupParties
+    let thisPickupParty = allPickupParties.filter(pickupParty => pickupParty.eventId === thisEventId && pickupParty.pickupLocationId === pickupLocId)[0]
+    console.log(allPickupParties)
+    console.log(thisEventId, pickupLocId)
+    console.log(thisPickupParty)
+    let hours = Number(thisPickupParty.lastBusDepartureTime.split(':')[0])
+    let minutes = thisPickupParty.lastBusDepartureTime.split(':')[1]
+    let amPm = ''
+    if (hours < 11) {
+      amPm = 'AM'
+    }
+    if (hours === 12) {
+      amPm = 'PM'
+    }
+    if (hours > 12) {
+      amPm = 'PM'
+      hours -= 12
+    }
+    let pickupTime = `${hours}:${minutes} ${amPm}`
+    return pickupTime
   }
 
   purchase = async () => {
@@ -444,6 +471,7 @@ class App extends Component {
     this.setState({ shows: newState, artistIcon: false, dateIcon: true })
   }
 
+
   makePurchase = () => {
     this.setState({ purchasePending: true })
   }
@@ -478,7 +506,8 @@ class App extends Component {
                           displayShow={this.state.displayShow}
                           displaySuccess={this.state.displaySuccess}
                           displayWarning={this.state.displayWarning}
-                          findDiscountCode={this.findDiscountCode}
+                          indDiscountCode={this.findDiscountCode}
+                          getPickupParty={this.getPickupParty}
                           handleCheck={this.handleCheck}
                           handleSubmit={this.handleSubmit}
                           inCart={this.state.inCart}
@@ -489,7 +518,6 @@ class App extends Component {
                           quantityChange={this.quantityChange}
                           removeFromCart={this.removeFromCart}
                           returnToShows={this.returnToShows}
-                          pickupLocationId={this.state.pickupLocationId}
                           selectPickupLocationId={this.selectPickupLocationId}
                           selectTicketQuantity={this.selectTicketQuantity}
                           showsExpandClick={this.showsExpandClick}
