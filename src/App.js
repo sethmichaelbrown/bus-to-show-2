@@ -61,8 +61,13 @@ class App extends Component {
     pickupLocationId: null,
     purchasePending: false,
     purchaseSuccessful: false,
+<<<<<<< HEAD
     loginView: false,
     showBios:false,
+=======
+    myReservationsView: false,
+    loggedIn: false,
+>>>>>>> 1f9bbc0ae5fcb96ccb9cfb0fc763f92ce1f16291
     ticketsAvailable: [],
     ticketQuantity: null,
     totalCost: 0,
@@ -230,15 +235,15 @@ class App extends Component {
 
 
   // Header Functions
-  loginClick = () => {
+  userDashboard = () => {
     const newState = { ...this.state }
-    newState.loginView = true
+    newState.myReservationsView = !this.state.myReservationsView 
     this.setState(newState)
   }
 
   returnHome = () => {
     const newState = { ...this.state }
-    newState.loginView = false
+    newState.myReservationsView = false
     this.setState(newState)
   }
 
@@ -443,6 +448,13 @@ class App extends Component {
     }
   }
 
+  toggleLoggedIn=(boolean)=>{
+   const newState = { ...this.state }
+   newState.loggedIn = boolean
+   if(boolean === false) {newState.myReservationsView = false}
+   this.setState(newState)
+  }
+
   removeFromCart = () => {
     const newState = { ...this.state }
     newState.displayConfirmRemove = true
@@ -513,7 +525,6 @@ class App extends Component {
     this.setState({ shows: newState, artistIcon: false, dateIcon: true })
   }
 
-
   makePurchase = () => {
     this.setState({ purchasePending: true })
   }
@@ -540,6 +551,7 @@ class App extends Component {
       <BrowserRouter>
       <React.Fragment>
         <div className="App">
+<<<<<<< HEAD
         <div>
 
           {this.state.loginView ?
@@ -551,17 +563,47 @@ class App extends Component {
                     readBios={this.readBios}
                     displayBios={this.state.displayBios}
                     hideAboutUs={this.hideAboutUs}/> :
+=======
+          {this.state.myReservationsView ?
+          <React.Fragment>
+           <Header
+                  loggedIn={this.state.loggedIn}
+                  userDashboard={this.userDashboard}
+                  toggleLoggedIn={this.toggleLoggedIn}
+                  myReservationsView={this.state.myReservationsView} />
+            <LoginView
+              returnHome={this.returnHome} 
+              shows={this.state.shows}
+              addBorder={this.addBorder}
+              displayShow={this.state.displayShow}
+              filterString={this.state.filterString}
+              showsExpandClick={this.showsExpandClick}
+              />
+              </React.Fragment> :
+>>>>>>> 1f9bbc0ae5fcb96ccb9cfb0fc763f92ce1f16291
             this.state.shows ?
               <React.Fragment>
                 <Header
-                  loginClick={this.loginClick} />
+                  loggedIn={this.state.loggedIn}
+                  userDashboard={this.userDashboard} 
+                  toggleLoggedIn={this.toggleLoggedIn} 
+                  myReservationsView={this.state.myReservationsView} />
                 <div className='content-section pt-4'>
                   <div className='col-md-6 float-right' >
                     <MediaQuery minWidth={768}>
                       {this.state.displayShow ? '' :
                         <BannerRotator displayShow={this.state.displayShow} />}
                       {this.state.displayCart || this.state.displayShow ?
+<<<<<<< HEAD
                         <DetailCartView
+=======
+                        (<DetailCartView
+                          afterDiscountObj={this.state.afterDiscountObj}
+                          shows={this.state.shows}
+                          makePurchase={this.makePurchase}
+                          purchasePending={this.state.purchasePending}
+                          purchaseSuccessful={this.state.purchaseSuccessful}
+>>>>>>> 1f9bbc0ae5fcb96ccb9cfb0fc763f92ce1f16291
                           closeAlert={this.closeAlert}
                           addToCart={this.addToCart}
                           checked={this.state.checked}
@@ -582,6 +624,7 @@ class App extends Component {
                           makePurchase={this.makePurchase}
                           pickupLocations={this.state.pickupLocations}
                           pickupLocationId={this.state.pickupLocationId}
+                          pickupParties={this.state.pickupParties}
                           purchase={this.purchase}
                           purchaseClick={this.purchaseClick}
                           purchasePending={this.state.purchasePending}
@@ -616,6 +659,7 @@ class App extends Component {
                           displayConfirmRemove={this.state.displayConfirmRemove}
                           addToCart={this.addToCart}
                           addBorder={this.addBorder}
+                          afterDiscountObj={this.state.afterDiscountObj}
                           checked={this.state.checked}
                           confirmedRemove={this.confirmedRemove}
                           closeAlert={this.closeAlert}
@@ -633,6 +677,7 @@ class App extends Component {
                           inCart={this.state.inCart}
                           pickupLocations={this.state.pickupLocations}
                           pickupLocationId={this.state.pickupLocationId}
+                          pickupParties={this.state.pickupParties}
                           purchase={this.purchase}
                           purchaseClick={this.purchaseClick}
                           quantityChange={this.quantityChange}
