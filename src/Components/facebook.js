@@ -18,11 +18,24 @@ export default class FacebookButton extends React.Component {
             email:response.email,
             picture:response.picture.data.url,
         })
+        fetch('http://localhost:3000/users', {
+                method: 'POST',
+                body: JSON.stringify({
+                    firstName: response.name.split(" ")[0],
+                    lastName: response.name.split(" ")[1],
+                    email: response.email,
+                    isWaiverSigned: false,
+                    userType: 'standard',
+                    preferredLocation: "",
+                }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
     }
 
-    componentClicked = () => this.setState({
-        isLoggedIn: true}
-    )
+    componentClicked = () => {
+    }
     
 
     render() {
