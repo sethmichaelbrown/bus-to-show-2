@@ -8,11 +8,10 @@ const CartItem = (props) => {
 
   const pickupParty = props.pickupParties.find(party => party)
   const time1 = pickupTime.split(':')
-  const time2 = time1[1].split(' PM')[0] - 15
-  const time3 = time1[0].concat(time2)
+  const time2 = Number(time1[1].split(' PM')[0]) - 15
+  const time3 = time1[0].concat(time2).toString()
   const defaultFirstBus = moment(time3, 'hmm').format('h:mm')
 
-  console.log(defaultFirstBus)
 
   return (
     <div className='CartItem'>
