@@ -232,6 +232,17 @@ p {
   text-align: left;
 }
 
+.cart-item-font{
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.red-text{
+  margin-top: 10px;
+  color: red;
+  font-weight: bold;
+}
+
 @media only screen and (min-width: 900px) {
   .make-bigger{
     align-self: flex-end;

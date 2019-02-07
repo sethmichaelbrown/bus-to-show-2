@@ -23,10 +23,10 @@ const Cart = (props) => {
             </div>
             <div className="list-group-item lgi-header">
               <div className="row">
-                <div className="col-md-2">Show</div>
+                <div className="col-md-4">Show</div>
                 <div className="col-md-4">Departure Location</div>
                 <div className="col-md-2">Date</div>
-                <div className="col-md-2">Quantity</div>
+                <div className="col-md-1">Quant.</div>
               </div>
             </div>
           </MediaQuery>
@@ -145,7 +145,7 @@ const Cart = (props) => {
                         </Checkout>
 
                         <h3>Cart Total:
-                            <span className="badge badge-success mb-1">  {`$${totalCost}`}</span>
+                            <span className="badge badge-success ml-1">{`$${totalCost}`}</span>
                         </h3>
 
                       </MediaQuery>
