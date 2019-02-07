@@ -1,7 +1,4 @@
 /* Shows Styling */
-.highlightOnHover:hover {
-  background: rgba(248, 249, 250, .75);
-}
 
 .list-group {
   max-height: 90vh;
@@ -10,6 +7,7 @@
 
 .list-group-item {
   border-radius: 1px;
+  padding: .5rem 1.25rem;
 }
 
 .return-btn {
@@ -198,7 +196,7 @@
   border-radius: 30px;
 }
 
-.nav-flex {
+.nav-flex , .cart-flex{
   display: flex;
   justify-content: space-between;
   height: 100%;
@@ -208,6 +206,45 @@
   display: flex;
   justify-content: space-evenly;
   height: 100%;
+}
+
+p {
+  font-size: 14px;
+}
+
+.detail-btn{
+  background: #ffffff;
+  border-color: #ff420f;
+  color: #ff420f;
+}
+
+.detail-btn:hover{
+  background: #ff420f;
+  color: #ffffff;
+}
+
+.search-bar{
+  border: none;
+}
+
+.align-left{
+  margin-top: 8px;
+  text-align: left;
+}
+
+.cart-item-font{
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.red-text{
+  margin-top: 10px;
+  color: red;
+  font-weight: bold;
+}
+
+.black-text{
+  color: black;
 }
 
 @media only screen and (min-width: 900px) {
