@@ -24,6 +24,7 @@ import BannerRotator from './Components/BannerRotator'
 class App extends Component {
   // Please keep sorted alphabetically so we don't duplicate keys :) Thanks!
   state = {
+    afterDiscountObj: {totalSavings: 0},
     artistDescription: null,
     artistIcon: false,
     cartToSend: {
@@ -158,40 +159,73 @@ class App extends Component {
 
   }
 
-
   findDiscountCode = async () =>{
     console.log ("hey, how bout that?")
     //console.log ('currentCode inside findDiscountCode:::', this.state.discountCode)
+//this.state.ticketQuantity
+    const ticketQuantity = this.state.ticketQuantity
+    console.log('ticketQuantity', ticketQuantity)
     const eventId = this.state.inCart[0].id
     const response = await fetch(`http://localhost:3000/discount_codes/${this.state.discountCode}`)
+    //const response = await fetch(`http://localhost:3000/discount_codes/${this.state.discountCode}`)
     const json = await response.json()
     //const newState = { ...this.state }
     //this.setState(newState)
     console.log('what is the event ID from state right now?', eventId)
     console.log('findDiscountCode json:::: ', json)
     const result = json.filter((discountObj) => discountObj.eventsId === eventId)[0]
-    console.log('filter result', result)
+    console.log('result.remainingUses 176', result.remainingUses)
+
     if(!result){
       console.log('no match!')
       return "no match"
     }
+    console.log('result.remainingUses 182', result.remainingUses)
+
     if(result.remainingUses <= 0){
-      console.log ('this code is all used up.')
+      console.log ('this code is all used up!')
+      return 'this code is all used up!'
+      console.log('result.remainingUses 187', result.remainingUses)
+
     }
+    console.log('result.remainingUses 190', result.remainingUses)
 
     const expiration = Date.parse(result.expiresOn.toLocaleString('en-US'))
-    console.log('expiration::::', result.expiresOn)
-
     const today = Date.parse(new Date().toLocaleString('en-US', {timeZone: 'America/Denver'}))
-    console.log('today:::', today)
+
     if (expiration < today){
     console.log('this code is expired')
-  } else {
-    console.log('this is a valid code that is not expired')
-  }
+    return 'this code is expired'
+    } else {
+      console.log('result.remainingUses 200', result.remainingUses)
+      console.log('this is a valid code that is not expired')
+      let priceWithoutFeesPerTicket = this.state.totalCost * 10 / 11 / ticketQuantity
+      let effectiveRate = (100 - result.percentage) / 100
+      const afterDiscountObj = {}
+      console.log('remains::', result.remainingUses)
+      if (result.remainingUses >= ticketQuantity) {
+        console.log("ticketQuantity", ticketQuantity)
+        afterDiscountObj.timesUsed = ticketQuantity * 1
+        afterDiscountObj.totalPriceAfterDiscount = priceWithoutFeesPerTicket * ticketQuantity * effectiveRate * 1.10
+        afterDiscountObj.totalSavings = this.state.totalCost - priceWithoutFeesPerTicket * ticketQuantity * effectiveRate * 1.10
+        afterDiscountObj.newRemainingUses = result.remainingUses - ticketQuantity
+        console.log('afterDiscountObj::: ', afterDiscountObj)
+        const newState = { ...this.State }
+        newState.afterDiscountObj = afterDiscountObj
+        newState.totalSavings = afterDiscountObj.totalSavings
+        this.setState(newState)
+        console.log('this.state.afterDiscountObj', this.state.afterDiscountObj)
+      }
+      //if (match.remainingUses < ticketQuantity) {
+//   afterDiscountObj.timesUsed = match.remainingUses
+//   afterDiscountObj.totalPriceAfterDiscount = (priceWithoutFeesPerTicket * (ticketQuantity - match.remainingUses) + priceWithoutFeesPerTicket * effectiveRate * match.remainingUses) * 1.10
+//   afterDiscountObj.newRemainingUses = 0
+//   return afterDiscountObj
+//}
+      }
       // X result.discountCode: "MetallicaConcert"
       // X result.eventsId: 36500124
-      // result.expiresOn: "2019-06-06T06:00:00.000Z"
+      // Xresult.expiresOn: "2019-06-06T06:00:00.000Z"
       // result.percentage: 40
       // result.remainingUses: 190
     }
@@ -256,8 +290,9 @@ class App extends Component {
     const pickupLocation = newState.pickupLocations.filter(location => parseInt(location.id) === parseInt(this.state.pickupLocationId))[0]
     const basePrice = Number(pickupLocation.basePrice)
     const ticketQuantity = parseInt(this.state.ticketQuantity)
+    const totalSavings = parseInt(this.state.afterDiscountObj.totalSavings)
     const processingFee = Number((basePrice * ticketQuantity) * (0.1))
-    const cost = ((basePrice * ticketQuantity) + processingFee)
+    const cost = ((basePrice * ticketQuantity) - totalSavings + processingFee)
 
     newState.totalCost = cost.toFixed(2)
 
@@ -506,7 +541,7 @@ class App extends Component {
                           displayShow={this.state.displayShow}
                           displaySuccess={this.state.displaySuccess}
                           displayWarning={this.state.displayWarning}
-                          indDiscountCode={this.findDiscountCode}
+                          findDiscountCode={this.findDiscountCode}
                           getPickupParty={this.getPickupParty}
                           handleCheck={this.handleCheck}
                           handleSubmit={this.handleSubmit}
