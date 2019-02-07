@@ -14,25 +14,25 @@ const CartItem = (props) => {
   const pickupAddress=pickupLocation.locationName
   let busstop
   switch (pickupAddress) {
-    case "UNIV. HILL CHEBA HUT":
+    case "Boulder - University Hill Cheba Hut":
       showStartTime%100===0? busstop=showStartTime-170: busstop=showStartTime-130;
       break;
-    case "DU ILLEGAL PETE’S":
+    case "1744 E Evans Ave, Denver, CO":
       showStartTime%100===0? busstop=showStartTime-200: busstop=showStartTime-200;
       break;
-    case "COLFAX CAP HILL CHEBA HUT":
+    case "Denver - Colfax/Cap Hill Cheba Hut":
       showStartTime%100===0? busstop=showStartTime-170: busstop=showStartTime-130;
       break;
-    case "CHAMPA DOWNTOWN CHEBA HUT":
+    case "Denver - Champa/Downtown Cheba Hut":
       showStartTime%100===0? busstop=showStartTime-170: busstop=showStartTime-130
       break;
-    case "RiNo EPIC BREWING":
+    case "Denver - RiNo Epic Brewing":
       showStartTime%100===0? busstop=showStartTime-155: busstop=showStartTime-115
       break;
-    case "MAIN ST. CHEBA HUT":
+    case "Longmont - Main St. Cheba Hut":
       showStartTime%100===0? busstop=showStartTime-170: busstop=showStartTime-130
       break;
-    case "OLD TOWN ILLEGAL PETE’S":
+    case "Fort Collins - Old Town Illegal Pete's":
       showStartTime%100===0? busstop=showStartTime-370: busstop=showStartTime-330
       break;
     default:
@@ -74,7 +74,7 @@ const CartItem = (props) => {
           </div>
 
 
-
+{console.log(props.showsInCart)}
         </li>)}
     </div>
   )
