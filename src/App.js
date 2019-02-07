@@ -520,6 +520,7 @@ class App extends Component {
                         <BannerRotator displayShow={this.state.displayShow} />}
                       {this.state.displayCart || this.state.displayShow ?
                         (<DetailCartView
+                          afterDiscountObj={this.state.afterDiscountObj}
                           shows={this.state.shows}
                           makePurchase={this.makePurchase}
                           purchasePending={this.state.purchasePending}
@@ -569,6 +570,7 @@ class App extends Component {
                         <DetailCartView
                           addToCart={this.addToCart}
                           addBorder={this.addBorder}
+                          afterDiscountObj={this.state.afterDiscountObj}
                           checked={this.state.checked}
                           displayAddBtn={this.state.displayAddBtn}
                           displayBorder={this.state.displayBorder}

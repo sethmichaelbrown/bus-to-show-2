@@ -77,6 +77,7 @@ const DetailCartView = (props) => {
         <div className="tab-pane fade" id="cart" data-toggle="tab" role="tabpanel" aria-labelledby="cart-tab">
           {props.inCart.length > 0 ?
             <Cart
+              afterDiscountObj={props.afterDiscountObj}
               shows={props.shows}
               makePurchase={props.makePurchase}
               purchasePending={props.purchasePending}

@@ -27,7 +27,7 @@ const CartItem = (props) => {
             <br />
             <br />
             <div className="col-md-12 list-item-font red-text">
-              Please arrive at the bus no later than {pickupTime}
+              Last bus departs at: {pickupTime}
             </div>
           </div>
 
