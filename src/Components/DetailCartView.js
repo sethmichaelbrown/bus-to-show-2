@@ -8,7 +8,7 @@ import logo from '../Images/Logos/bts-logo-gray.png'
 
 const DetailCartView = (props) => {
   // console.log('DCV', props)
-  const time = props.timeLeftInCart
+  // const time = props.timeLeftInCart
 
   // //For Tiny Timer
   // const millisToMinutesAndSeconds = (mili) => {
@@ -59,6 +59,8 @@ const DetailCartView = (props) => {
             showsExpandClick={props.showsExpandClick}
             ticketsAvailable={props.ticketsAvailable}
             ticketQuantity={props.ticketQuantity}
+            updateDiscountCode={props.updateDiscountCode}
+            findDiscountCode={props.findDiscountCode}
             totalCost={props.totalCost} />
         </div>
         <MediaQuery maxWidth={768}>
@@ -79,6 +81,7 @@ const DetailCartView = (props) => {
               makePurchase={props.makePurchase}
               purchasePending={props.purchasePending}
               checked={props.checked}
+              getPickupParty={props.getPickupParty}
               handleCheck={props.handleCheck}
               handleSubmit={props.handleSubmit}
               pickupLocations={props.pickupLocations}
@@ -88,10 +91,10 @@ const DetailCartView = (props) => {
               returnToShows={props.returnToShows}
               pickupLocationId={props.pickupLocationId}
               showsInCart={props.inCart}
-              totalCost={props.totalCost}
-              ticketQuantity={props.ticketQuantity}
               updateDiscountCode={props.updateDiscountCode}
               findDiscountCode={props.findDiscountCode}
+              totalCost={props.totalCost}
+              ticketQuantity={props.ticketQuantity}
               updatePurchaseField={props.updatePurchaseField}
               validatedElements={props.validatedElements}
               validated={props.validated}

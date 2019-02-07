@@ -11,10 +11,6 @@ const Shows = (props) => {
     filterShows = props.shows.filter(show => show.venue.toLowerCase().includes(filterString))
   }
 
-  const support2 = filterShows.filter(item => item.support2)
-
-  console.log('Support2', support2)
-
   return (
     <div className='Shows'>
       {filterShows.length > 0 ? filterShows.map(show =>
@@ -40,7 +36,7 @@ const Shows = (props) => {
               // onClick={props.addBorder}
               onClick={props.showsExpandClick}
               type="button"
-              className='btn show-list-item bg-white my-4 col-md-2'>Details</button>
+              className='btn detail-btn my-4 col-md-2'>Details</button>
 
           </div>
 
@@ -48,7 +44,7 @@ const Shows = (props) => {
         <li className="list-group-item highlightOnHover">
           <div className="row add-a-show">
             <div className="col-md-12 col-xs-12">
-              <h5>I find our lack of that show disturbing.</h5>
+              <h5 className='black-text'>I find our lack of that show disturbing.</h5>
             </div>
           </div>
           <div className="row">
