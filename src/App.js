@@ -511,7 +511,6 @@ class App extends Component {
                       <BannerRotator />
                       {this.state.displayCart || this.state.displayShow ?
                         <DetailCartView
-                          shows={this.state.shows}
                           addToCart={this.addToCart}
                           addBorder={this.addBorder}
                           checked={this.state.checked}
@@ -532,7 +531,6 @@ class App extends Component {
                           quantityChange={this.quantityChange}
                           removeFromCart={this.removeFromCart}
                           returnToShows={this.returnToShows}
-                          pickupLocationId={this.state.pickupLocationId}
                           selectPickupLocationId={this.selectPickupLocationId}
                           selectTicketQuantity={this.selectTicketQuantity}
                           shows={this.state.shows}
