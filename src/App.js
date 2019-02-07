@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import { BrowserRouter } from "react-router-dom"
 import Validator from 'validator'
 import MediaQuery from 'react-responsive';
-import oAuth from './Components/facebook';
 
 // Styling
 import './App.css';
@@ -27,6 +26,7 @@ class App extends Component {
   state = {
     artistDescription: null,
     artistIcon: false,
+    basePrice: null,
     cartToSend: {
       eventId: null,
       pickupLocationId: null,
@@ -84,11 +84,22 @@ class App extends Component {
 
     this.setState({ shows: newState })
 
+    const allEvents = await fetch('https://something-innocuous.herokuapp.com/events')
+    // const allEvents = await fetch('http://localhost:3000/events')
+    const eventsList = await allEvents.json()
+    const eventsListIds = []
+    for (let i = 0; i < eventsList.length; i++) {
+      eventsListIds.push(eventsList[i].id)
+    }
 
     const pickups = await fetch('https://something-innocuous.herokuapp.com/pickup_locations')
     // const pickups = await fetch('http://localhost:3000/pickup_locations')
     const pickupLocations = await pickups.json()
     this.setState({ pickupLocations })
+
+    const getPickupParties = await fetch('https://something-innocuous.herokuapp.com/pickup_parties')
+    const pickupParties = await getPickupParties.json()
+    this.setState({ pickupParties })
   }
 
   selectPickupLocationId = async (event) => {
@@ -140,25 +151,23 @@ class App extends Component {
   }
 
   updateDiscountCode = (event) => {
-    console.log(event.target.value)
+    // console.log(event.target.value)
     const newState = { ...this.State }
     newState.discountCode = event.target.value
     this.setState(newState)
-    console.log('discountCode set::: ', newState.discountCode)
+    // console.log('discountCode set::: ', newState.discountCode)
 
   }
 
-
   findDiscountCode = async () => {
-    console.log("hey, how bout that?")
+    // console.log ("hey, how bout that?")
     //console.log ('currentCode inside findDiscountCode:::', this.state.discountCode)
     const response = await fetch(`http://localhost:3000/discount_codes/${this.state.discountCode}`)
     const json = await response.json()
     //const newState = { ...this.state }
     //this.setState(newState)
-    console.log('findDiscountCode json:::: ', json)
+    // console.log('findDiscountCode json:::: ', json)
   }
-
 
   // Header Functions
   loginClick = () => {
@@ -215,7 +224,6 @@ class App extends Component {
 
   addToCart = async () => {
     const newState = { ...this.state }
-
     const pickupLocation = newState.pickupLocations.filter(location => parseInt(location.id) === parseInt(this.state.pickupLocationId))[0]
     const basePrice = Number(pickupLocation.basePrice)
     const ticketQuantity = parseInt(this.state.ticketQuantity)
@@ -266,6 +274,30 @@ class App extends Component {
     const newState = { ...this.state }
     newState.checked = true
     this.setState(newState)
+  }
+
+  getPickupParty = (thisEventId, pickupLocId) => {
+    pickupLocId = parseInt(pickupLocId)
+    let allPickupParties = this.state.pickupParties
+    let thisPickupParty = allPickupParties.find(pickupParty => pickupParty.eventId === thisEventId && pickupParty.pickupLocationId === pickupLocId)
+    // console.log(allPickupParties)
+    // console.log(thisEventId, pickupLocId)
+    // console.log(thisPickupParty)
+    let hours = Number(thisPickupParty.lastBusDepartureTime.split(':')[0])
+    let minutes = thisPickupParty.lastBusDepartureTime.split(':')[1]
+    let amPm = ''
+    if (hours < 11) {
+      amPm = 'AM'
+    }
+    if (hours === 12) {
+      amPm = 'PM'
+    }
+    if (hours > 12) {
+      amPm = 'PM'
+      hours -= 12
+    }
+    let pickupTime = `${hours}:${minutes} ${amPm}`
+    return pickupTime
   }
 
   purchase = async () => {
@@ -410,6 +442,7 @@ class App extends Component {
     this.setState({ shows: newState, artistIcon: false, dateIcon: true })
   }
 
+
   makePurchase = () => {
     this.setState({ purchasePending: true })
   }
@@ -428,9 +461,14 @@ class App extends Component {
                 <div className='content-section pt-4'>
                   <div className='col-md-6 float-right' >
                     <MediaQuery minWidth={768}>
-                      <BannerRotator />
+                      {this.state.displayShow ? '' :
+                        <BannerRotator displayShow={this.state.displayShow} />}
                       {this.state.displayCart || this.state.displayShow ?
                         (<DetailCartView
+                          shows={this.state.shows}
+                          makePurchase={this.makePurchase}
+                          purchasePending={this.state.purchasePending}
+                          purchaseSuccessful={this.state.purchaseSuccessful}
                           addToCart={this.addToCart}
                           checked={this.state.checked}
                           displayAddBtn={this.state.displayAddBtn}
@@ -440,22 +478,19 @@ class App extends Component {
                           displayShow={this.state.displayShow}
                           displaySuccess={this.state.displaySuccess}
                           displayWarning={this.state.displayWarning}
+                          getPickupParty={this.getPickupParty}
                           handleCheck={this.handleCheck}
                           handleSubmit={this.handleSubmit}
                           inCart={this.state.inCart}
-                          makePurchase={this.makePurchase}
                           pickupLocations={this.state.pickupLocations}
                           pickupLocationId={this.state.pickupLocationId}
                           purchase={this.purchase}
                           purchaseClick={this.purchaseClick}
-                          purchasePending={this.state.purchasePending}
-                          purchaseSuccessful={this.state.purchaseSuccessful}
                           quantityChange={this.quantityChange}
                           removeFromCart={this.removeFromCart}
                           returnToShows={this.returnToShows}
                           selectPickupLocationId={this.selectPickupLocationId}
                           selectTicketQuantity={this.selectTicketQuantity}
-                          shows={this.state.shows}
                           showsExpandClick={this.showsExpandClick}
                           showsInCart={this.state.inCart}
                           tabClicked={this.tabClicked}
@@ -473,10 +508,10 @@ class App extends Component {
                         <SponsorBox />}
                     </MediaQuery>
                     <MediaQuery maxWidth={767}>
-                      <BannerRotator />
+                      {this.state.displayShow ? '' :
+                        <BannerRotator displayShow={this.state.displayShow} />}
                       {this.state.displayCart || this.state.displayShow ?
                         <DetailCartView
-                          shows={this.state.shows}
                           addToCart={this.addToCart}
                           addBorder={this.addBorder}
                           checked={this.state.checked}

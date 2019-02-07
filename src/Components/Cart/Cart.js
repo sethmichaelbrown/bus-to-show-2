@@ -23,15 +23,16 @@ const Cart = (props) => {
             </div>
             <div className="list-group-item lgi-header">
               <div className="row">
-                <div className="col-md-2">Show</div>
+                <div className="col-md-4">Show</div>
                 <div className="col-md-4">Departure Location</div>
                 <div className="col-md-2">Date</div>
-                <div className="col-md-2">Quantity</div>
+                <div className="col-md-1">Quant.</div>
               </div>
             </div>
           </MediaQuery>
           <ul className="list-group">
             <CartItem
+              getPickupParty={props.getPickupParty}
               shows={props.shows}
               totalCost={Number(props.totalCost).toFixed(2)}
               pickupLocations={props.pickupLocations}
@@ -132,7 +133,7 @@ const Cart = (props) => {
                     </div>
 
 
-                    <div className='form-row '>
+                    <div className='form-row cart-flex'>
                       <MediaQuery minWidth={768}>
                         <Checkout
                           makePurchase={props.makePurchase}
@@ -143,9 +144,9 @@ const Cart = (props) => {
                           showsInCart={props.showsInCart}>
                         </Checkout>
 
-                        <h4>Cart Total:
-                            <span className="badge badge-secondary">{`$${totalCost}`}</span>
-                        </h4>
+                        <h3>Cart Total:
+                            <span className="badge badge-success ml-1">{`$${totalCost}`}</span>
+                        </h3>
 
                       </MediaQuery>
                     </div>
