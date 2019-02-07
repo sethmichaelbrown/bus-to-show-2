@@ -36,6 +36,10 @@ const Cart = (props) => {
           </MediaQuery>
           <ul className="list-group">
             <CartItem
+              confirmRemove={props.confirmRemove}
+              displayConfirmRemove={props.displayConfirmRemove}
+              confirmedRemove={props.confirmedRemove}
+              closeAlert={props.closeAlert}
               getPickupParty={props.getPickupParty}
               shows={props.shows}
               totalCost={Number(props.totalCost).toFixed(2)}
@@ -43,6 +47,7 @@ const Cart = (props) => {
               quantityChange={props.quantityChange}
               removeFromCart={props.removeFromCart}
               pickupLocationId={props.pickupLocationId}
+              pickupParties={props.pickupParties}
               showsInCart={props.showsInCart}
               ticketPrice={props.ticketPrice}
               afterDiscountObj={props.afterDiscountObj}
@@ -215,14 +220,6 @@ const Cart = (props) => {
             </div> : ''}
         </div>
       </React.Fragment>
-      <div className="container">
-      <div className="row justify-content-center">
-
-    {props.purchasePending? <div className="alert alert-primary" role="alert"> Purchase Pending... </div> : ''}
-
-    {props.purchaseSuccessful? <div className="alert alert-success" role="alert"> Purchase Successful!!! </div> : ''}
-      </div>
-      </div>
     </div>
 
   )

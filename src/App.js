@@ -24,7 +24,7 @@ import BannerRotator from './Components/BannerRotator'
 class App extends Component {
   // Please keep sorted alphabetically so we don't duplicate keys :) Thanks!
   state = {
-    afterDiscountObj: {totalSavings: 0},
+    afterDiscountObj: { totalSavings: 0 },
     artistDescription: null,
     artistIcon: false,
     basePrice: null,
@@ -41,10 +41,12 @@ class App extends Component {
       discountCode: ''
     },
     checked: false,
+    confirmRemove: false,
     dateIcon: true,
     displayAddBtn: false,
     displayBorder: false,
     displayCart: false,
+    displayConfirmRemove: false,
     displayDetailCartView: false,
     displayShow: null,
     displayStripe: false,
@@ -163,7 +165,7 @@ class App extends Component {
   findDiscountCode = async () => {
     // console.log ("hey, how bout that?")
     //console.log ('currentCode inside findDiscountCode:::', this.state.discountCode)
-//this.state.ticketQuantity
+    //this.state.ticketQuantity
     const ticketQuantity = this.state.ticketQuantity
     console.log('ticketQuantity', ticketQuantity)
     const eventId = this.state.inCart[0].id
@@ -176,20 +178,20 @@ class App extends Component {
     console.log('findDiscountCode json:::: ', json)
     const result = json.filter((discountObj) => discountObj.eventsId === eventId)[0]
     const newState = { ...this.State }
-    if(!result){
+    if (!result) {
       console.log('no match!')
       return "no match"
     }
-    if(result.remainingUses <= 0){
-      console.log ('this code is all used up!')
+    if (result.remainingUses <= 0) {
+      console.log('this code is all used up!')
       return 'this code is all used up!'
     }
     const expiration = Date.parse(result.expiresOn.toLocaleString('en-US'))
-    const today = Date.parse(new Date().toLocaleString('en-US', {timeZone: 'America/Denver'}))
+    const today = Date.parse(new Date().toLocaleString('en-US', { timeZone: 'America/Denver' }))
 
-    if (expiration < today){
-    console.log('this code is expired')
-    return 'this code is expired'
+    if (expiration < today) {
+      console.log('this code is expired')
+      return 'this code is expired'
     } else {
       console.log('this is a valid code that is not expired')
       let priceWithoutFeesPerTicket = this.state.totalCost * 10 / 11 / ticketQuantity
@@ -335,9 +337,6 @@ class App extends Component {
     pickupLocId = parseInt(pickupLocId)
     let allPickupParties = this.state.pickupParties
     let thisPickupParty = allPickupParties.find(pickupParty => pickupParty.eventId === thisEventId && pickupParty.pickupLocationId === pickupLocId)
-    // console.log(allPickupParties)
-    // console.log(thisEventId, pickupLocId)
-    // console.log(thisPickupParty)
     let hours = Number(thisPickupParty.lastBusDepartureTime.split(':')[0])
     let minutes = thisPickupParty.lastBusDepartureTime.split(':')[1]
     let amPm = ''
@@ -407,7 +406,7 @@ class App extends Component {
       && this.state.validatedElements.email) {
 
       const cTS = newState.cartToSend
-      // newState.validated = true
+      newState.validated = true
 
       cTS.firstName = this.state.validatedElements.fName
       cTS.lastName = this.state.validatedElements.lName
@@ -442,9 +441,22 @@ class App extends Component {
 
   removeFromCart = () => {
     const newState = { ...this.state }
+    newState.displayConfirmRemove = true
+    this.setState({ displayConfirmRemove: newState.displayConfirmRemove })
+  }
+
+  confirmedRemove = () => {
+    const newState = { ...this.state }
     newState.inCart = []
     newState.displaySuccess = false
+    newState.displayConfirmRemove = false
     this.setState(newState)
+  }
+
+  closeAlert = () => {
+    const newState = { ...this.state }
+    newState.displayConfirmRemove = false
+    this.setState({ displayConfirmRemove: newState.displayConfirmRemove })
   }
 
   quantityChange = (event) => {
@@ -497,7 +509,6 @@ class App extends Component {
     this.setState({ shows: newState, artistIcon: false, dateIcon: true })
   }
 
-
   makePurchase = () => {
     this.setState({ purchasePending: true })
   }
@@ -525,11 +536,14 @@ class App extends Component {
                           makePurchase={this.makePurchase}
                           purchasePending={this.state.purchasePending}
                           purchaseSuccessful={this.state.purchaseSuccessful}
+                          closeAlert={this.closeAlert}
                           addToCart={this.addToCart}
                           checked={this.state.checked}
+                          confirmedRemove={this.confirmedRemove}
                           displayAddBtn={this.state.displayAddBtn}
                           displayBorder={this.state.displayBorder}
                           displayCart={this.state.displayCart}
+                          displayConfirmRemove={this.state.displayConfirmRemove}
                           displayQuantity={this.state.displayQuantity}
                           displayShow={this.state.displayShow}
                           displaySuccess={this.state.displaySuccess}
@@ -539,23 +553,28 @@ class App extends Component {
                           handleCheck={this.handleCheck}
                           handleSubmit={this.handleSubmit}
                           inCart={this.state.inCart}
+                          makePurchase={this.makePurchase}
                           pickupLocations={this.state.pickupLocations}
                           pickupLocationId={this.state.pickupLocationId}
+                          pickupParties={this.state.pickupParties}
                           purchase={this.purchase}
                           purchaseClick={this.purchaseClick}
+                          purchasePending={this.state.purchasePending}
+                          purchaseSuccessful={this.state.purchaseSuccessful}
                           quantityChange={this.quantityChange}
                           removeFromCart={this.removeFromCart}
                           returnToShows={this.returnToShows}
                           selectPickupLocationId={this.selectPickupLocationId}
                           selectTicketQuantity={this.selectTicketQuantity}
+                          shows={this.state.shows}
                           showsExpandClick={this.showsExpandClick}
                           showsInCart={this.state.inCart}
                           tabClicked={this.tabClicked}
                           ticketsAvailable={this.state.ticketsAvailable}
                           ticketQuantity={this.state.ticketQuantity}
-                          updateDiscountCode={this.updateDiscountCode}
                           timeLeftInCart={this.state.timeLeftInCart}
                           totalCost={this.state.totalCost}
+                          updateDiscountCode={this.updateDiscountCode}
                           updatePurchaseField={this.updatePurchaseField}
                           validated={this.state.validated}
                           validatedElements={this.state.validatedElements} />
@@ -568,10 +587,13 @@ class App extends Component {
                         <BannerRotator displayShow={this.state.displayShow} />}
                       {this.state.displayCart || this.state.displayShow ?
                         <DetailCartView
+                          displayConfirmRemove={this.state.displayConfirmRemove}
                           addToCart={this.addToCart}
                           addBorder={this.addBorder}
                           afterDiscountObj={this.state.afterDiscountObj}
                           checked={this.state.checked}
+                          confirmedRemove={this.confirmedRemove}
+                          closeAlert={this.closeAlert}
                           displayAddBtn={this.state.displayAddBtn}
                           displayBorder={this.state.displayBorder}
                           displayCart={this.state.displayCart}
@@ -580,11 +602,13 @@ class App extends Component {
                           displaySuccess={this.state.displaySuccess}
                           filterString={this.state.filterString}
                           findDiscountCode={this.findDiscountCode}
+                          getPickupParty={this.getPickupParty}
                           handleCheck={this.handleCheck}
                           handleSubmit={this.handleSubmit}
                           inCart={this.state.inCart}
                           pickupLocations={this.state.pickupLocations}
                           pickupLocationId={this.state.pickupLocationId}
+                          pickupParties={this.state.pickupParties}
                           purchase={this.purchase}
                           purchaseClick={this.purchaseClick}
                           quantityChange={this.quantityChange}
