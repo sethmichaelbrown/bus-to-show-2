@@ -26,6 +26,7 @@ class App extends Component {
   state = {
     artistDescription: null,
     artistIcon: false,
+    basePrice: null,
     cartToSend: {
       eventId: null,
       pickupLocationId: null,
@@ -158,7 +159,6 @@ class App extends Component {
 
   }
 
-
   findDiscountCode = async () =>{
     console.log ("hey, how bout that?")
     //console.log ('currentCode inside findDiscountCode:::', this.state.discountCode)
@@ -168,7 +168,6 @@ class App extends Component {
     //this.setState(newState)
     console.log('findDiscountCode json:::: ', json)
   }
-
 
   // Header Functions
   loginClick = () => {
