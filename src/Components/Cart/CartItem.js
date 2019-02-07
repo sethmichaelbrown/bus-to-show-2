@@ -8,7 +8,11 @@ const CartItem = (props) => {
 
   return (
     <div className='CartItem'>
-
+      {props.displayConfirmRemove ? <div class="alert alert-danger" role="alert">
+        Are you sure you want to remove item from cart?
+        <button onClick={props.confirmedRemove} type="button" class="btn btn-danger ml-1">Remove</button>
+        <button onClick={props.closeAlert} type="button" class="btn btn-outline-secondary ml-1">Cancel</button>
+      </div> : ''}
       {props.showsInCart.map(show =>
         <li className="list-group-item highlightOnHover" onClick={props.eventExpandClick} key={show.id} id={show.id}>
           <div className="row" id={show.id}>

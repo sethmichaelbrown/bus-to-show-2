@@ -40,10 +40,12 @@ class App extends Component {
       discountCode: ''
     },
     checked: false,
+    confirmRemove: false,
     dateIcon: true,
     displayAddBtn: false,
     displayBorder: false,
     displayCart: false,
+    displayConfirmRemove: false,
     displayDetailCartView: false,
     displayShow: null,
     displayStripe: false,
@@ -387,9 +389,22 @@ class App extends Component {
 
   removeFromCart = () => {
     const newState = { ...this.state }
+    newState.displayConfirmRemove = true
+    this.setState({ displayConfirmRemove: newState.displayConfirmRemove })
+  }
+
+  confirmedRemove = () => {
+    const newState = { ...this.state }
     newState.inCart = []
     newState.displaySuccess = false
+    newState.displayConfirmRemove = false
     this.setState(newState)
+  }
+
+  closeAlert = () => {
+    const newState = { ...this.state }
+    newState.displayConfirmRemove = false
+    this.setState({ displayConfirmRemove: newState.displayConfirmRemove })
   }
 
   quantityChange = (event) => {
@@ -465,15 +480,13 @@ class App extends Component {
                         <BannerRotator displayShow={this.state.displayShow} />}
                       {this.state.displayCart || this.state.displayShow ?
                         (<DetailCartView
-                          shows={this.state.shows}
-                          makePurchase={this.makePurchase}
-                          purchasePending={this.state.purchasePending}
-                          purchaseSuccessful={this.state.purchaseSuccessful}
                           addToCart={this.addToCart}
                           checked={this.state.checked}
+                          confirmedRemove={this.confirmedRemove}
                           displayAddBtn={this.state.displayAddBtn}
                           displayBorder={this.state.displayBorder}
                           displayCart={this.state.displayCart}
+                          displayConfirmRemove={this.state.displayConfirmRemove}
                           displayQuantity={this.state.displayQuantity}
                           displayShow={this.state.displayShow}
                           displaySuccess={this.state.displaySuccess}
@@ -482,24 +495,28 @@ class App extends Component {
                           handleCheck={this.handleCheck}
                           handleSubmit={this.handleSubmit}
                           inCart={this.state.inCart}
+                          makePurchase={this.makePurchase}
                           pickupLocations={this.state.pickupLocations}
                           pickupLocationId={this.state.pickupLocationId}
                           purchase={this.purchase}
                           purchaseClick={this.purchaseClick}
+                          purchasePending={this.state.purchasePending}
+                          purchaseSuccessful={this.state.purchaseSuccessful}
                           quantityChange={this.quantityChange}
                           removeFromCart={this.removeFromCart}
                           returnToShows={this.returnToShows}
                           selectPickupLocationId={this.selectPickupLocationId}
                           selectTicketQuantity={this.selectTicketQuantity}
+                          shows={this.state.shows}
                           showsExpandClick={this.showsExpandClick}
                           showsInCart={this.state.inCart}
                           tabClicked={this.tabClicked}
                           ticketsAvailable={this.state.ticketsAvailable}
                           ticketQuantity={this.state.ticketQuantity}
-                          updateDiscountCode={this.updateDiscountCode}
                           findDiscountCode={this.findDiscountCode}
                           timeLeftInCart={this.state.timeLeftInCart}
                           totalCost={this.state.totalCost}
+                          updateDiscountCode={this.updateDiscountCode}
                           updatePurchaseField={this.updatePurchaseField}
                           validated={this.state.validated}
                           validatedElements={this.state.validatedElements} />
@@ -515,6 +532,8 @@ class App extends Component {
                           addToCart={this.addToCart}
                           addBorder={this.addBorder}
                           checked={this.state.checked}
+                          confirmedRemove={this.state.confirmedRemove}
+                          closeAlert={this.state.closeAlert}
                           displayAddBtn={this.state.displayAddBtn}
                           displayBorder={this.state.displayBorder}
                           displayCart={this.state.displayCart}

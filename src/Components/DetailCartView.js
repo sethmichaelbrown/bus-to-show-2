@@ -29,10 +29,10 @@ const DetailCartView = (props) => {
           <a onClick={props.tabClicked} className="nav-link" id="cart-tab" data-toggle="tab" href="#cart" role="tab" aria-controls="cart" aria-selected="false">My Cart</a>
         </li>
         <MediaQuery maxWidth={768}>
-        <li className="nav-item">
-          <a onClick={props.tabClicked} className="nav-link" id="showList-tab" data-toggle="tab" href="#showlist" role="tab" aria-controls="showlist" aria-selected="false">Shows</a>
-        </li>
-        {/* <li>
+          <li className="nav-item">
+            <a onClick={props.tabClicked} className="nav-link" id="showList-tab" data-toggle="tab" href="#showlist" role="tab" aria-controls="showlist" aria-selected="false">Shows</a>
+          </li>
+          {/* <li>
           For Tiny Timer
           {props.inCart.length > 0 ?
           <button type="button" disabled='disabled' className="btn btn-dark">{displayTime}</button> : ''}
@@ -64,54 +64,57 @@ const DetailCartView = (props) => {
             totalCost={props.totalCost} />
         </div>
         <MediaQuery maxWidth={768}>
-        <div className="tab-pane fade" id="showlist" data-toggle="tab" role="tabpanel" aria-labelledby="cart-tab">
-        <ShowList
-          addBorder={props.addBorder}
-          displayShow={props.displayShow}
-          filterString={props.filterString}
-          shows={props.shows}
-          showsExpandClick={props.showsExpandClick}
-          ticketsAvailable={props.ticketsAvailable} />
-        </div>
+          <div className="tab-pane fade" id="showlist" data-toggle="tab" role="tabpanel" aria-labelledby="cart-tab">
+            <ShowList
+              addBorder={props.addBorder}
+              displayShow={props.displayShow}
+              filterString={props.filterString}
+              shows={props.shows}
+              showsExpandClick={props.showsExpandClick}
+              ticketsAvailable={props.ticketsAvailable} />
+          </div>
         </MediaQuery>
         <div className="tab-pane fade" id="cart" data-toggle="tab" role="tabpanel" aria-labelledby="cart-tab">
           {props.inCart.length > 0 ?
             <Cart
-              shows={props.shows}
-              makePurchase={props.makePurchase}
-              purchasePending={props.purchasePending}
               checked={props.checked}
+              confirmedRemove={props.confirmedRemove}
+              closeAlert={props.closeAlert}
+              displayConfirmRemove={props.displayConfirmRemove}
+              findDiscountCode={props.findDiscountCode}
               getPickupParty={props.getPickupParty}
               handleCheck={props.handleCheck}
               handleSubmit={props.handleSubmit}
+              makePurchase={props.makePurchase}
+              pickupLocationId={props.pickupLocationId}
               pickupLocations={props.pickupLocations}
+              purchase={props.purchase}
               purchaseClick={props.purchaseClick}
+              purchasePending={props.purchasePending}
+              purchaseSuccessful={props.purchaseSuccessful}
               quantityChange={props.quantityChange}
               removeFromCart={props.removeFromCart}
               returnToShows={props.returnToShows}
-              pickupLocationId={props.pickupLocationId}
+              shows={props.shows}
               showsInCart={props.inCart}
-              updateDiscountCode={props.updateDiscountCode}
-              findDiscountCode={props.findDiscountCode}
-              totalCost={props.totalCost}
               ticketQuantity={props.ticketQuantity}
+              totalCost={props.totalCost}
+              updateDiscountCode={props.updateDiscountCode}
               updatePurchaseField={props.updatePurchaseField}
-              validatedElements={props.validatedElements}
               validated={props.validated}
-              purchase={props.purchase}
-              purchaseSuccessful={props.purchaseSuccessful}
+              validatedElements={props.validatedElements}
             /> :
             <div className="nothing-in-cart">
               <div className="list-group">
                 <div className="list-group-item lgi-header">
-                <MediaQuery minWidth={768}>
-                  <div className="row">
-                    <div className="col-md-1">Show</div>
-                    <div className="col-md-4">Departure Location</div>
-                    <div className="col-md-2">Date</div>
-                    <div className="col-md-3">Quantity</div>
-                  </div>
-                </MediaQuery>
+                  <MediaQuery minWidth={768}>
+                    <div className="row">
+                      <div className="col-md-1">Show</div>
+                      <div className="col-md-4">Departure Location</div>
+                      <div className="col-md-2">Date</div>
+                      <div className="col-md-3">Quantity</div>
+                    </div>
+                  </MediaQuery>
                 </div>
                 <div className="row container nothing-in-cart-text">
                   <div className="col-md-12 mt-3">
