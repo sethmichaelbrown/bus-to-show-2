@@ -535,6 +535,7 @@ class App extends Component {
                         <BannerRotator displayShow={this.state.displayShow} />}
                       {this.state.displayCart || this.state.displayShow ?
                         (<DetailCartView
+                          closeAlert={this.closeAlert}
                           addToCart={this.addToCart}
                           checked={this.state.checked}
                           confirmedRemove={this.confirmedRemove}
@@ -589,7 +590,7 @@ class App extends Component {
                           addBorder={this.addBorder}
                           checked={this.state.checked}
                           confirmedRemove={this.state.confirmedRemove}
-                          closeAlert={this.state.closeAlert}
+                          closeAlert={this.closeAlert}
                           displayAddBtn={this.state.displayAddBtn}
                           displayBorder={this.state.displayBorder}
                           displayCart={this.state.displayCart}
