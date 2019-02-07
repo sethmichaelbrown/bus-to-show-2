@@ -12,8 +12,6 @@ const CartItem = (props) => {
   const time3 = time1[0].concat(time2)
   const defaultFirstBus = moment(time3, 'hmm').format('h:mm')
 
-  console.log(defaultFirstBus)
-
   return (
     <div className='CartItem'>
       {props.displayConfirmRemove ? <div className="alert alert-danger" role="alert">

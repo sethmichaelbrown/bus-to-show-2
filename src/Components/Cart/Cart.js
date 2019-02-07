@@ -5,14 +5,11 @@ import Checkout from './Stripe_Checkout';
 import MediaQuery from 'react-responsive';
 
 const Cart = (props) => {
-  // console.log('Cart', props)
 
   let savings = Number(props.afterDiscountObj.totalSavings)
   let totalSavings = savings.toFixed(2)
   let cost = Number(props.totalCost - savings)
   let totalCost = cost.toFixed(2)
-  console.log('savings:::: ', savings)
-  console.log('totalCost', totalCost)
 
   return (
     <div className='Cart'>
