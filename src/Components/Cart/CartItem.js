@@ -5,45 +5,42 @@ const CartItem = (props) => {
 
   const pickupTime = props.getPickupParty(props.showsInCart[0].id, props.pickupLocationId)
   const pickupLocation = props.pickupLocations.find(location => parseInt(location.id) === parseInt(props.pickupLocationId))
-<<<<<<< HEAD
   const stringStartTime=props.showsInCart[0].startTime.split(":").join("").slice(0,4)
   const showStartTime=Number.parseInt(props.showsInCart[0].startTime.split(":").join("").slice(0,4))-1200
-  const pickupTime=showStartTime+''
-  const pickupHour=pickupTime.length===4? pickupTime.slice(0,2) : pickupTime.slice(0,1)
-  const pickupMinute=pickupTime.length===3? pickupTime.slice(1): pickupTime.slice(2)
-  const pickupAddress=pickupLocation.locationName
-  let busstop
-  switch (pickupAddress) {
-    case "Boulder - University Hill Cheba Hut":
-      showStartTime%100===0? busstop=showStartTime-170: busstop=showStartTime-130;
-      break;
-    case "1744 E Evans Ave, Denver, CO":
-      showStartTime%100===0? busstop=showStartTime-200: busstop=showStartTime-200;
-      break;
-    case "Denver - Colfax/Cap Hill Cheba Hut":
-      showStartTime%100===0? busstop=showStartTime-170: busstop=showStartTime-130;
-      break;
-    case "Denver - Champa/Downtown Cheba Hut":
-      showStartTime%100===0? busstop=showStartTime-170: busstop=showStartTime-130
-      break;
-    case "Denver - RiNo Epic Brewing":
-      showStartTime%100===0? busstop=showStartTime-155: busstop=showStartTime-115
-      break;
-    case "Longmont - Main St. Cheba Hut":
-      showStartTime%100===0? busstop=showStartTime-170: busstop=showStartTime-130
-      break;
-    case "Fort Collins - Old Town Illegal Pete's":
-      showStartTime%100===0? busstop=showStartTime-370: busstop=showStartTime-330
-      break;
-    default:
-      busstop="2 hours before showtime"
-
-  }
-
-  let busstopString=busstop+''
-  let busStopTime=busstopString.length===4? busstopString.slice(0,2)+ ":"+ busstopString.slice(2) : busstopString.slice(0,1) + ":" + busstopString.slice(1)
-=======
->>>>>>> 3f670100f45b6308bbc93756026fa90496673700
+  // const pickupTime=showStartTime+''
+  // const pickupHour=pickupTime.length===4? pickupTime.slice(0,2) : pickupTime.slice(0,1)
+  // const pickupMinute=pickupTime.length===3? pickupTime.slice(1): pickupTime.slice(2)
+  // const pickupAddress=pickupLocation.locationName
+  // let busstop
+  // switch (pickupAddress) {
+  //   case "Boulder - University Hill Cheba Hut":
+  //     showStartTime%100===0? busstop=showStartTime-170: busstop=showStartTime-130;
+  //     break;
+  //   case "1744 E Evans Ave, Denver, CO":
+  //     showStartTime%100===0? busstop=showStartTime-200: busstop=showStartTime-200;
+  //     break;
+  //   case "Denver - Colfax/Cap Hill Cheba Hut":
+  //     showStartTime%100===0? busstop=showStartTime-170: busstop=showStartTime-130;
+  //     break;
+  //   case "Denver - Champa/Downtown Cheba Hut":
+  //     showStartTime%100===0? busstop=showStartTime-170: busstop=showStartTime-130
+  //     break;
+  //   case "Denver - RiNo Epic Brewing":
+  //     showStartTime%100===0? busstop=showStartTime-155: busstop=showStartTime-115
+  //     break;
+  //   case "Longmont - Main St. Cheba Hut":
+  //     showStartTime%100===0? busstop=showStartTime-170: busstop=showStartTime-130
+  //     break;
+  //   case "Fort Collins - Old Town Illegal Pete's":
+  //     showStartTime%100===0? busstop=showStartTime-370: busstop=showStartTime-330
+  //     break;
+  //   default:
+  //     busstop="2 hours before showtime"
+  //
+  // }
+  //
+  // let busstopString=busstop+''
+  // let busStopTime=busstopString.length===4? busstopString.slice(0,2)+ ":"+ busstopString.slice(2) : busstopString.slice(0,1) + ":" + busstopString.slice(1)
 
   return (
     <div className='CartItem'>

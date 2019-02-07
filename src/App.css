@@ -247,6 +247,15 @@ p {
   color: black;
 }
 
+.biophoto{
+  height:15vh;
+  width:15vw;
+  border-radius: 30px;
+  border-width: thin;
+  border-color: black;
+  
+}
+
 @media only screen and (min-width: 900px) {
   .make-bigger{
     align-self: flex-end;
