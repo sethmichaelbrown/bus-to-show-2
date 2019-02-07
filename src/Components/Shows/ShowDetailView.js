@@ -11,6 +11,19 @@ const ShowDetailView = (props) => {
   const headlinerBio = show.headlinerBio.split('<a')[0]
   const noBio = 'No bio information available, so enjoy a kitten on us.'
 
+  let basePrice = 0
+  let processingFee = 0
+
+  if(props.pickupLocation){
+    basePrice = props.pickupLocations.find(location => parseInt(location.id) === parseInt(props.pickupLocationId)).basePrice.toFixed(2)
+    processingFee = Number(basePrice) * .1
+  }
+
+  console.log(basePrice)
+  console.log(processingFee)
+
+  
+
   // placekitten.com/width/height of photo to be displayed
   const placeKitten = 'http://placekitten.com/174/174'
 
@@ -97,10 +110,9 @@ const ShowDetailView = (props) => {
                 </div>
 
                 <div className="col-md-5 float-right mt-4">
-                  {props.displayQuantity ?
-                    `$${props.pickupLocations.map(location => location.basePrice.toFixed())[0]}.00 per ticket
-                  + $${((props.pickupLocations.map(location => location.basePrice.toFixed())[0]) * 0.1).toFixed(2)}  10% processing fee`
-                    : ''}
+                  {/* {props.displayQuantity ? YAS
+                    
+                    : ''} */}
                 </div>
               </div>
 
@@ -129,17 +141,19 @@ const ShowDetailView = (props) => {
                       </form>
                     </React.Fragment> : ''}
                 </div>
-                <div className="col-md-5 float-right mt-4">
+                <div className="col-md-5 float-right mt-4 py-2">
                   {props.displayAddBtn ?
                     <div>
-                      Total: ${((props.pickupLocations.map(location => location.basePrice.toFixed())[0]) * (props.ticketQuantity) * 1.1).toFixed(2)}
-                      {props.pickupLocation}
+                      <h3><span className="badge badge-success">
+                        Total: ${((props.pickupLocations.map(location => location.basePrice.toFixed())[0]) * (props.ticketQuantity) * 1.1).toFixed(2)}
+                        {props.pickupLocation}
+                      </span></h3>
                     </div> : ''}
                 </div>
               </div>
             </div>
             <div className="list-group-item">
-              <div className='row col-md-12 justify-content-center'>
+              <div className='row col-md-12'>
                 <button type="button" onClick={props.returnToShows} className="btn btn-outline-danger return-btn ml-2 float-right">Cancel</button>
                 {props.displayAddBtn ?
                   <button role="tabpanel" aria-labelledby="cart-tab" type="button" onClick={props.addToCart} className="btn btn-outline-primary return-btn ml-2 float-right">Add to Cart</button> : ''}
