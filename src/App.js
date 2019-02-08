@@ -98,7 +98,6 @@ class App extends Component {
     this.setState({ shows: newState })
 
     const allEvents = await fetch('https://something-innocuous.herokuapp.com/events')
-    // const allEvents = await fetch('https://something-innocuous.herokuapp.com/events')
     const eventsList = await allEvents.json()
     const eventsListIds = []
     for (let i = 0; i < eventsList.length; i++) {
@@ -106,12 +105,10 @@ class App extends Component {
     }
 
     const pickups = await fetch('https://something-innocuous.herokuapp.com/pickup_locations')
-    // const pickups = await fetch('https://something-innocuous.herokuapp.com/pickup_locations')
     const pickupLocations = await pickups.json()
     this.setState({ pickupLocations })
 
     const getPickupParties = await fetch('https://something-innocuous.herokuapp.com/pickup_parties')
-    // const getPickupParties = await fetch('https://something-innocuous.herokuapp.com/pickup_parties')
     const pickupParties = await getPickupParties.json()
     this.setState({ pickupParties })
   }
@@ -145,7 +142,6 @@ class App extends Component {
     this.setState(newState)
 
     const response = await fetch('https://something-innocuous.herokuapp.com/pickup_parties')
-    // const response = await fetch('https://something-innocuous.herokuapp.com/pickup_parties')
     const locations = await response.json()
     const statePickupId = parseInt(this.state.pickupLocationId)
     const stateEventId = parseInt(this.state.displayShow.id)
@@ -324,7 +320,6 @@ class App extends Component {
     }
     this.setState(newState)
 
-    // fetch('https://something-innocuous.herokuapp.com/pickup_parties', {
       fetch('https://something-innocuous.herokuapp.com/pickup_parties', {
       method: 'PATCH',
       body: JSON.stringify({
@@ -337,7 +332,6 @@ class App extends Component {
       }
     })
 
-    // setTimeout(fetch('https://something-innocuous.herokuapp.com/pickup_parties', {
       setTimeout(fetch('https://something-innocuous.herokuapp.com/pickup_parties', {
       method: 'PATCH',
       body: JSON.stringify({
