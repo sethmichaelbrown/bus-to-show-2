@@ -5,14 +5,11 @@ import Zoom from 'react-reveal/Zoom';
 
 
 const Loading = (props) => {
-
-console.log(Zoom)
 let bus2 = true
 let bus3 = true
 
   return (
     <div className='Loading loading-image'>
-    {console.log("Hello Loading")}
       <div className="row">
         <div className="col-md-12 loading-header">
           <Zoom right opposite when={props.displayBus}>
