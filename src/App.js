@@ -12,8 +12,8 @@ import Aboutus from './Components/Aboutus/Aboutus.js'
 import Header from './Components/Header'
 import ShowList from './Components/Shows/ShowList'
 import Loading from './Components/Loading'
-import LoginView from './Components/LoginView/LoginView'
-import Footer from './Components/Footer'
+import ReservationsView from './Components/ReservationsView/ReservationsView'
+// import Footer from './Components/Footer'
 import SponsorBox from './Components/SponsorBox'
 import DetailCartView from './Components/DetailCartView'
 import BannerRotator from './Components/BannerRotator'
@@ -67,6 +67,8 @@ class App extends Component {
     ticketsAvailable: [],
     ticketQuantity: null,
     totalCost: 0,
+    userReservations: [],
+    userId:null,
     validated: false,
     validatedElements: {
       fName: null,
@@ -165,6 +167,17 @@ class App extends Component {
     this.setState(newState)
     // console.log('discountCode set::: ', newState.discountCode)
 
+  }
+
+  getReservations = async(userId)=>{
+  if(userId ){
+  const reservations =  await fetch(`https://localhost:3000/reservations/${userId}`)
+  // const allEvents = await fetch('http://localhost:3000/events')
+  const userReservations = await reservations.json()
+  const newState = { ...this.State }
+  newState.userId = userId
+  newState.userReservations = userReservations
+  this.setState(newState)}
   }
 
   findDiscountCode = async () => {
@@ -361,7 +374,7 @@ class App extends Component {
 
   purchase = async () => {
     const cartObj = this.state.cartToSend
-    fetch('https://something-innocuous.herokuapp.com/orders', {
+    const ordersResponse = await fetch('https://something-innocuous.herokuapp.com/orders', {
       // fetch('http://localhost:3000/orders', {
       method: 'POST',
       body: JSON.stringify(cartObj),
@@ -369,8 +382,20 @@ class App extends Component {
         'Content-Type': 'application/json'
       }
     })
-
+    const orderJson = await ordersResponse.json()
+    if(this.state.userId ){
+    await fetch(`http://localhost:3000/reservations/users/${this.state.userId}`, {
+      // fetch('http://localhost:3000/orders', {
+      method: 'POST',
+      body: JSON.stringify({orderId: orderJson.orderId}),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    this.getReservations(this.state.userId)
+    }
     this.setState({ purchaseSuccessful: true, purchasePending: false })
+
   }
 
   updatePurchaseField = (event) => {
@@ -550,13 +575,22 @@ class App extends Component {
           {this.state.myReservationsView ?
           <React.Fragment>
            <Header
-              loggedIn={this.state.loggedIn}
-              userDashboard={this.userDashboard}
-              toggleLoggedIn={this.toggleLoggedIn}
-              myReservationsView={this.state.myReservationsView} />
-            <LoginView
+                  loggedIn={this.state.loggedIn}
+                  userDashboard={this.userDashboard}
+                  toggleLoggedIn={this.toggleLoggedIn}
+                  myReservationsView={this.state.myReservationsView} />
+                  <LoginView
+                  returnHome={this.returnHome}
+                  shows={this.state.shows}
+                  loggedIn={this.state.loggedIn}
+                  userDashboard={this.userDashboard}
+                  toggleLoggedIn={this.toggleLoggedIn}
+                  myReservationsView={this.state.myReservationsView}
+                  getReservations={this.getReservations}
+                   />
+            <ReservationsView
               returnHome={this.returnHome}
-              shows={this.state.shows}
+              shows={this.state.userReservations}
               addBorder={this.addBorder}
               displayShow={this.state.displayShow}
               filterString={this.state.filterString}
@@ -575,7 +609,8 @@ class App extends Component {
                   loggedIn={this.state.loggedIn}
                   userDashboard={this.userDashboard}
                   toggleLoggedIn={this.toggleLoggedIn}
-                  myReservationsView={this.state.myReservationsView} />
+                  myReservationsView={this.state.myReservationsView}
+                  getReservations={this.getReservations} />
                 <div className='content-section pt-4'>
                   <div className='col-md-6 float-right' >
                     <MediaQuery minWidth={768}>
