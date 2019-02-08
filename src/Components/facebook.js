@@ -29,8 +29,9 @@ export default class FacebookButton extends React.Component {
                 headers: {
                     'Content-Type': 'application/json'
                 }
-        }).then(response =>{
-            console.log(response)
+        }).then(async response =>{
+            const user = await response.json()
+            this.props.getReservations(user.userId)
         })
     }
 
@@ -45,7 +46,7 @@ export default class FacebookButton extends React.Component {
     if (this.state.isLoggedIn) {
       fbContent = (
         <React.Fragment>
-        <button type="button" className="btn mr-4 btn-outline-light sort-btn" onClick={()=> {this.props.toggleLoggedIn(false); this.state.isLoggedIn = false}}>
+        <button type="button" className="btn mr-4 btn-outline-light sort-btn" onClick={()=> {this.props.toggleLoggedIn(false); this.setState({isLoggedIn: false})}}>
           <strong>Log Out</strong>
         </button>
         <div className="row inline-block" style={{ height: '50px', width: '200px' }}>

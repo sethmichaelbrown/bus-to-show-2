@@ -4,7 +4,7 @@ import logo from '../../Images/Logos/bts-logo-orange.png'
 import MediaQuery from 'react-responsive';
 import ShowReservation from './ShowReservation'
 
-const LoginView = (props) => {
+const ReservationsView = (props) => {
 
 
   return (
@@ -18,7 +18,7 @@ const LoginView = (props) => {
               <div className="col-3 mb-3" onClick={props.sortByDate}>
                 <button type="button" className="btn btn-outline-light sort-btn">
                   <strong>Date  </strong>
-                
+
                 </button>
 
               </div>
@@ -26,7 +26,7 @@ const LoginView = (props) => {
               <div className="col-3 mb-3" onClick={props.sortByArtist}>
                 <button type="button" className="btn btn-outline-light sort-btn">
                   <strong>Event  </strong>
-                  
+
                 </button>
 
               </div>
@@ -71,4 +71,4 @@ const LoginView = (props) => {
     </div>)
 }
 
-export default LoginView;
+export default ReservationsView;
