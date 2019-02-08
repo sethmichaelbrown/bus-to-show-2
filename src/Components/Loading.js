@@ -28,7 +28,7 @@ let bus3 = true
         }
         </div>
         <div className='col-2 px-auto mx-auto py-4 my-4'>
-          <button type="button" className="btn-lg btn-outline-light" onClick={props.onLoad}>Ride with Us
+          <button type="button" className="btn-lg btn-outline-light loading-btn" onClick={props.onLoad}>Ride with Us
           </button>
         </div>
         <div className='col-3'>
