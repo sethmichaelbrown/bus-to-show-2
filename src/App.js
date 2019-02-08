@@ -416,7 +416,8 @@ class App extends Component {
     })
     this.getReservations(this.state.userId)
     }
-    this.setState({ purchaseSuccessful: true, purchasePending: false })
+ 
+    this.setState({ purchaseSuccessful: true, purchasePending: false , displayConfirmRemove: true})
 
   }
 
