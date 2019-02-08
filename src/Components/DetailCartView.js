@@ -78,9 +78,6 @@ const DetailCartView = (props) => {
           {props.inCart.length > 0 ?
             <Cart
               afterDiscountObj={props.afterDiscountObj}
-              shows={props.shows}
-              makePurchase={props.makePurchase}
-              purchasePending={props.purchasePending}
               checked={props.checked}
               confirmedRemove={props.confirmedRemove}
               closeAlert={props.closeAlert}
