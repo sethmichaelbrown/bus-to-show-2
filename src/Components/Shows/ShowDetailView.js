@@ -119,8 +119,6 @@ const ShowDetailView = (props) => {
                     : ''}
                 </div>
               </div>
-
-
               <div className="row">
                 <div className="col-md-7">
                   {props.displayQuantity ?
@@ -161,6 +159,8 @@ const ShowDetailView = (props) => {
                 <button type="button" onClick={props.returnToShows} className="btn btn-outline-danger return-btn float-right">Cancel</button>
                 {props.displayAddBtn ?
                   <button role="tabpanel" aria-labelledby="cart-tab" type="button" onClick={props.addToCart} className="btn btn-outline-primary return-btn ml-2 float-right">Add to Cart</button> : ''}
+                {props.displayViewCartBtn ?
+                  <button aria-labelledby="cart-tab" type="button" onClick={props.viewCart} className="btn btn-outline-success return-btn ml-2 float-right">View Cart</button> : ''}
               </div>
             </div>
           </div>

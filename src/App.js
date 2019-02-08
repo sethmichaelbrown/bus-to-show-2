@@ -51,6 +51,7 @@ class App extends Component {
     displayShow: null,
     displayStripe: false,
     displaySuccess: false,
+    displayViewCartBtn: false,
     displayWarning: false,
     displayQuantity: false,
     filterString: '',
@@ -286,17 +287,17 @@ class App extends Component {
     const totalSavings = parseInt(this.state.afterDiscountObj.totalSavings)
     const processingFee = Number((basePrice * ticketQuantity) * (0.1))
     const cost = ((basePrice * ticketQuantity) - totalSavings + processingFee)
-
     newState.totalCost = cost.toFixed(2)
 
     if (newState.inCart.length === 0) {
       newState.inCart.push(newState.displayShow)
       newState.displaySuccess = true
+      console.log("okay if")
     }
     else {
       newState.displayWarning = true
+      console.log("okay else")
     }
-
     this.setState(newState)
 
     fetch('https://something-innocuous.herokuapp.com/pickup_parties', {
@@ -312,6 +313,7 @@ class App extends Component {
       }
     })
 
+    newState.displayCart = true
     setTimeout(fetch('https://something-innocuous.herokuapp.com/pickup_parties', {
       // setTimeout(fetch('http://localhost:3000/pickup_parties', {
       method: 'PATCH',
@@ -325,6 +327,15 @@ class App extends Component {
       }
     }), 600000)
   }
+
+  //
+  viewCart = () => {
+    const newState = { ...this.state }
+    newState.displayCart = true
+    this.setState(newState)
+  }
+
+
 
   // Cart Functions
   handleCheck = () => {
@@ -547,6 +558,7 @@ class App extends Component {
                           displayQuantity={this.state.displayQuantity}
                           displayShow={this.state.displayShow}
                           displaySuccess={this.state.displaySuccess}
+                          displayViewCartBtn={this.state.displayViewCartBtn}
                           displayWarning={this.state.displayWarning}
                           findDiscountCode={this.findDiscountCode}
                           getPickupParty={this.getPickupParty}
@@ -577,7 +589,8 @@ class App extends Component {
                           updateDiscountCode={this.updateDiscountCode}
                           updatePurchaseField={this.updatePurchaseField}
                           validated={this.state.validated}
-                          validatedElements={this.state.validatedElements} />
+                          validatedElements={this.state.validatedElements}
+                          viewCart={this.state.viewCart} />
                         )
                         :
                         <SponsorBox />}
@@ -600,6 +613,7 @@ class App extends Component {
                           displayQuantity={this.state.displayQuantity}
                           displayShow={this.state.displayShow}
                           displaySuccess={this.state.displaySuccess}
+                          displayViewCartBtn={this.state.displayViewCartBtn}
                           filterString={this.state.filterString}
                           findDiscountCode={this.findDiscountCode}
                           getPickupParty={this.getPickupParty}
