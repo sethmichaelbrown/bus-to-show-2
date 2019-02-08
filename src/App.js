@@ -209,8 +209,8 @@ class App extends Component {
     const ticketQuantity = this.state.ticketQuantity
     console.log('ticketQuantity', ticketQuantity)
     const eventId = this.state.inCart[0].id
-    const response = await fetch(`https://something-innocuous.herokuapp.com/discount_codes/${this.state.discountCode}`)
-    //const response = await fetch(`https://something-innocuous.herokuapp.com/discount_codes/${this.state.discountCode}`)
+    // const response = await fetch(`https://something-innocuous.herokuapp.com/discount_codes/1`)
+    const response = await fetch(`http://localhost:3000/discount_codes/${this.state.discountCode}`)
     const json = await response.json()
     //const newState = { ...this.state }
     //this.setState(newState)
