@@ -270,6 +270,9 @@ p {
   color: black;
 }
 
+=======
+
+
 .remove-border{
   border: none;
   margin-top: -3;
@@ -288,6 +291,48 @@ p {
   font-weight: bold;
   color: white;
   background-color: #ff420f;
+}
+
+.biophoto{
+  width:200px;
+  border-radius: 30px;
+}
+
+.phil{
+  background-color: #ff420f;
+}
+
+.teamMemberName{
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.memberParagraph{
+  font-size: 15px
+}
+
+.aboutUsPage{
+  border-color: #ff420f;
+  border-width: 1px;
+
+}
+
+.person{
+  margin-top:5px;
+  margin-bottom:5px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.linkedInLogo{
+  width:30px;
+  margin-right: 15px
+}
+
+@media only screen and (max-width:300px){
+  .biophoto{
+    display:none;
+  }
 }
 
 @media only screen and (min-width: 900px) {

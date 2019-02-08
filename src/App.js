@@ -8,6 +8,7 @@ import MediaQuery from 'react-responsive';
 import './App.css';
 
 // Components
+import Aboutus from './Components/Aboutus/Aboutus.js'
 import Header from './Components/Header'
 import ShowList from './Components/Shows/ShowList'
 import Loading from './Components/Loading'
@@ -43,7 +44,9 @@ class App extends Component {
     checked: false,
     confirmRemove: false,
     dateIcon: true,
+    displayAboutUs:false,
     displayAddBtn: false,
+    displayBios:false,
     displayBorder: false,
     displayCart: false,
     displayConfirmRemove: false,
@@ -60,6 +63,7 @@ class App extends Component {
     purchaseSuccessful: false,
     myReservationsView: false,
     loggedIn: false,
+    showBios:false,
     ticketsAvailable: [],
     ticketQuantity: null,
     totalCost: 0,
@@ -546,9 +550,27 @@ class App extends Component {
     this.setState({ purchasePending: true })
   }
 
+  dismissBios=()=>{
+    this.setState({showBios:false})
+  }
+
+  readBios=()=>{
+    this.setState({displayBios:true})
+  }
+
+  hideAboutUs=()=>{
+    this.setState({displayAboutUs:false})
+  }
+
+  showAboutUs=()=>{
+    this.setState({displayAboutUs:true})
+  }
+
   render() {
     return (
+
       <BrowserRouter>
+      <React.Fragment>
         <div className="App">
           {this.state.myReservationsView ?
           <React.Fragment>
@@ -556,18 +578,23 @@ class App extends Component {
                   loggedIn={this.state.loggedIn}
                   userDashboard={this.userDashboard}
                   toggleLoggedIn={this.toggleLoggedIn}
-                  myReservationsView={this.state.myReservationsView}
-                  getReservations={this.getReservations}
-                   />
+                  myReservationsView={this.state.myReservationsView} />
+
             <ReservationsView
               returnHome={this.returnHome}
               shows={this.state.userReservations}
               addBorder={this.addBorder}
               displayShow={this.state.displayShow}
               filterString={this.state.filterString}
-              showsExpandClick={this.showsExpandClick}
-              />
+              showsExpandClick={this.showsExpandClick} />
               </React.Fragment> :
+
+              this.state.displayAboutUs ?
+                <Aboutus
+                  dismissBios={this.dismissBios}
+                  readBios={this.readBios}
+                  displayBios={this.state.displayBios}
+                  hideAboutUs={this.hideAboutUs}/> :
             this.state.shows ?
               <React.Fragment>
                 <Header
@@ -582,7 +609,7 @@ class App extends Component {
                       {this.state.displayShow ? '' :
                         <BannerRotator displayShow={this.state.displayShow} />}
                       {this.state.displayCart || this.state.displayShow ?
-                        (<DetailCartView
+                        <DetailCartView
                           afterDiscountObj={this.state.afterDiscountObj}
                           closeAlert={this.closeAlert}
                           addToCart={this.addToCart}
@@ -626,9 +653,9 @@ class App extends Component {
                           updatePurchaseField={this.updatePurchaseField}
                           validated={this.state.validated}
                           validatedElements={this.state.validatedElements} />
-                        )
                         :
-                        <SponsorBox />}
+                        <SponsorBox/>}
+
                     </MediaQuery>
                     <MediaQuery maxWidth={767}>
                       {this.state.displayShow ? '' :
@@ -704,13 +731,36 @@ class App extends Component {
                         sortedByArtist={this.state.artistIcon}
                         sortedByDate={this.state.dateIcon}
                         ticketsAvailable={this.state.ticketsAvailable} />
+
+
+
                     </MediaQuery>
                   </div>
+
+
+
+
+
                 </div>
+
+
+
               </React.Fragment> : <Loading />
           }
+
+
+
+
         </div>
+
+
+{this.state.displayAboutUs? '': <button className="phil btn-lg btn-primary" onClick={this.showAboutUs}>Read About the Team</button>}
+
+
+
+    </React.Fragment>
       </BrowserRouter>
+
     );
   }
 }

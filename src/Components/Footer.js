@@ -1,11 +1,21 @@
 import React from 'react'
 import '../App.css';
+import Aboutus from './Aboutus/Aboutus.js'
+
+
 
 const Footer = (props) => {
 
 
   return (
+
+    <div>
+
+
+
+
     <div className='Footer'>
+
       <nav className='navbar navbar-light bg-light'>
         <div className='footer-col-1 footer-col col-md-2'>
           <p>About</p>
@@ -17,6 +27,7 @@ const Footer = (props) => {
             <li>Staff</li>
             <li>Press</li>
             <li>Photos</li>
+
           </ul>
         </div>
         <div className='footer-col-2 footer-col col-md-2'>
@@ -72,6 +83,7 @@ const Footer = (props) => {
           </ul>
         </div>
       </nav>
+    </div>
     </div>
 
 
