@@ -48,9 +48,11 @@ class App extends Component {
     displayAddBtn: false,
     displayBios:false,
     displayBorder: false,
+    displayBus: true,
     displayCart: false,
     displayConfirmRemove: false,
     displayDetailCartView: false,
+    displayLoadingScreen: true,
     displayShow: null,
     displayStripe: false,
     displaySuccess: false,
@@ -110,6 +112,23 @@ class App extends Component {
     const getPickupParties = await fetch('https://something-innocuous.herokuapp.com/pickup_parties')
     const pickupParties = await getPickupParties.json()
     this.setState({ pickupParties })
+  }
+
+  onLoad = () => {
+    console.log("clicking in onLoad, so that's something")
+    const newState = { ...this.state }
+    newState.displayLoadingScreen = false
+    this.setState(newState)
+  }
+
+  handleBus = (e) => {
+    console.log('e.target.bus:: ', e.target.id === 'bus1')
+    if(e.target.id === 'bus1'){
+      const newState = { ...this.state }
+      newState.displayBus = !newState.displayBus
+      console.log('newState.displayBus', newState.displayBus)
+      this.setState(newState)
+    }
   }
 
   selectPickupLocationId = async (event) => {
@@ -572,6 +591,12 @@ class App extends Component {
       <BrowserRouter>
       <React.Fragment>
         <div className="App">
+          {this.state.displayLoadingScreen ?
+            <Loading
+              onLoad={this.onLoad}
+              handleBus={this.handleBus}
+            />
+            : ""}
           {this.state.myReservationsView ?
           <React.Fragment>
            <Header
