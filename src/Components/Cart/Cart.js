@@ -11,8 +11,6 @@ const Cart = (props) => {
   let totalSavings = savings.toFixed(2)
   let cost = Number(props.totalCost - savings)
   let totalCost = cost.toFixed(2)
-  console.log('savings:::: ', savings)
-  console.log('totalCost', totalCost)
 
   return (
     <div className='Cart'>
