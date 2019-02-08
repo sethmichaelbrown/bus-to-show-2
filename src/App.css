@@ -1,8 +1,29 @@
+html {
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  padding: 0px;
+}
+
 /* Shows Styling */
 
 .list-group {
   max-height: 90vh;
   overflow: scroll;
+  overflow-x: hidden;
+  overflow: -moz-scrollbars-none;
+  /* scrollbar-width: none; */
+  -ms-overflow-style: none;
+}
+
+.list-group::-webkit-scrollbar {
+  width: 0;
 }
 
 .list-group-item {
@@ -108,8 +129,11 @@
 }
 
 .show-header {
+  display: flex;
+  flex-direction: column;
   background-color: #ff420f;
   color: white;
+  min-height: 0;
 }
 
 .show-list-item {
@@ -136,7 +160,7 @@
 
 .loading-image {
   color: white;
-  background: url('./Images/bts-future-selves-background-image.png');
+  background: url('./Images/BTS-redrocks-website-crop.png');
   background-position: top;
   background-size: cover;
   background-repeat: no-repeat;
@@ -189,14 +213,16 @@
 }
 
 .inline-block {
-  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: flex;
 }
 
 .round-img {
   border-radius: 30px;
 }
 
-.nav-flex , .cart-flex{
+.nav-flex,
+.cart-flex {
   display: flex;
   justify-content: space-between;
   height: 100%;
@@ -212,53 +238,104 @@ p {
   font-size: 14px;
 }
 
-.detail-btn{
+.detail-btn {
   background: #ffffff;
   border-color: #ff420f;
   color: #ff420f;
 }
 
-.detail-btn:hover{
+.detail-btn:hover {
   background: #ff420f;
   color: #ffffff;
 }
 
-.search-bar{
+.search-bar {
   border: none;
 }
 
-.align-left{
+.align-left {
   margin-top: 8px;
   text-align: left;
 }
 
-.cart-item-font{
+.cart-item-font {
   font-size: 12px;
   font-weight: bold;
 }
 
-.red-text{
+.red-text {
   color: red;
   font-weight: bold;
 }
 
-.black-text{
+.black-text {
   color: black;
 }
 
-.remove-border{
+.remove-border {
   border: none;
   margin-top: -3;
   padding: 0;
 }
 
-.remove-border:hover{
+.remove-border:hover {
   background: #ffffff;
   color: #616060;
 }
 
+.my-facebook-button-class {
+  height: 45px;
+  padding: 1rem;
+  border: none;
+  font-weight: bold;
+  color: white;
+  background-color: #ff420f;
+}
+
+.biophoto {
+  width: 200px;
+  border-radius: 30px;
+}
+
+.phil {
+  background-color: #ff420f;
+}
+
+.teamMemberName {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.memberParagraph {
+  font-size: 15px
+}
+
+.aboutUsPage {
+  border-color: #ff420f;
+  border-width: 1px;
+
+}
+
+.person {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.linkedInLogo {
+  width: 30px;
+  margin-right: 15px
+}
+
+@media only screen and (max-width:300px) {
+  .biophoto {
+    display: none;
+  }
+}
+
 @media only screen and (min-width: 900px) {
-  .make-bigger{
+  .make-bigger {
     align-self: flex-end;
     margin-left: 9em;
   }

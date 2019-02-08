@@ -4,7 +4,6 @@ import Show from './Show'
 import MediaQuery from 'react-responsive';
 
 const Shows = (props) => {
-  // console.log(props)
 
   return (
     <div className='Shows'>
@@ -37,9 +36,7 @@ const Shows = (props) => {
               </div>
 
             </div>
-
             <ul className="list-group">
-
               {props.shows ?
                 <div>
                   <MediaQuery minWidth={768}>

@@ -4,7 +4,7 @@ import StripeCheckout from 'react-stripe-checkout'
 export default class Checkout extends React.Component {
   onToken = (token) => {
     fetch('https://something-innocuous.herokuapp.com/orders/charge', {
-    // fetch('http://localhost:3000/orders/charge', {
+    // fetch('https://something-innocuous.herokuapp.com/orders/charge', {
       method: 'POST',
       body: JSON.stringify({
         stripeEmail: token.email,
@@ -14,11 +14,13 @@ export default class Checkout extends React.Component {
       headers: {
         "Content-Type": "application/json",
       },
-    }).then(response => {
-      console.log("stripe resonpse:::", response)
-      if (response.ok) {
+    }).then(async response => {
+      const json = await response.json()
+      if (json.status == "succeeded") {
         this.props.purchase()
-      } 
+      } else {
+        alert("Credit Card Declined")
+      }
     })
   }
 
