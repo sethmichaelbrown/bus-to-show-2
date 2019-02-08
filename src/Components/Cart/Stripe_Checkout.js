@@ -14,9 +14,12 @@ export default class Checkout extends React.Component {
       headers: {
         "Content-Type": "application/json",
       },
-    }).then(response => {
-      if (response.ok) {
+    }).then(async response => {
+      const json = await response.json()
+      if (json.status == "succeeded") {
         this.props.purchase()
+      } else {
+        alert("Credit Card Declined")
       }
     })
   }
