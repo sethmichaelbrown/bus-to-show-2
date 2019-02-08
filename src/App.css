@@ -228,6 +228,13 @@ body {
   height: 100%;
 }
 
+.display-flex {
+  display: flex;
+  justify-content: flex-end;
+  height: 100%;
+}
+
+
 .show-list-flex {
   display: flex;
   justify-content: space-evenly;
