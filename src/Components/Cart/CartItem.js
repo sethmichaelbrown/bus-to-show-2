@@ -5,8 +5,8 @@ import '../../App.css';
 const CartItem = (props) => {
   const pickupTime = props.getPickupParty(props.showsInCart[0].id, props.pickupLocationId)
   const pickupLocation = props.pickupLocations.find(location => parseInt(location.id) === parseInt(props.pickupLocationId))
-  const stringStartTime=props.showsInCart[0].startTime.split(":").join("").slice(0,4)
-  const showStartTime=Number.parseInt(props.showsInCart[0].startTime.split(":").join("").slice(0,4))-1200
+  const stringStartTime = props.showsInCart[0].startTime.split(":").join("").slice(0, 4)
+  const showStartTime = Number.parseInt(props.showsInCart[0].startTime.split(":").join("").slice(0, 4)) - 1200
   // const pickupTime=showStartTime+''
   // const pickupHour=pickupTime.length===4? pickupTime.slice(0,2) : pickupTime.slice(0,1)
   // const pickupMinute=pickupTime.length===3? pickupTime.slice(1): pickupTime.slice(2)
@@ -43,12 +43,15 @@ const CartItem = (props) => {
   // let busStopTime=busstopString.length===4? busstopString.slice(0,2)+ ":"+ busstopString.slice(2) : busstopString.slice(0,1) + ":" + busstopString.slice(1)
 
   const pickupParty = props.pickupParties.find(party => party)
-  const time1 = pickupTime.split(':')
-  const time2 = time1[1].split(' PM')[0] - 15
-  const time3 = time1[0].concat(time2)
-  const defaultFirstBus = moment(time3, 'hmm').format('h:mm')
+  let time1 = pickupTime.split(':')
+  let time2 = time1[1].split(' PM')[0] - 15
+  let time3 = time1[0].concat(time2)
+  if (time2 < 0) {
+    time2 = 45
+    time3 =[(time3.split('-')[0] - 1)].concat(time2).join('')
+  }
 
-  console.log(defaultFirstBus)
+  const defaultFirstBus = moment(time3, 'hmm').format('h:mm')
 
   return (
     <div className='CartItem'>
@@ -85,9 +88,6 @@ const CartItem = (props) => {
               </div>
             </div>
           </div>
-
-
-{console.log(props.showsInCart)}
         </li>)}
     </div>
   )
