@@ -280,7 +280,7 @@ class App extends Component {
     else {
       newState.displayCart = false
     }
-
+    newState.displaySuccess = false
     this.setState(newState)
   }
 
@@ -410,7 +410,8 @@ class App extends Component {
     })
     this.getReservations(this.state.userId)
     }
-    this.setState({ purchaseSuccessful: true, purchasePending: false })
+ 
+    this.setState({ purchaseSuccessful: true, purchasePending: false , inCart: []})
 
   }
 
