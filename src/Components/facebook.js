@@ -19,7 +19,7 @@ export default class FacebookButton extends React.Component {
             picture:response.picture.data.url,
         })
         this.props.toggleLoggedIn(true)
-        const usersInfo = await fetch('http://localhost:3000/users', {
+        const usersInfo = await fetch('https://bts-backend-q3.herokuapp.com/users', {
                 method: 'POST',
                 body: JSON.stringify({
                     firstName: response.name.split(" ")[0],
