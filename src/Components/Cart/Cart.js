@@ -27,7 +27,7 @@ const Cart = (props) => {
                 <div className="col-md-4">Show</div>
                 <div className="col-md-4">Departure Location</div>
                 <div className="col-md-2">Date</div>
-                <div className="col-md-1">Quant.</div>
+                <div className="col-md-1">Qty</div>
               </div>
             </div>
           </MediaQuery>

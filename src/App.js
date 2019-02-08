@@ -77,7 +77,8 @@ class App extends Component {
 
 
   async componentDidMount() {
-    const response = await fetch('https://something-innocuous.herokuapp.com/events')
+    // const response = await fetch('https://something-innocuous.herokuapp.com/events')
+    const response = await fetch('https://bts-backend-q3.herokuapp.com/events')
     // const response = await fetch('http://localhost:3000/events')
     const shows = await response.json()
     this.setState({ shows: shows })
@@ -90,7 +91,8 @@ class App extends Component {
 
     this.setState({ shows: newState })
 
-    const allEvents = await fetch('https://something-innocuous.herokuapp.com/events')
+    // const allEvents = await fetch('https://something-innocuous.herokuapp.com/events')
+    const allEvents = await fetch('https://bts-backend-q3.herokuapp.com/events')
     // const allEvents = await fetch('http://localhost:3000/events')
     const eventsList = await allEvents.json()
     const eventsListIds = []
@@ -98,12 +100,14 @@ class App extends Component {
       eventsListIds.push(eventsList[i].id)
     }
 
-    const pickups = await fetch('https://something-innocuous.herokuapp.com/pickup_locations')
+    // const pickups = await fetch('https://something-innocuous.herokuapp.com/pickup_locations')
+    const pickups = await fetch('https://bts-backend-q3.herokuapp.com/pickup_locations')
     // const pickups = await fetch('http://localhost:3000/pickup_locations')
     const pickupLocations = await pickups.json()
     this.setState({ pickupLocations })
 
-    const getPickupParties = await fetch('https://something-innocuous.herokuapp.com/pickup_parties')
+    // const getPickupParties = await fetch('https://something-innocuous.herokuapp.com/pickup_parties')
+    const getPickupParties = await fetch('https://bts-backend-q3.herokuapp.com/pickup_parties')
     const pickupParties = await getPickupParties.json()
     this.setState({ pickupParties })
   }
@@ -119,7 +123,8 @@ class App extends Component {
     }
     this.setState(newState)
 
-    const response = await fetch('https://something-innocuous.herokuapp.com/pickup_parties')
+    const response = await fetch('https://bts-backend-q3.herokuapp.com/pickup_parties')
+    // const response = await fetch('https://something-innocuous.herokuapp.com/pickup_parties')
     // const response = await fetch('http://localhost:3000/pickup_parties')
     const locations = await response.json()
     const statePickupId = parseInt(this.state.pickupLocationId)
@@ -167,7 +172,9 @@ class App extends Component {
 
   getReservations = async(userId)=>{
   if(userId ){
-  const reservations =  await fetch(`https://localhost:3000/reservations/${userId}`)
+  // const reservations =  await fetch(`https://something-innocuous.herokuapp.com/reservations/${userId}`)
+  const reservations =  await fetch(`https://bts-backend-q3.herokuapp.com/reservations/${userId}`)
+  // const reservations =  await fetch(`https://localhost:3000/reservations/${userId}`)
   // const allEvents = await fetch('http://localhost:3000/events')
   const userReservations = await reservations.json()
   const newState = { ...this.State }
@@ -183,7 +190,8 @@ class App extends Component {
     const ticketQuantity = this.state.ticketQuantity
     console.log('ticketQuantity', ticketQuantity)
     const eventId = this.state.inCart[0].id
-    const response = await fetch(`http://localhost:3000/discount_codes/${this.state.discountCode}`)
+    // const response = await fetch(`http://something-innocuous.herokuapp.com/discount_codes/${this.state.discountCode}`)
+    const response = await fetch(`http://bts-backend-q3.herokuapp.com/discount_codes/${this.state.discountCode}`)
     //const response = await fetch(`http://localhost:3000/discount_codes/${this.state.discountCode}`)
     const json = await response.json()
     //const newState = { ...this.state }
@@ -313,7 +321,8 @@ class App extends Component {
 
     this.setState(newState)
 
-    fetch('https://something-innocuous.herokuapp.com/pickup_parties', {
+    fetch('https://bts-backend-q3.herokuapp.com/pickup_parties', {
+    // fetch('https://something-innocuous.herokuapp.com/pickup_parties', {
       // fetch('http://localhost:3000/pickup_parties', {
       method: 'PATCH',
       body: JSON.stringify({
@@ -326,7 +335,8 @@ class App extends Component {
       }
     })
 
-    setTimeout(fetch('https://something-innocuous.herokuapp.com/pickup_parties', {
+    setTimeout(fetch('https://bts-backend-q3.herokuapp.com/pickup_parties', {
+    // setTimeout(fetch('https://something-innocuous.herokuapp.com/pickup_parties', {
       // setTimeout(fetch('http://localhost:3000/pickup_parties', {
       method: 'PATCH',
       body: JSON.stringify({
@@ -370,8 +380,9 @@ class App extends Component {
 
   purchase = async () => {
     const cartObj = this.state.cartToSend
-    const ordersResponse = await fetch('https://something-innocuous.herokuapp.com/orders', {
-      // fetch('http://localhost:3000/orders', {
+    const ordersResponse = await fetch('https://bts-backend-q3.herokuapp.com/orders', {
+    // const ordersResponse = await fetch('https://something-innocuous.herokuapp.com/orders', {
+    // const ordersResponse = await fetch('https//localhost:3000/orders', {
       method: 'POST',
       body: JSON.stringify(cartObj),
       headers: {
@@ -380,8 +391,9 @@ class App extends Component {
     })
     const orderJson = await ordersResponse.json()
     if(this.state.userId ){
-    await fetch(`http://localhost:3000/reservations/users/${this.state.userId}`, {
-      // fetch('http://localhost:3000/orders', {
+    await fetch(`http://bts-backend-q3.herokuapp.com/reservations/users/${this.state.userId}`, {
+    // await fetch(`http://something-innocuous.herokuapp.com/reservations/users/${this.state.userId}`, {
+    // await fetch(`http://localhost:3000/reservations/users/${this.state.userId}`, {
       method: 'POST',
       body: JSON.stringify({orderId: orderJson.orderId}),
       headers: {
@@ -466,10 +478,10 @@ class App extends Component {
   }
 
   toggleLoggedIn=(boolean)=>{
-   const newState = { ...this.state }
-   newState.loggedIn = boolean
-   if(boolean === false) {newState.myReservationsView = false}
-   this.setState(newState)
+    const newState = { ...this.state }
+    newState.loggedIn = boolean
+    if(boolean === false) {newState.myReservationsView = false}
+    this.setState(newState)
   }
 
   removeFromCart = () => {
@@ -552,13 +564,13 @@ class App extends Component {
         <div className="App">
           {this.state.myReservationsView ?
           <React.Fragment>
-           <Header
+            <Header
                   loggedIn={this.state.loggedIn}
                   userDashboard={this.userDashboard}
                   toggleLoggedIn={this.toggleLoggedIn}
                   myReservationsView={this.state.myReservationsView}
                   getReservations={this.getReservations}
-                   />
+                  />
             <ReservationsView
               returnHome={this.returnHome}
               shows={this.state.userReservations}
