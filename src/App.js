@@ -56,6 +56,7 @@ class App extends Component {
     displayShow: null,
     displayStripe: false,
     displaySuccess: false,
+    displayViewCartBtn: false,
     displayWarning: false,
     displayQuantity: false,
     filterString: '',
@@ -116,18 +117,18 @@ class App extends Component {
   }
 
   onLoad = () => {
-    console.log("clicking in onLoad, so that's something")
+
     const newState = { ...this.state }
     newState.displayLoadingScreen = false
     this.setState(newState)
   }
 
   handleBus = (e) => {
-    console.log('e.target.bus:: ', e.target.id === 'bus1')
+
     if(e.target.id === 'bus1'){
       const newState = { ...this.state }
       newState.displayBus = !newState.displayBus
-      console.log('newState.displayBus', newState.displayBus)
+
       this.setState(newState)
     }
   }
@@ -194,7 +195,6 @@ class App extends Component {
   const reservations =  await fetch(`https://something-innocuous.herokuapp.com/reservations/${userId}`)
   // const reservations =  await fetch(`https://localhost:3000/reservations/${userId}`)
   const userReservations = await reservations.json()
-  console.log(userReservations)
   const newState = { ...this.State }
   newState.userId = userId
   newState.userReservations = userReservations
@@ -202,52 +202,41 @@ class App extends Component {
   }
 
   findDiscountCode = async () => {
-    // console.log ("hey, how bout that?")
-    //console.log ('currentCode inside findDiscountCode:::', this.state.discountCode)
-    //this.state.ticketQuantity
+
     const ticketQuantity = this.state.ticketQuantity
-    console.log('ticketQuantity', ticketQuantity)
     const eventId = this.state.inCart[0].id
-    const response = await fetch(`http://something-innocuous.herokuapp.com/discount_codes/${this.state.discountCode}`)
-    //const response = await fetch(`http://localhost:3000/discount_codes/${this.state.discountCode}`)
+    // const response = await fetch(`https://something-innocuous.herokuapp.com/discount_codes/1`)
+    const response = await fetch(`http://localhost:3000/discount_codes/${this.state.discountCode}`)
     const json = await response.json()
-    //const newState = { ...this.state }
-    //this.setState(newState)
-    console.log('what is the event ID from state right now?', eventId)
-    console.log('findDiscountCode json:::: ', json)
+
     const result = json.filter((discountObj) => discountObj.eventsId === eventId)[0]
     const newState = { ...this.State }
     if (!result) {
-      console.log('no match!')
       return "no match"
     }
     if (result.remainingUses <= 0) {
-      console.log('this code is all used up!')
       return 'this code is all used up!'
     }
     const expiration = Date.parse(result.expiresOn.toLocaleString('en-US'))
     const today = Date.parse(new Date().toLocaleString('en-US', { timeZone: 'America/Denver' }))
 
     if (expiration < today) {
-      console.log('this code is expired')
+
       return 'this code is expired'
     } else {
-      console.log('this is a valid code that is not expired')
+
       let priceWithoutFeesPerTicket = this.state.totalCost * 10 / 11 / ticketQuantity
       let effectiveRate = (100 - result.percentage) / 100
       const afterDiscountObj = {}
-      console.log('remains::', result.remainingUses)
+
       if (result.remainingUses >= ticketQuantity) {
-        console.log("ticketQuantity", ticketQuantity)
         afterDiscountObj.timesUsed = ticketQuantity * 1
         afterDiscountObj.totalPriceAfterDiscount = priceWithoutFeesPerTicket * ticketQuantity * effectiveRate * 1.10
         afterDiscountObj.totalSavings = this.state.totalCost - priceWithoutFeesPerTicket * ticketQuantity * effectiveRate * 1.10
         afterDiscountObj.newRemainingUses = result.remainingUses - ticketQuantity
-        console.log('afterDiscountObj::: ', afterDiscountObj)
         newState.afterDiscountObj = afterDiscountObj
         newState.totalSavings = afterDiscountObj.totalSavings
         this.setState(newState)
-        console.log('newState more uses than tickets', this.state.afterDiscountObj)
       }
       if (result.remainingUses < ticketQuantity) {
         afterDiscountObj.timesUsed = result.remainingUses
@@ -257,7 +246,6 @@ class App extends Component {
         newState.afterDiscountObj = afterDiscountObj
 
         this.setState(newState)
-        console.log('newState :: less uses than tickets ', this.state.afterDiscountObj)
       }
     }
   }
@@ -325,7 +313,6 @@ class App extends Component {
     const totalSavings = parseInt(this.state.afterDiscountObj.totalSavings)
     const processingFee = Number((basePrice * ticketQuantity) * (0.1))
     const cost = ((basePrice * ticketQuantity) - totalSavings + processingFee)
-
     newState.totalCost = cost.toFixed(2)
 
     if (newState.inCart.length === 0) {
@@ -335,7 +322,6 @@ class App extends Component {
     else {
       newState.displayWarning = true
     }
-
     this.setState(newState)
 
     // fetch('https://something-innocuous.herokuapp.com/pickup_parties', {
@@ -364,6 +350,15 @@ class App extends Component {
       }
     }), 600000)
   }
+
+  //
+  viewCart = () => {
+    const newState = { ...this.state }
+    newState.displayCart = true
+    this.setState(newState)
+  }
+
+
 
   // Cart Functions
   handleCheck = () => {
@@ -659,6 +654,7 @@ class App extends Component {
                           displayQuantity={this.state.displayQuantity}
                           displayShow={this.state.displayShow}
                           displaySuccess={this.state.displaySuccess}
+                          displayViewCartBtn={this.state.displayViewCartBtn}
                           displayWarning={this.state.displayWarning}
                           findDiscountCode={this.findDiscountCode}
                           getPickupParty={this.getPickupParty}
@@ -712,6 +708,7 @@ class App extends Component {
                           displayQuantity={this.state.displayQuantity}
                           displayShow={this.state.displayShow}
                           displaySuccess={this.state.displaySuccess}
+                          displayViewCartBtn={this.state.displayViewCartBtn}
                           filterString={this.state.filterString}
                           findDiscountCode={this.findDiscountCode}
                           getPickupParty={this.getPickupParty}

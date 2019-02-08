@@ -50,7 +50,9 @@ const DetailCartView = (props) => {
             displayQuantity={props.displayQuantity}
             displayShow={props.displayShow}
             displaySuccess={props.displaySuccess}
+            displayViewCartBtn={props.displayViewCartBtn}
             displayWarning={props.displayWarning}
+            findDiscountCode={props.findDiscountCode}
             pickupLocations={props.pickupLocations}
             pickupLocationId={props.pickupLocationId}
             returnToShows={props.returnToShows}
@@ -60,8 +62,8 @@ const DetailCartView = (props) => {
             ticketsAvailable={props.ticketsAvailable}
             ticketQuantity={props.ticketQuantity}
             updateDiscountCode={props.updateDiscountCode}
-            findDiscountCode={props.findDiscountCode}
-            totalCost={props.totalCost} />
+            totalCost={props.totalCost}
+            viewCart = {props.viewCart} />
         </div>
         <MediaQuery maxWidth={768}>
           <div className="tab-pane fade" id="showlist" data-toggle="tab" role="tabpanel" aria-labelledby="cart-tab">
