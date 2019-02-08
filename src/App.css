@@ -314,7 +314,7 @@ p {
 .aboutUsPage{
   border-color: #ff420f;
   border-width: 1px;
-  
+
 }
 
 .person{
@@ -325,7 +325,14 @@ p {
 }
 
 .linkedInLogo{
-  width:30px
+  width:30px;
+  margin-right: 15px
+}
+
+@media only screen and (max-width:300px){
+  .biophoto{
+    display:none;
+  }
 }
 
 @media only screen and (min-width: 900px) {

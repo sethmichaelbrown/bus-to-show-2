@@ -579,15 +579,7 @@ class App extends Component {
                   userDashboard={this.userDashboard}
                   toggleLoggedIn={this.toggleLoggedIn}
                   myReservationsView={this.state.myReservationsView} />
-                  <LoginView
-                  returnHome={this.returnHome}
-                  shows={this.state.shows}
-                  loggedIn={this.state.loggedIn}
-                  userDashboard={this.userDashboard}
-                  toggleLoggedIn={this.toggleLoggedIn}
-                  myReservationsView={this.state.myReservationsView}
-                  getReservations={this.getReservations}
-                   />
+
             <ReservationsView
               returnHome={this.returnHome}
               shows={this.state.userReservations}
