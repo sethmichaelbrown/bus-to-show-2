@@ -5,7 +5,6 @@ import Checkout from './Stripe_Checkout';
 import MediaQuery from 'react-responsive';
 
 const Cart = (props) => {
-  // console.log('Cart', props)
 
   let savings = Number(props.afterDiscountObj.totalSavings)
   let totalSavings = savings.toFixed(2)
@@ -28,7 +27,7 @@ const Cart = (props) => {
                 <div className="col-md-4">Show</div>
                 <div className="col-md-4">Departure Location</div>
                 <div className="col-md-2">Date</div>
-                <div className="col-md-1">Quant.</div>
+                <div className="col-md-1">Qty</div>
               </div>
             </div>
           </MediaQuery>
@@ -194,8 +193,11 @@ const Cart = (props) => {
                       </div>
                       <div className='row justify-content-center '>
                         <Checkout
+                          makePurchase={props.makePurchase}
+                          purchasePending={props.purchasePending}
                           validated={props.validated}
                           purchase={props.purchase}
+                          afterDiscountObj={props.afterDiscountObj}
                           totalCost={totalCost}
                           showsInCart={props.showsInCart}>
                         </Checkout>

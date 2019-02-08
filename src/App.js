@@ -192,8 +192,8 @@ class App extends Component {
 
   getReservations = async (userId)=>{
   if(userId ){
-  const reservations =  await fetch(`https://something-innocuous.herokuapp.com/reservations/users/${userId}`)
-  // const allEvents = await fetch('https://something-innocuous.herokuapp.com/events')
+  const reservations =  await fetch(`https://something-innocuous.herokuapp.com/reservations/${userId}`)
+  // const reservations =  await fetch(`https://localhost:3000/reservations/${userId}`)
   const userReservations = await reservations.json()
   console.log(userReservations)
   const newState = { ...this.State }
@@ -405,9 +405,8 @@ class App extends Component {
 
   purchase = async () => {
     const cartObj = this.state.cartToSend
-    const ordersResponse = await
-      // fetch('https://something-innocuous.herokuapp.com/orders', {
-      fetch('https://something-innocuous.herokuapp.com/orders', {
+    const ordersResponse = await fetch('https://something-innocuous.herokuapp.com/orders', {
+    // const ordersResponse = await fetch('https//localhost:3000/orders', {
       method: 'POST',
       body: JSON.stringify(cartObj),
       headers: {
@@ -416,8 +415,8 @@ class App extends Component {
     })
     const orderJson = await ordersResponse.json()
     if(this.state.userId ){
-    await fetch(`https://something-innocuous.herokuapp.com/reservations/users/${this.state.userId}`, {
-      // fetch('https://something-innocuous.herokuapp.com/orders', {
+    await fetch(`http://something-innocuous.herokuapp.com/reservations/users/${this.state.userId}`, {
+    // await fetch(`http://localhost:3000/reservations/users/${this.state.userId}`, {
       method: 'POST',
       body: JSON.stringify({reservationId: orderJson.id}),
       headers: {
@@ -502,10 +501,10 @@ class App extends Component {
   }
 
   toggleLoggedIn=(boolean)=>{
-   const newState = { ...this.state }
-   newState.loggedIn = boolean
-   if(boolean === false) {newState.myReservationsView = false}
-   this.setState(newState)
+    const newState = { ...this.state }
+    newState.loggedIn = boolean
+    if(boolean === false) {newState.myReservationsView = false}
+    this.setState(newState)
   }
 
   removeFromCart = () => {
@@ -612,7 +611,7 @@ class App extends Component {
             : ""}
           {this.state.myReservationsView ?
           <React.Fragment>
-           <Header
+            <Header
                   loggedIn={this.state.loggedIn}
                   userDashboard={this.userDashboard}
                   toggleLoggedIn={this.toggleLoggedIn}
@@ -731,6 +730,7 @@ class App extends Component {
                           handleCheck={this.handleCheck}
                           handleSubmit={this.handleSubmit}
                           inCart={this.state.inCart}
+                          makePurchase={this.makePurchase}
                           pickupLocations={this.state.pickupLocations}
                           pickupLocationId={this.state.pickupLocationId}
                           pickupParties={this.state.pickupParties}

@@ -328,6 +328,10 @@ p {
   margin-right: 15px
 }
 
+.loading-btn:hover{
+  color: #ff240f;
+}
+
 @media only screen and (max-width:300px) {
   .biophoto {
     display: none;
