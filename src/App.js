@@ -587,10 +587,6 @@ class App extends Component {
                       {this.state.displayCart || this.state.displayShow ?
                         (<DetailCartView
                           afterDiscountObj={this.state.afterDiscountObj}
-                          shows={this.state.shows}
-                          makePurchase={this.makePurchase}
-                          purchasePending={this.state.purchasePending}
-                          purchaseSuccessful={this.state.purchaseSuccessful}
                           closeAlert={this.closeAlert}
                           addToCart={this.addToCart}
                           checked={this.state.checked}
