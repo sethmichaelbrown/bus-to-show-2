@@ -294,11 +294,38 @@ p {
 }
 
 .biophoto{
-  height:15vh;
-  width:15vw;
+  width:200px;
   border-radius: 30px;
-  border-width: thin;
-  border-color: black;
+}
+
+.phil{
+  background-color: #ff420f;
+}
+
+.teamMemberName{
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.memberParagraph{
+  font-size: 15px
+}
+
+.aboutUsPage{
+  border-color: #ff420f;
+  border-width: 1px;
+  
+}
+
+.person{
+  margin-top:5px;
+  margin-bottom:5px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.linkedInLogo{
+  width:30px
 }
 
 @media only screen and (min-width: 900px) {

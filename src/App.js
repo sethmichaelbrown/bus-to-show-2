@@ -727,7 +727,7 @@ class App extends Component {
         </div>
 
 
-{this.state.displayAboutUs? '': <button onClick={this.showAboutUs}>Read About the Team</button>}
+{this.state.displayAboutUs? '': <button className="phil btn-lg btn-primary" onClick={this.showAboutUs}>Read About the Team</button>}
 
 
 
