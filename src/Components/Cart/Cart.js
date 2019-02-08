@@ -156,15 +156,11 @@ const Cart = (props) => {
                           <div>
                           <div className="row">
                             <div className="col-6">
-                            </div>
-                            <div className="col-6">
                               <p>Total savings: <span className="badge badge-secondary">{`$${savings.toFixed(2)}`}</span>
                               </p>
                             </div>
                           </div>
                           <div className="row">
-                          <div className="col-6">
-                          </div>
                             <div className="col-6">
                               <h3>Cart Total:
                                   <span className="badge badge-success ml-1">{`$${totalCost}`}</span>
@@ -174,15 +170,13 @@ const Cart = (props) => {
                           </div>
                         :
 
-                        <div className="row">
-                        <div className="col-6">
-                        </div>
-                          <div className="col-6">
+                 
+                          <div className="col-12">
                             <h3>Cart Total:
-                                <span className="badge badge-success ml-1">{`$${totalCost}`}</span>
+                                <span className="badge badge-success">{`$${totalCost}`}</span>
                             </h3>
                           </div>
-                        </div>
+                  
                       }
                       </div>
                       </MediaQuery>
