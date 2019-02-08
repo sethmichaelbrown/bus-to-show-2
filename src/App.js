@@ -38,7 +38,7 @@ class App extends Component {
       willCallLastName: '',
       ticketQuantity: 0,
       totalCost: 0,
-      discountCode: ''
+      discountCode: null
     },
     checked: false,
     confirmRemove: false,
@@ -77,8 +77,8 @@ class App extends Component {
 
 
   async componentDidMount() {
-    const response = await fetch('https://something-innocuous.herokuapp.com/events')
-    // const response = await fetch('http://localhost:3000/events')
+    // const response = await fetch('https://something-innocuous.herokuapp.com/events')
+    const response = await fetch('http://localhost:3000/events')
     const shows = await response.json()
     this.setState({ shows: shows })
 
@@ -104,6 +104,7 @@ class App extends Component {
     this.setState({ pickupLocations })
 
     const getPickupParties = await fetch('https://something-innocuous.herokuapp.com/pickup_parties')
+    // const getPickupParties = await fetch('http://localhost:3000/pickup_parties')
     const pickupParties = await getPickupParties.json()
     this.setState({ pickupParties })
   }
@@ -119,8 +120,8 @@ class App extends Component {
     }
     this.setState(newState)
 
-    const response = await fetch('https://something-innocuous.herokuapp.com/pickup_parties')
-    // const response = await fetch('http://localhost:3000/pickup_parties')
+    // const response = await fetch('https://something-innocuous.herokuapp.com/pickup_parties')
+    const response = await fetch('http://localhost:3000/pickup_parties')
     const locations = await response.json()
     const statePickupId = parseInt(this.state.pickupLocationId)
     const stateEventId = parseInt(this.state.displayShow.id)
@@ -165,11 +166,12 @@ class App extends Component {
 
   }
 
-  getReservations = async(userId)=>{
+  getReservations = async (userId)=>{
   if(userId ){
-  const reservations =  await fetch(`https://localhost:3000/reservations/${userId}`)
+  const reservations =  await fetch(`http://localhost:3000/reservations/users/${userId}`)
   // const allEvents = await fetch('http://localhost:3000/events')
   const userReservations = await reservations.json()
+  console.log(userReservations)
   const newState = { ...this.State }
   newState.userId = userId
   newState.userReservations = userReservations
@@ -313,8 +315,8 @@ class App extends Component {
 
     this.setState(newState)
 
-    fetch('https://something-innocuous.herokuapp.com/pickup_parties', {
-      // fetch('http://localhost:3000/pickup_parties', {
+    // fetch('https://something-innocuous.herokuapp.com/pickup_parties', {
+      fetch('http://localhost:3000/pickup_parties', {
       method: 'PATCH',
       body: JSON.stringify({
         pickupLocationId: this.state.pickupLocationId,
@@ -326,8 +328,8 @@ class App extends Component {
       }
     })
 
-    setTimeout(fetch('https://something-innocuous.herokuapp.com/pickup_parties', {
-      // setTimeout(fetch('http://localhost:3000/pickup_parties', {
+    // setTimeout(fetch('https://something-innocuous.herokuapp.com/pickup_parties', {
+      setTimeout(fetch('http://localhost:3000/pickup_parties', {
       method: 'PATCH',
       body: JSON.stringify({
         pickupLocationId: this.state.pickupLocationId,
@@ -370,8 +372,9 @@ class App extends Component {
 
   purchase = async () => {
     const cartObj = this.state.cartToSend
-    const ordersResponse = await fetch('https://something-innocuous.herokuapp.com/orders', {
-      // fetch('http://localhost:3000/orders', {
+    const ordersResponse = await
+      // fetch('https://something-innocuous.herokuapp.com/orders', {
+      fetch('http://localhost:3000/orders', {
       method: 'POST',
       body: JSON.stringify(cartObj),
       headers: {
@@ -383,7 +386,7 @@ class App extends Component {
     await fetch(`http://localhost:3000/reservations/users/${this.state.userId}`, {
       // fetch('http://localhost:3000/orders', {
       method: 'POST',
-      body: JSON.stringify({orderId: orderJson.orderId}),
+      body: JSON.stringify({reservationId: orderJson.id}),
       headers: {
         'Content-Type': 'application/json'
       }
@@ -561,7 +564,7 @@ class App extends Component {
                    />
             <ReservationsView
               returnHome={this.returnHome}
-              shows={this.state.userReservations}
+              reservations={this.state.userReservations}
               addBorder={this.addBorder}
               displayShow={this.state.displayShow}
               filterString={this.state.filterString}

@@ -15,27 +15,28 @@ const ReservationsView = (props) => {
 
             <div className="row show-list-flex">
 
-              <div className="col-3 mb-3" onClick={props.sortByDate}>
-                <button type="button" className="btn btn-outline-light sort-btn">
+              <div className="col-2 mb-3 ml-5" >
                   <strong>Date  </strong>
-
-                </button>
-
               </div>
-
-              <div className="col-3 mb-3" onClick={props.sortByArtist}>
-                <button type="button" className="btn btn-outline-light sort-btn">
+              <div className="col-2 mb-3" >
                   <strong>Event  </strong>
-
-                </button>
-
               </div>
-
+              <div className="col-2 mb-3" >
+                  <strong>Start Time  </strong>
+              </div>
+              <div className="col-2 mb-3 mr-2" >
+                  <strong>Will Call Name  </strong>
+              </div>
+              <div className="col-2 mb-3 mr-2" >
+                  <strong>Pickup Location  </strong>
+              </div>
+              <div className="col-2 mr-2">
+              </div>
             </div>
 
             <ul className="list-group">
 
-              {props.shows ?
+              {props.reservations ?
                 <div>
                   <MediaQuery minWidth={768}>
                     <div className="row ">
@@ -43,9 +44,7 @@ const ReservationsView = (props) => {
                     <ShowReservation
                       addBorder={props.addBorder}
                       displayShow={props.displayShow}
-                      filterString={props.filterString}
-                      shows={props.shows}
-                      showsExpandClick={props.showsExpandClick} />
+                      reservations={props.reservations} />
                       </div>
                     </div>
                   </MediaQuery>
@@ -55,9 +54,7 @@ const ReservationsView = (props) => {
                         <ShowReservation
                           addBorder={props.addBorder}
                           displayShow={props.displayShow}
-                          filterString={props.filterString}
-                          shows={props.shows}
-                          showsExpandClick={props.showsExpandClick} />
+                          reservations={props.reservations} />
                       </div>
                     </div>
                   </MediaQuery>

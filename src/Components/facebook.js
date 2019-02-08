@@ -10,7 +10,7 @@ export default class FacebookButton extends React.Component {
         picture:'',
     }
 
-    responseFacebook = response => {
+    responseFacebook = async (response) => {
         this.setState({
             isLoggedIn: true,
             userID: response.id,
@@ -19,7 +19,7 @@ export default class FacebookButton extends React.Component {
             picture:response.picture.data.url,
         })
         this.props.toggleLoggedIn(true)
-        fetch('http://localhost:3000/users', {
+        const usersInfo = await fetch('http://localhost:3000/users', {
                 method: 'POST',
                 body: JSON.stringify({
                     firstName: response.name.split(" ")[0],
@@ -29,10 +29,10 @@ export default class FacebookButton extends React.Component {
                 headers: {
                     'Content-Type': 'application/json'
                 }
-        }).then(async response =>{
-            const user = await response.json()
-            this.props.getReservations(user.userId)
         })
+        const json = await usersInfo.json()
+        this.props.getReservations(json.id)
+    
     }
 
     componentClicked = () => {
