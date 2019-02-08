@@ -31,7 +31,7 @@ const Header = (props) => {
           <button type="button" className="btn btn-outline-light sort-btn" onClick={props.userDashboard}>
             <strong>{props.myReservationsView ? "Upcoming Shows" : "My Reservations"}</strong>
           </button>:""}
-        <FacebookButton userDashboard={props.userDashboard} toggleLoggedIn={props.toggleLoggedIn} loggedIn={props.loggedIn}/>
+        <FacebookButton userDashboard={props.userDashboard} getReservations={props.getReservations} toggleLoggedIn={props.toggleLoggedIn} loggedIn={props.loggedIn}/>
       </div>
 
 
