@@ -39,7 +39,7 @@ class App extends Component {
       willCallLastName: '',
       ticketQuantity: 0,
       totalCost: 0,
-      discountCode: ''
+      discountCode: null
     },
     checked: false,
     confirmRemove: false,
@@ -84,7 +84,7 @@ class App extends Component {
 
   async componentDidMount() {
     const response = await fetch('https://something-innocuous.herokuapp.com/events')
-    // const response = await fetch('http://localhost:3000/events')
+    // const response = await fetch('https://something-innocuous.herokuapp.com/events')
     const shows = await response.json()
     this.setState({ shows: shows })
 
@@ -97,7 +97,7 @@ class App extends Component {
     this.setState({ shows: newState })
 
     const allEvents = await fetch('https://something-innocuous.herokuapp.com/events')
-    // const allEvents = await fetch('http://localhost:3000/events')
+    // const allEvents = await fetch('https://something-innocuous.herokuapp.com/events')
     const eventsList = await allEvents.json()
     const eventsListIds = []
     for (let i = 0; i < eventsList.length; i++) {
@@ -105,11 +105,12 @@ class App extends Component {
     }
 
     const pickups = await fetch('https://something-innocuous.herokuapp.com/pickup_locations')
-    // const pickups = await fetch('http://localhost:3000/pickup_locations')
+    // const pickups = await fetch('https://something-innocuous.herokuapp.com/pickup_locations')
     const pickupLocations = await pickups.json()
     this.setState({ pickupLocations })
 
     const getPickupParties = await fetch('https://something-innocuous.herokuapp.com/pickup_parties')
+    // const getPickupParties = await fetch('https://something-innocuous.herokuapp.com/pickup_parties')
     const pickupParties = await getPickupParties.json()
     this.setState({ pickupParties })
   }
@@ -143,7 +144,7 @@ class App extends Component {
     this.setState(newState)
 
     const response = await fetch('https://something-innocuous.herokuapp.com/pickup_parties')
-    // const response = await fetch('http://localhost:3000/pickup_parties')
+    // const response = await fetch('https://something-innocuous.herokuapp.com/pickup_parties')
     const locations = await response.json()
     const statePickupId = parseInt(this.state.pickupLocationId)
     const stateEventId = parseInt(this.state.displayShow.id)
@@ -188,11 +189,12 @@ class App extends Component {
 
   }
 
-  getReservations = async(userId)=>{
+  getReservations = async (userId)=>{
   if(userId ){
   const reservations =  await fetch(`https://something-innocuous.herokuapp.com/reservations/${userId}`)
   // const reservations =  await fetch(`https://localhost:3000/reservations/${userId}`)
   const userReservations = await reservations.json()
+  console.log(userReservations)
   const newState = { ...this.State }
   newState.userId = userId
   newState.userReservations = userReservations
@@ -336,8 +338,8 @@ class App extends Component {
 
     this.setState(newState)
 
-    fetch('https://something-innocuous.herokuapp.com/pickup_parties', {
-      // fetch('http://localhost:3000/pickup_parties', {
+    // fetch('https://something-innocuous.herokuapp.com/pickup_parties', {
+      fetch('https://something-innocuous.herokuapp.com/pickup_parties', {
       method: 'PATCH',
       body: JSON.stringify({
         pickupLocationId: this.state.pickupLocationId,
@@ -349,8 +351,8 @@ class App extends Component {
       }
     })
 
-    setTimeout(fetch('https://something-innocuous.herokuapp.com/pickup_parties', {
-      // setTimeout(fetch('http://localhost:3000/pickup_parties', {
+    // setTimeout(fetch('https://something-innocuous.herokuapp.com/pickup_parties', {
+      setTimeout(fetch('https://something-innocuous.herokuapp.com/pickup_parties', {
       method: 'PATCH',
       body: JSON.stringify({
         pickupLocationId: this.state.pickupLocationId,
@@ -406,7 +408,7 @@ class App extends Component {
     await fetch(`http://something-innocuous.herokuapp.com/reservations/users/${this.state.userId}`, {
     // await fetch(`http://localhost:3000/reservations/users/${this.state.userId}`, {
       method: 'POST',
-      body: JSON.stringify({orderId: orderJson.orderId}),
+      body: JSON.stringify({reservationId: orderJson.id}),
       headers: {
         'Content-Type': 'application/json'
       }
@@ -603,11 +605,12 @@ class App extends Component {
                   loggedIn={this.state.loggedIn}
                   userDashboard={this.userDashboard}
                   toggleLoggedIn={this.toggleLoggedIn}
+                  getReservations={this.getReservations}
                   myReservationsView={this.state.myReservationsView} />
 
             <ReservationsView
               returnHome={this.returnHome}
-              shows={this.state.userReservations}
+              reservations={this.state.userReservations}
               addBorder={this.addBorder}
               displayShow={this.state.displayShow}
               filterString={this.state.filterString}
@@ -615,11 +618,20 @@ class App extends Component {
               </React.Fragment> :
 
               this.state.displayAboutUs ?
+              <React.Fragment>
+                <Header
+                     loggedIn={this.state.loggedIn}
+                     userDashboard={this.userDashboard}
+                     toggleLoggedIn={this.toggleLoggedIn}
+                     getReservations={this.getReservations}
+                     myReservationsView={this.state.myReservationsView} />
                 <Aboutus
                   dismissBios={this.dismissBios}
                   readBios={this.readBios}
                   displayBios={this.state.displayBios}
-                  hideAboutUs={this.hideAboutUs}/> :
+                  hideAboutUs={this.hideAboutUs}/>
+                  </React.Fragment>
+                  :
             this.state.shows ?
               <React.Fragment>
                 <Header
@@ -679,7 +691,7 @@ class App extends Component {
                           validated={this.state.validated}
                           validatedElements={this.state.validatedElements} />
                         :
-                        <SponsorBox/>}
+                        <SponsorBox showAboutUs={this.showAboutUs} displayAboutUs={this.state.displayAboutUs}/>}
 
                     </MediaQuery>
                     <MediaQuery maxWidth={767}>
@@ -780,7 +792,6 @@ class App extends Component {
         </div>
 
 
-{this.state.displayAboutUs? '': <button className="phil btn-lg btn-primary" onClick={this.showAboutUs}>Read About the Team</button>}
 
 
 

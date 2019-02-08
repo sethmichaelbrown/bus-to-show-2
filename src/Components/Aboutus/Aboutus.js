@@ -26,7 +26,12 @@ const Aboutus = (props) => {
 <br/>
 
     <div className="row">
-                  <div className="col-9 list-group-item aboutUsPage">
+                  <div className="col-12 mb-5">
+                    <div className="row justify-content-center align-text-center">
+                    <button className="btn-lg detail-btn btn-outline-light" onClick={props.hideAboutUs}>Return to HomePage</button>
+                    </div>
+                  </div>
+                  <div className="col-12 list-group-item aboutUsPage">
                             <p className="memberParagraph" > We are a team of web development students at Galvanize in Boulder Colorado. Over the past several months we have learned dozens of technologies about how to properly build and maintain web applications and websites.
                             We started with the fundamentals of the modern front end web languages, including HTML, CSS, and JavaScript, after which we transitioned into learning how to build and run servers with Express and NodeJs. We then learned about
                             database creation and manipulation with SQL, PostGreSQL and knex, and then finally transitioned into moden front end frameworks, most importantly React, which was instrumental in this project.
@@ -40,9 +45,8 @@ const Aboutus = (props) => {
                             </p>
                   </div>
 
-                  <div className="col-3">
-                          <button className="btn btn-lg btn-outline-primary" onClick={props.hideAboutUs}>Return to HomePage</button>
-                  </div>
+
+
     </div>
 
 
