@@ -139,6 +139,17 @@ const Cart = (props) => {
                       </div>
                     </div>
 
+                    <div className='row display-flex'>
+                    {savings ?
+                      <div className="col-4">
+                        <h5>Total savings:
+                          <span className="badge badge-secondary ml-1">{`$${savings.toFixed(2)}`}</span>
+                        </h5>
+                      </div>
+                      : ""
+                    }
+                    </div>
+
 
                     <div className='form-row cart-flex'>
                       <MediaQuery minWidth={768}>
@@ -151,33 +162,16 @@ const Cart = (props) => {
                           totalCost={totalCost}
                           showsInCart={props.showsInCart}>
                         </Checkout>
-                        <div className="row">
-                        {savings ?
-                          <div>
-                          <div className="row">
-                            <div className="col-6">
-                              <p>Total savings: <span className="badge badge-secondary">{`$${savings.toFixed(2)}`}</span>
-                              </p>
-                            </div>
-                          </div>
-                          <div className="row">
-                            <div className="col-6">
-                              <h3>Cart Total:
-                                  <span className="badge badge-success ml-1">{`$${totalCost}`}</span>
-                              </h3>
-                            </div>
-                          </div>
-                          </div>
-                        :
 
-                 
+                        <div className="row">
+
+
                           <div className="col-12">
                             <h3>Cart Total:
                                 <span className="badge badge-success">{`$${totalCost}`}</span>
                             </h3>
                           </div>
-                  
-                      }
+
                       </div>
                       </MediaQuery>
                     </div>

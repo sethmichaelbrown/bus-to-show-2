@@ -160,7 +160,7 @@ body {
 
 .loading-image {
   color: white;
-  background: url('./Images/BTS-redrocks-website-crop.jpg');
+  background: url('./Images/BTS-redrocks-website-crop.png');
   background-position: top;
   background-size: cover;
   background-repeat: no-repeat;
@@ -227,6 +227,13 @@ body {
   justify-content: space-between;
   height: 100%;
 }
+
+.display-flex {
+  display: flex;
+  justify-content: flex-end;
+  height: 100%;
+}
+
 
 .show-list-flex {
   display: flex;
