@@ -8,7 +8,7 @@ const ShowDetailView = (props) => {
 
   const show = props.displayShow
   const headlinerBio = show.headlinerBio.split('<a')[0]
-  const noBio = 'No bio information available, so enjoy a kitten on us.'
+
 
   let basePrice;
 
@@ -16,11 +16,6 @@ const ShowDetailView = (props) => {
     basePrice = props.pickupLocations.find(location => parseInt(location.id) === parseInt(props.pickupLocationId)).basePrice.toFixed(2)
   }
 
-
-
-
-  // placekitten.com/width/height of photo to be displayed
-  const placeKitten = 'http://placekitten.com/174/174'
 
   return (
     <div className='ShowDetailView'>
@@ -62,7 +57,12 @@ const ShowDetailView = (props) => {
                       <div>
                         <div className='row'>
                           <div className="col-md-12">
-                            {noBio}
+                            <p>
+                              The concept for Bus to Show was conceived by our founder several years in the future, and then planted in the mind of his younger self (2007) through inter-temporal-telepathy. Bus to Show is, at its core, designed to save the lives of a few future political and spiritual leaders, who would otherwise have been killed in their youth by impaired drivers on their way home from concerts. At the same time, Bus to Show works to reduce the amount of fuel consumption that results from events, which, in turn, will delay the destruction of the Earth long enough for the saved leaders to come of-age and implement their plans for reaching a sustained equilibrium between industry and environment.
+                              <br />
+                              <br />
+                              Bus to Show is a Colorado Nonprofit Corporation with the ability to accept 501(c)(3) tax-exempt donations through its fiscal sponsor partnership with The Nowak Society.
+                            </p>
                           </div>
                         </div>
                         <div className="row">
@@ -74,8 +74,10 @@ const ShowDetailView = (props) => {
                   </div>
                 </MediaQuery>
                 <div className="col-md-4 artist-image">
-                  <div className="row justify-content-center">
-                    <img src={show.headlinerImgLink ? show.headlinerImgLink : placeKitten} alt="headliner" />
+                  <div className={`row justify-content-center ${show.headlinerImgLink ? '' : 'bts-logo-flex'}`}>
+                  {show.headlinerImgLink ? 
+                    <img src={show.headlinerImgLink} alt="headliner-img" /> :
+                    <img src={logo} alt="bts-logo" className='logo-img'/>}
                   </div>
                 </div>
               </div>

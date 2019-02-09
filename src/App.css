@@ -335,8 +335,23 @@ p {
   margin-right: 15px
 }
 
-.loading-btn:hover{
+.loading-btn:hover {
   color: #ff240f;
+}
+
+.logo-img {
+  height: 67px;
+  width: 154px;
+}
+
+.bts-logo-flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  margin-left: 1.5vw;
+  opacity: .75;
 }
 
 @media only screen and (max-width:300px) {
