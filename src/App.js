@@ -107,7 +107,7 @@ class App extends Component {
 
     const newState = { ...this.state }
     newState.displayLoadingScreen = false
-    this.setState(newState)
+    this.setState({ displayLoadingScreen: newState.displayLoadingScreen })
   }
 
   handleBus = (e) => {
@@ -115,8 +115,7 @@ class App extends Component {
     if (e.target.id === 'bus1') {
       const newState = { ...this.state }
       newState.displayBus = !newState.displayBus
-
-      this.setState(newState)
+      this.setState({ displayBus: newState.displayBus })
     }
   }
 
@@ -129,7 +128,7 @@ class App extends Component {
     else {
       newState.displayQuantity = false
     }
-    this.setState(newState)
+    this.setState({ pickupLocationId: newState.pickupLocationId, displayQuantity: newState.displayQuantity })
 
     const response = await fetch('https://something-innocuous.herokuapp.com/pickup_parties')
     const locations = await response.json()
@@ -164,13 +163,18 @@ class App extends Component {
     const subTotal = (Number(pickupLocation.basePrice) * Number(event.target.value))
     const total = ((Number(subTotal) * .1) + Number(subTotal)).toFixed(2)
     newState.totalCost = total
-    this.setState(newState)
+
+    this.setState({
+      displayAddBtn: newState.displayAddBtn,
+      ticketQuantity: newState.ticketQuantity,
+      totalCost: newState.totalCost
+    })
   }
 
   updateDiscountCode = (event) => {
     const newState = { ...this.State }
     newState.discountCode = event.target.value
-    this.setState(newState)
+    this.setState({ discountCode: newState.discountCode })
   }
 
   getReservations = async (userId) => {
@@ -180,7 +184,7 @@ class App extends Component {
       const newState = { ...this.State }
       newState.userId = userId
       newState.userReservations = userReservations
-      this.setState(newState)
+      this.setState({ userId: newState.userId, userReservations: newState.userReservations })
     }
   }
 
@@ -216,35 +220,35 @@ class App extends Component {
         afterDiscountObj.totalPriceAfterDiscount = priceWithoutFeesPerTicket * ticketQuantity * effectiveRate * 1.10
         afterDiscountObj.totalSavings = this.state.totalCost - priceWithoutFeesPerTicket * ticketQuantity * effectiveRate * 1.10
         afterDiscountObj.newRemainingUses = result.remainingUses - ticketQuantity
+
         newState.afterDiscountObj = afterDiscountObj
         newState.totalSavings = afterDiscountObj.totalSavings
-        this.setState(newState)
+        this.setState({ afterDiscountObj: newState.afterDiscountObj, totalSavings: newState.totalSavings })
       }
       if (result.remainingUses < ticketQuantity) {
         afterDiscountObj.timesUsed = result.remainingUses
         afterDiscountObj.totalSavings = this.state.totalCost - (priceWithoutFeesPerTicket * (ticketQuantity - result.remainingUses) + priceWithoutFeesPerTicket * effectiveRate * result.remainingUses) * 1.10
         afterDiscountObj.totalPriceAfterDiscount = (priceWithoutFeesPerTicket * (ticketQuantity - result.remainingUses) + priceWithoutFeesPerTicket * effectiveRate * result.remainingUses) * 1.10
         afterDiscountObj.newRemainingUses = 0
-        newState.afterDiscountObj = afterDiscountObj
 
-        this.setState(newState)
+        newState.afterDiscountObj = afterDiscountObj
+        this.setState({ afterDiscountObj: newState.afterDiscountObj })
       }
     }
   }
-
 
 
   // Header Functions
   userDashboard = () => {
     const newState = { ...this.state }
     newState.myReservationsView = !this.state.myReservationsView
-    this.setState(newState)
+    this.setState({ myReservationsView: newState.myReservationsView })
   }
 
   returnHome = () => {
     const newState = { ...this.state }
     newState.myReservationsView = false
-    this.setState(newState)
+    this.setState({ myReservationsView: newState.myReservationsView })
   }
 
   searchShows = (event) => {
@@ -263,18 +267,25 @@ class App extends Component {
       newState.displayCart = false
     }
     newState.displaySuccess = false
-    this.setState(newState)
+    this.setState({ displaySuccess: newState.displaySuccess, displayCart: newState.displayCart })
   }
 
   // Show Functions
   showsExpandClick = async (event) => {
     const newState = { ...this.state }
-    newState.displayQuantity = false
     const clickedShow = newState.shows.find(show => (parseInt(show.id) === parseInt(event.target.id)))
+
+    newState.displayQuantity = false
     newState.displayDetailCartView = true
     newState.displaySuccess = false
     newState.displayShow = clickedShow
-    this.setState(newState)
+    this.setState({
+      displayQuantity: newState.displayQuantity,
+      displayDetailCartView: newState.displayDetailCartView,
+      displaySuccess: newState.displaySuccess,
+      displayShow: newState.displayShow
+    })
+
     if (document.querySelector('#departureLocation')) {
       document.querySelector('#departureLocation').value = "Select a Departure Location..."
     }
@@ -282,9 +293,13 @@ class App extends Component {
 
   returnToShows = () => {
     const newState = { ...this.state }
+
     newState.displayShow = null
     newState.displaySuccess = false
-    this.setState(newState)
+    this.setState({
+      displayShow: newState.displayShow,
+      displaySuccess: newState.displaySuccess
+    })
   }
 
   addToCart = async () => {
@@ -334,7 +349,7 @@ class App extends Component {
   viewCart = () => {
     const newState = { ...this.state }
     newState.displayCart = true
-    this.setState(newState)
+    this.setState({ displayCart: newState.displayCart })
   }
 
 
@@ -343,9 +358,10 @@ class App extends Component {
   handleCheck = () => {
     const newState = { ...this.state }
     newState.checked = true
-    this.setState(newState)
+    this.setState({ checked: newState.checked })
   }
 
+  // Refactor
   getPickupParty = (thisEventId, pickupLocId) => {
     pickupLocId = parseInt(pickupLocId)
     let allPickupParties = this.state.pickupParties
