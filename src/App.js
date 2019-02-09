@@ -591,7 +591,7 @@ class App extends Component {
             {this.state.displayLoadingScreen ?
               <Loading
                 onLoad={this.onLoad}
-                handleBus={this.handleBus}/> : ""}
+                handleBus={this.handleBus} /> : ""}
             {this.state.myReservationsView ?
               <React.Fragment>
                 <Header
@@ -635,6 +635,7 @@ class App extends Component {
                       getReservations={this.getReservations} />
                     <div className='content-section pt-4'>
                       <div className='col-md-6 float-right' >
+
                         <MediaQuery minWidth={768}>
                           {this.state.displayShow ? '' :
                             <BannerRotator displayShow={this.state.displayShow} />}
@@ -685,12 +686,13 @@ class App extends Component {
                               validated={this.state.validated}
                               validatedElements={this.state.validatedElements} />
                             :
-                            <SponsorBox showAboutUs={this.showAboutUs} displayAboutUs={this.state.displayAboutUs} />}
-
+                            <SponsorBox
+                              showAboutUs={this.showAboutUs}
+                              displayAboutUs={this.state.displayAboutUs} />}
                         </MediaQuery>
+
                         <MediaQuery maxWidth={767}>
-                          {this.state.displayShow ? '' :
-                            <BannerRotator displayShow={this.state.displayShow} />}
+                          {this.state.displayShow ? '' : <BannerRotator displayShow={this.state.displayShow} />}
                           {this.state.displayCart || this.state.displayShow ?
                             <DetailCartView
                               displayConfirmRemove={this.state.displayConfirmRemove}
@@ -735,7 +737,6 @@ class App extends Component {
                               validated={this.state.validated}
                               validatedElements={this.state.validatedElements} />
                             :
-
                             <ShowList
                               addBorder={this.addBorder}
                               displayShow={this.state.displayShow}
@@ -749,8 +750,10 @@ class App extends Component {
                               sortedByDate={this.state.dateIcon}
                               ticketsAvailable={this.state.ticketsAvailable} />}
                         </MediaQuery>
+
                       </div>
                       <div className='col-md-6 float-left'>
+
                         <MediaQuery minWidth={768}>
                           <ShowList
                             addBorder={this.addBorder}
@@ -764,36 +767,15 @@ class App extends Component {
                             sortedByArtist={this.state.artistIcon}
                             sortedByDate={this.state.dateIcon}
                             ticketsAvailable={this.state.ticketsAvailable} />
-
-
-
                         </MediaQuery>
                       </div>
-
-
-
-
-
                     </div>
-
-
-
                   </React.Fragment> : <Loading />
             }
-
-
-
-
           </div>
-
-
-
-
-
         </React.Fragment>
       </BrowserRouter>
-
-    );
+    )
   }
 }
 
