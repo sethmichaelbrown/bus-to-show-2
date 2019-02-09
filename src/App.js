@@ -482,8 +482,10 @@ class App extends Component {
   toggleLoggedIn = (boolean) => {
     const newState = { ...this.state }
     newState.loggedIn = boolean
-    if (boolean === false) { newState.myReservationsView = false }
-    this.setState(newState)
+    if (boolean === false) {
+      newState.myReservationsView = false
+    }
+    this.setState({ loggedIn: newState.loggedIn, myReservationsView: newState.myReservationsView })
   }
 
   removeFromCart = () => {
@@ -497,7 +499,11 @@ class App extends Component {
     newState.inCart = []
     newState.displaySuccess = false
     newState.displayConfirmRemove = false
-    this.setState(newState)
+    this.setState({
+      inCart: newState.inCart,
+      displaySuccess: newState.displaySuccess,
+      displayConfirmRemove: newState.displayConfirmRemove
+    })
   }
 
   closeAlert = () => {
@@ -516,20 +522,20 @@ class App extends Component {
     const processingFee = Number((basePrice * ticketQuantity) * (0.1))
     const cost = ((basePrice * ticketQuantity) + processingFee)
     newState.totalCost = cost.toFixed(2)
-    this.setState(newState)
+    this.setState({ ticketQuantity: newState.ticketQuantity, totalCost: newState.totalCost })
   }
 
-  addBorder = () => {
-    const newState = { ...this.state }
-    newState.displayBorder = true
-    this.setState(newState)
+  // addBorder = () => {
+  //   const newState = { ...this.state }
+  //   newState.displayBorder = true
+  //   this.setState(newState)
 
-    setTimeout(() => {
-      const newState = { ...this.state }
-      newState.displayBorder = false
-      this.setState(newState)
-    }, 500)
-  }
+  //   setTimeout(() => {
+  //     const newState = { ...this.state }
+  //     newState.displayBorder = false
+  //     this.setState(newState)
+  //   }, 500)
+  // }
 
   sortByArtist = () => {
     let newState = this.state.shows.sort((show1, show2) => {
@@ -585,9 +591,7 @@ class App extends Component {
             {this.state.displayLoadingScreen ?
               <Loading
                 onLoad={this.onLoad}
-                handleBus={this.handleBus}
-              />
-              : ""}
+                handleBus={this.handleBus}/> : ""}
             {this.state.myReservationsView ?
               <React.Fragment>
                 <Header
