@@ -1,6 +1,6 @@
 import React from 'react'
 import '../App.css';
-import Aboutus from './Aboutus/Aboutus.js'
+import Aboutus from './AboutUs/AboutUs.js'
 
 
 

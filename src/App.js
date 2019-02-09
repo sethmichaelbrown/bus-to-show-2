@@ -18,14 +18,12 @@ import SponsorBox from './Components/SponsorBox'
 import DetailCartView from './Components/DetailCartView'
 import BannerRotator from './Components/BannerRotator'
 
-//////***** COMMENTED OUT URLS ON THE FOLLOWING LINES, USE TO SWITCH BETWEEN LOCALHOST or HEROKU:
-//////***** App.js: LINES 74/75, 79/80, 86/87, 109/110, 254/255, 290/291
-//////***** Stripe_Checkout.js: LINES 6/7
-
 class App extends Component {
   // Please keep sorted alphabetically so we don't duplicate keys :) Thanks!
   state = {
-    afterDiscountObj: { totalSavings: 0 },
+    afterDiscountObj: {
+      totalSavings: 0
+    },
     artistDescription: null,
     artistIcon: false,
     basePrice: null,
@@ -44,9 +42,9 @@ class App extends Component {
     checked: false,
     confirmRemove: false,
     dateIcon: true,
-    displayAboutUs:false,
+    displayAboutUs: false,
     displayAddBtn: false,
-    displayBios:false,
+    displayBios: false,
     displayBorder: false,
     displayBus: true,
     displayCart: false,
@@ -66,12 +64,12 @@ class App extends Component {
     purchaseSuccessful: false,
     myReservationsView: false,
     loggedIn: false,
-    showBios:false,
+    showBios: false,
     ticketsAvailable: [],
     ticketQuantity: null,
     totalCost: 0,
     userReservations: [],
-    userId:null,
+    userId: null,
     validated: false,
     validatedElements: {
       fName: null,
@@ -85,20 +83,18 @@ class App extends Component {
 
   async componentDidMount() {
     const response = await fetch('https://something-innocuous.herokuapp.com/events')
-    // const response = await fetch('https://something-innocuous.herokuapp.com/events')
     const shows = await response.json()
     this.setState({ shows: shows })
 
-    let newState = this.state.shows.sort((show1, show2) => {
-      let a = new Date(show1.date)
-      let b = new Date(show2.date)
+    const newState = this.state.shows.sort((show1, show2) => {
+      const a = new Date(show1.date)
+      const b = new Date(show2.date)
       return a - b
     })
 
     this.setState({ shows: newState })
 
     const allEvents = await fetch('https://something-innocuous.herokuapp.com/events')
-    // const allEvents = await fetch('https://something-innocuous.herokuapp.com/events')
     const eventsList = await allEvents.json()
     const eventsListIds = []
     for (let i = 0; i < eventsList.length; i++) {
@@ -125,7 +121,7 @@ class App extends Component {
 
   handleBus = (e) => {
 
-    if(e.target.id === 'bus1'){
+    if (e.target.id === 'bus1') {
       const newState = { ...this.state }
       newState.displayBus = !newState.displayBus
 
@@ -190,15 +186,16 @@ class App extends Component {
 
   }
 
-  getReservations = async (userId)=>{
-  if(userId ){
-  const reservations =  await fetch(`https://something-innocuous.herokuapp.com/reservations/${userId}`)
-  // const reservations =  await fetch(`https://localhost:3000/reservations/${userId}`)
-  const userReservations = await reservations.json()
-  const newState = { ...this.State }
-  newState.userId = userId
-  newState.userReservations = userReservations
-  this.setState(newState)}
+  getReservations = async (userId) => {
+    if (userId) {
+      const reservations = await fetch(`https://something-innocuous.herokuapp.com/reservations/${userId}`)
+      // const reservations =  await fetch(`https://localhost:3000/reservations/${userId}`)
+      const userReservations = await reservations.json()
+      const newState = { ...this.State }
+      newState.userId = userId
+      newState.userReservations = userReservations
+      this.setState(newState)
+    }
   }
 
   findDiscountCode = async () => {
@@ -325,7 +322,7 @@ class App extends Component {
     this.setState(newState)
 
     // fetch('https://something-innocuous.herokuapp.com/pickup_parties', {
-      fetch('https://something-innocuous.herokuapp.com/pickup_parties', {
+    fetch('https://something-innocuous.herokuapp.com/pickup_parties', {
       method: 'PATCH',
       body: JSON.stringify({
         pickupLocationId: this.state.pickupLocationId,
@@ -338,7 +335,7 @@ class App extends Component {
     })
 
     // setTimeout(fetch('https://something-innocuous.herokuapp.com/pickup_parties', {
-      setTimeout(fetch('https://something-innocuous.herokuapp.com/pickup_parties', {
+    setTimeout(fetch('https://something-innocuous.herokuapp.com/pickup_parties', {
       method: 'PATCH',
       body: JSON.stringify({
         pickupLocationId: this.state.pickupLocationId,
@@ -391,7 +388,7 @@ class App extends Component {
   purchase = async () => {
     const cartObj = this.state.cartToSend
     const ordersResponse = await fetch('https://something-innocuous.herokuapp.com/orders', {
-    // const ordersResponse = await fetch('https//localhost:3000/orders', {
+      // const ordersResponse = await fetch('https//localhost:3000/orders', {
       method: 'POST',
       body: JSON.stringify(cartObj),
       headers: {
@@ -399,19 +396,19 @@ class App extends Component {
       }
     })
     const orderJson = await ordersResponse.json()
-    if(this.state.userId ){
-    await fetch(`http://something-innocuous.herokuapp.com/reservations/users/${this.state.userId}`, {
-    // await fetch(`http://localhost:3000/reservations/users/${this.state.userId}`, {
-      method: 'POST',
-      body: JSON.stringify({reservationId: orderJson.id}),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-    this.getReservations(this.state.userId)
+    if (this.state.userId) {
+      await fetch(`http://something-innocuous.herokuapp.com/reservations/users/${this.state.userId}`, {
+        // await fetch(`http://localhost:3000/reservations/users/${this.state.userId}`, {
+        method: 'POST',
+        body: JSON.stringify({ reservationId: orderJson.id }),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      this.getReservations(this.state.userId)
     }
- 
-    this.setState({ purchaseSuccessful: true, purchasePending: false , inCart: []})
+
+    this.setState({ purchaseSuccessful: true, purchasePending: false, inCart: [] })
 
   }
 
@@ -486,10 +483,10 @@ class App extends Component {
     }
   }
 
-  toggleLoggedIn=(boolean)=>{
+  toggleLoggedIn = (boolean) => {
     const newState = { ...this.state }
     newState.loggedIn = boolean
-    if(boolean === false) {newState.myReservationsView = false}
+    if (boolean === false) { newState.myReservationsView = false }
     this.setState(newState)
   }
 
@@ -567,233 +564,233 @@ class App extends Component {
     this.setState({ purchasePending: true })
   }
 
-  dismissBios=()=>{
-    this.setState({showBios:false})
+  dismissBios = () => {
+    this.setState({ showBios: false })
   }
 
-  readBios=()=>{
-    this.setState({displayBios:true})
+  readBios = () => {
+    this.setState({ displayBios: true })
   }
 
-  hideAboutUs=()=>{
-    this.setState({displayAboutUs:false})
+  hideAboutUs = () => {
+    this.setState({ displayAboutUs: false })
   }
 
-  showAboutUs=()=>{
-    this.setState({displayAboutUs:true})
+  showAboutUs = () => {
+    this.setState({ displayAboutUs: true })
   }
 
   render() {
     return (
 
       <BrowserRouter>
-      <React.Fragment>
-        <div className="App">
-          {this.state.displayLoadingScreen ?
-            <Loading
-              onLoad={this.onLoad}
-              handleBus={this.handleBus}
-            />
-            : ""}
-          {this.state.myReservationsView ?
-          <React.Fragment>
-            <Header
+        <React.Fragment>
+          <div className="App">
+            {this.state.displayLoadingScreen ?
+              <Loading
+                onLoad={this.onLoad}
+                handleBus={this.handleBus}
+              />
+              : ""}
+            {this.state.myReservationsView ?
+              <React.Fragment>
+                <Header
                   loggedIn={this.state.loggedIn}
                   userDashboard={this.userDashboard}
                   toggleLoggedIn={this.toggleLoggedIn}
                   getReservations={this.getReservations}
                   myReservationsView={this.state.myReservationsView} />
 
-            <ReservationsView
-              returnHome={this.returnHome}
-              reservations={this.state.userReservations}
-              addBorder={this.addBorder}
-              displayShow={this.state.displayShow}
-              filterString={this.state.filterString}
-              showsExpandClick={this.showsExpandClick} />
+                <ReservationsView
+                  returnHome={this.returnHome}
+                  reservations={this.state.userReservations}
+                  addBorder={this.addBorder}
+                  displayShow={this.state.displayShow}
+                  filterString={this.state.filterString}
+                  showsExpandClick={this.showsExpandClick} />
               </React.Fragment> :
 
               this.state.displayAboutUs ?
-              <React.Fragment>
-                <Header
-                     loggedIn={this.state.loggedIn}
-                     userDashboard={this.userDashboard}
-                     toggleLoggedIn={this.toggleLoggedIn}
-                     getReservations={this.getReservations}
-                     myReservationsView={this.state.myReservationsView} />
-                <Aboutus
-                  dismissBios={this.dismissBios}
-                  readBios={this.readBios}
-                  displayBios={this.state.displayBios}
-                  hideAboutUs={this.hideAboutUs}/>
-                  </React.Fragment>
-                  :
-            this.state.shows ?
-              <React.Fragment>
-                <Header
-                  loggedIn={this.state.loggedIn}
-                  userDashboard={this.userDashboard}
-                  toggleLoggedIn={this.toggleLoggedIn}
-                  myReservationsView={this.state.myReservationsView}
-                  getReservations={this.getReservations} />
-                <div className='content-section pt-4'>
-                  <div className='col-md-6 float-right' >
-                    <MediaQuery minWidth={768}>
-                      {this.state.displayShow ? '' :
-                        <BannerRotator displayShow={this.state.displayShow} />}
-                      {this.state.displayCart || this.state.displayShow ?
-                        <DetailCartView
-                          afterDiscountObj={this.state.afterDiscountObj}
-                          closeAlert={this.closeAlert}
-                          addToCart={this.addToCart}
-                          checked={this.state.checked}
-                          confirmedRemove={this.confirmedRemove}
-                          displayAddBtn={this.state.displayAddBtn}
-                          displayBorder={this.state.displayBorder}
-                          displayCart={this.state.displayCart}
-                          displayConfirmRemove={this.state.displayConfirmRemove}
-                          displayQuantity={this.state.displayQuantity}
-                          displayShow={this.state.displayShow}
-                          displaySuccess={this.state.displaySuccess}
-                          displayViewCartBtn={this.state.displayViewCartBtn}
-                          displayWarning={this.state.displayWarning}
-                          findDiscountCode={this.findDiscountCode}
-                          getPickupParty={this.getPickupParty}
-                          handleCheck={this.handleCheck}
-                          handleSubmit={this.handleSubmit}
-                          inCart={this.state.inCart}
-                          makePurchase={this.makePurchase}
-                          pickupLocations={this.state.pickupLocations}
-                          pickupLocationId={this.state.pickupLocationId}
-                          pickupParties={this.state.pickupParties}
-                          purchase={this.purchase}
-                          purchaseClick={this.purchaseClick}
-                          purchasePending={this.state.purchasePending}
-                          purchaseSuccessful={this.state.purchaseSuccessful}
-                          quantityChange={this.quantityChange}
-                          removeFromCart={this.removeFromCart}
-                          returnToShows={this.returnToShows}
-                          selectPickupLocationId={this.selectPickupLocationId}
-                          selectTicketQuantity={this.selectTicketQuantity}
-                          shows={this.state.shows}
-                          showsExpandClick={this.showsExpandClick}
-                          showsInCart={this.state.inCart}
-                          tabClicked={this.tabClicked}
-                          ticketsAvailable={this.state.ticketsAvailable}
-                          ticketQuantity={this.state.ticketQuantity}
-                          timeLeftInCart={this.state.timeLeftInCart}
-                          totalCost={this.state.totalCost}
-                          updateDiscountCode={this.updateDiscountCode}
-                          updatePurchaseField={this.updatePurchaseField}
-                          validated={this.state.validated}
-                          validatedElements={this.state.validatedElements} />
-                        :
-                        <SponsorBox showAboutUs={this.showAboutUs} displayAboutUs={this.state.displayAboutUs}/>}
+                <React.Fragment>
+                  <Header
+                    loggedIn={this.state.loggedIn}
+                    userDashboard={this.userDashboard}
+                    toggleLoggedIn={this.toggleLoggedIn}
+                    getReservations={this.getReservations}
+                    myReservationsView={this.state.myReservationsView} />
+                  <Aboutus
+                    dismissBios={this.dismissBios}
+                    readBios={this.readBios}
+                    displayBios={this.state.displayBios}
+                    hideAboutUs={this.hideAboutUs} />
+                </React.Fragment>
+                :
+                this.state.shows ?
+                  <React.Fragment>
+                    <Header
+                      loggedIn={this.state.loggedIn}
+                      userDashboard={this.userDashboard}
+                      toggleLoggedIn={this.toggleLoggedIn}
+                      myReservationsView={this.state.myReservationsView}
+                      getReservations={this.getReservations} />
+                    <div className='content-section pt-4'>
+                      <div className='col-md-6 float-right' >
+                        <MediaQuery minWidth={768}>
+                          {this.state.displayShow ? '' :
+                            <BannerRotator displayShow={this.state.displayShow} />}
+                          {this.state.displayCart || this.state.displayShow ?
+                            <DetailCartView
+                              afterDiscountObj={this.state.afterDiscountObj}
+                              closeAlert={this.closeAlert}
+                              addToCart={this.addToCart}
+                              checked={this.state.checked}
+                              confirmedRemove={this.confirmedRemove}
+                              displayAddBtn={this.state.displayAddBtn}
+                              displayBorder={this.state.displayBorder}
+                              displayCart={this.state.displayCart}
+                              displayConfirmRemove={this.state.displayConfirmRemove}
+                              displayQuantity={this.state.displayQuantity}
+                              displayShow={this.state.displayShow}
+                              displaySuccess={this.state.displaySuccess}
+                              displayViewCartBtn={this.state.displayViewCartBtn}
+                              displayWarning={this.state.displayWarning}
+                              findDiscountCode={this.findDiscountCode}
+                              getPickupParty={this.getPickupParty}
+                              handleCheck={this.handleCheck}
+                              handleSubmit={this.handleSubmit}
+                              inCart={this.state.inCart}
+                              makePurchase={this.makePurchase}
+                              pickupLocations={this.state.pickupLocations}
+                              pickupLocationId={this.state.pickupLocationId}
+                              pickupParties={this.state.pickupParties}
+                              purchase={this.purchase}
+                              purchaseClick={this.purchaseClick}
+                              purchasePending={this.state.purchasePending}
+                              purchaseSuccessful={this.state.purchaseSuccessful}
+                              quantityChange={this.quantityChange}
+                              removeFromCart={this.removeFromCart}
+                              returnToShows={this.returnToShows}
+                              selectPickupLocationId={this.selectPickupLocationId}
+                              selectTicketQuantity={this.selectTicketQuantity}
+                              shows={this.state.shows}
+                              showsExpandClick={this.showsExpandClick}
+                              showsInCart={this.state.inCart}
+                              tabClicked={this.tabClicked}
+                              ticketsAvailable={this.state.ticketsAvailable}
+                              ticketQuantity={this.state.ticketQuantity}
+                              timeLeftInCart={this.state.timeLeftInCart}
+                              totalCost={this.state.totalCost}
+                              updateDiscountCode={this.updateDiscountCode}
+                              updatePurchaseField={this.updatePurchaseField}
+                              validated={this.state.validated}
+                              validatedElements={this.state.validatedElements} />
+                            :
+                            <SponsorBox showAboutUs={this.showAboutUs} displayAboutUs={this.state.displayAboutUs} />}
 
-                    </MediaQuery>
-                    <MediaQuery maxWidth={767}>
-                      {this.state.displayShow ? '' :
-                        <BannerRotator displayShow={this.state.displayShow} />}
-                      {this.state.displayCart || this.state.displayShow ?
-                        <DetailCartView
-                          displayConfirmRemove={this.state.displayConfirmRemove}
-                          addToCart={this.addToCart}
-                          addBorder={this.addBorder}
-                          afterDiscountObj={this.state.afterDiscountObj}
-                          checked={this.state.checked}
-                          confirmedRemove={this.confirmedRemove}
-                          closeAlert={this.closeAlert}
-                          displayAddBtn={this.state.displayAddBtn}
-                          displayBorder={this.state.displayBorder}
-                          displayCart={this.state.displayCart}
-                          displayQuantity={this.state.displayQuantity}
-                          displayShow={this.state.displayShow}
-                          displaySuccess={this.state.displaySuccess}
-                          displayViewCartBtn={this.state.displayViewCartBtn}
-                          filterString={this.state.filterString}
-                          findDiscountCode={this.findDiscountCode}
-                          getPickupParty={this.getPickupParty}
-                          handleCheck={this.handleCheck}
-                          handleSubmit={this.handleSubmit}
-                          inCart={this.state.inCart}
-                          makePurchase={this.makePurchase}
-                          pickupLocations={this.state.pickupLocations}
-                          pickupLocationId={this.state.pickupLocationId}
-                          pickupParties={this.state.pickupParties}
-                          purchase={this.purchase}
-                          purchaseClick={this.purchaseClick}
-                          quantityChange={this.quantityChange}
-                          removeFromCart={this.removeFromCart}
-                          returnToShows={this.returnToShows}
-                          selectPickupLocationId={this.selectPickupLocationId}
-                          selectTicketQuantity={this.selectTicketQuantity}
-                          shows={this.state.shows}
-                          showsExpandClick={this.showsExpandClick}
-                          showsInCart={this.state.inCart}
-                          tabClicked={this.tabClicked}
-                          ticketsAvailable={this.state.ticketsAvailable}
-                          ticketQuantity={this.state.ticketQuantity}
-                          totalCost={this.state.totalCost}
-                          updatePurchaseField={this.updatePurchaseField}
-                          validated={this.state.validated}
-                          validatedElements={this.state.validatedElements} />
-                        :
+                        </MediaQuery>
+                        <MediaQuery maxWidth={767}>
+                          {this.state.displayShow ? '' :
+                            <BannerRotator displayShow={this.state.displayShow} />}
+                          {this.state.displayCart || this.state.displayShow ?
+                            <DetailCartView
+                              displayConfirmRemove={this.state.displayConfirmRemove}
+                              addToCart={this.addToCart}
+                              addBorder={this.addBorder}
+                              afterDiscountObj={this.state.afterDiscountObj}
+                              checked={this.state.checked}
+                              confirmedRemove={this.confirmedRemove}
+                              closeAlert={this.closeAlert}
+                              displayAddBtn={this.state.displayAddBtn}
+                              displayBorder={this.state.displayBorder}
+                              displayCart={this.state.displayCart}
+                              displayQuantity={this.state.displayQuantity}
+                              displayShow={this.state.displayShow}
+                              displaySuccess={this.state.displaySuccess}
+                              displayViewCartBtn={this.state.displayViewCartBtn}
+                              filterString={this.state.filterString}
+                              findDiscountCode={this.findDiscountCode}
+                              getPickupParty={this.getPickupParty}
+                              handleCheck={this.handleCheck}
+                              handleSubmit={this.handleSubmit}
+                              inCart={this.state.inCart}
+                              makePurchase={this.makePurchase}
+                              pickupLocations={this.state.pickupLocations}
+                              pickupLocationId={this.state.pickupLocationId}
+                              pickupParties={this.state.pickupParties}
+                              purchase={this.purchase}
+                              purchaseClick={this.purchaseClick}
+                              quantityChange={this.quantityChange}
+                              removeFromCart={this.removeFromCart}
+                              returnToShows={this.returnToShows}
+                              selectPickupLocationId={this.selectPickupLocationId}
+                              selectTicketQuantity={this.selectTicketQuantity}
+                              shows={this.state.shows}
+                              showsExpandClick={this.showsExpandClick}
+                              showsInCart={this.state.inCart}
+                              tabClicked={this.tabClicked}
+                              ticketsAvailable={this.state.ticketsAvailable}
+                              ticketQuantity={this.state.ticketQuantity}
+                              totalCost={this.state.totalCost}
+                              updatePurchaseField={this.updatePurchaseField}
+                              validated={this.state.validated}
+                              validatedElements={this.state.validatedElements} />
+                            :
 
-                        <ShowList
-                          addBorder={this.addBorder}
-                          displayShow={this.state.displayShow}
-                          filterString={this.state.filterString}
-                          searchShows={this.searchShows}
-                          shows={this.state.shows}
-                          showsExpandClick={this.showsExpandClick}
-                          sortByArtist={this.sortByArtist}
-                          sortByDate={this.sortByDate}
-                          sortedByArtist={this.state.artistIcon}
-                          sortedByDate={this.state.dateIcon}
-                          ticketsAvailable={this.state.ticketsAvailable} />}
-                    </MediaQuery>
-                  </div>
-                  <div className='col-md-6 float-left'>
-                    <MediaQuery minWidth={768}>
-                      <ShowList
-                        addBorder={this.addBorder}
-                        displayShow={this.state.displayShow}
-                        filterString={this.state.filterString}
-                        searchShows={this.searchShows}
-                        shows={this.state.shows}
-                        showsExpandClick={this.showsExpandClick}
-                        sortByArtist={this.sortByArtist}
-                        sortByDate={this.sortByDate}
-                        sortedByArtist={this.state.artistIcon}
-                        sortedByDate={this.state.dateIcon}
-                        ticketsAvailable={this.state.ticketsAvailable} />
-
-
-
-                    </MediaQuery>
-                  </div>
+                            <ShowList
+                              addBorder={this.addBorder}
+                              displayShow={this.state.displayShow}
+                              filterString={this.state.filterString}
+                              searchShows={this.searchShows}
+                              shows={this.state.shows}
+                              showsExpandClick={this.showsExpandClick}
+                              sortByArtist={this.sortByArtist}
+                              sortByDate={this.sortByDate}
+                              sortedByArtist={this.state.artistIcon}
+                              sortedByDate={this.state.dateIcon}
+                              ticketsAvailable={this.state.ticketsAvailable} />}
+                        </MediaQuery>
+                      </div>
+                      <div className='col-md-6 float-left'>
+                        <MediaQuery minWidth={768}>
+                          <ShowList
+                            addBorder={this.addBorder}
+                            displayShow={this.state.displayShow}
+                            filterString={this.state.filterString}
+                            searchShows={this.searchShows}
+                            shows={this.state.shows}
+                            showsExpandClick={this.showsExpandClick}
+                            sortByArtist={this.sortByArtist}
+                            sortByDate={this.sortByDate}
+                            sortedByArtist={this.state.artistIcon}
+                            sortedByDate={this.state.dateIcon}
+                            ticketsAvailable={this.state.ticketsAvailable} />
 
 
 
-
-
-                </div>
-
-
-
-              </React.Fragment> : <Loading />
-          }
-
-
-
-
-        </div>
+                        </MediaQuery>
+                      </div>
 
 
 
 
 
-    </React.Fragment>
+                    </div>
+
+
+
+                  </React.Fragment> : <Loading />
+            }
+
+
+
+
+          </div>
+
+
+
+
+
+        </React.Fragment>
       </BrowserRouter>
 
     );
