@@ -95,12 +95,10 @@ class App extends Component {
     this.setState({ shows: newState })
 
     const pickups = await fetch('https://something-innocuous.herokuapp.com/pickup_locations')
-    // const pickups = await fetch('https://something-innocuous.herokuapp.com/pickup_locations')
     const pickupLocations = await pickups.json()
     this.setState({ pickupLocations })
 
     const getPickupParties = await fetch('https://something-innocuous.herokuapp.com/pickup_parties')
-    // const getPickupParties = await fetch('https://something-innocuous.herokuapp.com/pickup_parties')
     const pickupParties = await getPickupParties.json()
     this.setState({ pickupParties })
   }
@@ -134,7 +132,6 @@ class App extends Component {
     this.setState(newState)
 
     const response = await fetch('https://something-innocuous.herokuapp.com/pickup_parties')
-    // const response = await fetch('https://something-innocuous.herokuapp.com/pickup_parties')
     const locations = await response.json()
     const statePickupId = parseInt(this.state.pickupLocationId)
     const stateEventId = parseInt(this.state.displayShow.id)
@@ -171,18 +168,14 @@ class App extends Component {
   }
 
   updateDiscountCode = (event) => {
-    // console.log(event.target.value)
     const newState = { ...this.State }
     newState.discountCode = event.target.value
     this.setState(newState)
-    // console.log('discountCode set::: ', newState.discountCode)
-
   }
 
   getReservations = async (userId) => {
     if (userId) {
       const reservations = await fetch(`https://something-innocuous.herokuapp.com/reservations/${userId}`)
-      // const reservations =  await fetch(`https://localhost:3000/reservations/${userId}`)
       const userReservations = await reservations.json()
       const newState = { ...this.State }
       newState.userId = userId
@@ -195,7 +188,6 @@ class App extends Component {
 
     const ticketQuantity = this.state.ticketQuantity
     const eventId = this.state.inCart[0].id
-    // const response = await fetch(`https://something-innocuous.herokuapp.com/discount_codes/1`)
     const response = await fetch(`http://localhost:3000/discount_codes/${this.state.discountCode}`)
     const json = await response.json()
 
@@ -314,7 +306,6 @@ class App extends Component {
     }
     this.setState(newState)
 
-    // fetch('https://something-innocuous.herokuapp.com/pickup_parties', {
     fetch('https://something-innocuous.herokuapp.com/pickup_parties', {
       method: 'PATCH',
       body: JSON.stringify({
@@ -327,7 +318,6 @@ class App extends Component {
       }
     })
 
-    // setTimeout(fetch('https://something-innocuous.herokuapp.com/pickup_parties', {
     setTimeout(fetch('https://something-innocuous.herokuapp.com/pickup_parties', {
       method: 'PATCH',
       body: JSON.stringify({
@@ -341,7 +331,6 @@ class App extends Component {
     }), 600000)
   }
 
-  //
   viewCart = () => {
     const newState = { ...this.state }
     newState.displayCart = true
@@ -381,7 +370,6 @@ class App extends Component {
   purchase = async () => {
     const cartObj = this.state.cartToSend
     const ordersResponse = await fetch('https://something-innocuous.herokuapp.com/orders', {
-      // const ordersResponse = await fetch('https//localhost:3000/orders', {
       method: 'POST',
       body: JSON.stringify(cartObj),
       headers: {
@@ -391,7 +379,6 @@ class App extends Component {
     const orderJson = await ordersResponse.json()
     if (this.state.userId) {
       await fetch(`http://something-innocuous.herokuapp.com/reservations/users/${this.state.userId}`, {
-        // await fetch(`http://localhost:3000/reservations/users/${this.state.userId}`, {
         method: 'POST',
         body: JSON.stringify({ reservationId: orderJson.id }),
         headers: {
