@@ -4,12 +4,12 @@ import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 import dustin from '../../Images/dustin.jpeg'
 import seth from '../../Images/seth.jpeg'
 import kevin from '../../Images/kevin.jpeg'
-import jake from '../../Images/jake.jpeg'
-import phil from '../../Images/phil.png'
+import jake from '../../Images/jake2.jpeg'
+import phil from '../../Images/phil2.png'
 import linkedin from '../../Images/linkedin.jpg'
 import Footer from '../Footer.js'
 
-const Aboutus = (props) => {
+const AboutUs = (props) => {
 
   return (
     <div>
@@ -102,4 +102,4 @@ const Aboutus = (props) => {
   )
 }
 
-export default Aboutus;
+export default AboutUs;

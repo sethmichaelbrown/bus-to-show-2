@@ -8,7 +8,7 @@ import MediaQuery from 'react-responsive';
 import './App.css';
 
 // Components
-import Aboutus from './Components/Aboutus/Aboutus.js'
+import AboutUs from './Components/AboutUs/AboutUs.js'
 import Header from './Components/Header'
 import ShowList from './Components/Shows/ShowList'
 import Loading from './Components/Loading'
@@ -94,38 +94,27 @@ class App extends Component {
 
     this.setState({ shows: newState })
 
-    const allEvents = await fetch('https://something-innocuous.herokuapp.com/events')
-    const eventsList = await allEvents.json()
-    const eventsListIds = []
-    for (let i = 0; i < eventsList.length; i++) {
-      eventsListIds.push(eventsList[i].id)
-    }
 
     const pickups = await fetch('https://something-innocuous.herokuapp.com/pickup_locations')
-    // const pickups = await fetch('https://something-innocuous.herokuapp.com/pickup_locations')
     const pickupLocations = await pickups.json()
     this.setState({ pickupLocations })
 
     const getPickupParties = await fetch('https://something-innocuous.herokuapp.com/pickup_parties')
-    // const getPickupParties = await fetch('https://something-innocuous.herokuapp.com/pickup_parties')
     const pickupParties = await getPickupParties.json()
     this.setState({ pickupParties })
   }
 
   onLoad = () => {
-
     const newState = { ...this.state }
     newState.displayLoadingScreen = false
-    this.setState(newState)
+    this.setState({ displayLoadingScreen: newState.displayLoadingScreen })
   }
 
   handleBus = (e) => {
-
     if (e.target.id === 'bus1') {
       const newState = { ...this.state }
       newState.displayBus = !newState.displayBus
-
-      this.setState(newState)
+      this.setState({ displayBus: newState.displayBus })
     }
   }
 
@@ -138,10 +127,9 @@ class App extends Component {
     else {
       newState.displayQuantity = false
     }
-    this.setState(newState)
+    this.setState({ displayQuantity: newState.displayQuantity })
 
     const response = await fetch('https://something-innocuous.herokuapp.com/pickup_parties')
-    // const response = await fetch('https://something-innocuous.herokuapp.com/pickup_parties')
     const locations = await response.json()
     const statePickupId = parseInt(this.state.pickupLocationId)
     const stateEventId = parseInt(this.state.displayShow.id)
@@ -170,28 +158,27 @@ class App extends Component {
       newState.displayAddBtn = false
     }
     newState.ticketQuantity = event.target.value
-    const pickupLocation = newState.pickupLocations.filter(location => parseInt(location.id) === parseInt(this.state.pickupLocationId))[0]
-    const subTotal = (Number(pickupLocation.basePrice) * Number(event.target.value))
+    const pickupLocation = newState.pickupLocations.find(location => parseInt(location.id) === parseInt(this.state.pickupLocationId))
     const total = ((Number(subTotal) * .1) + Number(subTotal)).toFixed(2)
     newState.totalCost = total
     this.setState(newState)
   }
 
   updateDiscountCode = (event) => {
-    // console.log(event.target.value)
     const newState = { ...this.State }
     newState.discountCode = event.target.value
-    this.setState(newState)
-    // console.log('discountCode set::: ', newState.discountCode)
+    this.setState({ discountCode: newState.discountCode })
+
 
   }
 
   getReservations = async (userId) => {
     if (userId) {
-      const reservations = await fetch(`https://something-innocuous.herokuapp.com/reservations/${userId}`)
-      // const reservations =  await fetch(`https://localhost:3000/reservations/${userId}`)
-      const userReservations = await reservations.json()
       const newState = { ...this.State }
+
+      const reservations = await fetch(`https://something-innocuous.herokuapp.com/reservations/${userId}`)
+      const userReservations = await reservations.json()
+
       newState.userId = userId
       newState.userReservations = userReservations
       this.setState(newState)
@@ -199,7 +186,6 @@ class App extends Component {
   }
 
   findDiscountCode = async () => {
-
     const ticketQuantity = this.state.ticketQuantity
     const eventId = this.state.inCart[0].id
     // const response = await fetch(`https://something-innocuous.herokuapp.com/discount_codes/1`)
@@ -253,13 +239,13 @@ class App extends Component {
   userDashboard = () => {
     const newState = { ...this.state }
     newState.myReservationsView = !this.state.myReservationsView
-    this.setState(newState)
+    this.setState({ myReservationsView: newState.myReservationsView })
   }
 
   returnHome = () => {
     const newState = { ...this.state }
     newState.myReservationsView = false
-    this.setState(newState)
+    this.setState({ myReservationsView: newState.myReservationsView })
   }
 
   searchShows = (event) => {
@@ -284,8 +270,9 @@ class App extends Component {
   // Show Functions
   showsExpandClick = async (event) => {
     const newState = { ...this.state }
-    newState.displayQuantity = false
     const clickedShow = newState.shows.find(show => (parseInt(show.id) === parseInt(event.target.id)))
+
+    newState.displayQuantity = false
     newState.displayDetailCartView = true
     newState.displaySuccess = false
     newState.displayShow = clickedShow
@@ -304,7 +291,7 @@ class App extends Component {
 
   addToCart = async () => {
     const newState = { ...this.state }
-    const pickupLocation = newState.pickupLocations.filter(location => parseInt(location.id) === parseInt(this.state.pickupLocationId))[0]
+    const pickupLocation = newState.pickupLocations.find(location => parseInt(location.id) === parseInt(this.state.pickupLocationId))
     const basePrice = Number(pickupLocation.basePrice)
     const ticketQuantity = parseInt(this.state.ticketQuantity)
     const totalSavings = parseInt(this.state.afterDiscountObj.totalSavings)
@@ -321,7 +308,6 @@ class App extends Component {
     }
     this.setState(newState)
 
-    // fetch('https://something-innocuous.herokuapp.com/pickup_parties', {
     fetch('https://something-innocuous.herokuapp.com/pickup_parties', {
       method: 'PATCH',
       body: JSON.stringify({
@@ -334,7 +320,6 @@ class App extends Component {
       }
     })
 
-    // setTimeout(fetch('https://something-innocuous.herokuapp.com/pickup_parties', {
     setTimeout(fetch('https://something-innocuous.herokuapp.com/pickup_parties', {
       method: 'PATCH',
       body: JSON.stringify({
@@ -348,11 +333,11 @@ class App extends Component {
     }), 600000)
   }
 
-  //
+
   viewCart = () => {
     const newState = { ...this.state }
     newState.displayCart = true
-    this.setState(newState)
+    this.setState({ displayCart: newState.displayCart })
   }
 
 
@@ -364,6 +349,8 @@ class App extends Component {
     this.setState(newState)
   }
 
+
+  // REFACTOR W/ MOMENT
   getPickupParty = (thisEventId, pickupLocId) => {
     pickupLocId = parseInt(pickupLocId)
     let allPickupParties = this.state.pickupParties
@@ -386,21 +373,20 @@ class App extends Component {
   }
 
   purchase = async () => {
-    const cartObj = this.state.cartToSend
-    const ordersResponse = await fetch('https://something-innocuous.herokuapp.com/orders', {
-      // const ordersResponse = await fetch('https//localhost:3000/orders', {
+    const cart = this.state.cartToSend
+    const response = await fetch('https://something-innocuous.herokuapp.com/orders', {
       method: 'POST',
-      body: JSON.stringify(cartObj),
+      body: JSON.stringify(cart),
       headers: {
         'Content-Type': 'application/json'
       }
     })
-    const orderJson = await ordersResponse.json()
+
+    const order = await response.json()
     if (this.state.userId) {
       await fetch(`http://something-innocuous.herokuapp.com/reservations/users/${this.state.userId}`, {
-        // await fetch(`http://localhost:3000/reservations/users/${this.state.userId}`, {
         method: 'POST',
-        body: JSON.stringify({ reservationId: orderJson.id }),
+        body: JSON.stringify({ reservationId: order.id }),
         headers: {
           'Content-Type': 'application/json'
         }
@@ -409,7 +395,6 @@ class App extends Component {
     }
 
     this.setState({ purchaseSuccessful: true, purchasePending: false, inCart: [] })
-
   }
 
   updatePurchaseField = (event) => {
@@ -475,8 +460,7 @@ class App extends Component {
         cTS.willCallLastName = this.state.validatedElements.lName
       }
 
-      this.setState({ cartToSend: newState.cartToSend })
-      this.setState({ validated: newState.validated })
+      this.setState({ cartToSend: newState.cartToSend, validated: newState.validated })
     }
     else {
       console.log('ERROR!')
@@ -486,8 +470,11 @@ class App extends Component {
   toggleLoggedIn = (boolean) => {
     const newState = { ...this.state }
     newState.loggedIn = boolean
-    if (boolean === false) { newState.myReservationsView = false }
-    this.setState(newState)
+
+    if (boolean === false) {
+      newState.myReservationsView = false
+    }
+    this.setState({ loggedIn: newState.loggedIn, myReservationsView: newState.myReservationsView })
   }
 
   removeFromCart = () => {
@@ -501,7 +488,11 @@ class App extends Component {
     newState.inCart = []
     newState.displaySuccess = false
     newState.displayConfirmRemove = false
-    this.setState(newState)
+    this.setState({
+      inCart: newState.inCart,
+      displaySuccess: newState.displaySuccess,
+      displayConfirmRemove: newState.displayConfirmRemove
+    })
   }
 
   closeAlert = () => {
@@ -514,26 +505,27 @@ class App extends Component {
     const newState = { ...this.state }
     newState.ticketQuantity = event.target.value
 
-    const pickupLocation = this.state.pickupLocations.filter(location => parseInt(location.id) === parseInt(this.state.pickupLocationId))[0]
+    const pickupLocation = this.state.pickupLocations.find(location => parseInt(location.id) === parseInt(this.state.pickupLocationId))
     const basePrice = Number(pickupLocation.basePrice)
     const ticketQuantity = parseInt(newState.ticketQuantity)
     const processingFee = Number((basePrice * ticketQuantity) * (0.1))
     const cost = ((basePrice * ticketQuantity) + processingFee)
     newState.totalCost = cost.toFixed(2)
-    this.setState(newState)
+
+    this.setState({ ticketQuantity: newState.ticketQuantity, totalCost: newState.newState.totalCost })
   }
 
-  addBorder = () => {
-    const newState = { ...this.state }
-    newState.displayBorder = true
-    this.setState(newState)
+  // addBorder = () => {
+  //   const newState = { ...this.state }
+  //   newState.displayBorder = true
+  //   this.setState(newState)
 
-    setTimeout(() => {
-      const newState = { ...this.state }
-      newState.displayBorder = false
-      this.setState(newState)
-    }, 500)
-  }
+  //   setTimeout(() => {
+  //     const newState = { ...this.state }
+  //     newState.displayBorder = false
+  //     this.setState(newState)
+  //   }, 500)
+  // }
 
   sortByArtist = () => {
     let newState = this.state.shows.sort((show1, show2) => {
@@ -618,7 +610,7 @@ class App extends Component {
                     toggleLoggedIn={this.toggleLoggedIn}
                     getReservations={this.getReservations}
                     myReservationsView={this.state.myReservationsView} />
-                  <Aboutus
+                  <AboutUs
                     dismissBios={this.dismissBios}
                     readBios={this.readBios}
                     displayBios={this.state.displayBios}
@@ -735,7 +727,6 @@ class App extends Component {
                               validated={this.state.validated}
                               validatedElements={this.state.validatedElements} />
                             :
-
                             <ShowList
                               addBorder={this.addBorder}
                               displayShow={this.state.displayShow}
@@ -764,32 +755,12 @@ class App extends Component {
                             sortedByArtist={this.state.artistIcon}
                             sortedByDate={this.state.dateIcon}
                             ticketsAvailable={this.state.ticketsAvailable} />
-
-
-
                         </MediaQuery>
                       </div>
-
-
-
-
-
                     </div>
-
-
-
                   </React.Fragment> : <Loading />
             }
-
-
-
-
           </div>
-
-
-
-
-
         </React.Fragment>
       </BrowserRouter>
 
