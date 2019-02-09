@@ -1,8 +1,9 @@
 // Packages
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import { BrowserRouter } from "react-router-dom"
 import Validator from 'validator'
-import MediaQuery from 'react-responsive';
+import MediaQuery from 'react-responsive'
+import moment from 'moment'
 
 // Styling
 import './App.css';
@@ -59,11 +60,11 @@ class App extends Component {
     displayQuantity: false,
     filterString: '',
     inCart: [],
+    loggedIn: false,
+    myReservationsView: false,
     pickupLocationId: null,
     purchasePending: false,
     purchaseSuccessful: false,
-    myReservationsView: false,
-    loggedIn: false,
     showBios: false,
     ticketsAvailable: [],
     ticketQuantity: null,
@@ -110,9 +111,9 @@ class App extends Component {
     this.setState({ displayLoadingScreen: newState.displayLoadingScreen })
   }
 
-  handleBus = (e) => {
+  handleBus = (event) => {
 
-    if (e.target.id === 'bus1') {
+    if (event.target.id === 'bus1') {
       const newState = { ...this.state }
       newState.displayBus = !newState.displayBus
       this.setState({ displayBus: newState.displayBus })
@@ -237,7 +238,6 @@ class App extends Component {
     }
   }
 
-
   // Header Functions
   userDashboard = () => {
     const newState = { ...this.state }
@@ -312,6 +312,15 @@ class App extends Component {
     const cost = ((basePrice * ticketQuantity) - totalSavings + processingFee)
     newState.totalCost = cost.toFixed(2)
 
+
+    const sPickupId = parseInt(this.state.pickupLocationId)
+    const sEventId = parseInt(this.state.displayShow.id)
+    const pickupParty = this.state.pickupParties.find(party => party.pickupLocationId === sPickupId && party.eventId === sEventId)
+    const firstBusLoad = pickupParty.firstBusLoadTime
+    const lastDepartureTime = moment(pickupParty.lastBusDepartureTime, 'hhmm').format('h:mm')
+      
+    this.setState({ lastDepartureTime, firstBusLoad})
+
     if (newState.inCart.length === 0) {
       newState.inCart.push(newState.displayShow)
       newState.displaySuccess = true
@@ -352,8 +361,6 @@ class App extends Component {
     this.setState({ displayCart: newState.displayCart })
   }
 
-
-
   // Cart Functions
   handleCheck = () => {
     const newState = { ...this.state }
@@ -361,27 +368,6 @@ class App extends Component {
     this.setState({ checked: newState.checked })
   }
 
-  // Refactor
-  getPickupParty = (thisEventId, pickupLocId) => {
-    pickupLocId = parseInt(pickupLocId)
-    let allPickupParties = this.state.pickupParties
-    let thisPickupParty = allPickupParties.find(pickupParty => pickupParty.eventId === thisEventId && pickupParty.pickupLocationId === pickupLocId)
-    let hours = Number(thisPickupParty.lastBusDepartureTime.split(':')[0])
-    let minutes = thisPickupParty.lastBusDepartureTime.split(':')[1]
-    let amPm = ''
-    if (hours < 11) {
-      amPm = 'AM'
-    }
-    if (hours === 12) {
-      amPm = 'PM'
-    }
-    if (hours > 12) {
-      amPm = 'PM'
-      hours -= 12
-    }
-    let pickupTime = `${hours}:${minutes} ${amPm}`
-    return pickupTime
-  }
 
   purchase = async () => {
     const cartObj = this.state.cartToSend
@@ -656,10 +642,12 @@ class App extends Component {
                               displayViewCartBtn={this.state.displayViewCartBtn}
                               displayWarning={this.state.displayWarning}
                               findDiscountCode={this.findDiscountCode}
+                              firstBusLoad={this.state.firstBusLoad}
                               getPickupParty={this.getPickupParty}
                               handleCheck={this.handleCheck}
                               handleSubmit={this.handleSubmit}
                               inCart={this.state.inCart}
+                              lastDepartureTime={this.state.lastDepartureTime}
                               makePurchase={this.makePurchase}
                               pickupLocations={this.state.pickupLocations}
                               pickupLocationId={this.state.pickupLocationId}
@@ -711,10 +699,12 @@ class App extends Component {
                               displayViewCartBtn={this.state.displayViewCartBtn}
                               filterString={this.state.filterString}
                               findDiscountCode={this.findDiscountCode}
+                              firstBusLoad={this.state.firstBusLoad}
                               getPickupParty={this.getPickupParty}
                               handleCheck={this.handleCheck}
                               handleSubmit={this.handleSubmit}
                               inCart={this.state.inCart}
+                              lastDepartureTime={this.state.lastDepartureTime}
                               makePurchase={this.makePurchase}
                               pickupLocations={this.state.pickupLocations}
                               pickupLocationId={this.state.pickupLocationId}
