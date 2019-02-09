@@ -8,7 +8,7 @@ import MediaQuery from 'react-responsive';
 import './App.css';
 
 // Components
-import Aboutus from './Components/Aboutus/Aboutus.js'
+import AboutUs from './Components/AboutUs/AboutUs.js'
 import Header from './Components/Header'
 import ShowList from './Components/Shows/ShowList'
 import Loading from './Components/Loading'
@@ -618,7 +618,7 @@ class App extends Component {
                     toggleLoggedIn={this.toggleLoggedIn}
                     getReservations={this.getReservations}
                     myReservationsView={this.state.myReservationsView} />
-                  <Aboutus
+                  <AboutUs
                     dismissBios={this.dismissBios}
                     readBios={this.readBios}
                     displayBios={this.state.displayBios}

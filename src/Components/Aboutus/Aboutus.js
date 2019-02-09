@@ -9,7 +9,7 @@ import phil from '../../Images/phil.png'
 import linkedin from '../../Images/linkedin.jpg'
 import Footer from '../Footer.js'
 
-const Aboutus = (props) => {
+const AboutUs = (props) => {
 
   return (
     <div>
@@ -102,4 +102,4 @@ const Aboutus = (props) => {
   )
 }
 
-export default Aboutus;
+export default AboutUs;
