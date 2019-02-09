@@ -94,13 +94,6 @@ class App extends Component {
 
     this.setState({ shows: newState })
 
-    const allEvents = await fetch('https://something-innocuous.herokuapp.com/events')
-    const eventsList = await allEvents.json()
-    const eventsListIds = []
-    for (let i = 0; i < eventsList.length; i++) {
-      eventsListIds.push(eventsList[i].id)
-    }
-
     const pickups = await fetch('https://something-innocuous.herokuapp.com/pickup_locations')
     // const pickups = await fetch('https://something-innocuous.herokuapp.com/pickup_locations')
     const pickupLocations = await pickups.json()
