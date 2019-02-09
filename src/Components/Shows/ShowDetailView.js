@@ -26,7 +26,7 @@ const ShowDetailView = (props) => {
     <div className='ShowDetailView'>
       {show ?
         <div className={`content-section-details ${props.displayBorder ? 'add-border' : 'remove-border'}`}>
-          <h3 style={{ textAlign: "center" }}>{show.headliner}</h3>
+          <h4>Bus Rides to {show.headliner} at {show.venue.split('Amphitheatre').join('')}</h4>
           <div className="list-group">
             {props.displayWarning ?
               <div className="list-group-item alert-item">
