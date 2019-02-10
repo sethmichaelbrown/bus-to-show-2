@@ -164,7 +164,6 @@ class App extends Component {
     const sPickupId = parseInt(this.state.pickupLocationId)
     const sEventId = parseInt(this.state.displayShow.id)
     const pickupParty = this.state.pickupParties.find(party => party.pickupLocationId === sPickupId && party.eventId === sEventId)
-    console.log(pickupParty)
     const pickupLocation = newState.pickupLocations.filter(location => parseInt(location.id) === parseInt(this.state.pickupLocationId))[0]
     const subTotal = (Number(pickupLocation.basePrice) * Number(event.target.value))
     const total = ((Number(subTotal) * .1) + Number(subTotal)).toFixed(2)
@@ -268,12 +267,10 @@ class App extends Component {
     if (event.target.id === 'cart-tab') {
       newState.displayCart = true
     }
-    else {
-      newState.displayCart = false
-    }
 
     if(newState.inCart.length > 0 && event.target.id === 'showDetails-tab'){
       newState.displayWarning = true
+      newState.displayCart = false
     }
 
     newState.displaySuccess = false
