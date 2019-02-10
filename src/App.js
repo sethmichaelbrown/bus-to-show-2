@@ -131,8 +131,7 @@ class App extends Component {
     }
     this.setState({ pickupLocationId: newState.pickupLocationId, displayQuantity: newState.displayQuantity })
 
-    const response = await fetch('https://something-innocuous.herokuapp.com/pickup_parties')
-    const locations = await response.json()
+    const locations = newState.pickupParties
     const statePickupId = parseInt(this.state.pickupLocationId)
     const stateEventId = parseInt(this.state.displayShow.id)
 
@@ -576,7 +575,8 @@ class App extends Component {
     this.setState({ shows: newState, artistIcon: false, dateIcon: true })
   }
 
-  makePurchase = () => {
+  makePurchase = (event) => {
+    event.preventDefault()
     this.setState({ purchasePending: true })
   }
 
