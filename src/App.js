@@ -52,6 +52,7 @@ class App extends Component {
     displayConfirmRemove: false,
     displayDetailCartView: false,
     displayLoadingScreen: true,
+    displayShowDetails: false,
     displayShow: null,
     displayStripe: false,
     displaySuccess: false,
@@ -275,7 +276,7 @@ class App extends Component {
     if(newState.inCart.length > 0 && event.target.id === 'showDetails-tab'){
       newState.displayWarning = true
     }
-    
+
     newState.displaySuccess = false
     this.setState({
       displaySuccess: newState.displaySuccess,
@@ -292,6 +293,7 @@ class App extends Component {
     newState.displayQuantity = false
     newState.displayDetailCartView = true
     newState.displaySuccess = false
+    newState.displayShowDetails = true
     newState.displayShow = clickedShow
     this.setState({
       displayQuantity: newState.displayQuantity,
@@ -344,6 +346,8 @@ class App extends Component {
     if (newState.inCart.length === 0) {
       newState.inCart.push(newState.displayShow)
       newState.displaySuccess = true
+      newState.displayShowDetails = false
+      newState.displayCart = true
     }
     else {
       newState.displayWarning = true
