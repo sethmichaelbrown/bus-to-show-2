@@ -52,7 +52,6 @@ class App extends Component {
     displayConfirmRemove: false,
     displayDetailCartView: false,
     displayLoadingScreen: true,
-    displayShowDetails: false,
     displayShow: null,
     displayStripe: false,
     displaySuccess: false,
@@ -346,7 +345,6 @@ class App extends Component {
     if (newState.inCart.length === 0) {
       newState.inCart.push(newState.displayShow)
       newState.displaySuccess = true
-      newState.displayShowDetails = false
       newState.displayCart = true
     }
     else {

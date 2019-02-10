@@ -23,10 +23,10 @@ const DetailCartView = (props) => {
     <div className='DetailCartView container'>
       <ul className="nav nav-tabs" id="myTab" role="tablist">
         <li className="nav-item">
-          <a onClick={props.tabClicked} className="nav-link active" id="showDetails-tab" data-toggle="tab" href="#showDetails" role="tab" aria-controls="showDetails" aria-selected="true">Show Details</a>
+          <a onClick={props.tabClicked} className={`nav-link ${props.displayCart ? '' : 'active'}`} id="showDetails-tab" data-toggle="tab" href="#showDetails" role="tab" aria-controls="showDetails" aria-selected="true">Show Details</a>
         </li>
         <li className="nav-item">
-          <a onClick={props.tabClicked} className="nav-link" id="cart-tab" data-toggle="tab" href="#cart" role="tab" aria-controls="cart" aria-selected="false">My Cart</a>
+          <a onClick={props.tabClicked} className={`nav-link ${props.displayCart ? 'active' : ''}`} data-toggle="tab" href="#cart" role="tab" aria-controls="cart" aria-selected="false">My Cart</a>
         </li>
         <MediaQuery maxWidth={768}>
           <li className="nav-item">
