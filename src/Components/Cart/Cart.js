@@ -16,13 +16,15 @@ const Cart = (props) => {
       <React.Fragment>
         <div className="list-group">
           <MediaQuery minWidth={768}>
-            <div className="row">
-              <div className="col-md-12">
+            { props.displayWarning ||props.purchasePending||props.purchaseSuccessful ?
+             <div className="row">
+              <div className="col-md-12 mt-2">
                 {props.displayWarning ? <div className="alert alert-warning" role="alert">Please either complete purchase of item in cart, or remove it to procceed.</div> : ''}
                 {props.purchasePending ? <div className="alert alert-primary" role="alert"> Purchase Pending... </div> : ''}
                 {props.purchaseSuccessful ? <div className="alert alert-success" role="alert"> Purchase Successful... </div> : ''}
               </div>
             </div>
+            :
             <div className="list-group-item lgi-header">
               <div className="row">
                 <div className="col-md-4">Show</div>
@@ -30,7 +32,7 @@ const Cart = (props) => {
                 <div className="col-md-2">Date</div>
                 <div className="col-md-1">Qty</div>
               </div>
-            </div>
+            </div>}
           </MediaQuery>
           <ul className="list-group">
             <CartItem
