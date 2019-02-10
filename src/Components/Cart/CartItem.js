@@ -3,7 +3,7 @@ import moment from 'moment'
 import '../../App.css';
 
 const CartItem = (props) => {
-  console.log('CI', props)
+  // console.log('CI', props)
 
   const pickupTime = props.lastDepartureTime
   const firstBusLoad = props.firstBusLoad

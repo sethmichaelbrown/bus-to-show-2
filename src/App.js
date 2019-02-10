@@ -131,8 +131,7 @@ class App extends Component {
     }
     this.setState({ pickupLocationId: newState.pickupLocationId, displayQuantity: newState.displayQuantity })
 
-    const response = await fetch('https://something-innocuous.herokuapp.com/pickup_parties')
-    const locations = await response.json()
+    const locations = newState.pickupParties
     const statePickupId = parseInt(this.state.pickupLocationId)
     const stateEventId = parseInt(this.state.displayShow.id)
 
@@ -164,7 +163,6 @@ class App extends Component {
     const sPickupId = parseInt(this.state.pickupLocationId)
     const sEventId = parseInt(this.state.displayShow.id)
     const pickupParty = this.state.pickupParties.find(party => party.pickupLocationId === sPickupId && party.eventId === sEventId)
-    console.log(pickupParty)
     const pickupLocation = newState.pickupLocations.filter(location => parseInt(location.id) === parseInt(this.state.pickupLocationId))[0]
     const subTotal = (Number(pickupLocation.basePrice) * Number(event.target.value))
     const total = ((Number(subTotal) * .1) + Number(subTotal)).toFixed(2)
@@ -268,14 +266,15 @@ class App extends Component {
     if (event.target.id === 'cart-tab') {
       newState.displayCart = true
     }
-    else {
+
+    if(event.target.id === 'showDetails-tab'){
       newState.displayCart = false
     }
 
     if(newState.inCart.length > 0 && event.target.id === 'showDetails-tab'){
       newState.displayWarning = true
     }
-    
+
     newState.displaySuccess = false
     this.setState({
       displaySuccess: newState.displaySuccess,
@@ -292,6 +291,7 @@ class App extends Component {
     newState.displayQuantity = false
     newState.displayDetailCartView = true
     newState.displaySuccess = false
+    newState.displayShowDetails = true
     newState.displayShow = clickedShow
     this.setState({
       displayQuantity: newState.displayQuantity,
@@ -344,6 +344,7 @@ class App extends Component {
     if (newState.inCart.length === 0) {
       newState.inCart.push(newState.displayShow)
       newState.displaySuccess = true
+      newState.displayCart = true
     }
     else {
       newState.displayWarning = true
@@ -574,8 +575,18 @@ class App extends Component {
     this.setState({ shows: newState, artistIcon: false, dateIcon: true })
   }
 
-  makePurchase = () => {
-    this.setState({ purchasePending: true })
+  makePurchase = (event) => {
+    const newState = {...this.state}
+    event.preventDefault()
+    newState.displayQuantity = false
+    newState.displayAddBtn = false
+    newState.purchasePending = true
+
+    this.setState({ 
+      purchasePending: newState.purchasePending, 
+      displayQuantity: newState.displayQuantity,
+      displayAddBtn: newState.displayAddBtn
+      })
   }
 
   dismissBios = () => {

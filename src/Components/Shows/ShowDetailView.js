@@ -5,6 +5,7 @@ import MediaQuery from 'react-responsive';
 import moment from 'moment'
 
 const ShowDetailView = (props) => {
+  // console.log('ShowDetailView', props)
 
   const show = props.displayShow
   const headlinerBio = show.headlinerBio.split('<a')[0]
@@ -20,7 +21,7 @@ const ShowDetailView = (props) => {
 
   return (
     <div className='ShowDetailView'>
-      {show ?
+      {props.displayShow && !props.displayCart ?
         <div className={`content-section-details ${props.displayBorder ? 'add-border' : 'remove-border'}`}>
           <h3>Bus Rides to {show.headliner}</h3>
           <h4>{moment(show.date, "MM-DD-YYYY").format("dddd")} - {show.date} at {show.venue.split(' Amphitheatre')[0]} (and back)</h4>
@@ -73,7 +74,7 @@ const ShowDetailView = (props) => {
               <div className="row">
 
                 <div className="col-md-7">
-                  <div>Departure Location</div>
+                  <div className='mt-2'>Departure Location</div>
                   <form className="was-validated">
                     <div className="form-group">
                       <select id="departureLocation" className="custom-select mt-2" onChange={props.selectPickupLocationId} required>
@@ -95,7 +96,7 @@ const ShowDetailView = (props) => {
                 </div>
 
                 <div className="col-md-5 float-right mt-4">
-                  {props.displayQuantity ?
+                  {props.displayQuantity && props.ticketsAvailable ?
                     <React.Fragment>
                       <h5>
                         <span className='badge badge-secondary align-left'>
@@ -112,7 +113,7 @@ const ShowDetailView = (props) => {
                 <div className="col-md-7">
                   {props.displayQuantity ?
                     <React.Fragment>
-                      <div className="col-md-12">
+                      <div>
                         Ticket Quantity
                         </div>
                       <form className="was-validated">
@@ -121,7 +122,7 @@ const ShowDetailView = (props) => {
                             <button
                               className="btn btn-danger"
                               disabled="disabled"
-                              type="button">Sold Out!</button>
+                              type="button">Sold Out! Please try different pickup location</button>
                             :
                             <select
                               className="custom-select mt-2"
@@ -136,7 +137,7 @@ const ShowDetailView = (props) => {
                     </React.Fragment> : ''}
                 </div>
                 <div className="col-md-5 float-right mt-4 py-2">
-                  {props.displayAddBtn ?
+                  {props.displayAddBtn && props.displayQuantity ?
                     <div>
                       <h3><span className="badge badge-success">
                         Total: ${((props.pickupLocations.map(location => location.basePrice.toFixed())[0]) * (props.ticketQuantity) * 1.1).toFixed(2)}
