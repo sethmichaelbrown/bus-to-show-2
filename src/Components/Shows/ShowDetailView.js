@@ -22,7 +22,8 @@ const ShowDetailView = (props) => {
     <div className='ShowDetailView'>
       {show ?
         <div className={`content-section-details ${props.displayBorder ? 'add-border' : 'remove-border'}`}>
-          <h3 style={{ textAlign: "center" }}>{show.headliner}</h3>
+          <h3>Bus Rides to {show.headliner}</h3>
+          <h4>{moment(show.date, "MM-DD-YYYY").format("dddd")} - {show.date} at {show.venue.split(' Amphitheatre')[0]} (and back)</h4>
           <div className="list-group">
             {props.displayWarning ?
               <div className="list-group-item alert-item">
@@ -31,25 +32,8 @@ const ShowDetailView = (props) => {
               props.displaySuccess ?
                 <div className="list-group-item alert-item">
                   <div className="alert alert-success" role="alert"> Added {show.headliner} - {show.date} to cart!</div>
-                </div> :
-                <MediaQuery minWidth={768}>
-                  <div className="list-group-item">
-                    <div className="row">
-                      <div className="col-md-4" style={{ textAlign: "center" }}>Location</div>
-                      <div className="col-md-4" style={{ textAlign: "center" }}>Date</div>
-                      <div className="col-md-4" style={{ textAlign: "center" }}>Day of Week</div>
-                    </div>
-                  </div>
-                </MediaQuery>}
+                </div> : ''}
 
-
-            <div className="list-group-item">
-              <div className="row">
-                <div className="col-md-4" style={{ textAlign: "center" }}>{show.venue.split('Amphitheatre')[0]}</div>
-                <div className="col-md-4" style={{ textAlign: "center" }}>{show.date}</div>
-                <div className="col-md-4" style={{ textAlign: "center" }}>{moment(show.date, "MM-DD-YYYY").format("dddd")}</div>
-              </div>
-            </div>
             <div className="list-group-item">
               <div className='row container justify-content-center'>
                 <MediaQuery minWidth={768}>
@@ -80,7 +64,7 @@ const ShowDetailView = (props) => {
                     {show.headlinerImgLink ?
                       <img src={show.headlinerImgLink} alt="headliner" />
                       :
-                      <img src={logo} alt="bts-logo" className='bts-logo-sDV'/>
+                      <img src={logo} alt="bts-logo" className='bts-logo-sDV' />
                     }
                   </div>
                 </div>
