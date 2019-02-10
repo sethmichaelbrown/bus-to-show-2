@@ -6,6 +6,7 @@ import MediaQuery from 'react-responsive'
 import logo from '../../Images/Logos/bts-logo-gray.png'
 
 const Cart = (props) => {
+  console.log('Cart', props)
 
   let savings = Number(props.afterDiscountObj.totalSavings)
   let totalSavings = savings.toFixed(2)
@@ -17,29 +18,17 @@ const Cart = (props) => {
       <React.Fragment>
         {props.inCart.length === 0 ?
           <div className="nothing-in-cart">
-            <div className="list-group">
-              <div className="list-group-item lgi-header">
-                <MediaQuery minWidth={768}>
-                  <div className="row">
-                    <div className="col-md-1">Show</div>
-                    <div className="col-md-4">Departure Location</div>
-                    <div className="col-md-2">Date</div>
-                    <div className="col-md-3">Quantity</div>
-                  </div>
-                </MediaQuery>
+            <div className="row container nothing-in-cart-text">
+              <div className="col-md-12 mt-3">
+                <h1>Nothing in Cart!</h1>
               </div>
-              <div className="row container nothing-in-cart-text">
-                <div className="col-md-12 mt-3">
-                  <h1>Nothing in Cart!</h1>
-                </div>
-                <div className="col-md-12 mt-3">
-                  <img
-                    className='nothing-in-cart-image'
-                    src={logo}
-                    alt="bts-logo"
-                    width="233"
-                    height="100" />
-                </div>
+              <div className="col-md-12 mt-3">
+                <img
+                  className='nothing-in-cart-image'
+                  src={logo}
+                  alt="bts-logo"
+                  width="233"
+                  height="100" />
               </div>
             </div>
           </div>

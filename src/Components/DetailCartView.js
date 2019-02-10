@@ -7,7 +7,7 @@ import ShowList from '../Components/Shows/ShowList'
 import logo from '../Images/Logos/bts-logo-gray.png'
 
 const DetailCartView = (props) => {
-  console.log('DCV', props)
+  // console.log('DCV', props)
   // const time = props.timeLeftInCart
 
   // //For Tiny Timer
@@ -54,7 +54,7 @@ const DetailCartView = (props) => {
               ticketsAvailable={props.ticketsAvailable} />
           </div>
         </MediaQuery>
-        {props.displayCart && props.inCart.length > 0 ?
+        {props.displayCart ?
           <Cart
             afterDiscountObj={props.afterDiscountObj}
             checked={props.checked}
