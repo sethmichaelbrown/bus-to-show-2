@@ -8,7 +8,7 @@ const ShowDetailView = (props) => {
 
   const show = props.displayShow
   const headlinerBio = show.headlinerBio.split('<a')[0]
-  const noBio = 'No bio information available, so enjoy a kitten on us.'
+
 
   let basePrice;
 
@@ -18,15 +18,12 @@ const ShowDetailView = (props) => {
 
 
 
-
-  // placekitten.com/width/height of photo to be displayed
-  const placeKitten = 'http://placekitten.com/174/174'
-
   return (
     <div className='ShowDetailView'>
       {show ?
         <div className={`content-section-details ${props.displayBorder ? 'add-border' : 'remove-border'}`}>
-          <h3 style={{ textAlign: "center" }}>{show.headliner}</h3>
+          <h3>Bus Rides to {show.headliner}</h3>
+          <h4>{moment(show.date, "MM-DD-YYYY").format("dddd")} - {show.date} at {show.venue.split(' Amphitheatre')[0]} (and back)</h4>
           <div className="list-group">
             {props.displayWarning ?
               <div className="list-group-item alert-item">
@@ -35,25 +32,8 @@ const ShowDetailView = (props) => {
               props.displaySuccess ?
                 <div className="list-group-item alert-item">
                   <div className="alert alert-success" role="alert"> Added {show.headliner} - {show.date} to cart!</div>
-                </div> :
-                <MediaQuery minWidth={768}>
-                  <div className="list-group-item">
-                    <div className="row">
-                      <div className="col-md-4" style={{ textAlign: "center" }}>Location</div>
-                      <div className="col-md-4" style={{ textAlign: "center" }}>Date</div>
-                      <div className="col-md-4" style={{ textAlign: "center" }}>Day of Week</div>
-                    </div>
-                  </div>
-                </MediaQuery>}
+                </div> : ''}
 
-
-            <div className="list-group-item">
-              <div className="row">
-                <div className="col-md-4" style={{ textAlign: "center" }}>{show.venue.split('Amphitheatre')[0]}</div>
-                <div className="col-md-4" style={{ textAlign: "center" }}>{show.date}</div>
-                <div className="col-md-4" style={{ textAlign: "center" }}>{moment(show.date, "MM-DD-YYYY").format("dddd")}</div>
-              </div>
-            </div>
             <div className="list-group-item">
               <div className='row container justify-content-center'>
                 <MediaQuery minWidth={768}>
@@ -62,7 +42,13 @@ const ShowDetailView = (props) => {
                       <div>
                         <div className='row'>
                           <div className="col-md-12">
-                            {noBio}
+                            {<p>
+                              The concept for Bus to Show was conceived by our founder several years in the future, and then planted in the mind of his younger self (2007) through inter-temporal-telepathy. Bus to Show is, at its core, designed to save the lives of a few future political and spiritual leaders, who would otherwise have been killed in their youth by impaired drivers on their way home from concerts. At the same time, Bus to Show works to reduce the amount of fuel consumption that results from events, which, in turn, will delay the destruction of the Earth long enough for the saved leaders to come of-age and implement their plans for reaching a sustained equilibrium between industry and environment.
+                              <br />
+                              <br />
+                              Bus to Show is a Colorado Nonprofit Corporation with the ability to accept 501(c)(3) tax-exempt donations through its fiscal sponsor partnership with The Nowak Society.
+                            </p>
+                            }
                           </div>
                         </div>
                         <div className="row">
@@ -74,8 +60,12 @@ const ShowDetailView = (props) => {
                   </div>
                 </MediaQuery>
                 <div className="col-md-4 artist-image">
-                  <div className="row justify-content-center">
-                    <img src={show.headlinerImgLink ? show.headlinerImgLink : placeKitten} alt="headliner" />
+                  <div className="row bts-logo-flex">
+                    {show.headlinerImgLink ?
+                      <img src={show.headlinerImgLink} alt="headliner" />
+                      :
+                      <img src={logo} alt="bts-logo" className='bts-logo-sDV' />
+                    }
                   </div>
                 </div>
               </div>
