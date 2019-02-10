@@ -85,9 +85,11 @@ const DetailCartView = (props) => {
               closeAlert={props.closeAlert}
               displayConfirmRemove={props.displayConfirmRemove}
               findDiscountCode={props.findDiscountCode}
+              firstBusLoad={props.firstBusLoad}
               getPickupParty={props.getPickupParty}
               handleCheck={props.handleCheck}
               handleSubmit={props.handleSubmit}
+              lastDepartureTime={props.lastDepartureTime}
               makePurchase={props.makePurchase}
               pickupLocationId={props.pickupLocationId}
               pickupLocations={props.pickupLocations}

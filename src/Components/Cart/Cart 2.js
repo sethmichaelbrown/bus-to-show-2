@@ -33,24 +33,22 @@ const Cart = (props) => {
           </MediaQuery>
           <ul className="list-group">
             <CartItem
-              afterDiscountObj={props.afterDiscountObj}
-              closeAlert={props.closeAlert}
-              confirmedRemove={props.confirmedRemove}
               confirmRemove={props.confirmRemove}
               displayConfirmRemove={props.displayConfirmRemove}
-              firstBusLoad={props.firstBusLoad}
+              confirmedRemove={props.confirmedRemove}
+              closeAlert={props.closeAlert}
               getPickupParty={props.getPickupParty}
-              lastDepartureTime={props.lastDepartureTime}
-              pickupLocationId={props.pickupLocationId}
+              shows={props.shows}
+              totalCost={Number(props.totalCost).toFixed(2)}
               pickupLocations={props.pickupLocations}
-              pickupParties={props.pickupParties}
               quantityChange={props.quantityChange}
               removeFromCart={props.removeFromCart}
-              shows={props.shows}
+              pickupLocationId={props.pickupLocationId}
+              pickupParties={props.pickupParties}
               showsInCart={props.showsInCart}
               ticketPrice={props.ticketPrice}
-              ticketQuantity={props.ticketQuantity}
-              totalCost={Number(props.totalCost).toFixed(2)} />
+              afterDiscountObj={props.afterDiscountObj}
+              ticketQuantity={props.ticketQuantity} />
           </ul>
           {props.showsInCart ?
             <div className="list-group-item" >
@@ -142,14 +140,14 @@ const Cart = (props) => {
                     </div>
 
                     <div className='row display-flex'>
-                      {savings ?
-                        <div className="col-4">
-                          <h5>Total savings:
+                    {savings ?
+                      <div className="col-4">
+                        <h5>Total savings:
                           <span className="badge badge-secondary ml-1">{`$${savings.toFixed(2)}`}</span>
-                          </h5>
-                        </div>
-                        : ""
-                      }
+                        </h5>
+                      </div>
+                      : ""
+                    }
                     </div>
 
 
@@ -174,7 +172,7 @@ const Cart = (props) => {
                             </h3>
                           </div>
 
-                        </div>
+                      </div>
                       </MediaQuery>
                     </div>
 

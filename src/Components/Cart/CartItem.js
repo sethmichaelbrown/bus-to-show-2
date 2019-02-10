@@ -3,52 +3,18 @@ import moment from 'moment'
 import '../../App.css';
 
 const CartItem = (props) => {
-  const pickupTime = props.getPickupParty(props.showsInCart[0].id, props.pickupLocationId)
-  const pickupLocation = props.pickupLocations.find(location => parseInt(location.id) === parseInt(props.pickupLocationId))
-  const stringStartTime = props.showsInCart[0].startTime.split(":").join("").slice(0, 4)
-  const showStartTime = Number.parseInt(props.showsInCart[0].startTime.split(":").join("").slice(0, 4)) - 1200
-  // const pickupTime=showStartTime+''
-  // const pickupHour=pickupTime.length===4? pickupTime.slice(0,2) : pickupTime.slice(0,1)
-  // const pickupMinute=pickupTime.length===3? pickupTime.slice(1): pickupTime.slice(2)
-  // const pickupAddress=pickupLocation.locationName
-  // let busstop
-  // switch (pickupAddress) {
-  //   case "Boulder - University Hill Cheba Hut":
-  //     showStartTime%100===0? busstop=showStartTime-170: busstop=showStartTime-130;
-  //     break;
-  //   case "1744 E Evans Ave, Denver, CO":
-  //     showStartTime%100===0? busstop=showStartTime-200: busstop=showStartTime-200;
-  //     break;
-  //   case "Denver - Colfax/Cap Hill Cheba Hut":
-  //     showStartTime%100===0? busstop=showStartTime-170: busstop=showStartTime-130;
-  //     break;
-  //   case "Denver - Champa/Downtown Cheba Hut":
-  //     showStartTime%100===0? busstop=showStartTime-170: busstop=showStartTime-130
-  //     break;
-  //   case "Denver - RiNo Epic Brewing":
-  //     showStartTime%100===0? busstop=showStartTime-155: busstop=showStartTime-115
-  //     break;
-  //   case "Longmont - Main St. Cheba Hut":
-  //     showStartTime%100===0? busstop=showStartTime-170: busstop=showStartTime-130
-  //     break;
-  //   case "Fort Collins - Old Town Illegal Pete's":
-  //     showStartTime%100===0? busstop=showStartTime-370: busstop=showStartTime-330
-  //     break;
-  //   default:
-  //     busstop="2 hours before showtime"
-  //
-  // }
-  //
-  // let busstopString=busstop+''
-  // let busStopTime=busstopString.length===4? busstopString.slice(0,2)+ ":"+ busstopString.slice(2) : busstopString.slice(0,1) + ":" + busstopString.slice(1)
+  console.log('CI', props)
 
-  const pickupParty = props.pickupParties.find(party => party)
+  const pickupTime = props.lastDepartureTime
+  const firstBusLoad = props.firstBusLoad
+  const pickupLocation = props.pickupLocations.find(location => parseInt(location.id) === parseInt(props.pickupLocationId))
+
   let time1 = pickupTime.split(':')
   let time2 = time1[1].split(' PM')[0] - 15
   let time3 = time1[0].concat(time2)
   if (time2 < 0) {
     time2 = 45
-    time3 =[(time3.split('-')[0] - 1)].concat(time2).join('')
+    time3 = [(time3.split('-')[0] - 1)].concat(time2).join('')
   }
 
   const defaultFirstBus = moment(time3, 'hmm').format('h:mm')
@@ -70,18 +36,14 @@ const CartItem = (props) => {
             <div className="col-md-1 cart-item-font"
               id={show.id}><button onClick={props.removeFromCart} type="button" className="btn-sm btn-outline-danger remove-border"><strong> X </strong></button>
             </div>
-
-            {/* <div className="col-md-6 cart-item-font">
-              ${((Number(props.totalCost) * 10 / 11) / Number(props.ticketQuantity)).toFixed()}.00 per ticket + ${(((Number(props.totalCost) * 10 / 11) / Number(props.ticketQuantity)) / 10).toFixed(2)} 10% processing fee
-              </div> */}
-
+            
             <br />
             <br />
 
             <div className="row mt-3">
               <div className="col-md-12 list-item-font">
-                Bus arrives around {pickupParty.firstBusLoadTime ?
-                  pickupParty.firstBusLoadTime : defaultFirstBus} PM
+                Bus arrives around {firstBusLoad ?
+                  firstBusLoad : defaultFirstBus} PM
               </div>
               <div className="col-md-12 list-item-font red-text mt-2">
                 Please arrive at the bus no later than {pickupTime}
