@@ -75,9 +75,9 @@ const ShowDetailView = (props) => {
                 </MediaQuery>
                 <div className="col-md-4 artist-image">
                   <div className={`row justify-content-center ${show.headlinerImgLink ? '' : 'bts-logo-flex'}`}>
-                  {show.headlinerImgLink ? 
-                    <img src={show.headlinerImgLink} alt="headliner-img" /> :
-                    <img src={logo} alt="bts-logo" className='logo-img'/>}
+                    {show.headlinerImgLink ?
+                      <img src={show.headlinerImgLink} alt="headliner-img" /> :
+                      <img src={logo} alt="bts-logo" className='logo-img' />}
                   </div>
                 </div>
               </div>
@@ -123,27 +123,29 @@ const ShowDetailView = (props) => {
               <div className="row">
                 <div className="col-md-7">
                   {props.displayQuantity ?
-                    <React.Fragment>
-                      <div className="col-md-12">
-                        Ticket Quantity
+                      <div className="row">
+                        <div className="col-md-6">
+                          Ticket Quantity
                         </div>
-                      <form className="was-validated">
-                        <div className="form-group">
-                          {props.ticketsAvailable.length === 0 ?
-                            <button className="btn btn-danger" disabled="disabled" type="button">Sold Out!</button>
-                            :
-                            <select
-                              className="custom-select mt-2"
-                              onChange={props.selectTicketQuantity}
-                              disabled={props.ticketsAvailable.length === 0 ? 'disabled' : ''}
-                              required>
-                              <option value="">Select Quantity</option>
-                              {props.ticketsAvailable.map(number => <option key={number} value={number}>{number}</option>)}
-                            </select>}
-                        </div>
-                      </form>
-                    </React.Fragment> : ''}
+                        <form className="was-validated">
+                          <div className="form-group">
+                            {props.ticketsAvailable.length === 0 ?
+                              <button className="btn btn-danger" disabled="disabled" type="button">Sold Out!</button>
+                              :
+                              <select
+                                className="custom-select mt-2"
+                                onChange={props.selectTicketQuantity}
+                                disabled={props.ticketsAvailable.length === 0 ? 'disabled' : ''}
+                                required>
+                                <option value="">Select Quantity</option>
+                                {props.ticketsAvailable.map(number => <option key={number} value={number}>{number}</option>)}
+                              </select>}
+                          </div>
+                        </form>
+                      </div> : ''}
                 </div>
+
+
                 <div className="col-md-5 float-right mt-4 py-2">
                   {props.displayAddBtn ?
                     <div>

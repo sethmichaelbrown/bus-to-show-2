@@ -9,7 +9,7 @@ import moment from 'moment'
 import './App.css';
 
 // Components
-import AboutUs from './Components/AboutUs/AboutUs.js'
+import Aboutus from './Components/Aboutus/Aboutus.js'
 import Header from './Components/Header'
 import ShowList from './Components/Shows/ShowList'
 import Loading from './Components/Loading'
@@ -43,7 +43,7 @@ class App extends Component {
     checked: false,
     confirmRemove: false,
     dateIcon: true,
-    displayAboutUs: false,
+    displayAboutus: false,
     displayAddBtn: false,
     displayBios: false,
     displayBorder: false,
@@ -560,12 +560,12 @@ class App extends Component {
     this.setState({ displayBios: true })
   }
 
-  hideAboutUs = () => {
-    this.setState({ displayAboutUs: false })
+  hideAboutus = () => {
+    this.setState({ displayAboutus: false })
   }
 
-  showAboutUs = () => {
-    this.setState({ displayAboutUs: true })
+  showAboutus = () => {
+    this.setState({ displayAboutus: true })
   }
 
   render() {
@@ -596,7 +596,7 @@ class App extends Component {
                   showsExpandClick={this.showsExpandClick} />
               </React.Fragment> :
 
-              this.state.displayAboutUs ?
+              this.state.displayAboutus ?
                 <React.Fragment>
                   <Header
                     loggedIn={this.state.loggedIn}
@@ -604,11 +604,11 @@ class App extends Component {
                     toggleLoggedIn={this.toggleLoggedIn}
                     getReservations={this.getReservations}
                     myReservationsView={this.state.myReservationsView} />
-                  <AboutUs
+                  <Aboutus
                     dismissBios={this.dismissBios}
                     readBios={this.readBios}
                     displayBios={this.state.displayBios}
-                    hideAboutUs={this.hideAboutUs} />
+                    hideAboutus={this.hideAboutus} />
                 </React.Fragment>
                 :
                 this.state.shows ?
@@ -675,8 +675,8 @@ class App extends Component {
                               validatedElements={this.state.validatedElements} />
                             :
                             <SponsorBox
-                              showAboutUs={this.showAboutUs}
-                              displayAboutUs={this.state.displayAboutUs} />}
+                              showAboutus={this.showAboutus}
+                              displayAboutus={this.state.displayAboutus} />}
                         </MediaQuery>
 
                         <MediaQuery maxWidth={767}>

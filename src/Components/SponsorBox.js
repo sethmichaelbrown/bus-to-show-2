@@ -23,7 +23,7 @@ const SponsorBox = (props) => {
         </div>
       </div>
       <div className="row justify-content-center text-align-center">
-        {props.displayAboutUs? '': <button className="btn-lg detail-btn btn-outline-light" onClick={props.showAboutUs}>Read About the Team</button>}
+        {props.displayAboutus? '': <button className="btn-lg detail-btn btn-outline-light" onClick={props.showAboutus}>Read About the Team</button>}
       </div>
     </div>
 
