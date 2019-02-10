@@ -307,6 +307,12 @@ class App extends Component {
     })
   }
 
+  handleWarning = () => {
+    const newState = { ...this.state }
+    newState.displayWarning = true
+    this.setState({displayWarning: newState.displayWarning})
+  }
+
   addToCart = async () => {
     const newState = { ...this.state }
     const pickupLocation = newState.pickupLocations.filter(location => parseInt(location.id) === parseInt(this.state.pickupLocationId))[0]
@@ -702,6 +708,7 @@ class App extends Component {
                               displayShow={this.state.displayShow}
                               displaySuccess={this.state.displaySuccess}
                               displayViewCartBtn={this.state.displayViewCartBtn}
+                              displayWarning={this.state.displayWarning}
                               filterString={this.state.filterString}
                               findDiscountCode={this.findDiscountCode}
                               firstBusLoad={this.state.firstBusLoad}
@@ -736,6 +743,7 @@ class App extends Component {
                               addBorder={this.addBorder}
                               displayShow={this.state.displayShow}
                               filterString={this.state.filterString}
+                              nCart={this.state.inCart}
                               searchShows={this.searchShows}
                               shows={this.state.shows}
                               showsExpandClick={this.showsExpandClick}
@@ -754,6 +762,8 @@ class App extends Component {
                             addBorder={this.addBorder}
                             displayShow={this.state.displayShow}
                             filterString={this.state.filterString}
+                            handleWarning={this.handleWarning}
+                            inCart={this.state.inCart}
                             searchShows={this.searchShows}
                             shows={this.state.shows}
                             showsExpandClick={this.showsExpandClick}
