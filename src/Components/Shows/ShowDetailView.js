@@ -8,7 +8,7 @@ const ShowDetailView = (props) => {
 
   const show = props.displayShow
   const headlinerBio = show.headlinerBio.split('<a')[0]
-
+  const noBio = 'No bio information available, so enjoy a kitten on us.'
 
   let basePrice;
 
@@ -17,11 +17,16 @@ const ShowDetailView = (props) => {
   }
 
 
+
+
+  // placekitten.com/width/height of photo to be displayed
+  const placeKitten = 'http://placekitten.com/174/174'
+
   return (
     <div className='ShowDetailView'>
       {show ?
         <div className={`content-section-details ${props.displayBorder ? 'add-border' : 'remove-border'}`}>
-          <h4>Bus Rides to {show.headliner} at {show.venue.split('Amphitheatre').join('')}</h4>
+          <h3 style={{ textAlign: "center" }}>{show.headliner}</h3>
           <div className="list-group">
             {props.displayWarning ?
               <div className="list-group-item alert-item">
@@ -57,12 +62,7 @@ const ShowDetailView = (props) => {
                       <div>
                         <div className='row'>
                           <div className="col-md-12">
-                            <p>
-                              The concept for Bus to Show was conceived by our founder several years in the future, and then planted in the mind of his younger self (2007) through inter-temporal-telepathy. Bus to Show is, at its core, designed to save the lives of a few future political and spiritual leaders, who would otherwise have been killed in their youth by impaired drivers on their way home from concerts. At the same time, Bus to Show works to reduce the amount of fuel consumption that results from events, which, in turn, will delay the destruction of the Earth long enough for the saved leaders to come of-age and implement their plans for reaching a sustained equilibrium between industry and environment.
-                              <br />
-                              <br />
-                              Bus to Show is a Colorado Nonprofit Corporation with the ability to accept 501(c)(3) tax-exempt donations through its fiscal sponsor partnership with The Nowak Society.
-                            </p>
+                            {noBio}
                           </div>
                         </div>
                         <div className="row">
@@ -74,10 +74,8 @@ const ShowDetailView = (props) => {
                   </div>
                 </MediaQuery>
                 <div className="col-md-4 artist-image">
-                  <div className={`row justify-content-center ${show.headlinerImgLink ? '' : 'bts-logo-flex'}`}>
-                    {show.headlinerImgLink ?
-                      <img src={show.headlinerImgLink} alt="headliner-img" /> :
-                      <img src={logo} alt="bts-logo" className='logo-img' />}
+                  <div className="row justify-content-center">
+                    <img src={show.headlinerImgLink ? show.headlinerImgLink : placeKitten} alt="headliner" />
                   </div>
                 </div>
               </div>
@@ -123,29 +121,30 @@ const ShowDetailView = (props) => {
               <div className="row">
                 <div className="col-md-7">
                   {props.displayQuantity ?
-                      <div className="row">
-                        <div className="col-md-6">
-                          Ticket Quantity
+                    <React.Fragment>
+                      <div className="col-md-12">
+                        Ticket Quantity
                         </div>
-                        <form className="was-validated">
-                          <div className="form-group">
-                            {props.ticketsAvailable.length === 0 ?
-                              <button className="btn btn-danger" disabled="disabled" type="button">Sold Out!</button>
-                              :
-                              <select
-                                className="custom-select mt-2"
-                                onChange={props.selectTicketQuantity}
-                                disabled={props.ticketsAvailable.length === 0 ? 'disabled' : ''}
-                                required>
-                                <option value="">Select Quantity</option>
-                                {props.ticketsAvailable.map(number => <option key={number} value={number}>{number}</option>)}
-                              </select>}
-                          </div>
-                        </form>
-                      </div> : ''}
+                      <form className="was-validated">
+                        <div className="form-group">
+                          {props.ticketsAvailable.length === 0 ?
+                            <button
+                              className="btn btn-danger"
+                              disabled="disabled"
+                              type="button">Sold Out!</button>
+                            :
+                            <select
+                              className="custom-select mt-2"
+                              onChange={props.selectTicketQuantity}
+                              disabled={props.ticketsAvailable.length === 0 ? 'disabled' : ''}
+                              required>
+                              <option value="">Select Quantity</option>
+                              {props.ticketsAvailable.map(number => <option key={number} value={number}>{number}</option>)}
+                            </select>}
+                        </div>
+                      </form>
+                    </React.Fragment> : ''}
                 </div>
-
-
                 <div className="col-md-5 float-right mt-4 py-2">
                   {props.displayAddBtn ?
                     <div>
