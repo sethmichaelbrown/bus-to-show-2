@@ -47,6 +47,7 @@ const DetailCartView = (props) => {
             addToCart={props.addToCart}
             displayAddBtn={props.displayAddBtn}
             displayBorder={props.displayBorder}
+            displayCart={props.displayCart}
             displayQuantity={props.displayQuantity}
             displayShow={props.displayShow}
             displaySuccess={props.displaySuccess}

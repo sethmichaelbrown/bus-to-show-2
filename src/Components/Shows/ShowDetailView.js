@@ -5,6 +5,7 @@ import MediaQuery from 'react-responsive';
 import moment from 'moment'
 
 const ShowDetailView = (props) => {
+  console.log(props)
 
   const show = props.displayShow
   const headlinerBio = show.headlinerBio.split('<a')[0]
@@ -20,7 +21,7 @@ const ShowDetailView = (props) => {
 
   return (
     <div className='ShowDetailView'>
-      {show ?
+      {props.displayShow && !props.displayCart ?
         <div className={`content-section-details ${props.displayBorder ? 'add-border' : 'remove-border'}`}>
           <h3>Bus Rides to {show.headliner}</h3>
           <h4>{moment(show.date, "MM-DD-YYYY").format("dddd")} - {show.date} at {show.venue.split(' Amphitheatre')[0]} (and back)</h4>
