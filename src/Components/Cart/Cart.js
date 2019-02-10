@@ -16,23 +16,28 @@ const Cart = (props) => {
       <React.Fragment>
         <div className="list-group">
           <MediaQuery minWidth={768}>
-            { props.displayWarning ||props.purchasePending||props.purchaseSuccessful ?
-             <div className="row">
-              <div className="col-md-12 mt-2">
-                {props.displayWarning ? <div className="alert alert-warning" role="alert">Please either complete purchase of item in cart, or remove it to procceed.</div> : ''}
-                {props.purchasePending ? <div className="alert alert-primary" role="alert"> Purchase Pending... </div> : ''}
-                {props.purchaseSuccessful ? <div className="alert alert-success" role="alert"> Purchase Successful... </div> : ''}
-              </div>
-            </div>
-            :
-            <div className="list-group-item lgi-header">
+            {props.displayWarning || props.purchasePending || props.purchaseSuccessful || props.displayConfirmRemove ?
               <div className="row">
-                <div className="col-md-4">Show</div>
-                <div className="col-md-4">Departure Location</div>
-                <div className="col-md-2">Date</div>
-                <div className="col-md-1">Qty</div>
+                <div className="col-md-12 mt-2">
+                  {props.displayWarning ? <div className="alert alert-warning" role="alert">Please either complete purchase of item in cart, or remove it to procceed.</div> : ''}
+                  {props.purchasePending ? <div className="alert alert-primary" role="alert"> Purchase Pending... </div> : ''}
+                  {props.purchaseSuccessful ? <div className="alert alert-success" role="alert"> Purchase Successful... </div> : ''}
+                  {props.displayConfirmRemove ? <div className="alert alert-danger" role="alert">
+                    Are you sure you want to remove item from cart?
+                    <button onClick={props.confirmedRemove} type="button" className="btn btn-danger ml-1">Remove</button>
+                    <button onClick={props.closeAlert} type="button" className="btn btn-outline-secondary ml-1">Cancel</button>
+                  </div> : ''}
+                </div>
               </div>
-            </div>}
+              :
+              <div className="list-group-item lgi-header">
+                <div className="row">
+                  <div className="col-md-4">Show</div>
+                  <div className="col-md-4">Departure Location</div>
+                  <div className="col-md-2">Date</div>
+                  <div className="col-md-1">Qty</div>
+                </div>
+              </div>}
           </MediaQuery>
           <ul className="list-group">
             <CartItem

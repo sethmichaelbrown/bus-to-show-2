@@ -271,8 +271,17 @@ class App extends Component {
     else {
       newState.displayCart = false
     }
+
+    if(newState.inCart.length > 0 && event.target.id === 'showDetails-tab'){
+      newState.displayWarning = true
+    }
+    
     newState.displaySuccess = false
-    this.setState({ displaySuccess: newState.displaySuccess, displayCart: newState.displayCart })
+    this.setState({
+      displaySuccess: newState.displaySuccess,
+      displayCart: newState.displayCart,
+      displayWarning: newState.displayWarning
+    })
   }
 
   // Show Functions
@@ -310,7 +319,7 @@ class App extends Component {
   handleWarning = () => {
     const newState = { ...this.state }
     newState.displayWarning = true
-    this.setState({displayWarning: newState.displayWarning})
+    this.setState({ displayWarning: newState.displayWarning })
   }
 
   addToCart = async () => {
@@ -487,8 +496,12 @@ class App extends Component {
 
   removeFromCart = () => {
     const newState = { ...this.state }
+    newState.displayWarning = false
     newState.displayConfirmRemove = true
-    this.setState({ displayConfirmRemove: newState.displayConfirmRemove })
+    this.setState({
+      displayConfirmRemove: newState.displayConfirmRemove,
+      displayWarning: newState.displayWarning
+    })
   }
 
   confirmedRemove = () => {
@@ -496,10 +509,12 @@ class App extends Component {
     newState.inCart = []
     newState.displaySuccess = false
     newState.displayConfirmRemove = false
+    newState.displayWarning = false
     this.setState({
       inCart: newState.inCart,
       displaySuccess: newState.displaySuccess,
-      displayConfirmRemove: newState.displayConfirmRemove
+      displayConfirmRemove: newState.displayConfirmRemove,
+      displayWarning: newState.displayWarning 
     })
   }
 
