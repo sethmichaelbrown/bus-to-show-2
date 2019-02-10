@@ -576,8 +576,17 @@ class App extends Component {
   }
 
   makePurchase = (event) => {
+    const newState = {...this.state}
     event.preventDefault()
-    this.setState({ purchasePending: true })
+    newState.displayQuantity = false
+    newState.displayAddBtn = false
+    newState.purchasePending = true
+
+    this.setState({ 
+      purchasePending: newState.purchasePending, 
+      displayQuantity: newState.displayQuantity,
+      displayAddBtn: newState.displayAddBtn
+      })
   }
 
   dismissBios = () => {

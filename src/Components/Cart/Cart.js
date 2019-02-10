@@ -20,7 +20,12 @@ const Cart = (props) => {
           <div className="nothing-in-cart">
             <div className="row container nothing-in-cart-text">
               <div className="col-md-12 mt-3">
-                <h1>Nothing in Cart!</h1>
+                {props.purchaseSuccessful ?
+                  <div>
+                    <h1>Thank you for your purchase!</h1>
+                    <h3>You should receive a confirmation email shortly</h3>
+                  </div>
+                  : <h1>Nothing in Cart!</h1>}
               </div>
               <div className="col-md-12 mt-3">
                 <img
