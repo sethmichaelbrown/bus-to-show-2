@@ -3,7 +3,8 @@ import '../../App.css';
 import Show from './Show'
 import MediaQuery from 'react-responsive';
 
-const Shows = (props) => {
+const ShowList = (props) => {
+  // console.log('showlist', props)
 
   return (
     <div className='Shows'>
@@ -44,6 +45,8 @@ const Shows = (props) => {
                       addBorder={props.addBorder}
                       displayShow={props.displayShow}
                       filterString={props.filterString}
+                      handleWarning={props.handleWarning}
+                      inCart={props.inCart}
                       shows={props.shows}
                       showsExpandClick={props.showsExpandClick} />
                   </MediaQuery>
@@ -54,6 +57,8 @@ const Shows = (props) => {
                           addBorder={props.addBorder}
                           displayShow={props.displayShow}
                           filterString={props.filterString}
+                          handleWarning={props.handleWarning}
+                          inCart={props.inCart}
                           shows={props.shows}
                           showsExpandClick={props.showsExpandClick} />
                       </div>
@@ -72,4 +77,4 @@ const Shows = (props) => {
   )
 }
 
-export default Shows;
+export default ShowList;

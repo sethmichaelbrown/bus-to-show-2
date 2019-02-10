@@ -71,6 +71,7 @@ const DetailCartView = (props) => {
               addBorder={props.addBorder}
               displayShow={props.displayShow}
               filterString={props.filterString}
+              inCart={props.inCart}
               shows={props.shows}
               showsExpandClick={props.showsExpandClick}
               ticketsAvailable={props.ticketsAvailable} />
@@ -84,6 +85,7 @@ const DetailCartView = (props) => {
               confirmedRemove={props.confirmedRemove}
               closeAlert={props.closeAlert}
               displayConfirmRemove={props.displayConfirmRemove}
+              displayWarning={props.displayWarning}
               findDiscountCode={props.findDiscountCode}
               firstBusLoad={props.firstBusLoad}
               getPickupParty={props.getPickupParty}

@@ -18,6 +18,7 @@ const Cart = (props) => {
           <MediaQuery minWidth={768}>
             <div className="row">
               <div className="col-md-12">
+                {props.displayWarning ? <div className="alert alert-warning" role="alert">Please either complete purchase of item in cart, or remove it to procceed.</div> : ''}
                 {props.purchasePending ? <div className="alert alert-primary" role="alert"> Purchase Pending... </div> : ''}
                 {props.purchaseSuccessful ? <div className="alert alert-success" role="alert"> Purchase Successful... </div> : ''}
               </div>

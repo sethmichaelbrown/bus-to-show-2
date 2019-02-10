@@ -3,7 +3,8 @@ import '../../App.css';
 import moment from 'moment'
 import MediaQuery from 'react-responsive';
 
-const Shows = (props) => {
+const Show = (props) => {
+  // console.log('show', props)
   const filterString = props.filterString.toLowerCase()
   let filterShows = props.shows.filter(show => show.headliner.toLowerCase().includes(filterString))
 
@@ -19,10 +20,10 @@ const Shows = (props) => {
             <MediaQuery minWidth={768}>
               <div className="col-md-3 list-item-font" id={show.id}>{show.date} <br /> {moment(show.date, "MM-DD-YYYY").format("dddd")}</div>
               <div className="col-md-7 list-item-font" id={show.id}>
-                <strong>{show.headliner}</strong> <br /> 
-                  {show.support1 ? <React.Fragment> with {show.support1} <br /> </React.Fragment> : ''} 
-                  {show.support2 ? <React.Fragment> and more! <br /> </React.Fragment> : ''}    
-                  {show.venue}
+                <strong>{show.headliner}</strong> <br />
+                {show.support1 ? <React.Fragment> with {show.support1} <br /> </React.Fragment> : ''}
+                {show.support2 ? <React.Fragment> and more! <br /> </React.Fragment> : ''}
+                {show.venue}
               </div>
             </MediaQuery>
             <MediaQuery maxWidth={768}>
@@ -31,13 +32,21 @@ const Shows = (props) => {
                 <strong>{show.headliner}</strong> <br />{show.venue}
               </div>
             </MediaQuery>
-            <button
-              id={show.id}
-              // onClick={props.addBorder}
-              onClick={props.showsExpandClick}
-              type="button"
-              className='btn detail-btn my-4 col-md-2'>Details</button>
 
+            {props.inCart.length > 0 ?
+              <button
+                id={show.id}
+                // onClick={props.addBorder}
+                onClick={props.handleWarning}
+                type="button"
+                className='btn detail-btn my-4 col-md-2'>Details</button>
+              :
+              <button
+                id={show.id}
+                // onClick={props.addBorder}
+                onClick={props.showsExpandClick}
+                type="button"
+                className='btn detail-btn my-4 col-md-2'>Details</button>}
           </div>
 
         </li>) :
@@ -58,4 +67,4 @@ const Shows = (props) => {
   )
 }
 
-export default Shows;
+export default Show;
