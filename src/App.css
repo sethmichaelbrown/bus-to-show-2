@@ -354,6 +354,23 @@ p {
   opacity: .75;
 }
 
+.bts-logo-sDV{
+  height: 60px;
+  width: 150px;
+}
+
+.about-us-flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.future-selves {
+  height: 75vh;
+  width: 45vw;
+}
+
 @media only screen and (max-width:300px) {
   .biophoto {
     display: none;

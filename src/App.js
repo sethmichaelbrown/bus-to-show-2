@@ -152,6 +152,7 @@ class App extends Component {
   }
 
   selectTicketQuantity = (event) => {
+
     const newState = { ...this.state }
     if (event.target.value) {
       newState.displayAddBtn = true
@@ -160,6 +161,10 @@ class App extends Component {
       newState.displayAddBtn = false
     }
     newState.ticketQuantity = event.target.value
+    const sPickupId = parseInt(this.state.pickupLocationId)
+    const sEventId = parseInt(this.state.displayShow.id)
+    const pickupParty = this.state.pickupParties.find(party => party.pickupLocationId === sPickupId && party.eventId === sEventId)
+    console.log(pickupParty)
     const pickupLocation = newState.pickupLocations.filter(location => parseInt(location.id) === parseInt(this.state.pickupLocationId))[0]
     const subTotal = (Number(pickupLocation.basePrice) * Number(event.target.value))
     const total = ((Number(subTotal) * .1) + Number(subTotal)).toFixed(2)
@@ -318,8 +323,8 @@ class App extends Component {
     const pickupParty = this.state.pickupParties.find(party => party.pickupLocationId === sPickupId && party.eventId === sEventId)
     const firstBusLoad = pickupParty.firstBusLoadTime
     const lastDepartureTime = moment(pickupParty.lastBusDepartureTime, 'hhmm').format('h:mm')
-      
-    this.setState({ lastDepartureTime, firstBusLoad})
+
+    this.setState({ lastDepartureTime, firstBusLoad })
 
     if (newState.inCart.length === 0) {
       newState.inCart.push(newState.displayShow)
