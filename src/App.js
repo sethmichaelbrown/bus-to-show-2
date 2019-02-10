@@ -264,13 +264,17 @@ class App extends Component {
   // Tab Functions
   tabClicked = (event) => {
     const newState = { ...this.state }
+    console.log(event.target.id)
     if (event.target.id === 'cart-tab') {
       newState.displayCart = true
     }
 
+    if(event.target.id === 'showDetails-tab'){
+      newState.displayCart = false
+    }
+
     if(newState.inCart.length > 0 && event.target.id === 'showDetails-tab'){
       newState.displayWarning = true
-      newState.displayCart = false
     }
 
     newState.displaySuccess = false

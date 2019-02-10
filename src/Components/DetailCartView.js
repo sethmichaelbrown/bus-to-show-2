@@ -26,7 +26,7 @@ const DetailCartView = (props) => {
           <a onClick={props.tabClicked} className={`nav-link ${props.displayCart ? '' : 'active'}`} id="showDetails-tab" data-toggle="tab" href="#showDetails" role="tab" aria-controls="showDetails" aria-selected="true">Show Details</a>
         </li>
         <li className="nav-item">
-          <a onClick={props.tabClicked} className={`nav-link ${props.displayCart ? 'active' : ''}`} data-toggle="tab" href="#cart" role="tab" aria-controls="cart" aria-selected="false">My Cart</a>
+          <a onClick={props.tabClicked} className={`nav-link ${props.displayCart ? 'active' : ''}`} id='cart-tab' data-toggle="tab" href="#cart" role="tab" aria-controls="cart" aria-selected="false">My Cart</a>
         </li>
         <MediaQuery maxWidth={768}>
           <li className="nav-item">
@@ -42,28 +42,6 @@ const DetailCartView = (props) => {
 
 
       <div className="tab-content" id="myTabContent">
-        <ShowDetailView
-          addToCart={props.addToCart}
-          displayAddBtn={props.displayAddBtn}
-          displayBorder={props.displayBorder}
-          displayCart={props.displayCart}
-          displayQuantity={props.displayQuantity}
-          displayShow={props.displayShow}
-          displaySuccess={props.displaySuccess}
-          displayViewCartBtn={props.displayViewCartBtn}
-          displayWarning={props.displayWarning}
-          findDiscountCode={props.findDiscountCode}
-          pickupLocations={props.pickupLocations}
-          pickupLocationId={props.pickupLocationId}
-          returnToShows={props.returnToShows}
-          selectPickupLocationId={props.selectPickupLocationId}
-          selectTicketQuantity={props.selectTicketQuantity}
-          showsExpandClick={props.showsExpandClick}
-          ticketsAvailable={props.ticketsAvailable}
-          ticketQuantity={props.ticketQuantity}
-          updateDiscountCode={props.updateDiscountCode}
-          totalCost={props.totalCost}
-          viewCart={props.viewCart} />
         <MediaQuery maxWidth={768}>
           <div className="tab-pane fade" id="showlist" data-toggle="tab" role="tabpanel" aria-labelledby="cart-tab">
             <ShowList
@@ -110,7 +88,29 @@ const DetailCartView = (props) => {
             updatePurchaseField={props.updatePurchaseField}
             validated={props.validated}
             validatedElements={props.validatedElements}
-          /> : ''}
+          /> :
+          <ShowDetailView
+            addToCart={props.addToCart}
+            displayAddBtn={props.displayAddBtn}
+            displayBorder={props.displayBorder}
+            displayCart={props.displayCart}
+            displayQuantity={props.displayQuantity}
+            displayShow={props.displayShow}
+            displaySuccess={props.displaySuccess}
+            displayViewCartBtn={props.displayViewCartBtn}
+            displayWarning={props.displayWarning}
+            findDiscountCode={props.findDiscountCode}
+            pickupLocations={props.pickupLocations}
+            pickupLocationId={props.pickupLocationId}
+            returnToShows={props.returnToShows}
+            selectPickupLocationId={props.selectPickupLocationId}
+            selectTicketQuantity={props.selectTicketQuantity}
+            showsExpandClick={props.showsExpandClick}
+            ticketsAvailable={props.ticketsAvailable}
+            ticketQuantity={props.ticketQuantity}
+            updateDiscountCode={props.updateDiscountCode}
+            totalCost={props.totalCost}
+            viewCart={props.viewCart} />}
 
       </div>
     </div>
