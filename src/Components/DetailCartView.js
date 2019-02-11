@@ -2,7 +2,7 @@ import React from 'react'
 import '../App.css';
 import ShowDetailView from './Shows/ShowDetailView'
 import Cart from './Cart/Cart'
-import MediaQuery from 'react-responsive';
+// import MediaQuery from 'react-responsive';
 import ShowList from '../Components/Shows/ShowList'
 import logo from '../Images/Logos/bts-logo-gray.png'
 
@@ -23,37 +23,23 @@ const DetailCartView = (props) => {
     <div className='DetailCartView container'>
       <ul className="nav nav-tabs" id="myTab" role="tablist">
         <li className="nav-item">
-          <a onClick={props.tabClicked} className={`nav-link ${props.displayCart ? '' : 'active'}`} id="showDetails-tab" data-toggle="tab" href="#showDetails" role="tab" aria-controls="showDetails" aria-selected="true">Show Details</a>
+          <a
+            onClick={props.tabClicked}
+            className={`nav-link ${props.displayCart ? '' : 'active'} ${props.displayCart && props.inCart.length > 0 ? 'disabled' : ''}`}
+            id="showDetails-tab"
+            data-toggle="tab"
+            href="#showDetails"
+            role="tab"
+            aria-controls="showDetails"
+            aria-selected="true">Show Details</a>
         </li>
         <li className="nav-item">
           <a onClick={props.tabClicked} className={`nav-link ${props.displayCart ? 'active' : ''}`} id='cart-tab' data-toggle="tab" href="#cart" role="tab" aria-controls="cart" aria-selected="false">My Cart</a>
         </li>
-        <MediaQuery maxWidth={768}>
-          <li className="nav-item">
-            <a onClick={props.tabClicked} className="nav-link" id="showList-tab" data-toggle="tab" href="#showlist" role="tab" aria-controls="showlist" aria-selected="false">Shows</a>
-          </li>
-          {/* <li>
-          For Tiny Timer
-          {props.inCart.length > 0 ?
-          <button type="button" disabled='disabled' className="btn btn-dark">{displayTime}</button> : ''}
-        </li> */}
-        </MediaQuery>
       </ul>
 
 
       <div className="tab-content" id="myTabContent">
-        <MediaQuery maxWidth={768}>
-          <div className="tab-pane fade" id="showlist" data-toggle="tab" role="tabpanel" aria-labelledby="cart-tab">
-            <ShowList
-              addBorder={props.addBorder}
-              displayShow={props.displayShow}
-              filterString={props.filterString}
-              inCart={props.inCart}
-              shows={props.shows}
-              showsExpandClick={props.showsExpandClick}
-              ticketsAvailable={props.ticketsAvailable} />
-          </div>
-        </MediaQuery>
         {props.displayCart ?
           <Cart
             afterDiscountObj={props.afterDiscountObj}
@@ -87,8 +73,7 @@ const DetailCartView = (props) => {
             updateDiscountCode={props.updateDiscountCode}
             updatePurchaseField={props.updatePurchaseField}
             validated={props.validated}
-            validatedElements={props.validatedElements}
-          /> :
+            validatedElements={props.validatedElements}/> :
           <ShowDetailView
             addToCart={props.addToCart}
             displayAddBtn={props.displayAddBtn}

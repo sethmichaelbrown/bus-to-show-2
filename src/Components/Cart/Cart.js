@@ -2,7 +2,7 @@ import React from 'react'
 import '../../App.css'
 import CartItem from './CartItem'
 import Checkout from './Stripe_Checkout'
-import MediaQuery from 'react-responsive'
+// import MediaQuery from 'react-responsive'
 import logo from '../../Images/Logos/bts-logo-gray.png'
 
 const Cart = (props) => {
@@ -39,30 +39,36 @@ const Cart = (props) => {
           </div>
           :
           <div className="list-group">
-            <MediaQuery minWidth={768}>
-              {props.displayWarning || props.purchasePending || props.purchaseSuccessful || props.displayConfirmRemove ?
-                <div className="row">
-                  <div className="col-md-12 mt-2">
-                    {props.displayWarning ? <div className="alert alert-warning" role="alert">Please either complete purchase of item in cart, or remove it to procceed.</div> : ''}
-                    {props.purchasePending ? <div className="alert alert-primary" role="alert"> Purchase Pending... </div> : ''}
-                    {props.purchaseSuccessful ? <div className="alert alert-success" role="alert"> Purchase Successful... </div> : ''}
-                    {props.displayConfirmRemove ? <div className="alert alert-danger" role="alert">
-                      Are you sure you want to remove item from cart?
+            {props.displayWarning || props.purchasePending || props.purchaseSuccessful || props.displayConfirmRemove ?
+              <div className="row">
+                <div className="col-md-12">
+                  {props.displayWarning ? <div className="alert alert-warning mb-2" role="alert">
+                    <h6 className="warning-text">
+                      We are  currently only able to process orders  for  one  event  at  a time.  Please either complete your reservation for this event, or click  “cancel order”  to change qty or start over  with a different event.
+                      </h6>
+                    <div className="warning-btns">
+                      <button onClick={props.removeFromCart} type="button" className="btn btn-sm btn-danger mr-2">Cancel & Start Over</button>
+                      <button onClick={props.closeAlert} type="button" className="btn btn-sm btn-success">Continue With Order</button>
+                    </div>
+                  </div> : ''}
+                  {props.purchasePending ? <div className="alert alert-primary" role="alert"> Purchase Pending... </div> : ''}
+                  {props.displayConfirmRemove ? <div className="alert alert-danger" role="alert">
+                    Are you sure you want to remove item from cart?
                     <button onClick={props.confirmedRemove} type="button" className="btn btn-danger ml-1">Remove</button>
-                      <button onClick={props.closeAlert} type="button" className="btn btn-outline-secondary ml-1">Cancel</button>
-                    </div> : ''}
-                  </div>
+                    <button onClick={props.closeAlert} type="button" className="btn btn-outline-secondary ml-1">Cancel</button>
+                  </div> : ''}
                 </div>
-                :
-                <div className="list-group-item lgi-header">
-                  <div className="row">
-                    <div className="col-md-4">Show</div>
-                    <div className="col-md-4">Departure Location</div>
-                    <div className="col-md-2">Date</div>
-                    <div className="col-md-1">Qty</div>
-                  </div>
-                </div>}
-            </MediaQuery>
+              </div>
+              :
+              <div className="list-group-item lgi-header">
+                <div className="row">
+                  <div className="col-md-4">Show</div>
+                  <div className="col-md-4">Departure Location</div>
+                  <div className="col-md-2">Date</div>
+                  <div className="col-md-1">Qty</div>
+                </div>
+              </div>}
+
             <ul className="list-group">
               <CartItem
                 afterDiscountObj={props.afterDiscountObj}
@@ -183,10 +189,9 @@ const Cart = (props) => {
                           : ""
                         }
                       </div>
-
-
                       <div className='form-row cart-flex'>
-                        <MediaQuery minWidth={768}>
+                        <div>
+                          <button onClick={props.removeFromCart} type="button" className="btn btn-outline-danger mr-1">Cancel</button>
                           <Checkout
                             makePurchase={props.makePurchase}
                             purchasePending={props.purchasePending}
@@ -196,47 +201,14 @@ const Cart = (props) => {
                             totalCost={totalCost}
                             showsInCart={props.showsInCart}>
                           </Checkout>
-
-                          <div className="row">
-
-
-                            <div className="col-12">
-                              <h3>Cart Total:
+                        </div>
+                        <div className="cartTotal">
+                          <h3>Cart Total:
                                 <span className="badge badge-success">{`$${totalCost}`}</span>
-                              </h3>
-                            </div>
-
-                          </div>
-                        </MediaQuery>
+                          </h3>
+                        </div>
                       </div>
-
-                      <MediaQuery maxWidth={767}>
-                        <div className='row justify-content-center mb-1'>
-                          <h4>Total savings:
-                        <span className="badge badge-secondary">{savings}</span>
-                          </h4>
-                          <h4>Cart Total:
-                          <span className="badge badge-secondary">{`$${totalCost}`}</span>
-                          </h4>
-                        </div>
-                        <div className='row justify-content-center '>
-                          <Checkout
-                            makePurchase={props.makePurchase}
-                            purchasePending={props.purchasePending}
-                            validated={props.validated}
-                            purchase={props.purchase}
-                            afterDiscountObj={props.afterDiscountObj}
-                            totalCost={totalCost}
-                            showsInCart={props.showsInCart}>
-                          </Checkout>
-                        </div>
-
-                      </MediaQuery>
-
                     </form>
-
-
-
                   </div>
                 </div>
               </div> : ''}

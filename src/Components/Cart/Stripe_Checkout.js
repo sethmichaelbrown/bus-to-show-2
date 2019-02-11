@@ -26,19 +26,22 @@ export default class Checkout extends React.Component {
 
   render() {
     return (
-      <StripeCheckout
-        token={this.onToken}
-        stripeKey="pk_test_J0CdRMCGmBlrlOiGKnGgUEwT"
-        name='Bus To Show'
-        amount={this.props.totalCost * 100}
-        currency='USD'>
+      <React.Fragment>
+        <StripeCheckout
+          token={this.onToken}
+          stripeKey="pk_test_J0CdRMCGmBlrlOiGKnGgUEwT"
+          name='Bus To Show'
+          amount={this.props.totalCost * 100}
+          currency='USD'>
 
-        <button
-          onClick={(event)=>this.props.makePurchase(event)}
-          className={`btn ${this.props.validated ? 'btn-outline-success' : 'btn-secondary'}`}
-          disabled={this.props.validated ? '' : 'disabled'}>
-          Purchase</button>
-      </StripeCheckout>
+          <button
+            onClick={(event) => this.props.makePurchase(event)}
+            className={`btn mr-1 ${this.props.validated ? 'btn-outline-success' : 'btn-secondary'}`}
+            disabled={this.props.validated ? '' : 'disabled'}>
+            Purchase</button>
+        </StripeCheckout>
+
+      </React.Fragment>
     )
   }
 }

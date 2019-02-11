@@ -1,7 +1,7 @@
 import React from 'react'
 import '../../App.css';
 import logo from '../../Images/Logos/bts-logo-gray.png'
-import MediaQuery from 'react-responsive';
+// import MediaQuery from 'react-responsive';
 import moment from 'moment'
 
 const ShowDetailView = (props) => {
@@ -12,7 +12,6 @@ const ShowDetailView = (props) => {
 
 
   let basePrice;
-
   if (props.pickupLocationId) {
     basePrice = props.pickupLocations.find(location => parseInt(location.id) === parseInt(props.pickupLocationId)).basePrice.toFixed(2)
   }
@@ -26,40 +25,29 @@ const ShowDetailView = (props) => {
           <h3>Bus Rides to {show.headliner}</h3>
           <h4>{moment(show.date, "MM-DD-YYYY").format("dddd")} - {show.date} at {show.venue.split(' Amphitheatre')[0]} (and back)</h4>
           <div className="list-group">
-            {props.displayWarning ?
-              <div className="list-group-item alert-item">
-                <div className="alert alert-warning" role="alert">Please either complete purchase of item in cart, or remove it to procceed.</div>
-              </div> :
-              props.displaySuccess ?
-                <div className="list-group-item alert-item">
-                  <div className="alert alert-success" role="alert"> Added {show.headliner} - {show.date} to cart!</div>
-                </div> : ''}
-
             <div className="list-group-item">
               <div className='row container justify-content-center'>
-                <MediaQuery minWidth={768}>
-                  <div className="col-md-8 artist-info bio-font">
-                    {show.headlinerBio ? headlinerBio :
-                      <div>
-                        <div className='row'>
-                          <div className="col-md-12">
-                            {<p>
-                              The concept for Bus to Show was conceived by our founder several years in the future, and then planted in the mind of his younger self (2007) through inter-temporal-telepathy. Bus to Show is, at its core, designed to save the lives of a few future political and spiritual leaders, who would otherwise have been killed in their youth by impaired drivers on their way home from concerts. At the same time, Bus to Show works to reduce the amount of fuel consumption that results from events, which, in turn, will delay the destruction of the Earth long enough for the saved leaders to come of-age and implement their plans for reaching a sustained equilibrium between industry and environment.
+                <div className="col-md-8 artist-info bio-font">
+                  {show.headlinerBio ? headlinerBio :
+                    <div>
+                      <div className='row'>
+                        <div className="col-md-12">
+                          {<p>
+                            The concept for Bus to Show was conceived by our founder several years in the future, and then planted in the mind of his younger self (2007) through inter-temporal-telepathy. Bus to Show is, at its core, designed to save the lives of a few future political and spiritual leaders, who would otherwise have been killed in their youth by impaired drivers on their way home from concerts. At the same time, Bus to Show works to reduce the amount of fuel consumption that results from events, which, in turn, will delay the destruction of the Earth long enough for the saved leaders to come of-age and implement their plans for reaching a sustained equilibrium between industry and environment.
                               <br />
-                              <br />
-                              Bus to Show is a Colorado Nonprofit Corporation with the ability to accept 501(c)(3) tax-exempt donations through its fiscal sponsor partnership with The Nowak Society.
+                            <br />
+                            Bus to Show is a Colorado Nonprofit Corporation with the ability to accept 501(c)(3) tax-exempt donations through its fiscal sponsor partnership with The Nowak Society.
                             </p>
-                            }
-                          </div>
+                          }
                         </div>
-                        <div className="row">
-                          <div className="col-md-6 offset-md-1 mt-3 no-info-logo">
-                            <img src={logo} width="233" height="100" className="d-inline-block align-top" alt="bts-logo" />
-                          </div>
+                      </div>
+                      <div className="row">
+                        <div className="col-md-6 offset-md-1 mt-3 no-info-logo">
+                          <img src={logo} width="233" height="100" className="d-inline-block align-top" alt="bts-logo" />
                         </div>
-                      </div>}
-                  </div>
-                </MediaQuery>
+                      </div>
+                    </div>}
+                </div>
                 <div className="col-md-4 artist-image">
                   <div className="row bts-logo-flex">
                     {show.headlinerImgLink ?
@@ -72,12 +60,11 @@ const ShowDetailView = (props) => {
               </div>
 
               <div className="row">
-
                 <div className="col-md-7">
                   <div className='mt-2'>Departure Location</div>
-                  <form className="was-validated">
+                  <form className="needs-validation">
                     <div className="form-group">
-                      <select id="departureLocation" className="custom-select mt-2" onChange={props.selectPickupLocationId} required>
+                      <select id="departureLocation" className={`custom-select mt-2 ${props.displayQuantity ? 'is-valid' : ''}`} onChange={props.selectPickupLocationId} required>
                         <option value="Select a Departure Location..." >Select a Departure Location...</option>
                         {props.pickupLocations ?
                           props.pickupLocations.map(location => {
@@ -95,7 +82,7 @@ const ShowDetailView = (props) => {
                   </form>
                 </div>
 
-                <div className="col-md-5 float-right mt-4">
+                <div className="col-md-5 float-right add-top-margin">
                   {props.displayQuantity && props.ticketsAvailable ?
                     <React.Fragment>
                       <h5>
@@ -116,7 +103,7 @@ const ShowDetailView = (props) => {
                       <div>
                         Ticket Quantity
                         </div>
-                      <form className="was-validated">
+                      <form className="needs-validation">
                         <div className="form-group">
                           {props.ticketsAvailable.length === 0 ?
                             <button
@@ -125,7 +112,7 @@ const ShowDetailView = (props) => {
                               type="button">Sold Out! Please try different pickup location</button>
                             :
                             <select
-                              className="custom-select mt-2"
+                              className={`custom-select mt-2 ${props.displayAddBtn ? 'is-valid' : ''}`}
                               onChange={props.selectTicketQuantity}
                               disabled={props.ticketsAvailable.length === 0 ? 'disabled' : ''}
                               required>
