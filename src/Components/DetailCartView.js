@@ -100,6 +100,7 @@ const DetailCartView = (props) => {
             displayViewCartBtn={props.displayViewCartBtn}
             displayWarning={props.displayWarning}
             findDiscountCode={props.findDiscountCode}
+            inCart={props.inCart}
             pickupLocations={props.pickupLocations}
             pickupLocationId={props.pickupLocationId}
             returnToShows={props.returnToShows}
