@@ -299,7 +299,7 @@ class App extends Component {
       newState.displayCart = true
     }
 
-    if (event.target.id === 'showDetails-tab') {
+    if (!newState.inCart.length > 0 && event.target.id === 'showDetails-tab') {
       newState.displayCart = false
     }
 
