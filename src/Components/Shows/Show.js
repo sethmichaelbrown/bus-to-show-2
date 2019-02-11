@@ -1,11 +1,11 @@
 import React from 'react'
 import '../../App.css';
 import moment from 'moment'
-import MediaQuery from 'react-responsive';
+// import MediaQuery from 'react-responsive';
 
 const Show = (props) => {
   // console.log('show', props)
-  
+
   const filterString = props.filterString.toLowerCase()
   let filterShows = props.shows.filter(show => show.headliner.toLowerCase().includes(filterString))
 
@@ -18,21 +18,13 @@ const Show = (props) => {
       {filterShows.length > 0 ? filterShows.map(show =>
         <li className="list-group-item highlightOnHover show-list-item" key={show.id} id={show.id}>
           <div className="row" id={show.id}>
-            <MediaQuery minWidth={768}>
-              <div className="col-md-3 list-item-font" id={show.id}>{show.date} <br /> {moment(show.date, "MM-DD-YYYY").format("dddd")}</div>
-              <div className="col-md-7 list-item-font" id={show.id}>
-                <strong>{show.headliner}</strong> <br />
-                {show.support1 ? <React.Fragment> with {show.support1} <br /> </React.Fragment> : ''}
-                {show.support2 ? <React.Fragment> and more! <br /> </React.Fragment> : ''}
-                {show.venue}
-              </div>
-            </MediaQuery>
-            <MediaQuery maxWidth={768}>
-              <div className="col-md-3 list-item-font" id={show.id}>{show.date} <br /> {moment(show.date, "MM-DD-YYYY").format("dddd")}</div>
-              <div className="col-md-7 list-item-font" id={show.id}>
-                <strong>{show.headliner}</strong> <br />{show.venue}
-              </div>
-            </MediaQuery>
+            <div className="col-md-3 list-item-font" id={show.id}>{show.date} <br /> {moment(show.date, "MM-DD-YYYY").format("dddd")}</div>
+            <div className="col-md-7 list-item-font" id={show.id}>
+              <strong>{show.headliner}</strong> <br />
+              {show.support1 ? <React.Fragment> with {show.support1} <br /> </React.Fragment> : ''}
+              {show.support2 ? <React.Fragment> and more! <br /> </React.Fragment> : ''}
+              {show.venue}
+            </div>
 
             {props.inCart.length > 0 ?
               <button

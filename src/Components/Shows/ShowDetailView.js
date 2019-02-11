@@ -1,7 +1,7 @@
 import React from 'react'
 import '../../App.css';
 import logo from '../../Images/Logos/bts-logo-gray.png'
-import MediaQuery from 'react-responsive';
+// import MediaQuery from 'react-responsive';
 import moment from 'moment'
 
 const ShowDetailView = (props) => {
@@ -27,29 +27,27 @@ const ShowDetailView = (props) => {
           <div className="list-group">
             <div className="list-group-item">
               <div className='row container justify-content-center'>
-                <MediaQuery minWidth={768}>
-                  <div className="col-md-8 artist-info bio-font">
-                    {show.headlinerBio ? headlinerBio :
-                      <div>
-                        <div className='row'>
-                          <div className="col-md-12">
-                            {<p>
-                              The concept for Bus to Show was conceived by our founder several years in the future, and then planted in the mind of his younger self (2007) through inter-temporal-telepathy. Bus to Show is, at its core, designed to save the lives of a few future political and spiritual leaders, who would otherwise have been killed in their youth by impaired drivers on their way home from concerts. At the same time, Bus to Show works to reduce the amount of fuel consumption that results from events, which, in turn, will delay the destruction of the Earth long enough for the saved leaders to come of-age and implement their plans for reaching a sustained equilibrium between industry and environment.
+                <div className="col-md-8 artist-info bio-font">
+                  {show.headlinerBio ? headlinerBio :
+                    <div>
+                      <div className='row'>
+                        <div className="col-md-12">
+                          {<p>
+                            The concept for Bus to Show was conceived by our founder several years in the future, and then planted in the mind of his younger self (2007) through inter-temporal-telepathy. Bus to Show is, at its core, designed to save the lives of a few future political and spiritual leaders, who would otherwise have been killed in their youth by impaired drivers on their way home from concerts. At the same time, Bus to Show works to reduce the amount of fuel consumption that results from events, which, in turn, will delay the destruction of the Earth long enough for the saved leaders to come of-age and implement their plans for reaching a sustained equilibrium between industry and environment.
                               <br />
-                              <br />
-                              Bus to Show is a Colorado Nonprofit Corporation with the ability to accept 501(c)(3) tax-exempt donations through its fiscal sponsor partnership with The Nowak Society.
+                            <br />
+                            Bus to Show is a Colorado Nonprofit Corporation with the ability to accept 501(c)(3) tax-exempt donations through its fiscal sponsor partnership with The Nowak Society.
                             </p>
-                            }
-                          </div>
+                          }
                         </div>
-                        <div className="row">
-                          <div className="col-md-6 offset-md-1 mt-3 no-info-logo">
-                            <img src={logo} width="233" height="100" className="d-inline-block align-top" alt="bts-logo" />
-                          </div>
+                      </div>
+                      <div className="row">
+                        <div className="col-md-6 offset-md-1 mt-3 no-info-logo">
+                          <img src={logo} width="233" height="100" className="d-inline-block align-top" alt="bts-logo" />
                         </div>
-                      </div>}
-                  </div>
-                </MediaQuery>
+                      </div>
+                    </div>}
+                </div>
                 <div className="col-md-4 artist-image">
                   <div className="row bts-logo-flex">
                     {show.headlinerImgLink ?
