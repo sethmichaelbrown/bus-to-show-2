@@ -78,7 +78,7 @@ const Cart = (props) => {
                     {props.displayWarning ? <div className="alert alert-warning mb-2" role="alert">
                       <h6 className="warning-text">
                         We are  currently only able to process orders  for  one  event  at  a time.  Please either complete your reservation for this event, or click  “cancel order”  to change qty or start over  with a different event.
-                                    </h6>
+                      </h6>
                       <div className="warning-btns">
                         <button onClick={props.removeFromCart} type="button" className="btn btn-sm btn-danger mr-2">Cancel & Start Over</button>
                         <button onClick={props.closeAlert} type="button" className="btn btn-sm btn-success">Continue With Order</button>

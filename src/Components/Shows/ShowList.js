@@ -8,7 +8,7 @@ const ShowList = (props) => {
 
   return (
     <div className='Shows'>
-      <div className='container'>
+      <div className=''>
         <div className="list-group">
           <div className="list-group-item show-header">
 
