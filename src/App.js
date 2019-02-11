@@ -278,6 +278,7 @@ class App extends Component {
   }
 
   responseSpotify = response => {
+    console.log(response)
     const newState = { ...this.state }
     newState.spotifyResponse = response
     newState.displayLoginView = false
