@@ -28,7 +28,7 @@ const ShowDetailView = (props) => {
           <div className="list-group">
             {props.displayWarning ?
               <div className="list-group-item alert-item">
-                <div className="alert alert-warning" role="alert">Please either complete purchase of item in cart, or remove it to procceed.</div>
+                <div className="alert alert-warning" role="alert">We are  currently only able to process orders  for  one  event  at  a time.  Please either complete your reservation for this event, or click  “cancel order”  to change qty or start over  with a different event.</div>
               </div> :
               props.displaySuccess ?
                 <div className="list-group-item alert-item">
@@ -95,7 +95,7 @@ const ShowDetailView = (props) => {
                   </form>
                 </div>
 
-                <div className="col-md-5 float-right mt-4">
+                <div className="col-md-5 float-right add-top-margin">
                   {props.displayQuantity && props.ticketsAvailable ?
                     <React.Fragment>
                       <h5>

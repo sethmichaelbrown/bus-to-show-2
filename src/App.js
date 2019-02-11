@@ -554,7 +554,8 @@ class App extends Component {
   closeAlert = () => {
     const newState = { ...this.state }
     newState.displayConfirmRemove = false
-    this.setState({ displayConfirmRemove: newState.displayConfirmRemove })
+    newState.displayWarning = false
+    this.setState({ displayConfirmRemove: newState.displayConfirmRemove, displayWarning: newState.displayWarning })
   }
 
   quantityChange = event => {
