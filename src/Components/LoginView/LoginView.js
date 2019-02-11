@@ -8,8 +8,6 @@ import { spotifyClientId, redirectUri, googleClientId } from './settings'
 
 const LoginView = (props) => {
 
-  const responseGoogle = response => console.log(response)
-  const responseSpotify = response => console.log(response)
 
 
   return (
@@ -23,15 +21,15 @@ const LoginView = (props) => {
             clientId={googleClientId}
             redirectUri={redirectUri}
             buttonText="Login with Google"
-            onSuccess={responseGoogle}
-            onFailure={responseGoogle} />
+            onSuccess={props.responseGoogle}
+            onFailure={props.responseGoogle} />
         </div>
         <div className="spotifyLoginBtn">
           <SpotifyLogin
             clientId={spotifyClientId}
             redirectUri={redirectUri}
-            onSuccess={responseSpotify}
-            onFailure={responseSpotify} />
+            onSuccess={props.responseSpotify}
+            onFailure={props.responseSpotify} />
         </div>
       </div>
     </div>

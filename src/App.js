@@ -113,7 +113,7 @@ class App extends Component {
     this.setState({ displayLoadingScreen: newState.displayLoadingScreen })
   }
 
-  handleBus = (event) => {
+  handleBus = event => {
 
     if (event.target.id === 'bus1') {
       const newState = { ...this.state }
@@ -122,7 +122,7 @@ class App extends Component {
     }
   }
 
-  selectPickupLocationId = async (event) => {
+  selectPickupLocationId = async event => {
     const newState = { ...this.state }
     newState.pickupLocationId = event.target.value
     if (event.target.value) {
@@ -152,7 +152,7 @@ class App extends Component {
     this.setState({ ticketsAvailable: newState.ticketsAvailable })
   }
 
-  selectTicketQuantity = (event) => {
+  selectTicketQuantity = event => {
 
     const newState = { ...this.state }
     if (event.target.value) {
@@ -177,13 +177,13 @@ class App extends Component {
     })
   }
 
-  updateDiscountCode = (event) => {
+  updateDiscountCode = event => {
     const newState = { ...this.State }
     newState.discountCode = event.target.value
     this.setState({ discountCode: newState.discountCode })
   }
 
-  getReservations = async (userId) => {
+  getReservations = async userId => {
     if (userId) {
       const reservations = await fetch(`https://something-innocuous.herokuapp.com/reservations/${userId}`)
       const userReservations = await reservations.json()
@@ -256,7 +256,7 @@ class App extends Component {
     this.setState({ myReservationsView: newState.myReservationsView })
   }
 
-  searchShows = (event) => {
+  searchShows = event => {
     const newState = { ...this.state }
     newState.filterString = event.target.value
     this.setState({ filterString: newState.filterString })
@@ -268,8 +268,12 @@ class App extends Component {
     this.setState({ displayLoginView: newState.displayLoginView })
   }
 
+  responseGoogle = response => console.log(response)
+  
+  responseSpotify = response => console.log(response)
+
   // Tab Functions
-  tabClicked = (event) => {
+  tabClicked = event => {
     const newState = { ...this.state }
     if (event.target.id === 'cart-tab') {
       newState.displayCart = true
@@ -292,7 +296,7 @@ class App extends Component {
   }
 
   // Show Functions
-  showsExpandClick = async (event) => {
+  showsExpandClick = async event => {
     const newState = { ...this.state }
     const clickedShow = newState.shows.find(show => (parseInt(show.id) === parseInt(event.target.id)))
 
@@ -423,7 +427,7 @@ class App extends Component {
 
   }
 
-  updatePurchaseField = (event) => {
+  updatePurchaseField = event => {
     const newState = { ...this.state }
     const updateField = event.target.id
     const value = event.target.value
@@ -533,7 +537,7 @@ class App extends Component {
     this.setState({ displayConfirmRemove: newState.displayConfirmRemove })
   }
 
-  quantityChange = (event) => {
+  quantityChange = event => {
     const newState = { ...this.state }
     newState.ticketQuantity = event.target.value
 
@@ -583,7 +587,7 @@ class App extends Component {
     this.setState({ shows: newState, artistIcon: false, dateIcon: true })
   }
 
-  makePurchase = (event) => {
+  makePurchase = event => {
     const newState = { ...this.state }
     event.preventDefault()
     newState.displayQuantity = false
@@ -633,7 +637,9 @@ class App extends Component {
               myReservationsView={this.state.myReservationsView} />
 
             {this.state.displayLoginView ?
-              <LoginView />
+              <LoginView
+                responseGoogle={this.responseGoogle}
+                responseSpotify={this.responseSpotify} />
               :
               this.state.myReservationsView ?
                 <ReservationsView
