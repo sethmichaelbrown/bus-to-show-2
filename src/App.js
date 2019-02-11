@@ -297,6 +297,7 @@ class App extends Component {
     const newState = { ...this.state }
     if (event.target.id === 'cart-tab') {
       newState.displayCart = true
+    
     }
 
     if (!newState.inCart.length > 0 && event.target.id === 'showDetails-tab') {

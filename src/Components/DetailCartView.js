@@ -52,14 +52,14 @@ const DetailCartView = (props) => {
       <div className="tab-content" id="myTabContent">
         <MediaQuery maxWidth={768}>
           <div className="tab-pane fade" id="showlist" data-toggle="tab" role="tabpanel" aria-labelledby="cart-tab">
-            <ShowList
+            {props.displayCart ? '' : <ShowList
               addBorder={props.addBorder}
               displayShow={props.displayShow}
               filterString={props.filterString}
               inCart={props.inCart}
               shows={props.shows}
               showsExpandClick={props.showsExpandClick}
-              ticketsAvailable={props.ticketsAvailable} />
+              ticketsAvailable={props.ticketsAvailable} />}
           </div>
         </MediaQuery>
         {props.displayCart ?
