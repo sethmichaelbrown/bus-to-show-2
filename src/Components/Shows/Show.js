@@ -5,6 +5,7 @@ import MediaQuery from 'react-responsive';
 
 const Show = (props) => {
   // console.log('show', props)
+  
   const filterString = props.filterString.toLowerCase()
   let filterShows = props.shows.filter(show => show.headliner.toLowerCase().includes(filterString))
 
