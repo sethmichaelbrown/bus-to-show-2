@@ -61,6 +61,7 @@ class App extends Component {
     displayWarning: false,
     displayQuantity: false,
     filterString: '',
+    googleResponse: null,
     inCart: [],
     loggedIn: false,
     myReservationsView: false,
@@ -68,6 +69,7 @@ class App extends Component {
     purchasePending: false,
     purchaseSuccessful: false,
     showBios: false,
+    spotifyResponse: null,
     ticketsAvailable: [],
     ticketQuantity: null,
     totalCost: 0,
@@ -268,9 +270,26 @@ class App extends Component {
     this.setState({ displayLoginView: newState.displayLoginView })
   }
 
-  responseGoogle = response => console.log(response)
-  
-  responseSpotify = response => console.log(response)
+  responseGoogle = response => {
+    const newState = { ...this.state }
+    newState.googleResponse = response.profileObj
+    newState.displayLoginView = false
+    this.setState({ googleResponse: newState.googleResponse, displayLoginView: newState.displayLoginView })
+  }
+
+  responseSpotify = response => {
+    const newState = { ...this.state }
+    newState.spotifyResponse = response
+    newState.displayLoginView = false
+    this.setState({ googleResponse: newState.googleResponse, displayLoginView: newState.displayLoginView })
+  }
+
+  logout = () => {
+    const newState = { ...this.state }
+    newState.googleResponse = null
+    newState.spotifyReponse = null
+    this.setState({ googleResponse: newState.googleResponse, spotifyReponse: newState.spotifyReponse })
+  }
 
   // Tab Functions
   tabClicked = event => {
@@ -629,12 +648,15 @@ class App extends Component {
                 handleBus={this.handleBus} /> : ""}
 
             <Header
+              getReservations={this.getReservations}
+              googleResponse={this.state.googleResponse}
               loggedIn={this.state.loggedIn}
               loginClick={this.loginClick}
-              userDashboard={this.userDashboard}
+              logout={this.logout}
+              myReservationsView={this.state.myReservationsView}
+              spotifyResponse={this.state.spotifyResponse}
               toggleLoggedIn={this.toggleLoggedIn}
-              getReservations={this.getReservations}
-              myReservationsView={this.state.myReservationsView} />
+              userDashboard={this.userDashboard} />
 
             {this.state.displayLoginView ?
               <LoginView

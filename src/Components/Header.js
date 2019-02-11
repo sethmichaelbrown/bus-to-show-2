@@ -2,10 +2,12 @@ import React from 'react'
 import '../App.css';
 import logo from '../Images/Logos/bustoshow-text-logo--white-outline-no-fill-328x46.png'
 import mobileLogo from '../Images/Logos/bts-logo-orange.png'
-import FacebookButton from './facebook';
-import MediaQuery from 'react-responsive';
+import MediaQuery from 'react-responsive'
+import { GoogleLogout } from 'react-google-login';
 
 const Header = (props) => {
+  // console.log('Header', props)
+  // let logout = console.log('Success')
 
 
   return (
@@ -25,20 +27,26 @@ const Header = (props) => {
 
 
 
-
       <div className="mr-5 row inline-block" style={{ textAlign: 'center' }}>
-        <button onClick={props.loginClick} type="button" className="btn btn-outline-light login-btn">Login</button>
-        {/* {props.loggedIn?
-          <button type="button" className="btn btn-outline-light sort-btn" onClick={props.userDashboard}>
-            <strong>{props.myReservationsView ? "Upcoming Shows" : "My Reservations"}</strong>
-          </button>:""}
-        <FacebookButton userDashboard={props.userDashboard} getReservations={props.getReservations} toggleLoggedIn={props.toggleLoggedIn} loggedIn={props.loggedIn}/> */}
+        {props.googleResponse ?
+          // <GoogleLogout
+          //   buttonText="Logout"
+          //   onLogoutSuccess={logout}
+          // >
+          // </GoogleLogout> :
+          <div>
+            <p>Hello, {props.googleResponse.givenName}</p>
+
+            <button
+              onClick={props.logout}
+              type="button"
+              className="btn btn-outline-light login-btn">Log Out</button>
+          </div> :
+          <button
+            onClick={props.loginClick}
+            type="button"
+            className="btn btn-outline-light login-btn">Login</button>}
       </div>
-
-
-
-      {/* <button onClick={props.userDashboard} className="btn btn-outline-primary my-2 my-sm-0">Login</button>
-            <button onClick={props.signUpClick} className="btn btn-outline-secondary my-2 my-sm-0 ml-1">Sign Up</button> */}
     </nav>
 
   )
