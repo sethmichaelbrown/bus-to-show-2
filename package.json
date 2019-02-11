@@ -9,6 +9,7 @@
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "react-facebook-login": "^4.1.1",
+    "react-google-login": "^5.0.2",
     "react-native-elements": "^1.0.0",
     "react-responsive": "^6.1.1",
     "react-reveal": "^1.2.2",

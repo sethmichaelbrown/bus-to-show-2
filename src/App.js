@@ -12,6 +12,7 @@ import './App.css';
 import Aboutus from './Components/Aboutus/Aboutus.js'
 import Header from './Components/Header'
 import ShowList from './Components/Shows/ShowList'
+import LoginView from './Components/LoginView/LoginView'
 import Loading from './Components/Loading'
 import ReservationsView from './Components/ReservationsView/ReservationsView'
 // import Footer from './Components/Footer'
@@ -52,6 +53,7 @@ class App extends Component {
     displayConfirmRemove: false,
     displayDetailCartView: false,
     displayLoadingScreen: true,
+    displayLoginView: true,
     displayShow: null,
     displayStripe: false,
     displaySuccess: false,
@@ -267,11 +269,11 @@ class App extends Component {
       newState.displayCart = true
     }
 
-    if(event.target.id === 'showDetails-tab'){
+    if (event.target.id === 'showDetails-tab') {
       newState.displayCart = false
     }
 
-    if(newState.inCart.length > 0 && event.target.id === 'showDetails-tab'){
+    if (newState.inCart.length > 0 && event.target.id === 'showDetails-tab') {
       newState.displayWarning = true
     }
 
@@ -515,7 +517,7 @@ class App extends Component {
       inCart: newState.inCart,
       displaySuccess: newState.displaySuccess,
       displayConfirmRemove: newState.displayConfirmRemove,
-      displayWarning: newState.displayWarning 
+      displayWarning: newState.displayWarning
     })
   }
 
@@ -576,17 +578,17 @@ class App extends Component {
   }
 
   makePurchase = (event) => {
-    const newState = {...this.state}
+    const newState = { ...this.state }
     event.preventDefault()
     newState.displayQuantity = false
     newState.displayAddBtn = false
     newState.purchasePending = true
 
-    this.setState({ 
-      purchasePending: newState.purchasePending, 
+    this.setState({
+      purchasePending: newState.purchasePending,
       displayQuantity: newState.displayQuantity,
       displayAddBtn: newState.displayAddBtn
-      })
+    })
   }
 
   dismissBios = () => {
@@ -615,6 +617,9 @@ class App extends Component {
               <Loading
                 onLoad={this.onLoad}
                 handleBus={this.handleBus} /> : ""}
+
+            {this.state.displayLoginView ?
+              <LoginView /> : ''}
             {this.state.myReservationsView ?
               <React.Fragment>
                 <Header
@@ -720,22 +725,20 @@ class App extends Component {
                           {this.state.displayShow ? '' : <BannerRotator displayShow={this.state.displayShow} />}
                           {this.state.displayCart || this.state.displayShow ?
                             <DetailCartView
-                              displayConfirmRemove={this.state.displayConfirmRemove}
+                               afterDiscountObj={this.state.afterDiscountObj}
+                              closeAlert={this.closeAlert}
                               addToCart={this.addToCart}
-                              addBorder={this.addBorder}
-                              afterDiscountObj={this.state.afterDiscountObj}
                               checked={this.state.checked}
                               confirmedRemove={this.confirmedRemove}
-                              closeAlert={this.closeAlert}
                               displayAddBtn={this.state.displayAddBtn}
                               displayBorder={this.state.displayBorder}
                               displayCart={this.state.displayCart}
+                              displayConfirmRemove={this.state.displayConfirmRemove}
                               displayQuantity={this.state.displayQuantity}
                               displayShow={this.state.displayShow}
                               displaySuccess={this.state.displaySuccess}
                               displayViewCartBtn={this.state.displayViewCartBtn}
                               displayWarning={this.state.displayWarning}
-                              filterString={this.state.filterString}
                               findDiscountCode={this.findDiscountCode}
                               firstBusLoad={this.state.firstBusLoad}
                               getPickupParty={this.getPickupParty}
@@ -749,6 +752,8 @@ class App extends Component {
                               pickupParties={this.state.pickupParties}
                               purchase={this.purchase}
                               purchaseClick={this.purchaseClick}
+                              purchasePending={this.state.purchasePending}
+                              purchaseSuccessful={this.state.purchaseSuccessful}
                               quantityChange={this.quantityChange}
                               removeFromCart={this.removeFromCart}
                               returnToShows={this.returnToShows}
@@ -760,7 +765,9 @@ class App extends Component {
                               tabClicked={this.tabClicked}
                               ticketsAvailable={this.state.ticketsAvailable}
                               ticketQuantity={this.state.ticketQuantity}
+                              timeLeftInCart={this.state.timeLeftInCart}
                               totalCost={this.state.totalCost}
+                              updateDiscountCode={this.updateDiscountCode}
                               updatePurchaseField={this.updatePurchaseField}
                               validated={this.state.validated}
                               validatedElements={this.state.validatedElements} />
@@ -769,7 +776,7 @@ class App extends Component {
                               addBorder={this.addBorder}
                               displayShow={this.state.displayShow}
                               filterString={this.state.filterString}
-                              nCart={this.state.inCart}
+                              inCart={this.state.inCart}
                               searchShows={this.searchShows}
                               shows={this.state.shows}
                               showsExpandClick={this.showsExpandClick}
