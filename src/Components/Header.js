@@ -41,11 +41,12 @@ const Header = (props) => {
               onClick={props.logout}
               type="button"
               className="btn btn-outline-light login-btn">Log Out</button>
-          </div> :
-          <button
-            onClick={props.loginClick}
-            type="button"
-            className="btn btn-outline-light login-btn">Login</button>}
+          </div> : ''
+          // <button
+          //   onClick={props.loginClick}
+          //   type="button"
+          //   className="btn btn-outline-light login-btn">Login</button>
+            }
       </div>
     </nav>
 
