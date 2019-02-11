@@ -126,22 +126,23 @@ class App extends Component {
 
   selectPickupLocationId = async event => {
     const newState = { ...this.state }
-    newState.pickupLocationId = event.target.value
-    if (event.target.value) {
+    if(parseInt(event.target.value)){
+      newState.pickupLocationId = event.target.value
       newState.displayQuantity = true
     }
-    else {
+    else{
       newState.displayQuantity = false
     }
-    this.setState({ pickupLocationId: newState.pickupLocationId, displayQuantity: newState.displayQuantity })
 
     const locations = newState.pickupParties
     const statePickupId = parseInt(this.state.pickupLocationId)
     const stateEventId = parseInt(this.state.displayShow.id)
 
     const matchedLocation = locations.find(location => (parseInt(location.pickupLocationId) === statePickupId) && (parseInt(location.eventId) === stateEventId))
-
     let numArray = []
+
+    console.log(matchedLocation)
+    
     if (matchedLocation) {
       const capacityLessInCart = parseInt(matchedLocation.capacity) - parseInt(matchedLocation.inCart)
       numArray = [...Array(capacityLessInCart).keys()].map(i => i + 1)
@@ -151,7 +152,11 @@ class App extends Component {
       console.log('Error!!')
     }
 
-    this.setState({ ticketsAvailable: newState.ticketsAvailable })
+    this.setState({ 
+      ticketsAvailable: newState.ticketsAvailable, 
+      pickupLocationId: newState.pickupLocationId, 
+      displayQuantity: newState.displayQuantity
+      })
   }
 
   selectTicketQuantity = event => {

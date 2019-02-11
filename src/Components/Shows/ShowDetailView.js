@@ -12,7 +12,6 @@ const ShowDetailView = (props) => {
 
 
   let basePrice;
-
   if (props.pickupLocationId) {
     basePrice = props.pickupLocations.find(location => parseInt(location.id) === parseInt(props.pickupLocationId)).basePrice.toFixed(2)
   }

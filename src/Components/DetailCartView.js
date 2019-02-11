@@ -23,14 +23,14 @@ const DetailCartView = (props) => {
     <div className='DetailCartView container'>
       <ul className="nav nav-tabs" id="myTab" role="tablist">
         <li className="nav-item">
-          <a 
-            onClick={props.tabClicked} 
-            className={`nav-link ${props.displayCart ? '' : 'active'} ${props.displayCart && props.inCart.length > 0 ? 'disabled' : ''}`} 
-            id="showDetails-tab" 
-            data-toggle="tab" 
-            href="#showDetails" 
-            role="tab" 
-            aria-controls="showDetails" 
+          <a
+            onClick={props.tabClicked}
+            className={`nav-link ${props.displayCart ? '' : 'active'} ${props.displayCart && props.inCart.length > 0 ? 'disabled' : ''}`}
+            id="showDetails-tab"
+            data-toggle="tab"
+            href="#showDetails"
+            role="tab"
+            aria-controls="showDetails"
             aria-selected="true">Show Details</a>
         </li>
         <li className="nav-item">
@@ -52,14 +52,15 @@ const DetailCartView = (props) => {
       <div className="tab-content" id="myTabContent">
         <MediaQuery maxWidth={768}>
           <div className="tab-pane fade" id="showlist" data-toggle="tab" role="tabpanel" aria-labelledby="cart-tab">
-            {props.displayCart ? '' : <ShowList
-              addBorder={props.addBorder}
-              displayShow={props.displayShow}
-              filterString={props.filterString}
-              inCart={props.inCart}
-              shows={props.shows}
-              showsExpandClick={props.showsExpandClick}
-              ticketsAvailable={props.ticketsAvailable} />}
+            {props.displayCart ? '' :
+              <ShowList
+                addBorder={props.addBorder}
+                displayShow={props.displayShow}
+                filterString={props.filterString}
+                inCart={props.inCart}
+                shows={props.shows}
+                showsExpandClick={props.showsExpandClick}
+                ticketsAvailable={props.ticketsAvailable} />}
           </div>
         </MediaQuery>
         {props.displayCart ?
