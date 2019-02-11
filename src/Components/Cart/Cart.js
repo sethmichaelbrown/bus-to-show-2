@@ -6,7 +6,7 @@ import MediaQuery from 'react-responsive'
 import logo from '../../Images/Logos/bts-logo-gray.png'
 
 const Cart = (props) => {
-  console.log('Cart', props)
+  // console.log('Cart', props)
 
   let savings = Number(props.afterDiscountObj.totalSavings)
   let totalSavings = savings.toFixed(2)

@@ -4,7 +4,7 @@ import Show from './Show'
 import MediaQuery from 'react-responsive';
 
 const ShowList = (props) => {
-  console.log('showlist', props)
+  // console.log('showlist', props)
 
   return (
     <div className='Shows'>

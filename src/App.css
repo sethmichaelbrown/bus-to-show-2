@@ -359,7 +359,7 @@ p {
   width: 150px;
 }
 
-.about-us-flex {
+.about-us-flex, .login-flex {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -369,6 +369,15 @@ p {
 .future-selves {
   height: 75vh;
   width: 45vw;
+}
+
+.login-btn{
+  font-weight: bold;
+}
+
+.login-btn:hover{
+  font-weight: bold;
+  color: #ff420f;
 }
 
 @media only screen and (max-width:300px) {
