@@ -7,7 +7,6 @@ import kevin from '../../Images/kevin.jpeg'
 import jake from '../../Images/jake.jpeg'
 import phil from '../../Images/phil.png'
 import linkedin from '../../Images/linkedin.jpg'
-import Footer from '../../Components/Footer.js'
 
 const Aboutus = (props) => {
 
@@ -16,7 +15,7 @@ const Aboutus = (props) => {
   return (
     <div>
 
-      <div className="container">
+      <div className="container limit-height">
         <br />
 
 

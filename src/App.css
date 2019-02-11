@@ -322,6 +322,9 @@ p {
   border-width: 1px;
 
 }
+.limit-height{
+  height: 75vh;
+}
 
 .person {
   margin-top: 5px;
