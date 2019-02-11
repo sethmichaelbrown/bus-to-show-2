@@ -539,11 +539,13 @@ class App extends Component {
 
   removeFromCart = () => {
     const newState = { ...this.state }
+    newState.purchaseSuccessful = false
     newState.displayWarning = false
     newState.displayConfirmRemove = true
     this.setState({
       displayConfirmRemove: newState.displayConfirmRemove,
-      displayWarning: newState.displayWarning
+      displayWarning: newState.displayWarning,
+      purchaseSuccessful: newState.purchaseSuccessful
     })
   }
 

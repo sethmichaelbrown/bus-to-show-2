@@ -202,6 +202,11 @@ const Cart = (props) => {
                             showsInCart={props.showsInCart}>
                           </Checkout>
                         </div>
+                        <div className="cartTotal">
+                          <h3>Cart Total:
+                                <span className="badge badge-success">{`$${totalCost}`}</span>
+                          </h3>
+                        </div>
                       </div>
                     </form>
                   </div>
