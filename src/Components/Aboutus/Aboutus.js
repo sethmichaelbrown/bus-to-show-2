@@ -37,9 +37,10 @@ const Aboutus = (props) => {
                             </p>
             <p className="memberParagraph" >We all have a wide variety of backgrounds and work experiences, including Retail Sales, Restaurant Management, Video Production and Editing, Solar Industry Management, and general Entrepreneurship.
                             </p>
-            <p className="memberParagraph" >Throughout the past several months in general, and the past two weeks with this project in particular, we have had the opportunity to work together in a large team environment. Doing so allowed us to work independently on our own areas of strength, but also
-            to collaborate with our team members, during which time we could all complement each other's weaknesses with our own personal strengths.
-                            </p>
+            {// <p className="memberParagraph" >Throughout the past several months in general, and the past two weeks with this project in particular, we have had the opportunity to work together in a large team environment. Doing so allowed us to work independently on our own areas of strength, but also
+            // to collaborate with our team members, during which time we could all complement each other's weaknesses with our own personal strengths.
+            //                 </p>
+            }
             <p className="memberParagraph" >If you wish to read more about us, please feel free to visit our linkedin.com pages and checkout our biographies and recent projects.
                             </p>
           </div>
