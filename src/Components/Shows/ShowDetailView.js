@@ -25,15 +25,6 @@ const ShowDetailView = (props) => {
           <h3>Bus Rides to {show.headliner}</h3>
           <h4>{moment(show.date, "MM-DD-YYYY").format("dddd")} - {show.date} at {show.venue.split(' Amphitheatre')[0]} (and back)</h4>
           <div className="list-group">
-            {props.displayWarning ?
-              <div className="list-group-item alert-item">
-                <div className="alert alert-warning" role="alert">We are  currently only able to process orders  for  one  event  at  a time.  Please either complete your reservation for this event, or click  “cancel order”  to change qty or start over  with a different event.</div>
-              </div> :
-              props.displaySuccess ?
-                <div className="list-group-item alert-item">
-                  <div className="alert alert-success" role="alert"> Added {show.headliner} - {show.date} to cart!</div>
-                </div> : ''}
-
             <div className="list-group-item">
               <div className='row container justify-content-center'>
                 <MediaQuery minWidth={768}>
@@ -71,12 +62,11 @@ const ShowDetailView = (props) => {
               </div>
 
               <div className="row">
-
                 <div className="col-md-7">
                   <div className='mt-2'>Departure Location</div>
-                  <form className="was-validated">
+                  <form className="needs-validation">
                     <div className="form-group">
-                      <select id="departureLocation" className="custom-select mt-2" onChange={props.selectPickupLocationId} required>
+                      <select id="departureLocation" className={`custom-select mt-2 ${props.displayQuantity ? 'is-valid' : ''}`} onChange={props.selectPickupLocationId} required>
                         <option value="Select a Departure Location..." >Select a Departure Location...</option>
                         {props.pickupLocations ?
                           props.pickupLocations.map(location => {
@@ -115,7 +105,7 @@ const ShowDetailView = (props) => {
                       <div>
                         Ticket Quantity
                         </div>
-                      <form className="was-validated">
+                      <form className="needs-validation">
                         <div className="form-group">
                           {props.ticketsAvailable.length === 0 ?
                             <button
@@ -124,7 +114,7 @@ const ShowDetailView = (props) => {
                               type="button">Sold Out! Please try different pickup location</button>
                             :
                             <select
-                              className="custom-select mt-2"
+                              className={`custom-select mt-2 ${props.displayAddBtn ? 'is-valid' : ''}`}
                               onChange={props.selectTicketQuantity}
                               disabled={props.ticketsAvailable.length === 0 ? 'disabled' : ''}
                               required>

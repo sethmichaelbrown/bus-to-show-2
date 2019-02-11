@@ -132,6 +132,7 @@ class App extends Component {
     }
     else {
       newState.displayQuantity = false
+      newState.displayAddBtn = false
     }
 
 
@@ -157,7 +158,8 @@ class App extends Component {
     this.setState({
       ticketsAvailable: newState.ticketsAvailable,
       pickupLocationId: newState.pickupLocationId,
-      displayQuantity: newState.displayQuantity
+      displayQuantity: newState.displayQuantity,
+      displayAddBtn: newState.displayAddBtn
     })
   }
 
@@ -551,11 +553,16 @@ class App extends Component {
     newState.displaySuccess = false
     newState.displayConfirmRemove = false
     newState.displayWarning = false
+    newState.displayQuantity = false
+    newState.displayAddBtn = false
+
     this.setState({
       inCart: newState.inCart,
       displaySuccess: newState.displaySuccess,
       displayConfirmRemove: newState.displayConfirmRemove,
-      displayWarning: newState.displayWarning
+      displayWarning: newState.displayWarning,
+      displayQuantity: newState.displayQuantity,
+      displayAddBtn: newState.displayAddBtn,
     })
   }
 

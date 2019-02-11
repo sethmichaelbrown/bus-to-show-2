@@ -385,11 +385,13 @@ p {
 
 .warning-text{
   font-size: 12px;
+  line-height: 16px;
 }
 
 .add-top-margin{
   margin-top: 4.5vh;
 }
+
 
 @media only screen and (max-width:300px) {
   .biophoto {

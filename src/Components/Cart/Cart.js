@@ -42,14 +42,15 @@ const Cart = (props) => {
             <MediaQuery minWidth={768}>
               {props.displayWarning || props.purchasePending || props.purchaseSuccessful || props.displayConfirmRemove ?
                 <div className="row">
-                  <div className="col-md-12 mt-2">
-                    {props.displayWarning ? <div className="alert alert-warning" role="alert">
-                      <span className="warning-text">
+                  <div className="col-md-12">
+                    {props.displayWarning ? <div className="alert alert-warning mb-2" role="alert">
+                      <h6 className="warning-text">
                         We are  currently only able to process orders  for  one  event  at  a time.  Please either complete your reservation for this event, or click  “cancel order”  to change qty or start over  with a different event.
-                      </span>
-                      <br />
-                      <button onClick={props.removeFromCart} type="button" class="btn btn-sm btn-danger mr-2">Cancel & Start Over</button>
-                      <button onClick={props.closeAlert} type="button" class="btn btn-sm btn-success">Continue With Order</button>
+                      </h6>
+                      <div className="warning-btns">
+                        <button onClick={props.removeFromCart} type="button" class="btn btn-sm btn-danger mr-2">Cancel & Start Over</button>
+                        <button onClick={props.closeAlert} type="button" class="btn btn-sm btn-success">Continue With Order</button>
+                      </div>
                     </div> : ''}
                     {props.purchasePending ? <div className="alert alert-primary" role="alert"> Purchase Pending... </div> : ''}
                     {props.displayConfirmRemove ? <div className="alert alert-danger" role="alert">
