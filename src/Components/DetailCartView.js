@@ -190,7 +190,8 @@ const DetailCartView = (props) => {
                   ticketQuantity={props.ticketQuantity}
                   updateDiscountCode={props.updateDiscountCode}
                   totalCost={props.totalCost}
-                  viewCart={props.viewCart} /> :
+                  viewCart={props.viewCart} />
+                :
                 <div className="noShowSelected">
                   <div className="row nothing-in-cart-text">
                     <div className="col-md-12 mt-3">
@@ -206,42 +207,60 @@ const DetailCartView = (props) => {
                     </div>
                   </div>
                 </div>
-          }
+              }
             </div>
             <div className="tab-pane fade" id="cart" role="tabpanel" aria-labelledby="cart-tab">
-              <Cart
-                afterDiscountObj={props.afterDiscountObj}
-                checked={props.checked}
-                confirmedRemove={props.confirmedRemove}
-                closeAlert={props.closeAlert}
-                displayConfirmRemove={props.displayConfirmRemove}
-                displayWarning={props.displayWarning}
-                findDiscountCode={props.findDiscountCode}
-                firstBusLoad={props.firstBusLoad}
-                getPickupParty={props.getPickupParty}
-                handleCheck={props.handleCheck}
-                handleSubmit={props.handleSubmit}
-                inCart={props.inCart}
-                lastDepartureTime={props.lastDepartureTime}
-                makePurchase={props.makePurchase}
-                pickupLocationId={props.pickupLocationId}
-                pickupLocations={props.pickupLocations}
-                pickupParties={props.pickupParties}
-                purchase={props.purchase}
-                purchaseClick={props.purchaseClick}
-                purchasePending={props.purchasePending}
-                purchaseSuccessful={props.purchaseSuccessful}
-                quantityChange={props.quantityChange}
-                removeFromCart={props.removeFromCart}
-                returnToShows={props.returnToShows}
-                shows={props.shows}
-                showsInCart={props.inCart}
-                ticketQuantity={props.ticketQuantity}
-                totalCost={props.totalCost}
-                updateDiscountCode={props.updateDiscountCode}
-                updatePurchaseField={props.updatePurchaseField}
-                validated={props.validated}
-                validatedElements={props.validatedElements} />
+              {props.inCart.length > 0 ?
+                <Cart
+                  afterDiscountObj={props.afterDiscountObj}
+                  checked={props.checked}
+                  confirmedRemove={props.confirmedRemove}
+                  closeAlert={props.closeAlert}
+                  displayConfirmRemove={props.displayConfirmRemove}
+                  displayWarning={props.displayWarning}
+                  findDiscountCode={props.findDiscountCode}
+                  firstBusLoad={props.firstBusLoad}
+                  getPickupParty={props.getPickupParty}
+                  handleCheck={props.handleCheck}
+                  handleSubmit={props.handleSubmit}
+                  inCart={props.inCart}
+                  lastDepartureTime={props.lastDepartureTime}
+                  makePurchase={props.makePurchase}
+                  pickupLocationId={props.pickupLocationId}
+                  pickupLocations={props.pickupLocations}
+                  pickupParties={props.pickupParties}
+                  purchase={props.purchase}
+                  purchaseClick={props.purchaseClick}
+                  purchasePending={props.purchasePending}
+                  purchaseSuccessful={props.purchaseSuccessful}
+                  quantityChange={props.quantityChange}
+                  removeFromCart={props.removeFromCart}
+                  returnToShows={props.returnToShows}
+                  shows={props.shows}
+                  showsInCart={props.inCart}
+                  ticketQuantity={props.ticketQuantity}
+                  totalCost={props.totalCost}
+                  updateDiscountCode={props.updateDiscountCode}
+                  updatePurchaseField={props.updatePurchaseField}
+                  validated={props.validated}
+                  validatedElements={props.validatedElements} />
+                :
+                <div className="noShowSelected">
+                  <div className="row nothing-in-cart-text">
+                    <div className="col-md-12 mt-3">
+                      <h1>Nothing in Cart!</h1>
+                    </div>
+                    <div className="col-md-12 mt-3">
+                      <img
+                        className='nothing-in-cart-image'
+                        src={logo}
+                        alt="bts-logo"
+                        width="233"
+                        height="100" />
+                    </div>
+                  </div>
+                </div>
+              }
             </div>
           </div>
         </div>
