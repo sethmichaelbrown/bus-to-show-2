@@ -325,6 +325,10 @@ class App extends Component {
     })
   }
 
+  mobileTabClicked = event => {
+    console.log(event.target.id)
+  }
+
   // Show Functions
   showsExpandClick = async event => {
     const newState = { ...this.state }
@@ -833,6 +837,7 @@ class App extends Component {
                           inCart={this.state.inCart}
                           lastDepartureTime={this.state.lastDepartureTime}
                           makePurchase={this.makePurchase}
+                          mobileTabClicked={this.mobileTabClicked}
                           pickupLocationId={this.state.pickupLocationId}
                           pickupLocations={this.state.pickupLocations}
                           pickupParties={this.state.pickupParties}
@@ -853,7 +858,6 @@ class App extends Component {
                           sortByDate={this.sortByDate}
                           sortedByArtist={this.state.artistIcon}
                           sortedByDate={this.state.dateIcon}
-                          tabClicked={this.tabClicked}
                           ticketQuantity={this.state.ticketQuantity}
                           ticketsAvailable={this.state.ticketsAvailable}
                           timeLeftInCart={this.state.timeLeftInCart}

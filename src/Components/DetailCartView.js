@@ -29,7 +29,15 @@ const DetailCartView = (props) => {
                   aria-selected="true">Show Details</a>
               </li>
               <li className="nav-item">
-                <a onClick={props.tabClicked} className={`nav-link ${props.displayCart ? 'active' : ''}`} id='cart-tab' data-toggle="tab" href="#cart" role="tab" aria-controls="cart" aria-selected="false">My Cart</a>
+                <a
+                  onClick={props.tabClicked}
+                  className={`nav-link ${props.displayCart ? 'active' : ''}`}
+                  id='cart-tab'
+                  data-toggle="tab"
+                  href="#cart"
+                  role="tab"
+                  aria-controls="cart"
+                  aria-selected="false">My Cart</a>
               </li>
             </ul>
 
@@ -103,6 +111,7 @@ const DetailCartView = (props) => {
           <ul className="nav nav-tabs" id="myTab" role="tablist">
             <li className="nav-item">
               <a
+                onClick={props.mobileTabClicked}
                 className="nav-link active"
                 id="showList-tab"
                 data-toggle="tab"
@@ -113,6 +122,7 @@ const DetailCartView = (props) => {
             </li>
             <li className="nav-item">
               <a
+                onClick={props.mobileTabClicked}
                 className="nav-link"
                 id="showDetails-tab"
                 data-toggle="tab"
@@ -123,6 +133,7 @@ const DetailCartView = (props) => {
             </li>
             <li className="nav-item">
               <a
+                onClick={props.mobileTabClicked}
                 className="nav-link"
                 id="cart-tab"
                 data-toggle="tab"
@@ -134,51 +145,68 @@ const DetailCartView = (props) => {
           </ul>
           <div className="tab-content" id="mobile-tab-content">
             <div className="mobile-showList tab-pane fade show active" id="showList" role="tabpanel" aria-labelledby="showList-tab">
-             {props.displayShow ?
+              {props.shows ?
                 <ShowList
-                addBorder={props.addBorder}
-                displayShow={props.displayShow}
-                filterString={props.filterString}
-                handleWarning={props.handleWarning}
-                inCart={props.inCart}
-                searchShows={props.searchShows}
-                shows={props.shows}
-                showsExpandClick={props.showsExpandClick}
-                sortByArtist={props.sortByArtist}
-                sortByDate={props.sortByDate}
-                sortedByArtist={props.artistIcon}
-                sortedByDate={props.dateIcon}
-                ticketsAvailable={props.ticketsAvailable} />
+                  addBorder={props.addBorder}
+                  displayShow={props.displayShow}
+                  filterString={props.filterString}
+                  handleWarning={props.handleWarning}
+                  inCart={props.inCart}
+                  searchShows={props.searchShows}
+                  shows={props.shows}
+                  showsExpandClick={props.showsExpandClick}
+                  sortByArtist={props.sortByArtist}
+                  sortByDate={props.sortByDate}
+                  sortedByArtist={props.artistIcon}
+                  sortedByDate={props.dateIcon}
+                  ticketsAvailable={props.ticketsAvailable} />
                 :
-                <div className="noShowSelected">
-                  <h1>No Show Selected!</h1>
+                <div className="noShowList">
+                  <h1>Server Error - ShowList</h1>
                 </div>
-                }
+              }
             </div>
             <div className="mobile-showDetailView tab-pane fade" id="showDetails" role="tabpanel" aria-labelledby="showDetails-tab">
-              <ShowDetailView
-                addToCart={props.addToCart}
-                displayAddBtn={props.displayAddBtn}
-                displayBorder={props.displayBorder}
-                displayCart={props.displayCart}
-                displayQuantity={props.displayQuantity}
-                displayShow={props.displayShow}
-                displaySuccess={props.displaySuccess}
-                displayViewCartBtn={props.displayViewCartBtn}
-                displayWarning={props.displayWarning}
-                findDiscountCode={props.findDiscountCode}
-                inCart={props.inCart}
-                pickupLocations={props.pickupLocations}
-                pickupLocationId={props.pickupLocationId}
-                returnToShows={props.returnToShows}
-                selectPickupLocationId={props.selectPickupLocationId}
-                selectTicketQuantity={props.selectTicketQuantity}
-                showsExpandClick={props.showsExpandClick}
-                ticketsAvailable={props.ticketsAvailable}
-                ticketQuantity={props.ticketQuantity}
-                updateDiscountCode={props.updateDiscountCode}
-                totalCost={props.totalCost}
-                viewCart={props.viewCart} />
+              {props.displayShow ?
+                <ShowDetailView
+                  addToCart={props.addToCart}
+                  displayAddBtn={props.displayAddBtn}
+                  displayBorder={props.displayBorder}
+                  displayCart={props.displayCart}
+                  displayQuantity={props.displayQuantity}
+                  displayShow={props.displayShow}
+                  displaySuccess={props.displaySuccess}
+                  displayViewCartBtn={props.displayViewCartBtn}
+                  displayWarning={props.displayWarning}
+                  findDiscountCode={props.findDiscountCode}
+                  inCart={props.inCart}
+                  pickupLocations={props.pickupLocations}
+                  pickupLocationId={props.pickupLocationId}
+                  returnToShows={props.returnToShows}
+                  selectPickupLocationId={props.selectPickupLocationId}
+                  selectTicketQuantity={props.selectTicketQuantity}
+                  showsExpandClick={props.showsExpandClick}
+                  ticketsAvailable={props.ticketsAvailable}
+                  ticketQuantity={props.ticketQuantity}
+                  updateDiscountCode={props.updateDiscountCode}
+                  totalCost={props.totalCost}
+                  viewCart={props.viewCart} /> :
+                <div className="noShowSelected">
+                  <div className="row nothing-in-cart-text">
+                    <div className="col-md-12 mt-3">
+                      <h1>Nothing Selected!</h1>
+                    </div>
+                    <div className="col-md-12 mt-3">
+                      <img
+                        className='nothing-in-cart-image'
+                        src={logo}
+                        alt="bts-logo"
+                        width="233"
+                        height="100" />
+                    </div>
+                  </div>
+                </div>
+          }
             </div>
             <div className="tab-pane fade" id="cart" role="tabpanel" aria-labelledby="cart-tab">
               <Cart
