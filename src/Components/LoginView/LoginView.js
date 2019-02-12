@@ -1,7 +1,7 @@
 import React from 'react'
 import '../../App.css'
 import moment from 'moment'
-import MediaQuery from 'react-responsive'
+// import MediaQuery from 'react-responsive'
 import { GoogleLogin } from 'react-google-login'
 import SpotifyLogin from 'react-spotify-login'
 import { spotifyClientId, redirectUri, googleClientId } from './settings'

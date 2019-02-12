@@ -1,7 +1,7 @@
 import React from 'react'
 import '../../App.css';
 import Show from './Show'
-import MediaQuery from 'react-responsive';
+// import MediaQuery from 'react-responsive';
 
 const ShowList = (props) => {
   // console.log('showlist', props)
@@ -40,30 +40,14 @@ const ShowList = (props) => {
             <ul className="list-group">
               {props.shows ?
                 <div>
-                  <MediaQuery minWidth={768}>
-                    <Show
-                      addBorder={props.addBorder}
-                      displayShow={props.displayShow}
-                      filterString={props.filterString}
-                      handleWarning={props.handleWarning}
-                      inCart={props.inCart}
-                      shows={props.shows}
-                      showsExpandClick={props.showsExpandClick} />
-                  </MediaQuery>
-                  <MediaQuery maxWidth={768}>
-                    <div className="row text-center">
-                      <div className="col-md-12">
-                        <Show
-                          addBorder={props.addBorder}
-                          displayShow={props.displayShow}
-                          filterString={props.filterString}
-                          handleWarning={props.handleWarning}
-                          inCart={props.inCart}
-                          shows={props.shows}
-                          showsExpandClick={props.showsExpandClick} />
-                      </div>
-                    </div>
-                  </MediaQuery>
+                  <Show
+                    addBorder={props.addBorder}
+                    displayShow={props.displayShow}
+                    filterString={props.filterString}
+                    handleWarning={props.handleWarning}
+                    inCart={props.inCart}
+                    shows={props.shows}
+                    showsExpandClick={props.showsExpandClick} />
                 </div>
                 : ''}
             </ul>

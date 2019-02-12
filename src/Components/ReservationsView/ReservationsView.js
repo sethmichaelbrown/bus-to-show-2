@@ -1,7 +1,7 @@
 import React from 'react'
 import '../../App.css';
 import logo from '../../Images/Logos/bts-logo-orange.png'
-import MediaQuery from 'react-responsive';
+// import MediaQuery from 'react-responsive';
 import ShowReservation from './ShowReservation'
 
 const ReservationsView = (props) => {
@@ -16,19 +16,19 @@ const ReservationsView = (props) => {
             <div className="row show-list-flex">
 
               <div className="col-2 mb-3 ml-5" >
-                  <strong>Date  </strong>
+                <strong>Date  </strong>
               </div>
               <div className="col-2 mb-3" >
-                  <strong>Event  </strong>
+                <strong>Event  </strong>
               </div>
               <div className="col-2 mb-3" >
-                  <strong>Start Time  </strong>
+                <strong>Start Time  </strong>
               </div>
               <div className="col-2 mb-3 mr-2" >
-                  <strong>Will Call Name  </strong>
+                <strong>Will Call Name  </strong>
               </div>
               <div className="col-2 mb-3 mr-2" >
-                  <strong>Pickup Location  </strong>
+                <strong>Pickup Location  </strong>
               </div>
               <div className="col-2 mr-2">
               </div>
@@ -38,26 +38,14 @@ const ReservationsView = (props) => {
 
               {props.reservations ?
                 <div>
-                  <MediaQuery minWidth={768}>
-                    <div className="row ">
-                      <div className="col-md-12">
-                    <ShowReservation
-                      addBorder={props.addBorder}
-                      displayShow={props.displayShow}
-                      reservations={props.reservations} />
-                      </div>
+                  <div className="row ">
+                    <div className="col-md-12">
+                      <ShowReservation
+                        addBorder={props.addBorder}
+                        displayShow={props.displayShow}
+                        reservations={props.reservations} />
                     </div>
-                  </MediaQuery>
-                  <MediaQuery maxWidth={768}>
-                    <div className="row text-center container">
-                      <div className="col-md-12 mt-5">
-                        <ShowReservation
-                          addBorder={props.addBorder}
-                          displayShow={props.displayShow}
-                          reservations={props.reservations} />
-                      </div>
-                    </div>
-                  </MediaQuery>
+                  </div>
                 </div>
                 : ''}
             </ul>
