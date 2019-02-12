@@ -684,16 +684,18 @@ class App extends Component {
     this.setState({ displayAboutus: true })
   }
 
+  // Mobile Functions
+
   mobileShowsExpandClick = event => {
     const newState = { ...this.state }
     const clickedShow = newState.shows.find(show => (parseInt(show.id) === parseInt(event.target.id)))
 
     newState.displayShow = clickedShow
-    // newState.displayQuantity = false
-    // newState.displaySuccess = false
+    newState.displayQuantity = false
+    newState.displaySuccess = false
     newState.displayShowDetails = true
     newState.displayShowList = false
-    // newState.displayCart = false
+    newState.displayCart = false
 
     this.setState({
       displayShow: newState.displayShow,

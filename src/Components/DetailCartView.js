@@ -257,9 +257,6 @@ const DetailCartView = (props) => {
             </div>
           </div>
         }
-
-
-
       </MediaQuery>
       {/* // End Mobile View */}
     </div>

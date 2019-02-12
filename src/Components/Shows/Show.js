@@ -77,14 +77,12 @@ const Show = (props) => {
               {props.inCart.length > 0 ?
                 <button
                   id={show.id}
-                  // onClick={props.addBorder}
                   onClick={props.handleWarning}
                   type="button"
                   className='btn detail-btn my-4 col-md-2'>Details</button>
                 :
                 <button
                   id={show.id}
-                  // onClick={props.addBorder}
                   onClick={props.mobileShowsExpandClick}
                   type="button"
                   className='btn detail-btn my-4 col-md-2'>Details</button>}
