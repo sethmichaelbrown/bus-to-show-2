@@ -327,32 +327,6 @@ class App extends Component {
     })
   }
 
-  mobileTabClicked = event => {
-    const id = event.target.id
-    const newState = { ...this.state }
-
-    if (id === 'cart-tab') {
-      newState.displayCart = true
-      newState.displayShowDetails = false
-      newState.displayShowList = false
-    }
-    else if (id === 'showDetails-tab') {
-      newState.displayCart = false
-      newState.displayShowDetails = true
-      newState.displayShowList = false
-    }
-    else {
-      newState.displayCart = false
-      newState.displayShowDetails = false
-      newState.displayShowList = true
-    }
-
-    this.setState({
-      displayCart: newState.displayCart,
-      displayShowDetails: newState.displayShowDetails,
-      displayShowList: newState.displayShowList
-    })
-  }
 
   // Show Functions
   showsExpandClick = event => {
@@ -703,8 +677,37 @@ class App extends Component {
       displayDetailCartView: newState.displayDetailCartView,
       displaySuccess: newState.displaySuccess,
       displayShowList: newState.displayShowList,
+      displayCart: newState.displayCart
     })
   }
+
+    mobileTabClicked = event => {
+    const id = event.target.id
+    const newState = { ...this.state }
+
+    if (id === 'cart-tab') {
+      newState.displayCart = true
+      newState.displayShowDetails = false
+      newState.displayShowList = false
+    }
+    else if (id === 'showDetails-tab') {
+      newState.displayCart = false
+      newState.displayShowDetails = true
+      newState.displayShowList = false
+    }
+    else {
+      newState.displayCart = false
+      newState.displayShowDetails = false
+      newState.displayShowList = true
+    }
+
+    this.setState({
+      displayCart: newState.displayCart,
+      displayShowDetails: newState.displayShowDetails,
+      displayShowList: newState.displayShowList
+    })
+  }
+  
 
   render() {
     return (

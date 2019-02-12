@@ -123,7 +123,7 @@ const DetailCartView = (props) => {
             <li className="nav-item">
               <a
                 onClick={props.mobileTabClicked}
-                className={`nav-link ${props.displayShow ? 'active' : ''}`}
+                className={`nav-link ${props.displayShow && !props.displayCart ? 'active' : ''}`}
                 id="showDetails-tab"
                 data-toggle="tab"
                 href="#showDetails"
@@ -164,7 +164,7 @@ const DetailCartView = (props) => {
               ''
             }
           </div>
-          {props.displayShow ?
+          {(props.displayShow || props.displayShowDetails) && !props.displayCart ?
             <ShowDetailView
               addToCart={props.addToCart}
               displayAddBtn={props.displayAddBtn}
@@ -172,6 +172,7 @@ const DetailCartView = (props) => {
               displayCart={props.displayCart}
               displayQuantity={props.displayQuantity}
               displayShow={props.displayShow}
+              displayShowDetails={props.displayShowDetails}
               displaySuccess={props.displaySuccess}
               displayViewCartBtn={props.displayViewCartBtn}
               displayWarning={props.displayWarning}
@@ -188,25 +189,10 @@ const DetailCartView = (props) => {
               updateDiscountCode={props.updateDiscountCode}
               totalCost={props.totalCost}
               viewCart={props.viewCart} />
-            :
-            <div className="noShowSelected">
-              <div className="row nothing-in-cart-text">
-                <div className="col-md-12 mt-3">
-                  <h1>Nothing Selected!</h1>
-                </div>
-                <div className="col-md-12 mt-3">
-                  <img
-                    className='nothing-in-cart-image'
-                    src={logo}
-                    alt="bts-logo"
-                    width="233"
-                    height="100" />
-                </div>
-              </div>
-            </div>
-          }
+            : '' }
+        
         </div>
-        {props.inCart.length > 0 && props.displayCart ?
+        { props.displayCart ?
           <Cart
             afterDiscountObj={props.afterDiscountObj}
             checked={props.checked}
@@ -241,22 +227,7 @@ const DetailCartView = (props) => {
             validated={props.validated}
             validatedElements={props.validatedElements} />
           :
-          <div className="noShowSelected">
-            <div className="row nothing-in-cart-text">
-              <div className="col-md-12 mt-3">
-                <h1>Nothing in Cart!</h1>
-              </div>
-              <div className="col-md-12 mt-3">
-                <img
-                  className='nothing-in-cart-image'
-                  src={logo}
-                  alt="bts-logo"
-                  width="233"
-                  height="100" />
-              </div>
-            </div>
-          </div>
-        }
+          ''}
       </MediaQuery>
       {/* // End Mobile View */}
     </div>
