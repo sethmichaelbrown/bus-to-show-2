@@ -1,8 +1,8 @@
 // Packages
 import React, { Component } from 'react'
-import { BrowserRouter } from "react-router-dom"
+// import { BrowserRouter } from "react-router-dom"
 import Validator from 'validator'
-// import MediaQuery from 'react-responsive'
+import MediaQuery from 'react-responsive'
 import moment from 'moment'
 
 // Styling
@@ -658,9 +658,10 @@ class App extends Component {
   render() {
     return (
 
-      <BrowserRouter>
-        <React.Fragment>
-          <div className="App">
+      <React.Fragment>
+        <div className="App">
+          {/* Desktop View */}
+          <MediaQuery minWidth={800}>
             {this.state.displayLoadingScreen ?
               <Loading
                 onLoad={this.onLoad}
@@ -780,9 +781,94 @@ class App extends Component {
                       </div>
                     </React.Fragment> : <Loading />
             }
-          </div>
-        </React.Fragment>
-      </BrowserRouter>
+          </MediaQuery>
+          {/* End Desktop View */}
+
+          {/* Mobile View */}
+          <MediaQuery maxWidth={799}>
+            {this.state.displayLoadingScreen ?
+              <Loading
+                onLoad={this.onLoad}
+                handleBus={this.handleBus} /> : ""}
+
+            <Header
+              getReservations={this.getReservations}
+              googleResponse={this.state.googleResponse}
+              loggedIn={this.state.loggedIn}
+              loginClick={this.loginClick}
+              logout={this.logout}
+              myReservationsView={this.state.myReservationsView}
+              spotifyResponse={this.state.spotifyResponse}
+              toggleLoggedIn={this.toggleLoggedIn}
+              userDashboard={this.userDashboard} />
+
+            {this.state.shows ?
+              <div className="row">
+                <div className="col-sm-12">
+                  <DetailCartView
+                    addBorder={this.addBorder}
+                    addToCart={this.addToCart}
+                    afterDiscountObj={this.state.afterDiscountObj}
+                    checked={this.state.checked}
+                    closeAlert={this.closeAlert}
+                    confirmedRemove={this.confirmedRemove}
+                    displayAddBtn={this.state.displayAddBtn}
+                    displayBorder={this.state.displayBorder}
+                    displayCart={this.state.displayCart}
+                    displayConfirmRemove={this.state.displayConfirmRemove}
+                    displayQuantity={this.state.displayQuantity}
+                    displayShow={this.state.displayShow}
+                    displaySuccess={this.state.displaySuccess}
+                    displayViewCartBtn={this.state.displayViewCartBtn}
+                    displayWarning={this.state.displayWarning}
+                    filterString={this.state.filterString}
+                    findDiscountCode={this.findDiscountCode}
+                    firstBusLoad={this.state.firstBusLoad}
+                    getPickupParty={this.getPickupParty}
+                    handleCheck={this.handleCheck}
+                    handleSubmit={this.handleSubmit}
+                    handleWarning={this.handleWarning}
+                    inCart={this.state.inCart}
+                    lastDepartureTime={this.state.lastDepartureTime}
+                    makePurchase={this.makePurchase}
+                    pickupLocationId={this.state.pickupLocationId}
+                    pickupLocations={this.state.pickupLocations}
+                    pickupParties={this.state.pickupParties}
+                    purchase={this.purchase}
+                    purchaseClick={this.purchaseClick}
+                    purchasePending={this.state.purchasePending}
+                    purchaseSuccessful={this.state.purchaseSuccessful}
+                    quantityChange={this.quantityChange}
+                    removeFromCart={this.removeFromCart}
+                    returnToShows={this.returnToShows}
+                    searchShows={this.searchShows}
+                    selectPickupLocationId={this.selectPickupLocationId}
+                    selectTicketQuantity={this.selectTicketQuantity}
+                    shows={this.state.shows}
+                    showsExpandClick={this.showsExpandClick}
+                    showsInCart={this.state.inCart}
+                    sortByArtist={this.sortByArtist}
+                    sortByDate={this.sortByDate}
+                    sortedByArtist={this.state.artistIcon}
+                    sortedByDate={this.state.dateIcon}
+                    tabClicked={this.tabClicked}
+                    ticketQuantity={this.state.ticketQuantity}
+                    ticketsAvailable={this.state.ticketsAvailable}
+                    timeLeftInCart={this.state.timeLeftInCart}
+                    totalCost={this.state.totalCost}
+                    updateDiscountCode={this.updateDiscountCode}
+                    updatePurchaseField={this.updatePurchaseField}
+                    validated={this.state.validated}
+                    validatedElements={this.state.validatedElements} />
+                </div>
+              </div>
+              : <h1>Mobile View Error</h1>}
+          </MediaQuery>
+          {/* End Mobile View */}
+
+        </div>
+      </React.Fragment>
+
     )
   }
 }
