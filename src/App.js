@@ -1,8 +1,8 @@
 // Packages
 import React, { Component } from 'react'
-import { BrowserRouter } from "react-router-dom"
+// import { BrowserRouter } from "react-router-dom"
 import Validator from 'validator'
-// import MediaQuery from 'react-responsive'
+import MediaQuery from 'react-responsive'
 import moment from 'moment'
 
 // Styling
@@ -55,6 +55,8 @@ class App extends Component {
     displayLoadingScreen: true,
     displayLoginView: false,
     displayShow: null,
+    displayShowDetails: false,
+    displayShowList: true,
     displayStripe: false,
     displaySuccess: false,
     displayViewCartBtn: false,
@@ -325,8 +327,9 @@ class App extends Component {
     })
   }
 
+
   // Show Functions
-  showsExpandClick = async event => {
+  showsExpandClick = event => {
     const newState = { ...this.state }
     const clickedShow = newState.shows.find(show => (parseInt(show.id) === parseInt(event.target.id)))
 
@@ -346,6 +349,7 @@ class App extends Component {
       document.querySelector('#departureLocation').value = "Select a Departure Location..."
     }
   }
+
 
   returnToShows = () => {
     const newState = { ...this.state }
@@ -430,7 +434,6 @@ class App extends Component {
     newState.checked = true
     this.setState({ checked: newState.checked })
   }
-
 
   purchase = async () => {
     const cartObj = this.state.cartToSend
@@ -655,12 +658,64 @@ class App extends Component {
     this.setState({ displayAboutus: true })
   }
 
+  // Mobile Functions
+
+  mobileShowsExpandClick = event => {
+    const newState = { ...this.state }
+    const clickedShow = newState.shows.find(show => (parseInt(show.id) === parseInt(event.target.id)))
+
+    newState.displayShow = clickedShow
+    newState.displayQuantity = false
+    newState.displaySuccess = false
+    newState.displayShowDetails = true
+    newState.displayShowList = false
+    newState.displayCart = false
+
+    this.setState({
+      displayShow: newState.displayShow,
+      displayQuantity: newState.displayQuantity,
+      displayDetailCartView: newState.displayDetailCartView,
+      displaySuccess: newState.displaySuccess,
+      displayShowList: newState.displayShowList,
+      displayCart: newState.displayCart
+    })
+  }
+
+    mobileTabClicked = event => {
+    const id = event.target.id
+    const newState = { ...this.state }
+
+    if (id === 'cart-tab') {
+      newState.displayCart = true
+      newState.displayShowDetails = false
+      newState.displayShowList = false
+    }
+    else if (id === 'showDetails-tab') {
+      newState.displayCart = false
+      newState.displayShowDetails = true
+      newState.displayShowList = false
+    }
+    else {
+      newState.displayCart = false
+      newState.displayShowDetails = false
+      newState.displayShowList = true
+    }
+
+    this.setState({
+      displayCart: newState.displayCart,
+      displayShowDetails: newState.displayShowDetails,
+      displayShowList: newState.displayShowList
+    })
+  }
+  
+
   render() {
     return (
 
-      <BrowserRouter>
-        <React.Fragment>
-          <div className="App">
+      <React.Fragment>
+        <div className="App">
+          {/* Desktop View */}
+          <MediaQuery minWidth={800}>
             {this.state.displayLoadingScreen ?
               <Loading
                 onLoad={this.onLoad}
@@ -780,9 +835,100 @@ class App extends Component {
                       </div>
                     </React.Fragment> : <Loading />
             }
-          </div>
-        </React.Fragment>
-      </BrowserRouter>
+          </MediaQuery>
+          {/* End Desktop View */}
+
+          {/* Mobile View */}
+          <MediaQuery maxWidth={799}>
+            <div className="mobile-view">
+              {this.state.displayLoadingScreen ?
+                <Loading
+                  onLoad={this.onLoad}
+                  handleBus={this.handleBus} /> :
+
+                this.state.shows ?
+                  <div className="mobile-content">
+                    <Header
+                      getReservations={this.getReservations}
+                      googleResponse={this.state.googleResponse}
+                      loggedIn={this.state.loggedIn}
+                      loginClick={this.loginClick}
+                      logout={this.logout}
+                      myReservationsView={this.state.myReservationsView}
+                      spotifyResponse={this.state.spotifyResponse}
+                      toggleLoggedIn={this.toggleLoggedIn}
+                      userDashboard={this.userDashboard} />
+
+                    <div className="mobile row">
+                      <div className="col-sm-12">
+                        <DetailCartView
+                          addBorder={this.addBorder}
+                          addToCart={this.addToCart}
+                          afterDiscountObj={this.state.afterDiscountObj}
+                          checked={this.state.checked}
+                          closeAlert={this.closeAlert}
+                          confirmedRemove={this.confirmedRemove}
+                          displayAddBtn={this.state.displayAddBtn}
+                          displayBorder={this.state.displayBorder}
+                          displayCart={this.state.displayCart}
+                          displayConfirmRemove={this.state.displayConfirmRemove}
+                          displayQuantity={this.state.displayQuantity}
+                          displayShow={this.state.displayShow}
+                          displayShowDetails={this.state.displayShowDetails}
+                          displayShowList={this.state.displayShowList}
+                          displaySuccess={this.state.displaySuccess}
+                          displayViewCartBtn={this.state.displayViewCartBtn}
+                          displayWarning={this.state.displayWarning}
+                          filterString={this.state.filterString}
+                          findDiscountCode={this.findDiscountCode}
+                          firstBusLoad={this.state.firstBusLoad}
+                          getPickupParty={this.getPickupParty}
+                          handleCheck={this.handleCheck}
+                          handleSubmit={this.handleSubmit}
+                          handleWarning={this.handleWarning}
+                          inCart={this.state.inCart}
+                          lastDepartureTime={this.state.lastDepartureTime}
+                          makePurchase={this.makePurchase}
+                          mobileShowsExpandClick={this.mobileShowsExpandClick}
+                          mobileTabClicked={this.mobileTabClicked}
+                          pickupLocationId={this.state.pickupLocationId}
+                          pickupLocations={this.state.pickupLocations}
+                          pickupParties={this.state.pickupParties}
+                          purchase={this.purchase}
+                          purchaseClick={this.purchaseClick}
+                          purchasePending={this.state.purchasePending}
+                          purchaseSuccessful={this.state.purchaseSuccessful}
+                          quantityChange={this.quantityChange}
+                          removeFromCart={this.removeFromCart}
+                          returnToShows={this.returnToShows}
+                          searchShows={this.searchShows}
+                          selectPickupLocationId={this.selectPickupLocationId}
+                          selectTicketQuantity={this.selectTicketQuantity}
+                          shows={this.state.shows}
+                          showsInCart={this.state.inCart}
+                          sortByArtist={this.sortByArtist}
+                          sortByDate={this.sortByDate}
+                          sortedByArtist={this.state.artistIcon}
+                          sortedByDate={this.state.dateIcon}
+                          ticketQuantity={this.state.ticketQuantity}
+                          ticketsAvailable={this.state.ticketsAvailable}
+                          timeLeftInCart={this.state.timeLeftInCart}
+                          totalCost={this.state.totalCost}
+                          updateDiscountCode={this.updateDiscountCode}
+                          updatePurchaseField={this.updatePurchaseField}
+                          validated={this.state.validated}
+                          validatedElements={this.state.validatedElements} />
+                      </div>
+                    </div>
+                  </div>
+                  : <h1>Mobile View Error</h1>}
+            </div>
+          </MediaQuery>
+          {/* End Mobile View */}
+
+        </div>
+      </React.Fragment>
+
     )
   }
 }
