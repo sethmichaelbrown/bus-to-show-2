@@ -90,7 +90,23 @@ class App extends Component {
 
   async componentDidMount() {
     const response = await fetch('https://something-innocuous.herokuapp.com/events')
-    const shows = await response.json()
+    const allShows = await response.json()
+
+    const dateCheck = (show) => {
+      const showDate = Date.parse(show.date)
+      const today = new Date()
+      const yesterday = today.setDate(today.getDate() - 1)
+
+      if (showDate < yesterday){
+        return false
+      } else {
+        return true
+      }
+    }
+
+    const currentShows = allShows.filter(dateCheck)
+    const shows = currentShows.filter(show => show.meetsCriteria === true && show.isDenied === false)
+
     this.setState({ shows: shows })
 
     const newState = this.state.shows.sort((show1, show2) => {
@@ -110,6 +126,7 @@ class App extends Component {
     this.setState({ pickupParties })
   }
 
+//status: over-ridden by onclick event in the "ride with bus button".  where. called in "loading.js"
   onLoad = () => {
 
     const newState = { ...this.state }
@@ -117,6 +134,7 @@ class App extends Component {
     this.setState({ displayLoadingScreen: newState.displayLoadingScreen })
   }
 
+//status: in progress.  where: called in "loading.js".  why: adding interactive animation so that buses fly away on click.
   handleBus = event => {
 
     if (event.target.id === 'bus1') {
@@ -125,6 +143,7 @@ class App extends Component {
       this.setState({ displayBus: newState.displayBus })
     }
   }
+
 
   selectPickupLocationId = async event => {
     const newState = { ...this.state }
@@ -707,7 +726,7 @@ class App extends Component {
       displayShowList: newState.displayShowList
     })
   }
-  
+
 
   render() {
     return (
