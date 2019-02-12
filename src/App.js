@@ -706,7 +706,6 @@ class App extends Component {
                                 displaySuccess={this.state.displaySuccess}
                                 displayViewCartBtn={this.state.displayViewCartBtn}
                                 displayWarning={this.state.displayWarning}
-                                filterString={this.state.filterString}
                                 findDiscountCode={this.findDiscountCode}
                                 firstBusLoad={this.state.firstBusLoad}
                                 getPickupParty={this.getPickupParty}
@@ -763,7 +762,6 @@ class App extends Component {
                                 displaySuccess={this.state.displaySuccess}
                                 displayViewCartBtn={this.state.displayViewCartBtn}
                                 displayWarning={this.state.displayWarning}
-                                filterString={this.state.filterString}
                                 findDiscountCode={this.findDiscountCode}
                                 firstBusLoad={this.state.firstBusLoad}
                                 getPickupParty={this.getPickupParty}
