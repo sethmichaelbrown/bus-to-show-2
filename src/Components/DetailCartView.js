@@ -112,7 +112,7 @@ const DetailCartView = (props) => {
             <li className="nav-item">
               <a
                 onClick={props.mobileTabClicked}
-                className="nav-link active"
+                className={`nav-link ${props.displayShowList ? 'active' : ''}`}
                 id="showList-tab"
                 data-toggle="tab"
                 href="#showList"
@@ -123,7 +123,7 @@ const DetailCartView = (props) => {
             <li className="nav-item">
               <a
                 onClick={props.mobileTabClicked}
-                className="nav-link"
+                className={`nav-link ${props.displayShow ? 'active' : ''}`}
                 id="showDetails-tab"
                 data-toggle="tab"
                 href="#showDetails"
@@ -134,7 +134,7 @@ const DetailCartView = (props) => {
             <li className="nav-item">
               <a
                 onClick={props.mobileTabClicked}
-                className="nav-link"
+                className={`nav-link ${props.displayCart ? 'active' : ''}`}
                 id="cart-tab"
                 data-toggle="tab"
                 href="#cart"
@@ -154,7 +154,7 @@ const DetailCartView = (props) => {
                   inCart={props.inCart}
                   searchShows={props.searchShows}
                   shows={props.shows}
-                  showsExpandClick={props.showsExpandClick}
+                  mobileShowsExpandClick={props.mobileShowsExpandClick}
                   sortByArtist={props.sortByArtist}
                   sortByDate={props.sortByDate}
                   sortedByArtist={props.artistIcon}
@@ -165,7 +165,7 @@ const DetailCartView = (props) => {
               }
             </div>
             <div className="mobile-showDetailView tab-pane fade" id="showDetails" role="tabpanel" aria-labelledby="showDetails-tab">
-              {props.displayShow && props.displayShowDetails ?
+              {props.displayShow ?
                 <ShowDetailView
                   addToCart={props.addToCart}
                   displayAddBtn={props.displayAddBtn}
@@ -178,12 +178,12 @@ const DetailCartView = (props) => {
                   displayWarning={props.displayWarning}
                   findDiscountCode={props.findDiscountCode}
                   inCart={props.inCart}
+                  mobileShowsExpandClick={props.mobileShowsExpandClick}
                   pickupLocations={props.pickupLocations}
                   pickupLocationId={props.pickupLocationId}
                   returnToShows={props.returnToShows}
                   selectPickupLocationId={props.selectPickupLocationId}
                   selectTicketQuantity={props.selectTicketQuantity}
-                  showsExpandClick={props.showsExpandClick}
                   ticketsAvailable={props.ticketsAvailable}
                   ticketQuantity={props.ticketQuantity}
                   updateDiscountCode={props.updateDiscountCode}

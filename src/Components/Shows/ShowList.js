@@ -92,8 +92,8 @@ const ShowList = (props) => {
                     filterString={props.filterString}
                     handleWarning={props.handleWarning}
                     inCart={props.inCart}
-                    shows={props.shows}
-                    showsExpandClick={props.showsExpandClick} />
+                    mobileShowsExpandClick={props.mobileShowsExpandClick}
+                    shows={props.shows}/>
                 </div>
                 : ''}
             </ul>

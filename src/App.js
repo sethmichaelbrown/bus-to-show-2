@@ -329,19 +329,19 @@ class App extends Component {
 
   mobileTabClicked = event => {
     const id = event.target.id
-    const newState = {...this.state}
+    const newState = { ...this.state }
 
-    if(id === 'cart-tab'){
+    if (id === 'cart-tab') {
       newState.displayCart = true
       newState.displayShowDetails = false
       newState.displayShowList = false
     }
-    else if(id === 'showDetails-tab'){
+    else if (id === 'showDetails-tab') {
       newState.displayCart = false
       newState.displayShowDetails = true
       newState.displayShowList = false
     }
-    else{
+    else {
       newState.displayCart = false
       newState.displayShowDetails = false
       newState.displayShowList = true
@@ -355,7 +355,7 @@ class App extends Component {
   }
 
   // Show Functions
-  showsExpandClick = async event => {
+  showsExpandClick = event => {
     const newState = { ...this.state }
     const clickedShow = newState.shows.find(show => (parseInt(show.id) === parseInt(event.target.id)))
 
@@ -375,6 +375,7 @@ class App extends Component {
       document.querySelector('#departureLocation').value = "Select a Departure Location..."
     }
   }
+
 
   returnToShows = () => {
     const newState = { ...this.state }
@@ -683,6 +684,26 @@ class App extends Component {
     this.setState({ displayAboutus: true })
   }
 
+  mobileShowsExpandClick = event => {
+    const newState = { ...this.state }
+    const clickedShow = newState.shows.find(show => (parseInt(show.id) === parseInt(event.target.id)))
+
+    newState.displayShow = clickedShow
+    // newState.displayQuantity = false
+    // newState.displaySuccess = false
+    newState.displayShowDetails = true
+    newState.displayShowList = false
+    // newState.displayCart = false
+
+    this.setState({
+      displayShow: newState.displayShow,
+      displayQuantity: newState.displayQuantity,
+      displayDetailCartView: newState.displayDetailCartView,
+      displaySuccess: newState.displaySuccess,
+      displayShowList: newState.displayShowList,
+    })
+  }
+
   render() {
     return (
 
@@ -863,6 +884,7 @@ class App extends Component {
                           inCart={this.state.inCart}
                           lastDepartureTime={this.state.lastDepartureTime}
                           makePurchase={this.makePurchase}
+                          mobileShowsExpandClick={this.mobileShowsExpandClick}
                           mobileTabClicked={this.mobileTabClicked}
                           pickupLocationId={this.state.pickupLocationId}
                           pickupLocations={this.state.pickupLocations}
@@ -878,7 +900,6 @@ class App extends Component {
                           selectPickupLocationId={this.selectPickupLocationId}
                           selectTicketQuantity={this.selectTicketQuantity}
                           shows={this.state.shows}
-                          showsExpandClick={this.showsExpandClick}
                           showsInCart={this.state.inCart}
                           sortByArtist={this.sortByArtist}
                           sortByDate={this.sortByDate}
