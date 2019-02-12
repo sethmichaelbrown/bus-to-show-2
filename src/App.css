@@ -168,6 +168,17 @@ body {
   width: 100vw;
 }
 
+.loading-image-mobile {
+  color: white;
+
+  background: url('./Images/BTS-redrocks-spacebus-mobile-flat.jpg');
+  background-position: top;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
+  width: 100vw;
+}
+
 .loading-header {
   margin-top: 35vh;
   text-align: center;
