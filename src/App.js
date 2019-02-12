@@ -55,6 +55,8 @@ class App extends Component {
     displayLoadingScreen: true,
     displayLoginView: false,
     displayShow: null,
+    displayShowDetails: false,
+    displayShowList: true,
     displayStripe: false,
     displaySuccess: false,
     displayViewCartBtn: false,
@@ -326,7 +328,30 @@ class App extends Component {
   }
 
   mobileTabClicked = event => {
-    console.log(event.target.id)
+    const id = event.target.id
+    const newState = {...this.state}
+
+    if(id === 'cart-tab'){
+      newState.displayCart = true
+      newState.displayShowDetails = false
+      newState.displayShowList = false
+    }
+    else if(id === 'showDetails-tab'){
+      newState.displayCart = false
+      newState.displayShowDetails = true
+      newState.displayShowList = false
+    }
+    else{
+      newState.displayCart = false
+      newState.displayShowDetails = false
+      newState.displayShowList = true
+    }
+
+    this.setState({
+      displayCart: newState.displayCart,
+      displayShowDetails: newState.displayShowDetails,
+      displayShowList: newState.displayShowList
+    })
   }
 
   // Show Functions
@@ -434,7 +459,6 @@ class App extends Component {
     newState.checked = true
     this.setState({ checked: newState.checked })
   }
-
 
   purchase = async () => {
     const cartObj = this.state.cartToSend
@@ -809,7 +833,7 @@ class App extends Component {
                       toggleLoggedIn={this.toggleLoggedIn}
                       userDashboard={this.userDashboard} />
 
-                    <div className="row">
+                    <div className="mobile row">
                       <div className="col-sm-12">
                         <DetailCartView
                           addBorder={this.addBorder}
@@ -824,6 +848,8 @@ class App extends Component {
                           displayConfirmRemove={this.state.displayConfirmRemove}
                           displayQuantity={this.state.displayQuantity}
                           displayShow={this.state.displayShow}
+                          displayShowDetails={this.state.displayShowDetails}
+                          displayShowList={this.state.displayShowList}
                           displaySuccess={this.state.displaySuccess}
                           displayViewCartBtn={this.state.displayViewCartBtn}
                           displayWarning={this.state.displayWarning}

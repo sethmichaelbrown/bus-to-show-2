@@ -145,7 +145,7 @@ const DetailCartView = (props) => {
           </ul>
           <div className="tab-content" id="mobile-tab-content">
             <div className="mobile-showList tab-pane fade show active" id="showList" role="tabpanel" aria-labelledby="showList-tab">
-              {props.shows ?
+              {props.shows && props.displayShowList ?
                 <ShowList
                   addBorder={props.addBorder}
                   displayShow={props.displayShow}
@@ -161,13 +161,11 @@ const DetailCartView = (props) => {
                   sortedByDate={props.dateIcon}
                   ticketsAvailable={props.ticketsAvailable} />
                 :
-                <div className="noShowList">
-                  <h1>Server Error - ShowList</h1>
-                </div>
+                ''
               }
             </div>
             <div className="mobile-showDetailView tab-pane fade" id="showDetails" role="tabpanel" aria-labelledby="showDetails-tab">
-              {props.displayShow ?
+              {props.displayShow && props.displayShowDetails ?
                 <ShowDetailView
                   addToCart={props.addToCart}
                   displayAddBtn={props.displayAddBtn}
@@ -210,7 +208,7 @@ const DetailCartView = (props) => {
               }
             </div>
             <div className="tab-pane fade" id="cart" role="tabpanel" aria-labelledby="cart-tab">
-              {props.inCart.length > 0 ?
+              {props.inCart.length > 0 && props.displayCart ?
                 <Cart
                   afterDiscountObj={props.afterDiscountObj}
                   checked={props.checked}
