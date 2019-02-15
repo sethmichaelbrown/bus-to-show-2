@@ -659,7 +659,7 @@ class App extends Component {
   //   const newState = { ...this.state }
   //   newState.displayBorder = true
   //   this.setState(newState)
-
+  //
   //   setTimeout(() => {
   //     const newState = { ...this.state }
   //     newState.displayBorder = false
