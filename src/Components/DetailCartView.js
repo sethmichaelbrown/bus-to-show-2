@@ -61,6 +61,7 @@ const DetailCartView = (props) => {
                   pickupLocationId={props.pickupLocationId}
                   pickupLocations={props.pickupLocations}
                   pickupParties={props.pickupParties}
+                  pickupPartyId={props.pickupPartyId}
                   purchase={props.purchase}
                   purchaseClick={props.purchaseClick}
                   purchasePending={props.purchasePending}
@@ -78,6 +79,7 @@ const DetailCartView = (props) => {
                   validatedElements={props.validatedElements} /> :
                 <ShowDetailView
                   addToCart={props.addToCart}
+                  assignedParties={props.assignedParties}
                   displayAddBtn={props.displayAddBtn}
                   displayBorder={props.displayBorder}
                   displayCart={props.displayCart}
@@ -90,6 +92,8 @@ const DetailCartView = (props) => {
                   inCart={props.inCart}
                   pickupLocations={props.pickupLocations}
                   pickupLocationId={props.pickupLocationId}
+                  pickupPartyId={props.pickupPartyId}
+                  lastDepartureTime={props.lastDepartureTime}
                   returnToShows={props.returnToShows}
                   selectPickupLocationId={props.selectPickupLocationId}
                   selectTicketQuantity={props.selectTicketQuantity}
@@ -167,6 +171,7 @@ const DetailCartView = (props) => {
           {(props.displayShow || props.displayShowDetails) && !props.displayCart ?
             <ShowDetailView
               addToCart={props.addToCart}
+              assignedParties={props.assignedParties}
               displayAddBtn={props.displayAddBtn}
               displayBorder={props.displayBorder}
               displayCart={props.displayCart}
@@ -178,9 +183,11 @@ const DetailCartView = (props) => {
               displayWarning={props.displayWarning}
               findDiscountCode={props.findDiscountCode}
               inCart={props.inCart}
+              lastDepartureTime={props.lastDepartureTime}
               mobileShowsExpandClick={props.mobileShowsExpandClick}
               pickupLocations={props.pickupLocations}
               pickupLocationId={props.pickupLocationId}
+              pickupPartyId={props.pickupPartyId}
               returnToShows={props.returnToShows}
               selectPickupLocationId={props.selectPickupLocationId}
               selectTicketQuantity={props.selectTicketQuantity}
@@ -190,7 +197,7 @@ const DetailCartView = (props) => {
               totalCost={props.totalCost}
               viewCart={props.viewCart} />
             : '' }
-        
+
         </div>
         { props.displayCart ?
           <Cart
@@ -209,6 +216,7 @@ const DetailCartView = (props) => {
             lastDepartureTime={props.lastDepartureTime}
             makePurchase={props.makePurchase}
             pickupLocationId={props.pickupLocationId}
+            pickupPartyId={props.pickupPartyId}
             pickupLocations={props.pickupLocations}
             pickupParties={props.pickupParties}
             purchase={props.purchase}

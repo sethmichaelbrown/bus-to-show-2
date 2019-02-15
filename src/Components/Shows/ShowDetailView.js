@@ -17,10 +17,11 @@ const ShowDetailView = (props) => {
 
 
   let basePrice;
-  if (props.pickupLocationId) {
-    basePrice = props.pickupLocations.find(location => parseInt(location.id) === parseInt(props.pickupLocationId)).basePrice.toFixed(2)
+  if (props.pickupPartyId) {
+    basePrice = props.assignedParties.find(location => parseInt(location.id) === parseInt(props.pickupPartyId)).partyPrice.toFixed(2)
   }
 
+console.log("last departure in showDetailView:::", props.lastDepartureTime)
 
 
   return (
@@ -68,18 +69,18 @@ const ShowDetailView = (props) => {
 
                 <div className="row">
                   <div className="col-md-7">
-                    <div className='mt-2'>Departure Location</div>
+                    <div className='mt-2'>Departure Options</div>
                     <form className="needs-validation">
                       <div className="form-group">
                         <select id="departureLocation" className={`custom-select mt-2 ${props.displayQuantity ? 'is-valid' : ''}`} onChange={props.selectPickupLocationId} required>
-                          <option value="Select a Departure Location..." >Select a Departure Location...</option>
-                          {props.pickupLocations ?
-                            props.pickupLocations.map(location => {
+                          <option value="Select a Departure Location..." >Select a Departure Option...</option>
+                          {props.assignedParties ?
+                            props.assignedParties.map(location => {
                               return (
                                 <option
                                   key={location.id}
                                   id={location.id}
-                                  value={location.id}>{location.locationName} - ${location.basePrice.toFixed(2)} each
+                                  value={location.id}>{moment(location.lastBusDepartureTime, 'LT').format('h:mm A')} || {location.LocationName} - ${location.partyPrice.toFixed(2)} each
                             </option>
                               )
                             })
@@ -116,7 +117,7 @@ const ShowDetailView = (props) => {
                               <button
                                 className="btn btn-danger"
                                 disabled="disabled"
-                                type="button">Sold Out! Please try different pickup location</button>
+                                type="button">Currently sold out! Select another location or try back later. </button>
                               :
                               <select
                                 className={`custom-select mt-2 ${props.displayAddBtn ? 'is-valid' : ''}`}
@@ -134,7 +135,7 @@ const ShowDetailView = (props) => {
                     {props.displayAddBtn && props.displayQuantity ?
                       <div>
                         <h3><span className="badge badge-success">
-                          Total: ${((props.pickupLocations.map(location => location.basePrice.toFixed())[0]) * (props.ticketQuantity) * 1.1).toFixed(2)}
+                          Total: ${((props.assignedParties.map(location => location.partyPrice.toFixed())[0]) * (props.ticketQuantity) * 1.1).toFixed(2)}
                           {props.pickupLocation}
                         </span></h3>
                       </div> : ''}
@@ -216,18 +217,18 @@ const ShowDetailView = (props) => {
 
                   <div className="row">
                     <div className="col-md-7">
-                      <div className=''>Departure Location</div>
+                      <div className=''>Departure Option</div>
                       <form className="needs-validation">
                         <div className="form-group">
                           <select id="departureLocation" className={`custom-select ${props.displayQuantity ? 'is-valid' : ''}`} onChange={props.selectPickupLocationId} required>
-                            <option value="Select a Departure Location..." >Select a Departure Location...</option>
-                            {props.pickupLocations ?
-                              props.pickupLocations.map(location => {
+                            <option value="Select a Departure Option..." >Select a Departure Option...</option>
+                            {props.assignedParties ?
+                              props.assignedParties.map(location => {
                                 return (
                                   <option
                                     key={location.id}
                                     id={location.id}
-                                    value={location.id}>{location.locationName} - ${location.basePrice.toFixed(2)} each
+                                    value={location.id}>{moment(location.lastBusDepartureTime, 'LT').format('h:mm A')} || {location.LocationName} - ${location.partyPrice.toFixed(2)} each
                             </option>
                                 )
                               })
@@ -282,7 +283,7 @@ const ShowDetailView = (props) => {
                       {props.displayAddBtn && props.displayQuantity ?
                         <div>
                           <h3><span className="badge badge-success">
-                            Total: ${((props.pickupLocations.map(location => location.basePrice.toFixed())[0]) * (props.ticketQuantity) * 1.1).toFixed(2)}
+                            Total: ${((props.assignedParties.map(location => location.partyPrice.toFixed())[0]) * (props.ticketQuantity) * 1.1).toFixed(2)}
                             {props.pickupLocation}
                           </span></h3>
                         </div> : ''}
