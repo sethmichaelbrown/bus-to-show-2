@@ -28,6 +28,7 @@ class App extends Component {
     },
     artistDescription: null,
     artistIcon: false,
+    assignedParties: [],
     basePrice: null,
     cartToSend: {
       eventId: null,
@@ -62,12 +63,15 @@ class App extends Component {
     displayViewCartBtn: false,
     displayWarning: false,
     displayQuantity: false,
+    displayTimes: false,
     filterString: '',
+    firstBusLoad: null,
     googleResponse: null,
     inCart: [],
     loggedIn: false,
     myReservationsView: false,
     pickupLocationId: null,
+    pickupPartyId: null,
     purchasePending: false,
     purchaseSuccessful: false,
     showBios: false,
@@ -92,6 +96,7 @@ class App extends Component {
     const response = await fetch('https://something-innocuous.herokuapp.com/events')
     const allShows = await response.json()
 
+//filters out expired shows and shows that don't meet criteria, and shows that are denied.
     const dateCheck = (show) => {
       const showDate = Date.parse(show.date)
       const today = new Date()
@@ -103,7 +108,6 @@ class App extends Component {
         return true
       }
     }
-
     const currentShows = allShows.filter(dateCheck)
     const shows = currentShows.filter(show => show.meetsCriteria === true && show.isDenied === false)
 
@@ -122,6 +126,7 @@ class App extends Component {
     this.setState({ pickupLocations })
 
     const getPickupParties = await fetch('https://something-innocuous.herokuapp.com/pickup_parties')
+    //const getPickupParties = await fetch('http://localhost:3000/pickup_parties')
     const pickupParties = await getPickupParties.json()
     this.setState({ pickupParties })
   }
@@ -144,12 +149,25 @@ class App extends Component {
     }
   }
 
-
+//status: active.  where: called in showDetails.  why:  requires selection of location before corresponding times and quantities are displayed.
   selectPickupLocationId = async event => {
     const newState = { ...this.state }
+    console.log('change in selectPickupLocationId')
+    if (parseInt(event.target.value) !== newState.pickupPartyId){
+      newState.ticketQuantity = null
+      newState.displayQuantity = false
+      newState.displayAddBtn = false
+      this.setState({
+        ticketQuantity: newState.ticketQuantity,
+        displayQuantity: newState.displayQuantity,
+        displayAddBtn: newState.displayAddBtn
+      })
+    }
+
     if (parseInt(event.target.value)) {
-      newState.pickupLocationId = event.target.value
+      newState.pickupPartyId = event.target.value
       newState.displayQuantity = true
+
     }
     else {
       newState.displayQuantity = false
@@ -157,28 +175,40 @@ class App extends Component {
     }
 
 
-    const statePickupId = parseInt(newState.pickupLocationId)
+    const statePickupPartyId = parseInt(newState.pickupPartyId)
     const stateEventId = parseInt(newState.displayShow.id)
 
-    const locations = newState.pickupParties
-    const matchedLocation = await locations.find(location => (parseInt(location.pickupLocationId) === statePickupId) && (parseInt(location.eventId) === stateEventId))
+    const parties = newState.assignedParties
+    console.log('parties:::::', parties)
+    console.log('statePickupPartyId', statePickupPartyId)
+    const matchedParty = await parties.find(party => (parseInt(party.id) === statePickupPartyId) && (parseInt(party.eventId) === stateEventId))
+    console.log('matchedParty', matchedParty)
+    newState.pickupLocationId = matchedParty.pickupLocationId
+    if(matchedParty.firstBusLoadTime){
+      newState.firstBusLoad = moment(matchedParty.firstBusLoadTime, 'LT').format('h:mm A')
+    }
+    newState.lastDepartureTime = moment(matchedParty.lastBusDepartureTime, 'LT').format('h:mm A')
+
 
 
     let numArray = []
 
 
-    if (matchedLocation) {
-      const capacityLessInCart = parseInt(matchedLocation.capacity) - parseInt(matchedLocation.inCart)
+    if (matchedParty) {
+      const capacityLessInCart = parseInt(matchedParty.capacity) - parseInt(matchedParty.inCart)
       numArray = [...Array(capacityLessInCart).keys()].map(i => i + 1)
       newState.ticketsAvailable = numArray
     }
     else {
-      console.log('Error!!')
+      console.log('Error!! No MatchedParty in selectPickupLocationId')
     }
 
     this.setState({
       ticketsAvailable: newState.ticketsAvailable,
       pickupLocationId: newState.pickupLocationId,
+      pickupPartyId: newState.pickupPartyId,
+      firstBusLoad: newState.firstBusLoad,
+      lastDepartureTime: newState.lastDepartureTime,
       displayQuantity: newState.displayQuantity,
       displayAddBtn: newState.displayAddBtn
     })
@@ -197,6 +227,7 @@ class App extends Component {
     const sPickupId = parseInt(this.state.pickupLocationId)
     const sEventId = parseInt(this.state.displayShow.id)
     const pickupParty = this.state.pickupParties.find(party => party.pickupLocationId === sPickupId && party.eventId === sEventId)
+    console.log('PARTYAY_______------:: ' , pickupParty)
     const pickupLocation = newState.pickupLocations.filter(location => parseInt(location.id) === parseInt(this.state.pickupLocationId))[0]
     const subTotal = (Number(pickupLocation.basePrice) * Number(event.target.value))
     const total = ((Number(subTotal) * .1) + Number(subTotal)).toFixed(2)
@@ -350,25 +381,39 @@ class App extends Component {
   // Show Functions
   showsExpandClick = event => {
     const newState = { ...this.state }
+    //immediately clear previously selected pickupPartyId from State.
+    newState.pickupPartyId = null
+    this.setState({
+      pickupPartyId: newState.pickupPartyId
+    })
     const clickedShow = newState.shows.find(show => (parseInt(show.id) === parseInt(event.target.id)))
-
+    //return array of pickupParties assigned to this event
+    const assignedPickupParties = this.state.pickupParties.filter(party => clickedShow.id === party.eventId)
+    const pickupLocations = newState.pickupLocations
+    assignedPickupParties.map(party => pickupLocations.map(location => {
+          if(location.id === party.pickupLocationId){
+            party.LocationName = location.locationName
+          }
+        })
+    )
+    //set initial state of show details view
     newState.displayQuantity = false
     newState.displayDetailCartView = true
     newState.displaySuccess = false
     newState.displayShowDetails = true
     newState.displayShow = clickedShow
+    newState.assignedParties = assignedPickupParties
     this.setState({
       displayQuantity: newState.displayQuantity,
       displayDetailCartView: newState.displayDetailCartView,
       displaySuccess: newState.displaySuccess,
-      displayShow: newState.displayShow
+      displayShow: newState.displayShow,
+      assignedParties: newState.assignedParties
     })
-
     if (document.querySelector('#departureLocation')) {
       document.querySelector('#departureLocation').value = "Select a Departure Location..."
     }
   }
-
 
   returnToShows = () => {
     const newState = { ...this.state }
@@ -614,7 +659,7 @@ class App extends Component {
   //   const newState = { ...this.state }
   //   newState.displayBorder = true
   //   this.setState(newState)
-
+  //
   //   setTimeout(() => {
   //     const newState = { ...this.state }
   //     newState.displayBorder = false
@@ -783,6 +828,7 @@ class App extends Component {
                           {this.state.displayCart || this.state.displayShow ?
                             <DetailCartView
                               afterDiscountObj={this.state.afterDiscountObj}
+                              assignedParties={this.state.assignedParties}
                               closeAlert={this.closeAlert}
                               addToCart={this.addToCart}
                               checked={this.state.checked}
@@ -807,6 +853,7 @@ class App extends Component {
                               makePurchase={this.makePurchase}
                               pickupLocations={this.state.pickupLocations}
                               pickupLocationId={this.state.pickupLocationId}
+                              pickupPartyId={this.state.pickupPartyId}
                               pickupParties={this.state.pickupParties}
                               purchase={this.purchase}
                               purchaseClick={this.purchaseClick}
@@ -884,6 +931,7 @@ class App extends Component {
                           addBorder={this.addBorder}
                           addToCart={this.addToCart}
                           afterDiscountObj={this.state.afterDiscountObj}
+                          assignedParties={this.state.assignedParties}
                           checked={this.state.checked}
                           closeAlert={this.closeAlert}
                           confirmedRemove={this.confirmedRemove}
@@ -896,6 +944,7 @@ class App extends Component {
                           displayShowDetails={this.state.displayShowDetails}
                           displayShowList={this.state.displayShowList}
                           displaySuccess={this.state.displaySuccess}
+                          displayTimes={this.state.displayTimes}
                           displayViewCartBtn={this.state.displayViewCartBtn}
                           displayWarning={this.state.displayWarning}
                           filterString={this.state.filterString}
@@ -912,6 +961,7 @@ class App extends Component {
                           mobileTabClicked={this.mobileTabClicked}
                           pickupLocationId={this.state.pickupLocationId}
                           pickupLocations={this.state.pickupLocations}
+                          pickupPartyId={this.state.pickupPartyId}
                           pickupParties={this.state.pickupParties}
                           purchase={this.purchase}
                           purchaseClick={this.purchaseClick}
