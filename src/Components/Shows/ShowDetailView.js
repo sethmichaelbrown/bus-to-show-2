@@ -18,7 +18,7 @@ const ShowDetailView = (props) => {
 
   let basePrice;
   if (props.pickupPartyId) {
-    basePrice = props.assignedParties.find(location => parseInt(location.id) === parseInt(props.pickupPartyId)).partyPrice.toFixed(2)
+    basePrice = props.assignedParties.find(party => parseInt(party.id) === parseInt(props.pickupPartyId)).partyPrice.toFixed(2)
   }
 
 console.log("last departure in showDetailView:::", props.lastDepartureTime)

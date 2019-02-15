@@ -369,10 +369,14 @@ class App extends Component {
   // Show Functions
   showsExpandClick = event => {
     const newState = { ...this.state }
+    //immediately clear previously selected pickupPartyId from State.
+    newState.pickupPartyId = null
+    this.setState({
+      pickupPartyId: newState.pickupPartyId
+    })
     const clickedShow = newState.shows.find(show => (parseInt(show.id) === parseInt(event.target.id)))
     //return array of pickupParties assigned to this event
     const assignedPickupParties = this.state.pickupParties.filter(party => clickedShow.id === party.eventId)
-    console.log('assignedPickupParties------:: ' , assignedPickupParties)
     const pickupLocations = newState.pickupLocations
     assignedPickupParties.map(party => pickupLocations.map(location => {
           if(location.id === party.pickupLocationId){
@@ -380,7 +384,6 @@ class App extends Component {
           }
         })
     )
-    console.log('LowKayshun', assignedPickupParties)
     //set initial state of show details view
     newState.displayQuantity = false
     newState.displayDetailCartView = true
