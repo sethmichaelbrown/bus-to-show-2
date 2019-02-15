@@ -152,6 +152,18 @@ class App extends Component {
 //status: active.  where: called in showDetails.  why:  requires selection of location before corresponding times and quantities are displayed.
   selectPickupLocationId = async event => {
     const newState = { ...this.state }
+    console.log('change in selectPickupLocationId')
+    if (parseInt(event.target.value) !== newState.pickupPartyId){
+      newState.ticketQuantity = null
+      newState.displayQuantity = false
+      newState.displayAddBtn = false
+      this.setState({
+        ticketQuantity: newState.ticketQuantity,
+        displayQuantity: newState.displayQuantity,
+        displayAddBtn: newState.displayAddBtn
+      })
+    }
+
     if (parseInt(event.target.value)) {
       newState.pickupPartyId = event.target.value
       newState.displayQuantity = true
