@@ -191,6 +191,7 @@ const DetailCartView = (props) => {
               returnToShows={props.returnToShows}
               selectPickupLocationId={props.selectPickupLocationId}
               selectTicketQuantity={props.selectTicketQuantity}
+              showsExpandClick={props.showsExpandClick}
               ticketsAvailable={props.ticketsAvailable}
               ticketQuantity={props.ticketQuantity}
               updateDiscountCode={props.updateDiscountCode}

@@ -72,8 +72,8 @@ console.log("last departure in showDetailView:::", props.lastDepartureTime)
                     <div className='mt-2'>Departure Options</div>
                     <form className="needs-validation">
                       <div className="form-group">
-                        <select id="departureLocation" className={`custom-select mt-2 ${props.displayQuantity ? 'is-valid' : ''}`} onChange={props.selectPickupLocationId} required>
-                          <option value="Select a Departure Location..." >Select a Departure Option...</option>
+                        <select id="departureOption" className={`custom-select mt-2 ${props.displayQuantity ? 'is-valid' : ''}`} onChange={props.selectPickupLocationId} required>
+                          <option value="Select a Departure Option..." >Select a Departure Option...</option>
                           {props.assignedParties ?
                             props.assignedParties.map(location => {
                               return (
@@ -220,7 +220,7 @@ console.log("last departure in showDetailView:::", props.lastDepartureTime)
                       <div className=''>Departure Option</div>
                       <form className="needs-validation">
                         <div className="form-group">
-                          <select id="departureLocation" className={`custom-select ${props.displayQuantity ? 'is-valid' : ''}`} onChange={props.selectPickupLocationId} required>
+                          <select id="departureOption" className={`custom-select ${props.displayQuantity ? 'is-valid' : ''}`} onChange={props.selectPickupLocationId} required>
                             <option value="Select a Departure Option..." >Select a Departure Option...</option>
                             {props.assignedParties ?
                               props.assignedParties.map(location => {

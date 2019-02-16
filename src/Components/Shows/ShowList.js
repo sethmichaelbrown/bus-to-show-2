@@ -93,6 +93,7 @@ const ShowList = (props) => {
                     handleWarning={props.handleWarning}
                     inCart={props.inCart}
                     mobileShowsExpandClick={props.mobileShowsExpandClick}
+                    ShowsExpandClick={props.ShowsExpandClick}
                     shows={props.shows}/>
                 </div>
                 : ''}
