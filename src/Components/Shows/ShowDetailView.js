@@ -72,8 +72,8 @@ console.log("last departure in showDetailView:::", props.lastDepartureTime)
                     <div className='mt-2'>Departure Options</div>
                     <form className="needs-validation">
                       <div className="form-group">
-                        <select id="departureLocation" className={`custom-select mt-2 ${props.displayQuantity ? 'is-valid' : ''}`} onChange={props.selectPickupLocationId} required>
-                          <option value="Select a Departure Location..." >Select a Departure Option...</option>
+                        <select id="departureOption" className={`custom-select mt-2 ${props.displayQuantity ? 'is-valid' : ''}`} onChange={props.selectPickupLocationId} required>
+                          <option value="Select a Departure Option..." >Select a Departure Option...</option>
                           {props.assignedParties ?
                             props.assignedParties.map(location => {
                               return (
@@ -183,28 +183,15 @@ console.log("last departure in showDetailView:::", props.lastDepartureTime)
               <h4>{moment(show.date, "MM-DD-YYYY").format("dddd")} - {show.date} at {show.venue.split(' Amphitheatre')[0]} (and back)</h4>
               <div className="list-group">
                 <div className="list-group-item">
-                  <div className='row justify-content-center'>
-                    <div className="col-md-8 artist-info bio-font">
-                      {show.headlinerBio ? headlinerBio :
-                        <div>
-                          <div className='row'>
-                            <div className="col-md-12">
-                              {<p>
-                                The concept for Bus to Show was conceived by our founder several years in the future, and then planted in the mind of his younger self (2007) through inter-temporal-telepathy. Bus to Show is, at its core, designed to save the lives of a few future political and spiritual leaders, who would otherwise have been killed in their youth by impaired drivers on their way home from concerts. At the same time, Bus to Show works to reduce the amount of fuel consumption that results from events, which, in turn, will delay the destruction of the Earth long enough for the saved leaders to come of-age and implement their plans for reaching a sustained equilibrium between industry and environment.
-                              <br />
-                                <br />
-                                Bus to Show is a Colorado Nonprofit Corporation with the ability to accept 501(c)(3) tax-exempt donations through its fiscal sponsor partnership with The Nowak Society.
-                            </p>
-                              }
-                            </div>
-                          </div>
-                          <div className="row">
-                            <div className="col-md-6 offset-md-1 no-info-logo">
-                            </div>
-                          </div>
-                        </div>}
+                  <div className='row'>
+                    <div className='col-6 artist-info bio-font'>
+                      <div className="row">
+                        {show.headlinerBio ? headlinerBio :
+                          <img src={logo} alt="bts-logo" className='bts-logo-sDV' />
+                        }
+                      </div>
                     </div>
-                    <div className="col-md-4 artist-image">
+                    <div className='col-6 artist-image'>
                       <div className="row bts-logo-flex">
                         {show.headlinerImgLink ?
                           <img src={show.headlinerImgLink} alt="headliner" />
@@ -220,7 +207,7 @@ console.log("last departure in showDetailView:::", props.lastDepartureTime)
                       <div className=''>Departure Option</div>
                       <form className="needs-validation">
                         <div className="form-group">
-                          <select id="departureLocation" className={`custom-select ${props.displayQuantity ? 'is-valid' : ''}`} onChange={props.selectPickupLocationId} required>
+                          <select id="departureOption" className={`custom-select ${props.displayQuantity ? 'is-valid' : ''}`} onChange={props.selectPickupLocationId} required>
                             <option value="Select a Departure Option..." >Select a Departure Option...</option>
                             {props.assignedParties ?
                               props.assignedParties.map(location => {

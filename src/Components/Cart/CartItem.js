@@ -1,4 +1,5 @@
 import React from 'react'
+import MediaQuery from 'react-responsive'
 import moment from 'moment'
 import '../../App.css';
 
@@ -28,10 +29,44 @@ const CartItem = (props) => {
 
   return (
     <div className='CartItem'>
+      <MediaQuery minWidth={800}>
+        {props.showsInCart.map(show =>
+          <li className="list-group-item highlightOnHover" key={show.id} id={show.id}>
+            <div className="row" id={show.id}>
+              <div className="col-md-4 cart-item-font" id={show.id}>{show.headliner} <br /> at {show.venue.split(' Amphitheatre')[0]} </div>
+              <div className="col-md-4 cart-item-font" id={show.id}>{pickupLocation.locationName} <br /> {pickupLocation.streetAddress}</div>
+              <div className="col-md-2 cart-item-font" id={show.id}>{show.date}</div>
+              <div className="form-group col-md-1 cart-item-font">{props.ticketQuantity}</div>
+              <div className="col-md-1 cart-item-font"
+                id={show.id}><button onClick={props.removeFromCart} type="button" className="btn-sm btn-outline-danger remove-border"><strong> X </strong></button>
+              </div>
+
+              <br />
+              <br />
+
+              <div className="row mt-3">
+                <div className="col-md-12 list-item-font">
+                  First bus loads around {firstBusLoad ?
+                    firstBusLoad : defaultFirstBus}
+                </div>
+                <div className="col-md-12 list-item-font red-text mt-2">
+                  Last bus departs at: {pickupTime}
+                </div>
+              </div>
+            </div>
+          </li>)}
+      </MediaQuery>
+      <MediaQuery maxWidth={799}>
+      <div className="row border border-secondary">
+        <div className="col-2 border-right border-secondary">Date
+        </div>
+        <div className="col-2 border-right border-secondary">Event
+        </div>
+      </div>
       {props.showsInCart.map(show =>
-        <li className="list-group-item highlightOnHover" onClick={props.eventExpandClick} key={show.id} id={show.id}>
-          <div className="row" id={show.id}>
-            <div className="col-md-4 cart-item-font" id={show.id}>{show.headliner} <br /> at {show.venue.split(' Amphitheatre')[0]} </div>
+        <li className="list-group-item highlightOnHover" key={show.id} id={show.id}>
+          <div className="row border-secondary" id={show.id}>
+            <div className="col-md-4 cart-item-font" id={show.id}>{show.headliner} at {show.venue.split(' Amphitheatre')[0]} </div>
             <div className="col-md-4 cart-item-font" id={show.id}>{pickupLocation.locationName} <br /> {pickupLocation.streetAddress}</div>
             <div className="col-md-2 cart-item-font" id={show.id}>{show.date}</div>
             <div className="form-group col-md-1 cart-item-font">{props.ticketQuantity}</div>
@@ -53,6 +88,7 @@ const CartItem = (props) => {
             </div>
           </div>
         </li>)}
+      </MediaQuery>
     </div>
   )
 }

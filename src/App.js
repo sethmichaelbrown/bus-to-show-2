@@ -411,8 +411,8 @@ class App extends Component {
       displayShow: newState.displayShow,
       assignedParties: newState.assignedParties
     })
-    if (document.querySelector('#departureLocation')) {
-      document.querySelector('#departureLocation').value = "Select a Departure Location..."
+    if (document.querySelector('#departureOption')) {
+      document.querySelector('#departureOption').value = "Select a Departure Option..."
     }
   }
 
@@ -727,24 +727,47 @@ class App extends Component {
 
   mobileShowsExpandClick = event => {
     const newState = { ...this.state }
+    //immediately clear previously selected pickupPartyId from State.
+    newState.pickupPartyId = null
+    this.setState({
+      pickupPartyId: newState.pickupPartyId
+    })
     const clickedShow = newState.shows.find(show => (parseInt(show.id) === parseInt(event.target.id)))
 
-    newState.displayShow = clickedShow
-    newState.displayQuantity = false
-    newState.displaySuccess = false
-    newState.displayShowDetails = true
-    newState.displayShowList = false
-    newState.displayCart = false
+    //return array of pickupParties assigned to this event
+    const assignedPickupParties = this.state.pickupParties.filter(party => clickedShow.id === party.eventId)
 
+    //add location Name from pickupLocations to assigned pickupParties objects.
+    const pickupLocations = newState.pickupLocations
+    assignedPickupParties.map(party => pickupLocations.map(location => {
+          if(location.id === party.pickupLocationId){
+            party.LocationName = location.locationName
+          }
+        })
+    )
+    //set initial state of show details view
+    newState.displayShowList = false
+    newState.displayQuantity = false
+    newState.displayDetailCartView = true
+    newState.displaySuccess = false
+    newState.displayCart = false
+    newState.displayShowDetails = true
+    newState.displayShow = clickedShow
+    newState.assignedParties = assignedPickupParties
     this.setState({
       displayShow: newState.displayShow,
       displayQuantity: newState.displayQuantity,
       displayDetailCartView: newState.displayDetailCartView,
       displaySuccess: newState.displaySuccess,
       displayShowList: newState.displayShowList,
-      displayCart: newState.displayCart
+      displayCart: newState.displayCart,
+      assignedParties: newState.assignedParties
     })
+    if (document.querySelector('#departureLocation')) {
+      document.querySelector('#departureLocation').value = "Select a Departure Option..."
+    }
   }
+
 
     mobileTabClicked = event => {
     const id = event.target.id
@@ -976,6 +999,7 @@ class App extends Component {
                           selectPickupLocationId={this.selectPickupLocationId}
                           selectTicketQuantity={this.selectTicketQuantity}
                           shows={this.state.shows}
+                          showsExpandClick={this.showsExpandClick}
                           showsInCart={this.state.inCart}
                           sortByArtist={this.sortByArtist}
                           sortByDate={this.sortByDate}
