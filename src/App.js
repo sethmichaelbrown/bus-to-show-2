@@ -355,16 +355,17 @@ class App extends Component {
 
   // Tab Functions
   tabClicked = event => {
+
     const newState = { ...this.state }
     if (event.target.id === 'cart-tab') {
       newState.displayCart = true
-
     }
-
+    if (event.target.innerHTML === 'Details' && newState.inCart.length === 0) {
+      newState.displayCart = false
+    }
     if (!newState.inCart.length > 0 && event.target.id === 'showDetails-tab') {
       newState.displayCart = false
     }
-
     if (newState.inCart.length > 0 && event.target.id === 'showDetails-tab') {
       newState.displayWarning = true
     }
@@ -896,6 +897,7 @@ class App extends Component {
                             sortByDate={this.sortByDate}
                             sortedByArtist={this.state.artistIcon}
                             sortedByDate={this.state.dateIcon}
+                            tabClicked={this.tabClicked}
                             ticketsAvailable={this.state.ticketsAvailable} />
                         </div>
                       </div>

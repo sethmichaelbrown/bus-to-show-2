@@ -13,6 +13,12 @@ const Show = (props) => {
     filterShows = props.shows.filter(show => show.venue.toLowerCase().includes(filterString))
   }
 
+  const onEmptyCartDetailClick = event => {
+    console.log('clicked', event.target.innerHTML)
+    props.showsExpandClick(event)
+    props.tabClicked(event)
+  }
+
   return (
     <div className='Shows'>
       {/* Desktop View */}
@@ -39,7 +45,7 @@ const Show = (props) => {
                 <button
                   id={show.id}
                   // onClick={props.addBorder}
-                  onClick={props.showsExpandClick}
+                  onClick={e => onEmptyCartDetailClick(e)}
                   type="button"
                   className='btn detail-btn my-4 col-md-2'>Details</button>}
             </div>

@@ -153,6 +153,7 @@ const DetailCartView = (props) => {
               <ShowList
                 addBorder={props.addBorder}
                 displayShow={props.displayShow}
+                displayCart={props.displayCart}
                 filterString={props.filterString}
                 handleWarning={props.handleWarning}
                 inCart={props.inCart}

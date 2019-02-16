@@ -49,7 +49,8 @@ const ShowList = (props) => {
                       handleWarning={props.handleWarning}
                       inCart={props.inCart}
                       shows={props.shows}
-                      showsExpandClick={props.showsExpandClick} />
+                      showsExpandClick={props.showsExpandClick}
+                      tabClicked={props.tabClicked} />
                   </div>
                   : ''}
               </ul>
