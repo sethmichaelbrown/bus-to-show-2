@@ -56,9 +56,10 @@ const CartItem = (props) => {
           </li>)}
       </MediaQuery>
       <MediaQuery maxWidth={799}>
-      <div className="list-group-mobile" id="mobileCartTickets">
+      {props.displayConfirmRemove ? '' :
+      <div className="list-item-mobile" id="mobileCartTickets">
       {props.showsInCart.map(show =>
-        <li className="px-4 py-2" key={show.id} id={show.id}>
+        <li className="px-4 py-2 list-item-mobile" key={show.id} id={show.id}>
           <div className="row border-top border-left border-right border-secondary bg-light p-2" id={show.id}>
             <div className="col-sm-12 cart-item-font pl-0">{props.ticketQuantity} Roundtrip Bus Spot(s) on {moment(show.date, "MM-DD-YYYY").format("dddd")}, {show.date}
             </div>
@@ -90,6 +91,7 @@ const CartItem = (props) => {
 
         </li>)}
       </div>
+    }
       </MediaQuery>
     </div>
   )

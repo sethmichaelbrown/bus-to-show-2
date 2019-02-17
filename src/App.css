@@ -22,6 +22,10 @@ body {
   -ms-overflow-style: none;
 }
 
+.list-item-mobile{
+height: 25vh;
+}
+
 .list-group-mobile{
   max-height: 90vh;
   overflow: scroll;
