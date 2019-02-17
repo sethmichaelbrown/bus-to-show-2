@@ -610,6 +610,7 @@ class App extends Component {
     newState.purchaseSuccessful = false
     newState.displayWarning = false
     newState.displayConfirmRemove = true
+
     this.setState({
       displayConfirmRemove: newState.displayConfirmRemove,
       displayWarning: newState.displayWarning,
