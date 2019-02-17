@@ -26,7 +26,7 @@ const Cart = (props) => {
                     <div>
                       <h1>Thank you for your purchase!</h1>
                       <h3>You should receive a confirmation email shortly</h3>
-                    
+
                     </div>
                     : <h1>Nothing in Cart!</h1>}
                 </div>
