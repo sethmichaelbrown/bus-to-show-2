@@ -62,15 +62,7 @@ const Cart = (props) => {
                     </div> : ''}
                   </div>
                 </div>
-                :
-                <div className="list-group-item lgi-header">
-                  <div className="row">
-                    <div className="col-md-4">Show</div>
-                    <div className="col-md-4">Departure Location</div>
-                    <div className="col-md-2">Date</div>
-                    <div className="col-md-1">Qty</div>
-                  </div>
-                </div>}
+                : ''}
 
               <ul className="list-group">
                 <CartItem

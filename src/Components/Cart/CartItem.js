@@ -29,31 +29,34 @@ const CartItem = (props) => {
   return (
     <div className='CartItem'>
       <MediaQuery minWidth={800}>
-        {props.showsInCart.map(show =>
-          <li className="list-group-item highlightOnHover" key={show.id} id={show.id}>
-            <div className="row" id={show.id}>
-              <div className="col-md-4 cart-item-font" id={show.id}>{show.headliner} <br /> at {show.venue.split(' Amphitheatre')[0]} </div>
-              <div className="col-md-4 cart-item-font" id={show.id}>{pickupLocation.locationName} <br /> {pickupLocation.streetAddress}</div>
-              <div className="col-md-2 cart-item-font" id={show.id}>{show.date}</div>
-              <div className="form-group col-md-1 cart-item-font">{props.ticketQuantity}</div>
-              <div className="col-md-1 cart-item-font"
-                id={show.id}><button onClick={props.removeFromCart} type="button" className="btn-sm btn-outline-danger remove-border"><strong> X </strong></button>
+      {props.displayConfirmRemove ? '' :
+        props.showsInCart.map(show =>
+          <li className="px-4 py-2 list-item" key={show.id} id={show.id}>
+            <div className="row border-top border-left border-right border-secondary bg-light p-2" id={show.id}>
+              <div className="col-sm-12 cart-item-font pl-0">{props.ticketQuantity} Roundtrip Bus Spot(s) on {moment(show.date, "MM-DD-YYYY").format("dddd")}, {show.date}
               </div>
-
-              <br />
-              <br />
-
-              <div className="row mt-3">
-                <div className="col-md-12 list-item-font">
-                  First bus loads around {firstBusLoad ?
+                  <div className="col-sm-12 cart-item-font" id={show.id}>
+                    <div className="row">For: {show.headliner} at {show.venue.split(' Amphitheatre')[0]}
+                    </div>
+                    <div className="row" id={show.id}>Departing From: {pickupLocation.locationName} <br />{pickupLocation.streetAddress}
+                    </div>
+                  </div>
+                  <div className="cart-item-font" id={show.id}>
+                    <button onClick={props.removeFromCart} type="button" className="btn-sm btn-outline-danger"> Remove </button>
+                  </div>
+              </div>
+              <div className="row border-left border-right border-bottom border-secondary bg-light p-2">
+                <div className="col-md-12 cart-item-font pl-0">
+                  First bus loads around: {firstBusLoad ?
                     firstBusLoad : defaultFirstBus}
                 </div>
-                <div className="col-md-12 list-item-font red-text mt-2">
+                <div className="col-md-12 cart-item-font red-text pl-0 mt-1">
                   Last bus departs at: {pickupTime}
                 </div>
               </div>
-            </div>
-          </li>)}
+
+          </li>)
+        }
       </MediaQuery>
       <MediaQuery maxWidth={799}>
       {props.displayConfirmRemove ? '' :
