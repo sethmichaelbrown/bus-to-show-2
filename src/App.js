@@ -418,12 +418,18 @@ class App extends Component {
 
   returnToShows = () => {
     const newState = { ...this.state }
-
+    console.log('return to shows');
     newState.displayShow = null
     newState.displaySuccess = false
+    newState.displayShowList = true
+    newState.displayShowDetails = false
+    newState.displayCart = false
     this.setState({
       displayShow: newState.displayShow,
-      displaySuccess: newState.displaySuccess
+      displaySuccess: newState.displaySuccess,
+      displayShowList: newState.displayShowList,
+      displayShowDetails: newState.displayShowDetails,
+      displayCart: newState.displayCart
     })
   }
 
@@ -456,6 +462,8 @@ class App extends Component {
       newState.inCart.push(newState.displayShow)
       newState.displaySuccess = true
       newState.displayCart = true
+      newState.displayShowDetails = false
+      newState.displayShowList = false
     }
     else {
       newState.displayWarning = true
@@ -762,7 +770,8 @@ class App extends Component {
       displaySuccess: newState.displaySuccess,
       displayShowList: newState.displayShowList,
       displayCart: newState.displayCart,
-      assignedParties: newState.assignedParties
+      assignedParties: newState.assignedParties,
+      displayShowDetails: newState.displayShowDetails
     })
     if (document.querySelector('#departureLocation')) {
       document.querySelector('#departureLocation').value = "Select a Departure Option..."
@@ -773,21 +782,32 @@ class App extends Component {
     mobileTabClicked = event => {
     const id = event.target.id
     const newState = { ...this.state }
-
-    if (id === 'cart-tab') {
+    console.log(newState.inCart.length)
+    if (newState.inCart.length === 0) {
+      if (id === 'cart-tab') {
+        newState.displayCart = true
+        newState.displayShowDetails = false
+        newState.displayShowList = false
+        console.log('if cart cart/deets/list', newState.displayCart, newState.displayShowDetails, newState.displayShowList)
+      }
+      else if (id === 'showDetails-tab') {
+        newState.displayCart = false
+        newState.displayShowDetails = true
+        newState.displayShowList = false
+        console.log('if deets cart/deets/list', newState.displayCart, newState.displayShowDetails, newState.displayShowList)
+      }
+      else if (id === 'showList-tab') {
+        newState.displayCart = false
+        newState.displayShowDetails = false
+        newState.displayShowList = true
+        console.log('if list cart/deets/list', newState.displayCart, newState.displayShowDetails, newState.displayShowList)
+      }
+    }
+    else {
       newState.displayCart = true
       newState.displayShowDetails = false
       newState.displayShowList = false
-    }
-    else if (id === 'showDetails-tab') {
-      newState.displayCart = false
-      newState.displayShowDetails = true
-      newState.displayShowList = false
-    }
-    else {
-      newState.displayCart = false
-      newState.displayShowDetails = false
-      newState.displayShowList = true
+      console.log('else cart/deets/list', newState.displayCart, newState.displayShowDetails, newState.displayShowList)
     }
 
     this.setState({
