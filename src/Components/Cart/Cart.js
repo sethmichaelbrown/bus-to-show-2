@@ -283,7 +283,7 @@ const Cart = (props) => {
                   totalCost={Number(props.totalCost).toFixed(2)} />
               </ul>
               {props.showsInCart ?
-                <div className="list-group-item" >
+                <div className="list-group-item set-height" >
                   <div className="row">
                     <div className="col-md-12">
 
