@@ -39,6 +39,11 @@ height: 25vh;
   padding: .5rem 1.25rem;
 }
 
+.set-height{
+  min-height: 25vh;
+  max-height: 75vh;
+}
+
 .return-btn {
   display: inline-block;
 }
