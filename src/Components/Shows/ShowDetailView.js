@@ -159,7 +159,7 @@ console.log("last departure in showDetailView:::", props.lastDepartureTime)
 
       {/* Mobile View */}
       <MediaQuery maxWidth={799}>
-        {props.displayShowDetails ?
+        {props.displayShowDetails && !props.displayShow ?
           <div className="nothing-in-cart">
             <div className="row nothing-in-cart-text">
               <div className="col-md-12 mt-3">

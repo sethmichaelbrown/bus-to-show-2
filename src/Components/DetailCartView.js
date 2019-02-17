@@ -8,7 +8,7 @@ import logo from '../Images/Logos/bts-logo-gray.png'
 
 const DetailCartView = (props) => {
   // console.log('DCV', props)
-
+  console.log('top list/deets/cart', props.displayShowList, props.displayShowDetails, props.displayCart)
 
   return (
     <div className="DetailCartView">
@@ -116,7 +116,7 @@ const DetailCartView = (props) => {
             <li className="nav-item">
               <a
                 onClick={props.mobileTabClicked}
-                className={`nav-link ${props.displayShowList ? 'active' : ''}`}
+                className={`nav-link ${props.displayShowList ? 'active' : ''} ${props.inCart.length > 0 ? 'disabled' : ''}`}
                 id="showList-tab"
                 data-toggle="tab"
                 href="#showList"
@@ -127,7 +127,7 @@ const DetailCartView = (props) => {
             <li className="nav-item">
               <a
                 onClick={props.mobileTabClicked}
-                className={`nav-link ${props.displayShow && !props.displayCart ? 'active' : ''}`}
+                className={`nav-link ${props.displayShowDetails ? 'active' : ''} ${props.inCart.length > 0 ? 'disabled' : ''}`}
                 id="showDetails-tab"
                 data-toggle="tab"
                 href="#showDetails"

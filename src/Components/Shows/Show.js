@@ -14,7 +14,6 @@ const Show = (props) => {
   }
 
   const onEmptyCartDetailClick = event => {
-    console.log('clicked', event.target.innerHTML)
     props.showsExpandClick(event)
     props.tabClicked(event)
   }
