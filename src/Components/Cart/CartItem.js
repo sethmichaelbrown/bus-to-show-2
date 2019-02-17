@@ -56,7 +56,7 @@ const CartItem = (props) => {
           </li>)}
       </MediaQuery>
       <MediaQuery maxWidth={799}>
-
+      <div id="mobileCartTickets">
       {props.showsInCart.map(show =>
         <li className="list-group-item highlightOnHover" key={show.id} id={show.id}>
           <div className="row border-top border-left border-right border-secondary bg-light p-2" id={show.id}>
@@ -90,6 +90,7 @@ const CartItem = (props) => {
             </div>
 
         </li>)}
+      </div>
       </MediaQuery>
     </div>
   )

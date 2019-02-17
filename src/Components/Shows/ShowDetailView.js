@@ -225,7 +225,7 @@ console.log("last departure in showDetailView:::", props.lastDepartureTime)
                       </form>
                     </div>
 
-                    <div className="col-md-5 float-right add-top-margin">
+                    <div className="col-md-5 float-right">
                       {props.displayQuantity && props.ticketsAvailable ?
                         <React.Fragment>
                           <h5>
