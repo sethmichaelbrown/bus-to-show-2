@@ -159,6 +159,7 @@ console.log("last departure in showDetailView:::", props.lastDepartureTime)
 
       {/* Mobile View */}
       <MediaQuery maxWidth={799}>
+      <div className="list-group-mobile pb-4">
         {props.displayShowDetails && !props.displayShow ?
           <div className="nothing-in-cart">
             <div className="row nothing-in-cart-text">
@@ -289,7 +290,7 @@ console.log("last departure in showDetailView:::", props.lastDepartureTime)
               </div>
 
             </div> : ''}
-
+        </div>
       </MediaQuery>
     </div>
 

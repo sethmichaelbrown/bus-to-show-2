@@ -56,35 +56,34 @@ const CartItem = (props) => {
           </li>)}
       </MediaQuery>
       <MediaQuery maxWidth={799}>
-      <div id="mobileCartTickets">
+      <div className="list-group-mobile" id="mobileCartTickets">
       {props.showsInCart.map(show =>
-        <li className="list-group-item highlightOnHover" key={show.id} id={show.id}>
+        <li className="px-4 py-2" key={show.id} id={show.id}>
           <div className="row border-top border-left border-right border-secondary bg-light p-2" id={show.id}>
-            <div className="col-sm-9 cart-item-font">{props.ticketQuantity} Roundtrip Bus Spot(s) on {moment(show.date, "MM-DD-YYYY").format("dddd")}, {show.date}
+            <div className="col-sm-12 cart-item-font pl-0">{props.ticketQuantity} Roundtrip Bus Spot(s) on {moment(show.date, "MM-DD-YYYY").format("dddd")}, {show.date}
             </div>
 
-          </div>
-          <div className="row border-bottom border-left border-right border-secondary bg-light p-2">
-            <div className="col-sm-12">
-              <div className="row">
-                <div className="col-sm-10 cart-item-font" id={show.id}>
-                  <div className="row"> For: {show.headliner} at {show.venue.split(' Amphitheatre')[0]}
+
+
+                <div className="col-sm-12 cart-item-font" id={show.id}>
+                  <div className="row">For: {show.headliner} at {show.venue.split(' Amphitheatre')[0]}
                   </div>
-                  <div className="row" id={show.id}>Departing From: {pickupLocation.locationName} {pickupLocation.streetAddress}
+                  <div className="row" id={show.id}>Departing From: {pickupLocation.locationName} <br />{pickupLocation.streetAddress}
                   </div>
                 </div>
-                <div className="col-sm-2 cart-item-font" id={show.id}>
+                <div className="cart-item-font" id={show.id}>
                   <button onClick={props.removeFromCart} type="button" className="btn-sm btn-outline-danger"> Remove </button>
                 </div>
-              </div>
             </div>
-          </div>
-            <div className="row mt-3">
-              <div className="col-md-12 list-item-font">
-                First bus loads around {firstBusLoad ?
+
+
+
+            <div className="row border-left border-right border-bottom border-secondary bg-light p-2">
+              <div className="col-md-12 cart-item-font pl-0">
+                First bus loads around: {firstBusLoad ?
                   firstBusLoad : defaultFirstBus}
               </div>
-              <div className="col-md-12 list-item-font red-text mt-2">
+              <div className="col-md-12 cart-item-font red-text pl-0 mt-1">
                 Last bus departs at: {pickupTime}
               </div>
             </div>
