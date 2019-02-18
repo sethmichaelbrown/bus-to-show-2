@@ -22,10 +22,20 @@ body {
   -ms-overflow-style: none;
 }
 
-.list-item-mobile {
-  max-height: 40vh;
-  min-height: 40vh;
+
+/* .list-item-mobile {
+  min-height: 45vh;
+} */
+
+.mobile-view{
+  overflow: scroll;
+  width: 100vw;
+
 }
+
+/* .set-height{
+  max-height: 55vh;
+} */
 
 .list-group-mobile {
   max-height: 90vh;
@@ -40,12 +50,6 @@ body {
   border-radius: 1px;
   padding: .5rem 1.25rem;
 }
-
-.set-height {
-  min-height: 45vh;
-  max-height: 100vh;
-}
-
 
 .return-btn {
   display: inline-block;
