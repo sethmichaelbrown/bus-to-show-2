@@ -21,7 +21,7 @@ const ShowDetailView = (props) => {
     basePrice = props.assignedParties.find(party => parseInt(party.id) === parseInt(props.pickupPartyId)).partyPrice.toFixed(2)
   }
 
-console.log("last departure in showDetailView:::", props.lastDepartureTime)
+// console.log("last departure in showDetailView:::", props.lastDepartureTime)
 
 
   return (
