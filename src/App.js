@@ -733,8 +733,6 @@ class App extends Component {
     const newState = { ...this.state }
     event.preventDefault()
 
-
-
     const wCF = document.querySelector('#willCallFirstName').value
     const wCL = document.querySelector('#willCallLastName').value
 
