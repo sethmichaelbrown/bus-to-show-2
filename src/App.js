@@ -537,8 +537,8 @@ class App extends Component {
   purchase = async () => {
 
     const cartObj = this.state.cartToSend
-    const ordersResponse = await fetch('http://localhost:3000/orders', {
-    //const ordersResponse = await fetch('https://something-innocuous.herokuapp.com/orders', {
+    //const ordersResponse = await fetch('http://localhost:3000/orders', {
+    const ordersResponse = await fetch('https://something-innocuous.herokuapp.com/orders', {
       method: 'POST',
       body: JSON.stringify(cartObj),
       headers: {
@@ -734,8 +734,8 @@ class App extends Component {
     const newState = { ...this.state }
     event.preventDefault()
 
-    const wCF = document.querySelector('#willCallFirstName').value
-    const wCL = document.querySelector('#willCallLastName').value
+    const wCF = document.querySelector('#willCallFirstName')
+    const wCL = document.querySelector('#willCallLastName')
 
     if (!wCF || !wCL) {
       newState.cartToSend.willCallFirstName = newState.cartToSend.firstName
