@@ -536,7 +536,8 @@ class App extends Component {
 
   purchase = async () => {
     const cartObj = this.state.cartToSend
-    const ordersResponse = await fetch('https://something-innocuous.herokuapp.com/orders', {
+    const ordersResponse = await fetch('http://localhost:3000/orders', {
+    //const ordersResponse = await fetch('https://something-innocuous.herokuapp.com/orders', {
       method: 'POST',
       body: JSON.stringify(cartObj),
       headers: {
