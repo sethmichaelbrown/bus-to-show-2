@@ -737,7 +737,7 @@ class App extends Component {
     const wCF = document.querySelector('#willCallFirstName')
     const wCL = document.querySelector('#willCallLastName')
 
-    if (!wCF || !wCL) {
+    if (newState.checked && (!wCF.value || !wCL.value)) {
       newState.cartToSend.willCallFirstName = newState.cartToSend.firstName
       newState.cartToSend.willCallLastName = newState.cartToSend.lastName
       this.setState({ cartToSend: newState.cartToSend })
