@@ -31,6 +31,7 @@ export default class Checkout extends React.Component {
           token={this.onToken}
           stripeKey="pk_test_J0CdRMCGmBlrlOiGKnGgUEwT"
           name='Bus To Show'
+          description='fun times'
           amount={this.props.totalCost * 100}
           currency='USD'>
 

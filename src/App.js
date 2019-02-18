@@ -441,6 +441,8 @@ class App extends Component {
 
   addToCart = async () => {
     const newState = { ...this.state }
+
+
     const pickupLocation = newState.pickupLocations.filter(location => parseInt(location.id) === parseInt(this.state.pickupLocationId))[0]
     const basePrice = Number(pickupLocation.basePrice)
     const ticketQuantity = parseInt(this.state.ticketQuantity)
@@ -455,6 +457,30 @@ class App extends Component {
     const pickupParty = this.state.pickupParties.find(party => party.pickupLocationId === sPickupId && party.eventId === sEventId)
     const firstBusLoad = pickupParty.firstBusLoadTime
     const lastDepartureTime = moment(pickupParty.lastBusDepartureTime, 'hhmm').format('h:mm')
+      newState.cartToSend.eventId=null
+      newState.cartToSend.pickupLocationId=null
+      newState.cartToSend.firstName=''
+      newState.cartToSend.lastName=''
+      newState.cartToSend.email=''
+      newState.cartToSend.willCallFirstName=''
+      newState.cartToSend.willCallLastName=''
+      newState.cartToSend.ticketQuantity=0
+      newState.cartToSend.totalCost=0
+      newState.cartToSend.discountCode=null
+      newState.validatedElements={
+        fName: null,
+        lName: null,
+        email: null,
+        wCFName: null,
+        wCLName: null
+      }
+
+    this.setState({
+      cartToSend: newState.cartToSend,
+      validatedElements: newState.validatedElements
+    })
+    console.log(' newState.cartToSend ', newState.cartToSend)
+    console.log(' newState.validatedElements ', newState.validatedElements)
 
     this.setState({ lastDepartureTime, firstBusLoad })
 
