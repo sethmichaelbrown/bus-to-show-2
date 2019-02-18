@@ -24,7 +24,7 @@ const CartItem = (props) => {
     time2 = 45
     time3 = [(time3.split('-')[0] - 1)].concat(time2).join('')
   }
-  console.log('showsINcart--------', props.showsInCart[0])
+  // console.log('showsINcart--------', props.showsInCart[0])
   const defaultFirstBus = moment(time3, 'hmm').format('h:mm')
   return (
     <div className='CartItem'>
