@@ -198,44 +198,46 @@ const DetailCartView = (props) => {
               updateDiscountCode={props.updateDiscountCode}
               totalCost={props.totalCost}
               viewCart={props.viewCart} />
-            : '' }
+            : ''}
 
         </div>
-        { props.displayCart ?
-          <Cart
-            afterDiscountObj={props.afterDiscountObj}
-            checked={props.checked}
-            confirmedRemove={props.confirmedRemove}
-            closeAlert={props.closeAlert}
-            displayConfirmRemove={props.displayConfirmRemove}
-            displayWarning={props.displayWarning}
-            findDiscountCode={props.findDiscountCode}
-            firstBusLoad={props.firstBusLoad}
-            getPickupParty={props.getPickupParty}
-            handleCheck={props.handleCheck}
-            handleSubmit={props.handleSubmit}
-            inCart={props.inCart}
-            lastDepartureTime={props.lastDepartureTime}
-            makePurchase={props.makePurchase}
-            pickupLocationId={props.pickupLocationId}
-            pickupPartyId={props.pickupPartyId}
-            pickupLocations={props.pickupLocations}
-            pickupParties={props.pickupParties}
-            purchase={props.purchase}
-            purchaseClick={props.purchaseClick}
-            purchasePending={props.purchasePending}
-            purchaseSuccessful={props.purchaseSuccessful}
-            quantityChange={props.quantityChange}
-            removeFromCart={props.removeFromCart}
-            returnToShows={props.returnToShows}
-            shows={props.shows}
-            showsInCart={props.inCart}
-            ticketQuantity={props.ticketQuantity}
-            totalCost={props.totalCost}
-            updateDiscountCode={props.updateDiscountCode}
-            updatePurchaseField={props.updatePurchaseField}
-            validated={props.validated}
-            validatedElements={props.validatedElements} />
+        {props.displayCart ?
+          <div className="mobile-view">
+            <Cart
+              afterDiscountObj={props.afterDiscountObj}
+              checked={props.checked}
+              confirmedRemove={props.confirmedRemove}
+              closeAlert={props.closeAlert}
+              displayConfirmRemove={props.displayConfirmRemove}
+              displayWarning={props.displayWarning}
+              findDiscountCode={props.findDiscountCode}
+              firstBusLoad={props.firstBusLoad}
+              getPickupParty={props.getPickupParty}
+              handleCheck={props.handleCheck}
+              handleSubmit={props.handleSubmit}
+              inCart={props.inCart}
+              lastDepartureTime={props.lastDepartureTime}
+              makePurchase={props.makePurchase}
+              pickupLocationId={props.pickupLocationId}
+              pickupPartyId={props.pickupPartyId}
+              pickupLocations={props.pickupLocations}
+              pickupParties={props.pickupParties}
+              purchase={props.purchase}
+              purchaseClick={props.purchaseClick}
+              purchasePending={props.purchasePending}
+              purchaseSuccessful={props.purchaseSuccessful}
+              quantityChange={props.quantityChange}
+              removeFromCart={props.removeFromCart}
+              returnToShows={props.returnToShows}
+              shows={props.shows}
+              showsInCart={props.inCart}
+              ticketQuantity={props.ticketQuantity}
+              totalCost={props.totalCost}
+              updateDiscountCode={props.updateDiscountCode}
+              updatePurchaseField={props.updatePurchaseField}
+              validated={props.validated}
+              validatedElements={props.validatedElements} />
+          </div>
           :
           ''}
       </MediaQuery>
