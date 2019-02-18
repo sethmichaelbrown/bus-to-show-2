@@ -96,13 +96,13 @@ class App extends Component {
     const response = await fetch('https://something-innocuous.herokuapp.com/events')
     const allShows = await response.json()
 
-//filters out expired shows and shows that don't meet criteria, and shows that are denied.
+    //filters out expired shows and shows that don't meet criteria, and shows that are denied.
     const dateCheck = (show) => {
       const showDate = Date.parse(show.date)
       const today = new Date()
       const yesterday = today.setDate(today.getDate() - 1)
 
-      if (showDate < yesterday){
+      if (showDate < yesterday) {
         return false
       } else {
         return true
@@ -131,7 +131,7 @@ class App extends Component {
     this.setState({ pickupParties })
   }
 
-//status: over-ridden by onclick event in the "ride with bus button".  where. called in "loading.js"
+  //status: over-ridden by onclick event in the "ride with bus button".  where. called in "loading.js"
   onLoad = () => {
 
     const newState = { ...this.state }
@@ -139,7 +139,7 @@ class App extends Component {
     this.setState({ displayLoadingScreen: newState.displayLoadingScreen })
   }
 
-//status: in progress.  where: called in "loading.js".  why: adding interactive animation so that buses fly away on click.
+  //status: in progress.  where: called in "loading.js".  why: adding interactive animation so that buses fly away on click.
   handleBus = event => {
 
     if (event.target.id === 'bus1') {
@@ -149,11 +149,11 @@ class App extends Component {
     }
   }
 
-//status: active.  where: called in showDetails.  why:  requires selection of location before corresponding times and quantities are displayed.
+  //status: active.  where: called in showDetails.  why:  requires selection of location before corresponding times and quantities are displayed.
   selectPickupLocationId = async event => {
     const newState = { ...this.state }
-    console.log('change in selectPickupLocationId')
-    if (parseInt(event.target.value) !== newState.pickupPartyId){
+    // console.log('change in selectPickupLocationId')
+    if (parseInt(event.target.value) !== newState.pickupPartyId) {
       newState.ticketQuantity = null
       newState.displayQuantity = false
       newState.displayAddBtn = false
@@ -179,12 +179,12 @@ class App extends Component {
     const stateEventId = parseInt(newState.displayShow.id)
 
     const parties = newState.assignedParties
-    console.log('parties:::::', parties)
-    console.log('statePickupPartyId', statePickupPartyId)
+    // console.log('parties:::::', parties)
+    // console.log('statePickupPartyId', statePickupPartyId)
     const matchedParty = await parties.find(party => (parseInt(party.id) === statePickupPartyId) && (parseInt(party.eventId) === stateEventId))
-    console.log('matchedParty', matchedParty)
+    // console.log('matchedParty', matchedParty)
     newState.pickupLocationId = matchedParty.pickupLocationId
-    if(matchedParty.firstBusLoadTime){
+    if (matchedParty.firstBusLoadTime) {
       newState.firstBusLoad = moment(matchedParty.firstBusLoadTime, 'LT').format('h:mm A')
     }
     newState.lastDepartureTime = moment(matchedParty.lastBusDepartureTime, 'LT').format('h:mm A')
@@ -227,7 +227,7 @@ class App extends Component {
     const sPickupId = parseInt(this.state.pickupLocationId)
     const sEventId = parseInt(this.state.displayShow.id)
     const pickupParty = this.state.pickupParties.find(party => party.pickupLocationId === sPickupId && party.eventId === sEventId)
-    console.log('PARTYAY_______------:: ' , pickupParty)
+    // console.log('PARTYAY_______------:: ' , pickupParty)
     const pickupLocation = newState.pickupLocations.filter(location => parseInt(location.id) === parseInt(this.state.pickupLocationId))[0]
     const subTotal = (Number(pickupLocation.basePrice) * Number(event.target.value))
     const total = ((Number(subTotal) * .1) + Number(subTotal)).toFixed(2)
@@ -339,7 +339,7 @@ class App extends Component {
   }
 
   responseSpotify = response => {
-    console.log(response)
+    // console.log(response)
     const newState = { ...this.state }
     newState.spotifyResponse = response
     newState.displayLoginView = false
@@ -392,10 +392,10 @@ class App extends Component {
     const assignedPickupParties = this.state.pickupParties.filter(party => clickedShow.id === party.eventId)
     const pickupLocations = newState.pickupLocations
     assignedPickupParties.map(party => pickupLocations.map(location => {
-          if(location.id === party.pickupLocationId){
-            party.LocationName = location.locationName
-          }
-        })
+      if (location.id === party.pickupLocationId) {
+        party.LocationName = location.locationName
+      }
+    })
     )
     //set initial state of show details view
     newState.displayQuantity = false
@@ -418,7 +418,7 @@ class App extends Component {
 
   returnToShows = () => {
     const newState = { ...this.state }
-    console.log('return to shows');
+    // console.log('return to shows');
     newState.displayShow = null
     newState.displaySuccess = false
     newState.displayShowList = true
@@ -457,30 +457,30 @@ class App extends Component {
     const pickupParty = this.state.pickupParties.find(party => party.pickupLocationId === sPickupId && party.eventId === sEventId)
     const firstBusLoad = pickupParty.firstBusLoadTime
     const lastDepartureTime = moment(pickupParty.lastBusDepartureTime, 'hhmm').format('h:mm')
-      newState.cartToSend.eventId=null
-      newState.cartToSend.pickupLocationId=null
-      newState.cartToSend.firstName=''
-      newState.cartToSend.lastName=''
-      newState.cartToSend.email=''
-      newState.cartToSend.willCallFirstName=''
-      newState.cartToSend.willCallLastName=''
-      newState.cartToSend.ticketQuantity=0
-      newState.cartToSend.totalCost=0
-      newState.cartToSend.discountCode=null
-      newState.validatedElements={
-        fName: null,
-        lName: null,
-        email: null,
-        wCFName: null,
-        wCLName: null
-      }
+    newState.cartToSend.eventId = null
+    newState.cartToSend.pickupLocationId = null
+    newState.cartToSend.firstName = ''
+    newState.cartToSend.lastName = ''
+    newState.cartToSend.email = ''
+    newState.cartToSend.willCallFirstName = ''
+    newState.cartToSend.willCallLastName = ''
+    newState.cartToSend.ticketQuantity = 0
+    newState.cartToSend.totalCost = 0
+    newState.cartToSend.discountCode = null
+    newState.validatedElements = {
+      fName: null,
+      lName: null,
+      email: null,
+      wCFName: null,
+      wCLName: null
+    }
 
     this.setState({
       cartToSend: newState.cartToSend,
       validatedElements: newState.validatedElements
     })
-    console.log(' newState.cartToSend ', newState.cartToSend)
-    console.log(' newState.validatedElements ', newState.validatedElements)
+    // console.log(' newState.cartToSend ', newState.cartToSend)
+    // console.log(' newState.validatedElements ', newState.validatedElements)
 
     this.setState({ lastDepartureTime, firstBusLoad })
 
@@ -535,6 +535,7 @@ class App extends Component {
   }
 
   purchase = async () => {
+
     const cartObj = this.state.cartToSend
     const ordersResponse = await fetch('http://localhost:3000/orders', {
     //const ordersResponse = await fetch('https://something-innocuous.herokuapp.com/orders', {
@@ -732,6 +733,17 @@ class App extends Component {
   makePurchase = event => {
     const newState = { ...this.state }
     event.preventDefault()
+
+    const wCF = document.querySelector('#willCallFirstName').value
+    const wCL = document.querySelector('#willCallLastName').value
+
+    if (!wCF || !wCL) {
+      newState.cartToSend.willCallFirstName = newState.cartToSend.firstName
+      newState.cartToSend.willCallLastName = newState.cartToSend.lastName
+      this.setState({ cartToSend: newState.cartToSend })
+    }
+    console.log('CTS', newState.cartToSend)
+
     newState.displayQuantity = false
     newState.displayAddBtn = false
     newState.purchasePending = true
@@ -776,10 +788,10 @@ class App extends Component {
     //add location Name from pickupLocations to assigned pickupParties objects.
     const pickupLocations = newState.pickupLocations
     assignedPickupParties.map(party => pickupLocations.map(location => {
-          if(location.id === party.pickupLocationId){
-            party.LocationName = location.locationName
-          }
-        })
+      if (location.id === party.pickupLocationId) {
+        party.LocationName = location.locationName
+      }
+    })
     )
     //set initial state of show details view
     newState.displayShowList = false
@@ -806,35 +818,35 @@ class App extends Component {
   }
 
 
-    mobileTabClicked = event => {
+  mobileTabClicked = event => {
     const id = event.target.id
     const newState = { ...this.state }
-    console.log(newState.inCart.length)
+    // console.log(newState.inCart.length)
     if (newState.inCart.length === 0) {
       if (id === 'cart-tab') {
         newState.displayCart = true
         newState.displayShowDetails = false
         newState.displayShowList = false
-        console.log('if cart cart/deets/list', newState.displayCart, newState.displayShowDetails, newState.displayShowList)
+        // console.log('if cart cart/deets/list', newState.displayCart, newState.displayShowDetails, newState.displayShowList)
       }
       else if (id === 'showDetails-tab') {
         newState.displayCart = false
         newState.displayShowDetails = true
         newState.displayShowList = false
-        console.log('if deets cart/deets/list', newState.displayCart, newState.displayShowDetails, newState.displayShowList)
+        // console.log('if deets cart/deets/list', newState.displayCart, newState.displayShowDetails, newState.displayShowList)
       }
       else if (id === 'showList-tab') {
         newState.displayCart = false
         newState.displayShowDetails = false
         newState.displayShowList = true
-        console.log('if list cart/deets/list', newState.displayCart, newState.displayShowDetails, newState.displayShowList)
+        // console.log('if list cart/deets/list', newState.displayCart, newState.displayShowDetails, newState.displayShowList)
       }
     }
     else {
       newState.displayCart = true
       newState.displayShowDetails = false
       newState.displayShowList = false
-      console.log('else cart/deets/list', newState.displayCart, newState.displayShowDetails, newState.displayShowList)
+      // console.log('else cart/deets/list', newState.displayCart, newState.displayShowDetails, newState.displayShowList)
     }
 
     this.setState({

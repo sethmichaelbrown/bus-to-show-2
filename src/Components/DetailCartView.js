@@ -8,7 +8,7 @@ import logo from '../Images/Logos/bts-logo-gray.png'
 
 const DetailCartView = (props) => {
   // console.log('DCV', props)
-  console.log('top list/deets/cart', props.displayShowList, props.displayShowDetails, props.displayCart)
+  // console.log('top list/deets/cart', props.displayShowList, props.displayShowDetails, props.displayCart)
 
   return (
     <div className="DetailCartView">
