@@ -323,7 +323,7 @@ const Cart = (props) => {
 
                 {props.showsInCart ?
                   <div className="" >
-                    <div className="row">
+                    <div className="row container">
                       <div className="col-md-12">
 
                         <form className="needs-validation" onSubmit={props.handleSubmit}>
