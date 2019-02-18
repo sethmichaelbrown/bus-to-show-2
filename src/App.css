@@ -30,7 +30,10 @@ body {
 .mobile-view{
   overflow: scroll;
   width: 100vw;
+}
 
+li {
+  list-style: none;
 }
 
 /* .set-height{
