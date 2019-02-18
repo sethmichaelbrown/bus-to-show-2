@@ -22,14 +22,26 @@ body {
   -ms-overflow-style: none;
 }
 
-.list-item-mobile{
-height: 25vh;
+
+/* .list-item-mobile {
+  min-height: 45vh;
+} */
+
+.mobile-view{
+  overflow: scroll;
+  width: 100vw;
+
 }
 
-.list-group-mobile{
+/* .set-height{
+  max-height: 55vh;
+} */
+
+.list-group-mobile {
   max-height: 90vh;
   overflow: scroll;
 }
+
 .list-group::-webkit-scrollbar {
   width: 0;
 }
@@ -37,11 +49,6 @@ height: 25vh;
 .list-group-item {
   border-radius: 1px;
   padding: .5rem 1.25rem;
-}
-
-.set-height{
-  min-height: 25vh;
-  max-height: 75vh;
 }
 
 .return-btn {
@@ -346,7 +353,8 @@ p {
   border-width: 1px;
 
 }
-.limit-height{
+
+.limit-height {
   height: 60vh;
 }
 
@@ -381,12 +389,13 @@ p {
   opacity: .75;
 }
 
-.bts-logo-sDV{
+.bts-logo-sDV {
   height: 60px;
   width: 150px;
 }
 
-.about-us-flex, .login-flex {
+.about-us-flex,
+.login-flex {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -398,25 +407,25 @@ p {
   width: 45vw;
 }
 
-.login-btn{
+.login-btn {
   font-weight: bold;
 }
 
-.login-btn:hover{
+.login-btn:hover {
   font-weight: bold;
   color: #ff420f;
 }
 
-.warning-text{
+.warning-text {
   font-size: 12px;
   line-height: 16px;
 }
 
-.add-top-margin{
+.add-top-margin {
   margin-top: 4.5vh;
 }
 
-.mobile-view{
+.mobile-view {
   height: 100vh;
   width: 100vw;
 }

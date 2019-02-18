@@ -997,7 +997,7 @@ class App extends Component {
                       toggleLoggedIn={this.toggleLoggedIn}
                       userDashboard={this.userDashboard} />
 
-                    <div className="mobile row">
+                    <div className="mobile row ">
                       <div className="col-sm-12">
                         <DetailCartView
                           addBorder={this.addBorder}
