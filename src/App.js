@@ -1018,6 +1018,7 @@ class App extends Component {
                           addToCart={this.addToCart}
                           afterDiscountObj={this.state.afterDiscountObj}
                           assignedParties={this.state.assignedParties}
+                          cartToSend={this.state.cartToSend}
                           checked={this.state.checked}
                           closeAlert={this.closeAlert}
                           confirmedRemove={this.confirmedRemove}
