@@ -7,7 +7,7 @@ import logo from '../../Images/Logos/bts-logo-gray.png'
 import moment from 'moment'
 
 const Cart = (props) => {
-  console.log('Cart', props)
+  // console.log('Cart', props)
 
   let cTSendId; 
   
