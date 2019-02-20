@@ -7,7 +7,10 @@ import logo from '../../Images/Logos/bts-logo-gray.png'
 import moment from 'moment'
 
 const Cart = (props) => {
-  // console.log('Cart', props)
+  console.log('Cart', props)
+
+  const cTSendId = props.cartToSend.eventId
+  const showInfo = props.shows.find(show => parseInt(show.id) === parseInt(cTSendId)) 
 
   let savings = Number(props.afterDiscountObj.totalSavings)
   let totalSavings = savings.toFixed(2)
@@ -39,8 +42,8 @@ const Cart = (props) => {
                 <div className="col-md-12 mt-3">
                   {props.purchaseSuccessful ?
                     <div>
-                      <h1>Thank you for your purchase!</h1>
-                      <h3>You should receive a confirmation email shortly</h3>
+                      <h2>Thank you for your purchase to {showInfo.headliner} on {showInfo.date}!</h2>
+                      <h4>You should receive a confirmation email shortly</h4>
 
                     </div>
                     : <h1>Nothing in Cart!</h1>}
