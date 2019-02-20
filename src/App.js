@@ -917,6 +917,7 @@ class App extends Component {
                               addToCart={this.addToCart}
                               checked={this.state.checked}
                               confirmedRemove={this.confirmedRemove}
+                              cartToSend={this.state.cartToSend}
                               displayAddBtn={this.state.displayAddBtn}
                               displayBorder={this.state.displayBorder}
                               displayCart={this.state.displayCart}
