@@ -7,11 +7,8 @@ import ShowList from '../Components/Shows/ShowList'
 import logo from '../Images/Logos/bts-logo-gray.png'
 
 const DetailCartView = (props) => {
-  // console.log('DCV', props)
+  // console.log('DCV', props.startTimer)
   // console.log('top list/deets/cart', props.displayShowList, props.displayShowDetails, props.displayCart)
-
-  let time = 600
-  console.log(props.startTimer)
 
   return (
     <div className="DetailCartView">

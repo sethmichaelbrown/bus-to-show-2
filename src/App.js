@@ -496,7 +496,6 @@ class App extends Component {
     newState.startTimer = true
     this.setState(newState)
 
-    //fetch('http://localhost:3000/pickup_parties', {
     fetch('https://something-innocuous.herokuapp.com/pickup_parties', {
       method: 'PATCH',
       body: JSON.stringify({
@@ -520,6 +519,10 @@ class App extends Component {
         'Content-Type': 'application/json'
       }
     }), 600000)
+
+    setTimeout(() => {
+      this.setState({ inCart: [] })
+    }, 600000)
   }
 
   viewCart = () => {
