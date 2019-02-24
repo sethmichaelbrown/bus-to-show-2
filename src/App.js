@@ -918,6 +918,7 @@ class App extends Component {
                               addToCart={this.addToCart}
                               checked={this.state.checked}
                               confirmedRemove={this.confirmedRemove}
+                              cartToSend={this.state.cartToSend}
                               displayAddBtn={this.state.displayAddBtn}
                               displayBorder={this.state.displayBorder}
                               displayCart={this.state.displayCart}
@@ -1018,6 +1019,7 @@ class App extends Component {
                           addToCart={this.addToCart}
                           afterDiscountObj={this.state.afterDiscountObj}
                           assignedParties={this.state.assignedParties}
+                          cartToSend={this.state.cartToSend}
                           checked={this.state.checked}
                           closeAlert={this.closeAlert}
                           confirmedRemove={this.confirmedRemove}

@@ -45,6 +45,7 @@ const DetailCartView = (props) => {
               {props.displayCart ?
                 <Cart
                   afterDiscountObj={props.afterDiscountObj}
+                  cartToSend={props.cartToSend}
                   checked={props.checked}
                   confirmedRemove={props.confirmedRemove}
                   closeAlert={props.closeAlert}
@@ -205,6 +206,7 @@ const DetailCartView = (props) => {
           <div className="mobile-view">
             <Cart
               afterDiscountObj={props.afterDiscountObj}
+              cartToSend={props.cartToSend}
               checked={props.checked}
               confirmedRemove={props.confirmedRemove}
               closeAlert={props.closeAlert}
