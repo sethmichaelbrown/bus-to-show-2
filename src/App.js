@@ -496,6 +496,7 @@ class App extends Component {
     }
     this.setState(newState)
 
+    //fetch('http://localhost:3000/pickup_parties', {
     fetch('https://something-innocuous.herokuapp.com/pickup_parties', {
       method: 'PATCH',
       body: JSON.stringify({
