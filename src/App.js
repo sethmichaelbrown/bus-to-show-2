@@ -496,8 +496,8 @@ class App extends Component {
     }
     this.setState(newState)
 
-    fetch('http://localhost:3000/pickup_parties', {
-    //fetch('https://something-innocuous.herokuapp.com/pickup_parties', {
+    //fetch('http://localhost:3000/pickup_parties', {
+    fetch('https://something-innocuous.herokuapp.com/pickup_parties', {
       method: 'PATCH',
       body: JSON.stringify({
         pickupLocationId: this.state.pickupLocationId,
@@ -538,8 +538,8 @@ class App extends Component {
   purchase = async () => {
 
     const cartObj = this.state.cartToSend
-    const ordersResponse = await fetch('http://localhost:3000/orders', {
-    //const ordersResponse = await fetch('https://something-innocuous.herokuapp.com/orders', {
+    //const ordersResponse = await fetch('http://localhost:3000/orders', {
+    const ordersResponse = await fetch('https://something-innocuous.herokuapp.com/orders', {
       method: 'POST',
       body: JSON.stringify(cartObj),
       headers: {
