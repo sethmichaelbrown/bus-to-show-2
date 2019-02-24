@@ -76,6 +76,7 @@ class App extends Component {
     purchaseSuccessful: false,
     showBios: false,
     spotifyResponse: null,
+    startTimer: false,
     ticketsAvailable: [],
     ticketQuantity: null,
     totalCost: 0,
@@ -442,7 +443,6 @@ class App extends Component {
   addToCart = async () => {
     const newState = { ...this.state }
 
-
     const pickupLocation = newState.pickupLocations.filter(location => parseInt(location.id) === parseInt(this.state.pickupLocationId))[0]
     const basePrice = Number(pickupLocation.basePrice)
     const ticketQuantity = parseInt(this.state.ticketQuantity)
@@ -450,7 +450,6 @@ class App extends Component {
     const processingFee = Number((basePrice * ticketQuantity) * (0.1))
     const cost = ((basePrice * ticketQuantity) - totalSavings + processingFee)
     newState.totalCost = cost.toFixed(2)
-
 
     const sPickupId = parseInt(this.state.pickupLocationId)
     const sEventId = parseInt(this.state.displayShow.id)
@@ -494,9 +493,9 @@ class App extends Component {
     else {
       newState.displayWarning = true
     }
+    newState.startTimer = true
     this.setState(newState)
 
-    //fetch('http://localhost:3000/pickup_parties', {
     fetch('https://something-innocuous.herokuapp.com/pickup_parties', {
       method: 'PATCH',
       body: JSON.stringify({
@@ -520,6 +519,10 @@ class App extends Component {
         'Content-Type': 'application/json'
       }
     }), 600000)
+
+    setTimeout(() => {
+      this.setState({ inCart: [] })
+    }, 600000)
   }
 
   viewCart = () => {
@@ -651,7 +654,8 @@ class App extends Component {
     this.setState({
       displayConfirmRemove: newState.displayConfirmRemove,
       displayWarning: newState.displayWarning,
-      purchaseSuccessful: newState.purchaseSuccessful
+      purchaseSuccessful: newState.purchaseSuccessful,
+
     })
   }
 
@@ -663,6 +667,7 @@ class App extends Component {
     newState.displayWarning = false
     newState.displayQuantity = false
     newState.displayAddBtn = false
+    newState.startTimer = false
 
     this.setState({
       inCart: newState.inCart,
@@ -671,6 +676,7 @@ class App extends Component {
       displayWarning: newState.displayWarning,
       displayQuantity: newState.displayQuantity,
       displayAddBtn: newState.displayAddBtn,
+      startTimer: newState.startTimer
     })
   }
 
@@ -953,6 +959,7 @@ class App extends Component {
                               shows={this.state.shows}
                               showsExpandClick={this.showsExpandClick}
                               showsInCart={this.state.inCart}
+                              startTimer={this.state.startTimer}
                               tabClicked={this.tabClicked}
                               ticketsAvailable={this.state.ticketsAvailable}
                               ticketQuantity={this.state.ticketQuantity}

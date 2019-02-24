@@ -9,9 +9,9 @@ import moment from 'moment'
 const Cart = (props) => {
   // console.log('Cart', props)
 
-  let cTSendId; 
-  
-  if(props.cartToSend){
+  let cTSendId;
+
+  if (props.cartToSend) {
     cTSendId = props.cartToSend.eventId
   }
 
