@@ -4,7 +4,12 @@ import moment from 'moment'
 // import MediaQuery from 'react-responsive'
 import { GoogleLogin } from 'react-google-login'
 import SpotifyLogin from 'react-spotify-login'
-import { spotifyClientId, redirectUri, googleClientId } from './settings'
+//const { spotifyClientId, redirectUri, googleClientId } from './settings'
+const dotenv = require('dotenv').config()
+const spotifyClientId = process.env.spotifyClientId
+const redirectUri = process.env.redirectUri
+const googleClientId = process.env.googleClientId
+
 
 const LoginView = (props) => {
 
